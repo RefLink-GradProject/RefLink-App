@@ -19,10 +19,10 @@ export default function Navbar() {
                             <li><a>Applicants</a></li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">RefLink</a>
+                    <a className="btn btn-ghost text-3xl">RefLink</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="menu menu-horizontal px-1 text-xl">
                         <li><a>Home</a></li>
                         <li>
                             <details>
@@ -37,7 +37,7 @@ export default function Navbar() {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Log in</a>
+                    <a className="btn text-xl">Log in</a>
                 </div>
             </div>
         </>
