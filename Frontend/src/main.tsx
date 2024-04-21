@@ -9,7 +9,10 @@ import { BrowserRouter } from 'react-router-dom'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
+    <div className='m-12'>
       <App />
+
+    </div>
     </BrowserRouter>
   </React.StrictMode>,
 )

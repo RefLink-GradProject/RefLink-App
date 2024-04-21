@@ -7,7 +7,7 @@ export default function App() {
   return (
     <>
     <Navbar />
-    <Link to="/"><button>HOME</button></Link>
+    {/* <Link to="/"><button>HOME</button></Link> */}
     <Routes>
       <Route path="/" element= {<Home />}>
       </Route>
