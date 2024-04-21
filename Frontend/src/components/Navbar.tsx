@@ -21,7 +21,7 @@ export default function Navbar() {
                             <li><a>Applicants</a></li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-3xl">RefLink</a>
+                    <Link to="/"><a className="btn btn-ghost text-3xl">RefLink</a></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-xl">
