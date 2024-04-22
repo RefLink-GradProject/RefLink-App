@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace refLinkApi.Migrations
 {
     [DbContext(typeof(RefLinkContext))]
-    [Migration("20240422144506_changeEmployer")]
-    partial class changeEmployer
+    [Migration("20240422150638_changeAll")]
+    partial class changeAll
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace refLinkApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PostingId")
+                    b.Property<int>("PostingId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -113,7 +113,7 @@ namespace refLinkApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PostingId")
+                    b.Property<int>("PostingId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -131,7 +131,7 @@ namespace refLinkApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CandidateId")
+                    b.Property<int>("CandidateId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -161,7 +161,7 @@ namespace refLinkApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("QuestionId")
+                    b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ReferencerId")
@@ -180,7 +180,9 @@ namespace refLinkApi.Migrations
                 {
                     b.HasOne("refLinkApi.Models.Posting", null)
                         .WithMany("Candidates")
-                        .HasForeignKey("PostingId");
+                        .HasForeignKey("PostingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("refLinkApi.Models.Posting", b =>
@@ -196,21 +198,27 @@ namespace refLinkApi.Migrations
                 {
                     b.HasOne("refLinkApi.Models.Posting", null)
                         .WithMany("Questions")
-                        .HasForeignKey("PostingId");
+                        .HasForeignKey("PostingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("refLinkApi.Models.Referencer", b =>
                 {
                     b.HasOne("refLinkApi.Models.Candidate", null)
                         .WithMany("Referencers")
-                        .HasForeignKey("CandidateId");
+                        .HasForeignKey("CandidateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("refLinkApi.Models.Response", b =>
                 {
                     b.HasOne("refLinkApi.Models.Question", null)
                         .WithMany("Responses")
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("refLinkApi.Models.Referencer", null)
                         .WithMany("Responses")

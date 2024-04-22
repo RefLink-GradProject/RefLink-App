@@ -24,7 +24,7 @@ namespace refLinkApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Referencer>>> GetReferencers()
         {
-            return await _context.Referencers.ToListAsync();
+            return await _context.Referencers.Include(e => e.Responses).ToListAsync();
         }
 
         // GET: api/Referencers/5

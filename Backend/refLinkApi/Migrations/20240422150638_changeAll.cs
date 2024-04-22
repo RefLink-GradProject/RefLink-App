@@ -5,7 +5,7 @@
 namespace refLinkApi.Migrations
 {
     /// <inheritdoc />
-    public partial class changeEmployer : Migration
+    public partial class changeAll : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,7 +54,7 @@ namespace refLinkApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostingId = table.Column<int>(type: "int", nullable: true)
+                    PostingId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,7 +63,8 @@ namespace refLinkApi.Migrations
                         name: "FK_Candidates_Postings_PostingId",
                         column: x => x.PostingId,
                         principalTable: "Postings",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,7 +74,7 @@ namespace refLinkApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostingId = table.Column<int>(type: "int", nullable: true)
+                    PostingId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,7 +83,8 @@ namespace refLinkApi.Migrations
                         name: "FK_Questions_Postings_PostingId",
                         column: x => x.PostingId,
                         principalTable: "Postings",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,7 +95,7 @@ namespace refLinkApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CandidateId = table.Column<int>(type: "int", nullable: true)
+                    CandidateId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,7 +104,8 @@ namespace refLinkApi.Migrations
                         name: "FK_Referencers_Candidates_CandidateId",
                         column: x => x.CandidateId,
                         principalTable: "Candidates",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,7 +115,7 @@ namespace refLinkApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    QuestionId = table.Column<int>(type: "int", nullable: true),
+                    QuestionId = table.Column<int>(type: "int", nullable: false),
                     ReferencerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -122,7 +125,8 @@ namespace refLinkApi.Migrations
                         name: "FK_Responses_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Responses_Referencers_ReferencerId",
                         column: x => x.ReferencerId,

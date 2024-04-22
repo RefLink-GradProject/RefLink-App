@@ -10,4 +10,5 @@ namespace refLinkApi.Models;
         public int Id { get; set; }
 
         public required string Content { get; set; }
+        public int QuestionId { get; set; }
     }

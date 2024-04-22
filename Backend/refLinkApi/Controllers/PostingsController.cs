@@ -24,7 +24,7 @@ namespace refLinkApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Posting>>> GetPostings()
         {
-            return await _context.Postings.ToListAsync();
+            return await _context.Postings.Include(e => e.Candidates).Include(e => e.Questions).ToListAsync();
         }
 
         // GET: api/Postings/5

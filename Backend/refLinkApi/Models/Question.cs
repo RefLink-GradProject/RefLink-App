@@ -7,6 +7,7 @@ namespace refLinkApi.Models;
         public int Id { get; set; }
 
         public required string Content { get; set; }
+        public int PostingId { get; set; }
 
         public ICollection<Response> Responses { get; set; }
     }
