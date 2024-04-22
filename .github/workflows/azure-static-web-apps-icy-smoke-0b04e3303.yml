@@ -25,10 +25,10 @@ jobs:
           node-version: "20" # specify Node.js version here
 
       - name: Install dependencies
-        run: npm install --prefix frontend
+        run: npm install --prefix Frontend
 
       - name: Build
-        run: npm run build --prefix frontend
+        run: npm run build --prefix Frontend
       - name: Deploy to Azure Static Web App
         uses: Azure/static-web-apps-deploy@v1
         with:
