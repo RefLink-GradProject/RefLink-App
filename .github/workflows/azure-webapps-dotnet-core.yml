@@ -33,7 +33,7 @@ on:
   workflow_dispatch:
   
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [closed]
     branches:
       - main
     paths:
