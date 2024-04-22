@@ -1,7 +1,7 @@
 import {Routes, Route} from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import AddPositionForm from './components/AddPositionForm';
+import AddPostingForm from './components/AddPostingForm';
 import Postings from './components/Postings';
 
 export default function App() {
@@ -12,8 +12,8 @@ export default function App() {
     {/* <Link to="/"><button>HOME</button></Link> */}
     <Routes>
       <Route path="/" element= {<Home />} />
-      <Route path="/positions" element= {<Postings />} />
-      <Route path='/positions/add' element={<AddPositionForm />}/>
+      <Route path="/postings" element= {<Postings />} />
+      <Route path='/postings/add' element={<AddPostingForm />}/>
 
     </Routes>
     </>
