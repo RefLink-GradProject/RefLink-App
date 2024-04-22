@@ -9,12 +9,5 @@ namespace refLinkApi.Models;
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public string Content { get; set; }
-
-        public int QuestionId { get; set; }
-        public Question Question { get; set; }
-
-        public int ReferencerId { get; set; }
-        public Referencer Referencer { get; set; }
+        public required string Content { get; set; }
     }

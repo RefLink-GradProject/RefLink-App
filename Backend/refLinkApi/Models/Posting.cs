@@ -7,15 +7,9 @@ namespace refLinkApi.Models;
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public string Title { get; set; }
+        public required string Title { get; set; }
 
-        [Required]
-        public string Description { get; set; }
-
-
-        public int EmployerId { get; set; }
-        public Employer Employer { get; set; }
+        public required string Description { get; set; }
 
         public ICollection<Candidate> Candidates { get; set; }
         public ICollection<Question> Questions { get; set; }

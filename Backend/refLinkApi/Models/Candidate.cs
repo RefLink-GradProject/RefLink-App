@@ -7,14 +7,9 @@ namespace refLinkApi.Models;
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
-        [Required]
-        public string Email { get; set; }
-
-        public int? PostingId { get; set; }
-        public Posting Posting { get; set; }
+        public required string Email { get; set; }
 
         public ICollection<Referencer> Referencers { get; set; }
     }
