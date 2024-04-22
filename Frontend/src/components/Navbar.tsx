@@ -13,13 +13,13 @@ export default function Navbar() {
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             <Link to="/"><li><a>Home</a></li></Link>
                             <li>
-                               <Link to="/positions"><a>Positions</a></Link>
+                               <Link to="/positions"><a>Postings</a></Link>
                                 <ul className="p-2">
                                     <li><a>Submenu 1</a></li>
                                     <li><a>Submenu 2</a></li>
                                 </ul>
                             </li>
-                            <li><a>Applicants</a></li>
+                            <li><a>Candidates</a></li>
                         </ul>
                     </div>
                     <Link to="/">
@@ -32,7 +32,7 @@ export default function Navbar() {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-xl">
                         <Link to="/"><li><a>Home</a></li></Link>
-                        <li><Link to="/positions"><a>Positions</a></Link></li>
+                        <li><Link to="/positions"><a>Postings</a></Link></li>
                         <li>
                             <details>
                                 <summary>Drop down</summary>
@@ -42,7 +42,7 @@ export default function Navbar() {
                                 </ul>
                             </details>
                         </li>
-                        <li><a>Applicants</a></li>
+                        <li><a>Candidates</a></li>
                     </ul>
                 </div>
                 <div className="navbar-end">

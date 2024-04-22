@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Positions(){
+export default function Postings(){
     return (
         <>
         <Link to="/positions/add">
