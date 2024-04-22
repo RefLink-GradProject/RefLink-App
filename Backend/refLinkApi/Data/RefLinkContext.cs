@@ -12,5 +12,10 @@ using refLinkApi.Models;
         {
         }
 
-        public DbSet<refLinkApi.Models.Employer> Employer { get; set; } = default!;
+        public DbSet<Employer> Employers { get; set; } = default!;
+        public DbSet<Candidate> Candidates { get; set; } = default!;
+        public DbSet<Posting> Postings { get; set; } = default!;
+        public DbSet<Question> Questions { get; set; } = default!;
+        public DbSet<Referencer> Referencers  { get; set; } = default!;
+        public DbSet<Response> Responses  { get; set; } = default!;
     }

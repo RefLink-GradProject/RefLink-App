@@ -24,14 +24,14 @@ namespace refLinkApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employer>>> GetEmployer()
         {
-            return await _context.Employer.ToListAsync();
+            return await _context.Employers.ToListAsync();
         }
 
         // GET: api/Employers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employer>> GetEmployer(int id)
         {
-            var employer = await _context.Employer.FindAsync(id);
+            var employer = await _context.Employers.FindAsync(id);
 
             if (employer == null)
             {
@@ -77,7 +77,7 @@ namespace refLinkApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Employer>> PostEmployer(Employer employer)
         {
-            _context.Employer.Add(employer);
+            _context.Employers.Add(employer);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetEmployer", new { id = employer.Id }, employer);
@@ -87,13 +87,13 @@ namespace refLinkApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployer(int id)
         {
-            var employer = await _context.Employer.FindAsync(id);
+            var employer = await _context.Employers.FindAsync(id);
             if (employer == null)
             {
                 return NotFound();
             }
 
-            _context.Employer.Remove(employer);
+            _context.Employers.Remove(employer);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +101,7 @@ namespace refLinkApi.Controllers
 
         private bool EmployerExists(int id)
         {
-            return _context.Employer.Any(e => e.Id == id);
+            return _context.Employers.Any(e => e.Id == id);
         }
     }
 }
