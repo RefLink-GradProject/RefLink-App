@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<RefLinkContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RefLinkContext") ?? throw new InvalidOperationException("Connection string 'RefLinkContext' not found.")));
 
 // Add services to the container.
 
