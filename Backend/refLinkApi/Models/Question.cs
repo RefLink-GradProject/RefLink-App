@@ -1,15 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace refLinkApi.Models;
+    public class Question
+    {
+        [Key]
+        public int Id { get; set; }
 
-public class Question { 
+        [Required]
+        public string Content { get; set; }
 
-    [Key]
-    public int Id { get; set; }
+        public int PostingId { get; set; }
+        public Posting Posting { get; set; }
 
-    public required string Content { get; set; }
-
-    public int Posting_id { get; set; }
-
-    public required Posting Posting { get; set; }
-}   
+        public ICollection<Response> Responses { get; set; }
+    }

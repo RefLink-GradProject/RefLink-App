@@ -2,18 +2,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace refLinkApi.Models;
 
-public class Candidate { 
+    public class Candidate
+    {
+        [Key]
+        public int Id { get; set; }
 
-    [Key]
-    public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-    public required string Name { get; set; }
+        [Required]
+        public string Email { get; set; }
 
-    public required string Email { get; set; }
+        public int? PostingId { get; set; }
+        public Posting Posting { get; set; }
 
-    // public required string Phone { get; set; }
-
-    public int Posting_id { get; set; }
-
-    public required Posting Posting { get; set; }
-}
+        public ICollection<Referencer> Referencers { get; set; }
+    }

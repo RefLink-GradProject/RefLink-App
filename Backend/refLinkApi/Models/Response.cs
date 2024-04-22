@@ -4,19 +4,17 @@ using System.Text.Json.Serialization;
 
 
 namespace refLinkApi.Models;
+    public class Response
+    {
+        [Key]
+        public int Id { get; set; }
 
-public class Response { 
+        [Required]
+        public string Content { get; set; }
 
-    [Key]
-    public int Id { get; set; }
+        public int QuestionId { get; set; }
+        public Question Question { get; set; }
 
-    public required string Content { get; set; }
-
-    public int Referencer_id { get; set; }
-    [JsonIgnore]
-    public required Referencer Referencer { get; set; }
-
-    public int Question_id { get; set; }  
-    
-    public required Question Question { get; set; }
-}
+        public int ReferencerId { get; set; }
+        public Referencer Referencer { get; set; }
+    }
