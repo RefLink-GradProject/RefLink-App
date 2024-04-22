@@ -182,13 +182,11 @@ namespace refLinkApi.Migrations
 
             modelBuilder.Entity("refLinkApi.Models.Posting", b =>
                 {
-                    b.HasOne("refLinkApi.Models.Employer", "Employer")
+                    b.HasOne("refLinkApi.Models.Employer", null)
                         .WithMany("Postings")
                         .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Employer");
                 });
 
             modelBuilder.Entity("refLinkApi.Models.Question", b =>

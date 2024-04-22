@@ -5,7 +5,7 @@
 namespace refLinkApi.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class changeEmployer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
