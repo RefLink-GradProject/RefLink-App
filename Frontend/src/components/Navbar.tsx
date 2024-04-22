@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logo from '../assets/logo.png'
 
 export default function Navbar() {
     return (
@@ -21,7 +22,12 @@ export default function Navbar() {
                             <li><a>Applicants</a></li>
                         </ul>
                     </div>
-                    <Link to="/"><a className="btn btn-ghost text-3xl">RefLink</a></Link>
+                    <Link to="/">
+                        <a className="btn btn-ghost text-3xl">
+                        <img src={logo} alt="logo" className="w-8"/>
+                            RefLink
+                        </a>
+                        </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-xl">

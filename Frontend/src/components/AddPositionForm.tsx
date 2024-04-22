@@ -24,14 +24,15 @@ export default function AddPositionForm() {
     return (
         <div className="flex justify-center mt-10">
             <div className="w-1/2">
+                <label className="form-control w-full mb-4">
                 <span className="label-text">Name</span>
-                <label className="input input-bordered flex items-center gap-2 mb-3">
-                    <input type="text" className="grow" placeholder="Position name" />
+                    <input type="text" className="input input-bordered input-md w-full" placeholder="Position name" />
                 </label>
 
-                <span className="label-text">Description</span>
-                <label className="input input-bordered flex items-center gap-2 h-20 mb-3">
-                    <input type="text" className="grow" placeholder="Write escription here for AI prompt" />
+                {/* <span className="label-text">Description</span> */}
+                <label className="form-control w-full mb-4">
+                <span className="label-text">What is your name?</span>
+                    <textarea className="textarea textarea-bordered textarea-md w-full" placeholder="Write escription here for AI prompt" />
                 </label>
 
                 <section className="question-form">
