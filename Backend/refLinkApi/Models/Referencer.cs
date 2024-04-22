@@ -10,7 +10,5 @@ namespace refLinkApi.Models;
         public required string Name { get; set; }
 
         public required string Email { get; set; }
-
-        // public int ResponseId { get; set; }
-        public Response Response { get; set; }
+        public List<Response> Responses { get; set; }
     }
