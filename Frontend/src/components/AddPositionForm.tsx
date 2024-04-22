@@ -46,8 +46,9 @@ export default function AddPositionForm() {
                         questionInputs.map((question, i) =>
                             <>
                                 <label className="input input-bordered flex items-center gap-2 mb-3">
-                                    <input type="text" name="question" onChange={event => addQuestionToInputs(event.target.value, i)} className="grow" placeholder="" />
+                                    <input type="text" id={question} name="question" onChange={event => addQuestionToInputs(event.target.value, i)} className="grow" placeholder="" />
                                 </label>
+                                
                             </>
                         )
                     }
