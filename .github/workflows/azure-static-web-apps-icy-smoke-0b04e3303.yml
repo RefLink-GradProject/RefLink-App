@@ -8,9 +8,12 @@ on:
       - Frontend/**
       - .github/workflows/azure-static-web-apps-icy-smoke-0b04e3303.yml
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [closed]
     branches:
       - main
+    paths:
+      - Frontend/**
+      - .github/workflows/azure-static-web-apps-icy-smoke-0b04e3303.yml
 
 jobs:
   build-and-deploy:

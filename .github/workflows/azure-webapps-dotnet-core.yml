@@ -28,9 +28,17 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - backend/**
+      - Backend/**
       - .github/workflows/azure-webapps-dotnet-core.yml
   workflow_dispatch:
+  
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+    paths:
+      - Backend/**
+      - .github/workflows/azure-webapps-dotnet-core.yml
 
 permissions:
   contents: read
