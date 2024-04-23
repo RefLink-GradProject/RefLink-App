@@ -18,7 +18,7 @@ export default function AddPostingForm() {
         setQuestionInputs(newQuestionInput);
     }
 
-    function handleConfirm() {
+    function handleAdd() {
         // ToDo: handle confirm
         setShowAlertAdded(true);
         setTimeout(() => setShowAlertAdded(false), 2000);
@@ -49,7 +49,7 @@ export default function AddPostingForm() {
                             )
                         }
                     </section>
-                    <button type="submit" onClick={handleConfirm} className='btn btn-neutral btn-sm mr-2 w-20'> Confirm</button>
+                    <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>
                 </div>
             </div>
             {showAlertAdded && (
