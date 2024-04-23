@@ -1,4 +1,4 @@
-import { Candidate } from "../Types";
+import { Candidate, Question } from "../Types";
 
 
 export default function CandidateDetails({ candidate }: Props) {
@@ -22,9 +22,12 @@ export default function CandidateDetails({ candidate }: Props) {
                                     Reference from {referencer.name}
                                 </div>
                                 <div className="collapse-content">
-                                    {referencer.responses.map((response) => {
+                                    {referencer.responses!.map((response) => {
                                         return(
+                                            <>
+                                            <p className="text-2xl">{response.question.content}</p>
                                             <p>{response.content}</p>
+                                            </>
                                         )
                                     })}
                                 </div>
