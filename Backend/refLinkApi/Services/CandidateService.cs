@@ -38,24 +38,22 @@ public class CandidateService
         }
 
         var candidates = await _context.Candidates.ToListAsync();
-        // CandidateResponseDto[] candidateResponseDtos = [];
-        // foreach (Candidate candidate in candidates)
-        // {
-        //     candidateResponseDtos
-        // }
-        // return candidates;
-        return null;
+        List<CandidateResponseDto> candidateResponseDtos = [];
+        foreach (Candidate candidate in candidates)
+        {
+            candidateResponseDtos.Add(mapper.CandidateToCandidateResponseDto(candidate));
+        }
+        return candidateResponseDtos;
     }
 
-    public async Task<CandidateResponseDto> GetCandidateById(int id)
+    public async Task<CandidateResponseDto> GetCandidateById(Guid guidId)
     {
         if (_context.Candidates is null)
         {
             return null;
         }
 
-        // var employer = await _context.Employers.FirstOrDefaultAsync(r => r.Id == id);
-        // return employer;
-        return null;
+        var candidate = await _context.Candidates.FirstOrDefaultAsync(r => r.GuidId == guidId);
+        return mapper.CandidateToCandidateResponseDto(candidate);
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using refLinkApi.Dtos;
 using refLinkApi.Models;
 using refLinkApi.Services;
 
@@ -23,28 +24,28 @@ namespace refLinkApi.Controllers
 
         // POST: api/Employers
         [HttpPost]
-        public async Task<ActionResult<Employer>> PostRestaurant(Employer employer)
+        public async Task<ActionResult<EmployerResponseDto>> PostEmployer(EmployerRequestDto employerRequestDto)
         {
-            var result = await _service.PostNewEmployer(employer);
+            var result = await _service.PostNewEmployer(employerRequestDto);
             if (result is null)
             {
                 return NotFound();
             }
-            return CreatedAtAction("GetEmployer", new { id = result.Id }, result);
+            return CreatedAtAction("GetEmployer", new { id = result.GuidId }, result);
         }
 
         // GET: api/Employers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employer>>> GetEmployer()
+        public async Task<ActionResult<IEnumerable<EmployerResponseDto>>> GetEmployer()
         {
             return await _service.GetEmployers();
         }
 
         // GET: api/Employers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employer>> GetEmployer(int id)
+        public async Task<ActionResult<EmployerResponseDto>> GetEmployer(Guid guidId)
         {
-            var employer = await _service.GetEmployerById(id);
+            var employer = await _service.GetEmployerById(guidId);
 
             if (employer == null)
             {
