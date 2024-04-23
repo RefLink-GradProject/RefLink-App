@@ -12,6 +12,9 @@ public partial class Mapper
 
     [MapperIgnoreTarget(nameof(Posting.GuidId))]
     public partial Posting PostingRequestDtoToPosting(PostingRequestDto request);
-
-    public partial PostingResponseDto PostingToPostingRequestDto(Posting posting);
+    public partial PostingResponseDto PostingToPostingResponseDto(Posting posting);
+    
+    [MapperIgnoreTarget(nameof(Question.GuidId))]
+    public partial Question QuestionRequestDtoToQuestion(QuestionRequestDto request);
+    public partial QuestionResponseDto QuestionToQuestionResponseDto(Question posting);
 }
