@@ -2191,6 +2191,10 @@ html {
   font-size: 1.125rem;
 }
 
+.btn-wide {
+  width: 16rem;
+}
+
 .btn-square:where(.btn-xs) {
   height: 1.5rem;
   width: 1.5rem;
@@ -2396,6 +2400,10 @@ html {
   margin: 3rem;
 }
 
+.m-10 {
+  margin: 2.5rem;
+}
+
 .mb-3 {
   margin-bottom: 0.75rem;
 }
@@ -2426,6 +2434,10 @@ html {
 
 .mt-3 {
   margin-top: 0.75rem;
+}
+
+.block {
+  display: block;
 }
 
 .flex {
@@ -2482,6 +2494,18 @@ html {
 
 .w-full {
   width: 100%;
+}
+
+.w-1\/3 {
+  width: 33.333333%;
+}
+
+.w-2 {
+  width: 0.5rem;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
 }
 
 .shrink-0 {

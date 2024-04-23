@@ -17,9 +17,9 @@ export default function Postings({ postings }: Props) {
             <Link to="/postings/add">
                 <button className="btn btn-active">Add Posting</button>
             </Link>
-            <div className="flex">
+            <div className="">
 
-                <section id="posting-names" className="w-1/2">
+                <section id="posting-names" className="">
 
                     {postings.map((posting) => {
                         return (
@@ -33,7 +33,7 @@ export default function Postings({ postings }: Props) {
                     })}
                 </section>
 
-                <section id="posting-details" className="card w-1/2 bg-base-100 shadow-xl w-1/2">
+                <section id="posting-details" className="card  bg-base-100 shadow-xl ">
                     <div className="card-body">
                         <div id="posting-details__description">
                             <h2 className="card-title">Description</h2>

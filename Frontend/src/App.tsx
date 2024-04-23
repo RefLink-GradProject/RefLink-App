@@ -5,6 +5,7 @@ import AddPostingForm from './components/AddPostingForm';
 import Postings from './components/Postings';
 import { Question, Response, Candidate, Referencer, Posting } from './Types';
 import {postings} from "./fakeData"
+import Candidates from './components/Candidates';
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
       <Route path="/" element= {<Home />} />
       <Route path="/postings" element= {<Postings postings={postings}/>} />
       <Route path='/postings/add' element={<AddPostingForm />}/>
+      <Route path='/candidates' element={<Candidates postings={postings}/>}/>
 
     </Routes>
     </>
