@@ -1,7 +1,7 @@
 import {Routes, Route} from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import PostingForm from './components/PostingForm';
+import AddPostingForm from './components/AddPostingForm';
 import Postings from './components/Postings';
 
 export default function App() {
@@ -13,7 +13,7 @@ export default function App() {
     <Routes>
       <Route path="/" element= {<Home />} />
       <Route path="/postings" element= {<Postings />} />
-      <Route path='/postings/add' element={<PostingForm />}/>
+      <Route path='/postings/add' element={<AddPostingForm />}/>
 
     </Routes>
     </>

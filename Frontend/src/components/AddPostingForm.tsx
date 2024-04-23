@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function PostingForm() {
+export default function AddPostingForm() {
     const [questionInputs, setQuestionInputs] = useState<string[]>([])
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
 
