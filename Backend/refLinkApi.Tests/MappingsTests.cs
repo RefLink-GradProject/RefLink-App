@@ -156,4 +156,41 @@ public class MappingsTests
         Assert.Equal(referencer.Name, request.Name);
         Assert.NotNull(referencer.GuidId);
     }
+    
+    [Fact]
+    public void Response_CanBeMappedTo_ResponseResponseDto()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        Response referencer = new Response
+        {
+            GuidId = Guid.NewGuid(),
+            Content = "Content",
+        };
+        
+        // Act
+        ResponseResponseDto response = mapper.ResponseToResponseResponseDto(referencer);
+        
+        // Assert
+        Assert.Equal(referencer.Content, response.Content);
+        Assert.NotNull(response.GuidId);
+    }
+    
+    [Fact]
+    public void ResponseRequestDto_CanBeMappedTo_Response()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        ResponseRequestDto request = new ResponseRequestDto()
+        {
+            Content = "Content",
+        };
+        
+        // Act
+        Response referencer = mapper.ResponseRequestDtoToResponse(request);
+        
+        // Assert
+        Assert.Equal(referencer.Content, request.Content);
+        Assert.NotNull(referencer.GuidId);
+    }
 }
