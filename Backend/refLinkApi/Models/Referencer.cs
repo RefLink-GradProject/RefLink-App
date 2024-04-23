@@ -10,9 +10,9 @@ public class Referencer
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid GuidId { get; set; }
-
+    
     public required string Name { get; set; }
-
+    
     public required string Email { get; set; }
 
     public int CandidateId { get; set; }
