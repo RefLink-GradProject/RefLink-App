@@ -13,7 +13,29 @@ export default function CandidateDetails({ candidate }: Props) {
             </section>
 
             <section id="candidate-references">
-                
+                {candidate?.referencers.map((referencer => {
+                    return (
+                        <>
+                            <div className="collapse collapse-arrow bg-base-200">
+                                <input type="radio" name="my-accordion-2" defaultChecked />
+                                <div className="collapse-title text-xl font-medium">
+                                    Reference from {referencer.name}
+                                </div>
+                                <div className="collapse-content">
+                                    {referencer.responses.map((response) => {
+                                        return(
+                                            <p>{response.content}</p>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        </>
+                    )
+                }))}
+            </section>
+
+            <section id="candidate-graf">
+
             </section>
         </div>
     )
