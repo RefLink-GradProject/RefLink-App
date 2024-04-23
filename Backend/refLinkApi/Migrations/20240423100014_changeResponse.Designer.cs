@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace refLinkApi.Migrations
 {
     [DbContext(typeof(RefLinkContext))]
-    [Migration("20240423081957_changeResponse")]
+    [Migration("20240423100014_changeResponse")]
     partial class changeResponse
     {
         /// <inheritdoc />
