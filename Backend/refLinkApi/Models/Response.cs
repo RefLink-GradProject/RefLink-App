@@ -15,5 +15,7 @@ public class Response
 
     public required string Content { get; set; }
     
-    public int QuestionId { get; set; }
+    public int? QuestionId { get; set; }
+
+    public int? ReferencerId { get; set; }
 }
