@@ -17,7 +17,7 @@ const referencer1: Referencer = { guid: 201, name: "Jane Smith", email: "jane@ex
 const candidate1: Candidate = { guid: 101, name: "John Doe", email: "john@example.com", referencers: [referencer1] };
 const candidate2: Candidate = { guid: 102, name: "Alice Johnson", email: "alice@example.com", referencers: [] };
 
-referencer1.responses.push(response3, response4);
+referencer1.responses!.push(response3, response4);
 const referencer2: Referencer = { guid: 202, name: "Bob Brown", email: "bob@example.com", responses: [response5, response6] };
 candidate2.referencers.push(referencer2);
 
