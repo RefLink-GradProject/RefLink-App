@@ -76,10 +76,46 @@ public class MappingsTests
         };
         
         // Act
-        PostingResponseDto response = mapper.PostingToPostingRequestDto(posting);
+        PostingResponseDto response = mapper.PostingToPostingResponseDto(posting);
         
         // Assert
         Assert.Equal(posting.Title, response.Title);
         Assert.NotNull(response.GuidId);
+    }
+    
+    [Fact]
+    public void Question_CanBeMappedTo_QuestionResponseDto()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        Question question = new Question
+        {
+            Content = "ContentTest"
+        };
+        
+        // Act
+        QuestionResponseDto response = mapper.QuestionToQuestionResponseDto(question);
+        
+        // Assert
+        Assert.Equal(question.Content, response.Content);
+        Assert.NotNull(response.GuidId);
+    }
+    
+    [Fact]
+    public void QuestionRequestDto_CanBeMappedTo_Question()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        QuestionRequestDto request = new QuestionRequestDto()
+        {
+            Content = "ContentTest"
+        };
+        
+        // Act
+        Question question = mapper.QuestionRequestDtoToQuestion(request);
+        
+        // Assert
+        Assert.Equal(question.Content, request.Content);
+        Assert.NotNull(question.GuidId);
     }
 }
