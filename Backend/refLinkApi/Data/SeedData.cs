@@ -9,7 +9,7 @@ public static class SeedData
                    serviceProvider.GetRequiredService<DbContextOptions<RefLinkContext>>()))
         {
             _context.Database.EnsureDeleted(); // Clear the database
-            _context.Database.Migrate();
+            //_context.Database.Migrate();
             _context.Database.EnsureCreated(); // Create the database if not exists
 
             Employer employer = new Employer
