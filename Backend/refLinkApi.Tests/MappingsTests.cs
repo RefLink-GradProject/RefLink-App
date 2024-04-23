@@ -193,4 +193,47 @@ public class MappingsTests
         Assert.Equal(referencer.Content, request.Content);
         Assert.NotNull(referencer.GuidId);
     }
+    
+    [Fact]
+    public void Employer_CanBeMappedTo_EmployerResponseDto()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        Employer employer = new Employer
+        {
+            Id = 1,
+            Name = "TestName",
+            GuidId = Guid.NewGuid(),
+            Company = "Company",
+            Email = "test@test.com"
+        };
+        
+        // Act
+        EmployerResponseDto response = mapper.EmployerToEmployerResponseDto(employer);
+        
+        // Assert
+        Assert.Equal(employer.GuidId, response.GuidId);
+    }
+    
+    [Fact]
+    public void EmployerRequestDto_CanBeMappedTo_Employer()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        EmployerRequestDto request = new EmployerRequestDto()
+        {
+            Name = "TestName",
+            Company = "Company",
+            Email = "test@test.com"
+        };
+        
+        // Act
+        Employer employer = mapper.EmployerRequestDtoToEmployer(request);
+        
+        // Assert
+        Assert.Equal(employer.Company, request.Company);
+        Assert.NotNull(employer.GuidId);
+    }
+    
+    
 }
