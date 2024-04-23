@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using refLinkApi.Dtos;
 using refLinkApi.Models;
+using refLinkApi.Services;
 
 namespace refLinkApi.Controllers
 {
@@ -13,25 +15,37 @@ namespace refLinkApi.Controllers
     [ApiController]
     public class CandidatesController : ControllerBase
     {
-        private readonly RefLinkContext _context;
+        private readonly CandidateService _service;
 
-        public CandidatesController(RefLinkContext context)
+        public CandidatesController(CandidateService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: api/Candidates
+        // POST: api/Employers
+        [HttpPost]
+        public async Task<ActionResult<CandidateResponseDto>> PostCandidate(CandidateRequestDto candidateRequestDto)
+        {
+            var result = await _service.PostNewCandidate(candidateRequestDto);
+            if (result is null)
+            {
+                return NotFound();
+            }
+            return CreatedAtAction("GetCandidate", new { Guid = result.GuidId }, result);
+        }
+
+        // GET: api/Employers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Candidate>>> GetCandidates()
+        public async Task<ActionResult<IEnumerable<CandidateResponseDto>>> GetAllCandidates()
         {
-            return await _context.Candidates.Include(e => e.Referencers).ToListAsync();
+            return await _service.GetCandidates();
         }
 
-        // GET: api/Candidates/5
+        // GET: api/Employers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Candidate>> GetCandidate(int id)
+        public async Task<ActionResult<CandidateResponseDto>> GetCandidate(int id)
         {
-            var candidate = await _context.Candidates.FindAsync(id);
+            var candidate = await _service.GetCandidateById(id);
 
             if (candidate == null)
             {
@@ -41,67 +55,56 @@ namespace refLinkApi.Controllers
             return candidate;
         }
 
-        // PUT: api/Candidates/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCandidate(int id, Candidate candidate)
-        {
-            if (id != candidate.Id)
-            {
-                return BadRequest();
-            }
+        // // PUT: api/Candidates/5
+        // // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // [HttpPut("{id}")]
+        // public async Task<IActionResult> PutCandidate(int id, Candidate candidate)
+        // {
+        //     if (id != candidate.Id)
+        //     {
+        //         return BadRequest();
+        //     }
 
-            _context.Entry(candidate).State = EntityState.Modified;
+        //     _context.Entry(candidate).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CandidateExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //     try
+        //     {
+        //         await _context.SaveChangesAsync();
+        //     }
+        //     catch (DbUpdateConcurrencyException)
+        //     {
+        //         if (!CandidateExists(id))
+        //         {
+        //             return NotFound();
+        //         }
+        //         else
+        //         {
+        //             throw;
+        //         }
+        //     }
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
 
-        // POST: api/Candidates
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Candidate>> PostCandidate(Candidate candidate)
-        {
-            _context.Candidates.Add(candidate);
-            await _context.SaveChangesAsync();
+        // // DELETE: api/Candidates/5
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> DeleteCandidate(int id)
+        // {
+        //     var candidate = await _context.Candidates.FindAsync(id);
+        //     if (candidate == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return CreatedAtAction("GetCandidate", new { id = candidate.Id }, candidate);
-        }
+        //     _context.Candidates.Remove(candidate);
+        //     await _context.SaveChangesAsync();
 
-        // DELETE: api/Candidates/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCandidate(int id)
-        {
-            var candidate = await _context.Candidates.FindAsync(id);
-            if (candidate == null)
-            {
-                return NotFound();
-            }
+        //     return NoContent();
+        // }
 
-            _context.Candidates.Remove(candidate);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CandidateExists(int id)
-        {
-            return _context.Candidates.Any(e => e.Id == id);
-        }
+        // private bool CandidateExists(int id)
+        // {
+        //     return _context.Candidates.Any(e => e.Id == id);
+        // }
     }
 }
