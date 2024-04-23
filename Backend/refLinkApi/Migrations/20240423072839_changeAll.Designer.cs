@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace refLinkApi.Migrations
 {
     [DbContext(typeof(RefLinkContext))]
-    [Migration("20240422150638_changeAll")]
+    [Migration("20240423072839_changeAll")]
     partial class changeAll
     {
         /// <inheritdoc />
