@@ -21,4 +21,8 @@ public partial class Mapper
     [MapperIgnoreTarget(nameof(Referencer.GuidId))]
     public partial Referencer ReferencerRequestDtoToReferencer(ReferencerRequestDto request);
     public partial ReferencerResponseDto ReferencerToReferencerResponseDto(Referencer reference);
+    
+    [MapperIgnoreTarget(nameof(Response.GuidId))]
+    public partial Response ResponseRequestDtoToResponse(ResponseRequestDto request);
+    public partial ResponseResponseDto ResponseToResponseResponseDto(Response response);
 }
