@@ -19,7 +19,11 @@ export default function Navbar() {
                                     <li><a>Submenu 2</a></li>
                                 </ul>
                             </li>
-                            <li><a>Candidates</a></li>
+                            <li>
+                                <Link to="/candidates">
+                                    <a>Candidates</a>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                     <Link to="/">
@@ -42,7 +46,11 @@ export default function Navbar() {
                                 </ul>
                             </details>
                         </li>
-                        <li><a>Candidates</a></li>
+                        <li>
+                            <Link to="/candidates">
+                                <a>Candidates</a>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
                 <div className="navbar-end">
