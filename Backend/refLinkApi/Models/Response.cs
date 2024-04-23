@@ -11,7 +11,7 @@ public class Response
     public int Id { get; set; }
     
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public required Guid GuidId { get; set; }
+    public Guid GuidId { get; set; }
 
     public required string Content { get; set; }
     
