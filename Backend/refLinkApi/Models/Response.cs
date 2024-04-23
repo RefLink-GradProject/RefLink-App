@@ -4,11 +4,14 @@ using System.Text.Json.Serialization;
 
 
 namespace refLinkApi.Models;
-    public class Response
-    {
-        [Key]
-        public int Id { get; set; }
+public class Response
+{
+    [Key]
+    public int Id { get; set; }
 
-        public required string Content { get; set; }
-        public int QuestionId { get; set; }
-    }
+    public required Guid GuidId = Guid.NewGuid();
+
+    public required string Content { get; set; }
+    
+    public int QuestionId { get; set; }
+}
