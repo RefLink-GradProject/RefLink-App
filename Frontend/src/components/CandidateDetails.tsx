@@ -1,17 +1,21 @@
 import { Candidate } from "../Types";
 
 
-export default function CandidateDetails({candidate}: Props){
+export default function CandidateDetails({ candidate }: Props) {
     return (
-        <>
-        <section id="candidate-info">
-            <h1>{candidate?.name}</h1>
+        <div className="m-10">
 
-        </section>
-        <section id="candidate-references">
+            <section id="candidate-info">
+                <h1 className="text-4xl">{candidate?.name}</h1>
+                <h2 className="text-xl">Id: {candidate?.guid}</h2>
+                <h2 className="text-xl">Email: {candidate?.email}</h2>
+                <h2 className="text-xl">Referencer number: {candidate?.referencers.length}</h2>
+            </section>
 
-        </section>
-        </>
+            <section id="candidate-references">
+                
+            </section>
+        </div>
     )
 }
 
