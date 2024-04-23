@@ -6,6 +6,7 @@ namespace refLinkApi.Dtos.Mappers;
 [Mapper]
 public partial class Mapper
 {
-    public partial CandidateRequestDto CandidateToCandidateRequestDto(Candidate candidate);
+    [MapperIgnoreTarget(nameof(Candidate.GuidId))]
+    public partial Candidate CandidateRequestDtoToCandidate(CandidateRequestDto request);
     public partial CandidateResponseDto CandidateToCandidateResponseDto(Candidate candidate);
 }
