@@ -1,29 +1,69 @@
 import { Link } from "react-router-dom";
 
 import { Posting } from "../Types";
+import { useState } from "react";
 
 export default function Postings({ postings }: Props) {
+    const [clickedPosting, setClickedPosting] = useState<Posting>(postings[0]);
 
-    function handleClick(){
+    function handleClick() {
 
     }
 
 
     return (
         <>
+
             <Link to="/postings/add">
                 <button className="btn btn-active">Add Posting</button>
             </Link>
-            {postings.map((posting) => {
-                return (
-                    <>
-                    <br />
-                    <label className="cursor-pointer" onClick={handleClick}>
-                        {posting.title}
-                    </label>
-                    </>
-                )
-            })}
+            <div className="flex">
+
+                <section id="posting-names" className="w-1/2">
+
+                    {postings.map((posting) => {
+                        return (
+                            <>
+                                <br />
+                                <label className="cursor-pointer" onClick={handleClick}>
+                                    {posting.title}
+                                </label>
+                            </>
+                        )
+                    })}
+                </section>
+
+                <section id="posting-details" className="card w-1/2 bg-base-100 shadow-xl w-1/2">
+                    <div className="card-body">
+                        <div id="posting-details__description">
+                            <h2 className="card-title">Description</h2>
+                            <p>{clickedPosting.description}</p>
+                        </div>
+
+                        <div id="posting-details__questions">
+                            <h2 className="card-title">Questions</h2>
+                            {clickedPosting.questions.map((question) => {
+                                return (
+                                    <p>- {question.content}</p>
+                                )
+                            })}
+                        </div>
+
+                        <div id="posting-details__candidates">
+                            <h2 className="card-title">Candidates</h2>
+                            <button className="btn">+</button>
+                            {clickedPosting.candidates.map((candidate) => {
+                                return (
+                                    <>
+                                        <p>{candidate.name}</p>
+                                        <button className="btn btn-xs">Check</button>
+                                    </>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </section>
+            </div>
         </>
     )
 }

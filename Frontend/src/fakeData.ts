@@ -22,7 +22,7 @@ export const question4: Question = { guid: 404, content: "How do you handle conf
 export const posting1: Posting = {
     guid: 2,
     title: "Java frontend developer",
-    description: "We are looking for a java developer to join our team.",
+    description: "We are looking for a java developer to join our team. Who can independently code and write tests",
     candidates: [candidate3, candidate4],
     questions: [question3, question4]
 };
