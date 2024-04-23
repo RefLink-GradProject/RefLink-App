@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
 import Postings from './components/Postings';
 import { Question, Response, Candidate, Referencer, Posting } from './Types';
-
+import {postings} from "./fakeData"
 
 export default function App() {
 
@@ -14,7 +14,7 @@ export default function App() {
     {/* <Link to="/"><button>HOME</button></Link> */}
     <Routes>
       <Route path="/" element= {<Home />} />
-      <Route path="/postings" element= {<Postings />} />
+      <Route path="/postings" element= {<Postings postings={postings}/>} />
       <Route path='/postings/add' element={<AddPostingForm />}/>
 
     </Routes>
