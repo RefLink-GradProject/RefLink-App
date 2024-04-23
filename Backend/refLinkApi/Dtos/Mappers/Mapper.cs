@@ -17,4 +17,8 @@ public partial class Mapper
     [MapperIgnoreTarget(nameof(Question.GuidId))]
     public partial Question QuestionRequestDtoToQuestion(QuestionRequestDto request);
     public partial QuestionResponseDto QuestionToQuestionResponseDto(Question posting);
+
+    [MapperIgnoreTarget(nameof(Referencer.GuidId))]
+    public partial Referencer ReferencerRequestDtoToReferencer(ReferencerRequestDto request);
+    public partial ReferencerResponseDto ReferencerToReferencerResponseDto(Referencer reference);
 }
