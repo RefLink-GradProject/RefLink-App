@@ -6,8 +6,8 @@ import { useState } from "react";
 export default function Postings({ postings }: Props) {
     const [clickedPosting, setClickedPosting] = useState<Posting>(postings[0]);
 
-    function handleClick() {
-
+    function handleClick(posting: Posting) {
+        setClickedPosting(posting);
     }
 
 
@@ -25,7 +25,7 @@ export default function Postings({ postings }: Props) {
                         return (
                             <>
                                 <br />
-                                <label className="cursor-pointer" onClick={handleClick}>
+                                <label className="cursor-pointer" onClick={() => handleClick(posting)}>
                                     {posting.title}
                                 </label>
                             </>
@@ -56,7 +56,10 @@ export default function Postings({ postings }: Props) {
                                 return (
                                     <>
                                         <p>{candidate.name}</p>
-                                        <button className="btn btn-xs">Check</button>
+                                        <Link to={"/candidates/" + candidate.guid}>
+                                            <button className="btn btn-xs">Check</button>
+                                        </Link>
+
                                     </>
                                 )
                             })}

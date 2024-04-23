@@ -9,6 +9,7 @@ import Candidates from './components/Candidates';
 import CandidateDetails from './components/CandidateDetails';
 import { useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
+import AddReferencerForm from './components/AddReferencerForm';
 
 export default function App() {
 
@@ -25,6 +26,7 @@ export default function App() {
       <Route path='/candidates' element={<Candidates postings={postings} setClikedCandidate={setClickedCandidate}/>}/>
       <Route path={`/candidates/${clickedCandidate?.guid}`} element= {<CandidateDetails candidate={clickedCandidate}/>}/>
       <Route path='/candidates/add' element={<AddCandidateForm />}/>
+      <Route path='/add-referencer' element={<AddReferencerForm />}/>
     </Routes>
     </>
   )
