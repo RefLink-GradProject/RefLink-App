@@ -15,10 +15,10 @@ export type Candidate = {
 }
 
 export type Referencer = {
-    guid: number;
+    guid?: number;
     name: string;
     email: string;
-    responses: Response[];
+    responses?: Response[];
 }
 
 export type Response = {
