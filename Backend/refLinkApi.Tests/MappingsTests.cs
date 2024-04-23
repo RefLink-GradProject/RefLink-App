@@ -42,7 +42,6 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(candidate.Email, request.Email);
-        Assert.NotNull(candidate.GuidId);
     }
     
     [Fact]
@@ -61,7 +60,6 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(posting.Title, request.Title);
-        Assert.NotNull(posting.GuidId);
     }
     
     [Fact]
@@ -80,7 +78,6 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(posting.Title, response.Title);
-        Assert.NotNull(response.GuidId);
     }
     
     [Fact]
@@ -98,7 +95,6 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(question.Content, response.Content);
-        Assert.NotNull(response.GuidId);
     }
     
     [Fact]
@@ -116,7 +112,6 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(question.Content, request.Content);
-        Assert.NotNull(question.GuidId);
     }
     
     [Fact]
@@ -135,7 +130,6 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(referencer.Name, response.Name);
-        Assert.NotNull(response.GuidId);
     }
     
     [Fact]
@@ -154,7 +148,6 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(referencer.Name, request.Name);
-        Assert.NotNull(referencer.GuidId);
     }
     
     [Fact]
@@ -173,7 +166,6 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(referencer.Content, response.Content);
-        Assert.NotNull(response.GuidId);
     }
     
     [Fact]
@@ -191,6 +183,45 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(referencer.Content, request.Content);
-        Assert.NotNull(referencer.GuidId);
+    }
+    
+    [Fact]
+    public void Employer_CanBeMappedTo_EmployerResponseDto()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        Employer employer = new Employer
+        {
+            Id = 1,
+            Name = "TestName",
+            GuidId = Guid.NewGuid(),
+            Company = "Company",
+            Email = "test@test.com"
+        };
+        
+        // Act
+        EmployerResponseDto response = mapper.EmployerToEmployerResponseDto(employer);
+        
+        // Assert
+        Assert.Equal(employer.GuidId, response.GuidId);
+    }
+    
+    [Fact]
+    public void EmployerRequestDto_CanBeMappedTo_Employer()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        EmployerRequestDto request = new EmployerRequestDto()
+        {
+            Name = "TestName",
+            Company = "Company",
+            Email = "test@test.com"
+        };
+        
+        // Act
+        Employer employer = mapper.EmployerRequestDtoToEmployer(request);
+        
+        // Assert
+        Assert.Equal(employer.Company, request.Company);
     }
 }
