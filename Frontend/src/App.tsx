@@ -3,6 +3,8 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
 import Postings from './components/Postings';
+import { Question, Response, Candidate, Referencer, Posting } from './Types';
+
 
 export default function App() {
 

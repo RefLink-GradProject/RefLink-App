@@ -17,7 +17,7 @@ export type Candidate = {
 export type Referencer = {
     guid: number;
     name: string;
-    emial: string;
+    email: string;
     responses: Response[];
 }
 
@@ -29,5 +29,5 @@ export type Response = {
 export type Question = {
     guid: number; 
     content: string;
-    responses: Response[];
+    responses?: Response[];
 }
