@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Alert from "./Alert";
 import TextInput from "./TextInput";
+import TextArea from "./TextArea";
 
 export default function AddPostingForm() {
     const [questionInputs, setQuestionInputs] = useState<string[]>([])
@@ -28,11 +29,7 @@ export default function AddPostingForm() {
             <div className="flex justify-center mt-10">
                 <div className="w-1/2 ">
                     <TextInput inputType="text" labelText="Name" placeholder="Posting name" />
-
-                    <label className="form-control w-full mb-4">
-                        <span className="label-text">What is your name?</span>
-                        <textarea className="textarea textarea-bordered textarea-md w-full" placeholder="Write escription here for AI prompt" />
-                    </label>
+                    <TextArea labelText="Description" placeholder="Write description here for AI prompt"/>
 
                     <section className="question-form">
                         <p className="label-text mb-3">Questions</p>
