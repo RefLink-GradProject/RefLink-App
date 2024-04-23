@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { Candidate, Posting } from "../Types";
 import {useNavigate} from 'react-router-dom';
 
-export default function Candidates({ postings, setClikedCandidate}: Props) {
+export default function Candidates({ postings, setClickedCandidate: setClikedCandidate}: Props) {
     const navigate = useNavigate();
 
     function handleCandidateClick(candidate: Candidate){
@@ -36,5 +36,5 @@ export default function Candidates({ postings, setClikedCandidate}: Props) {
 
 type Props = {
     postings: Posting[];
-    setClikedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
+    setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
 }
