@@ -51,7 +51,7 @@ export default function Postings({ postings }: Props) {
 
                         <div id="posting-details__candidates">
                             <h2 className="card-title">Candidates</h2>
-                            <button className="btn">+</button>
+                            <Link to="/candidates/add"><button className="btn">+</button></Link>
                             {clickedPosting.candidates.map((candidate) => {
                                 return (
                                     <>

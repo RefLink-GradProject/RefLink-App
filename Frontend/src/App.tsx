@@ -8,6 +8,7 @@ import {candidate3, postings} from "./fakeData"
 import Candidates from './components/Candidates';
 import CandidateDetails from './components/CandidateDetails';
 import { useState } from 'react';
+import AddCandidateForm from './components/AddCandidateForm';
 
 export default function App() {
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>();
@@ -22,7 +23,7 @@ export default function App() {
       <Route path='/postings/add' element={<AddPostingForm />}/>
       <Route path='/candidates' element={<Candidates postings={postings} setClikedCandidate={setClickedCandidate}/>}/>
       <Route path={`/candidates/${clickedCandidate?.guid}`} element= {<CandidateDetails candidate={clickedCandidate}/>}/>
-
+      <Route path='/candidates/add' element={<AddCandidateForm />}/>
     </Routes>
     </>
   )
