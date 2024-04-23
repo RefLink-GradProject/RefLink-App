@@ -11,6 +11,7 @@ import { useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
 
 export default function App() {
+
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>();
 
   return (

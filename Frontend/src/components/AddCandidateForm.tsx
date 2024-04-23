@@ -1,14 +1,19 @@
 import { useState } from "react";
 import TextInput from "./TextInput";
 import Alert from "./Alert";
+import {useNavigate} from 'react-router-dom';
 
 export default function AddCandidateForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     function handleAdd() {
-        // ToDo: handle confirm
+        // ToDo: handle confirm, update the positions candidates
         setShowAlertAdded(true);
-        setTimeout(() => setShowAlertAdded(false), 3500);
+        setTimeout(() => {
+            setShowAlertAdded(false);
+            navigate("/postings"); 
+        }, 3000); 
     }
 
     return (
@@ -28,3 +33,4 @@ export default function AddCandidateForm() {
         </>
     )
 }
+
