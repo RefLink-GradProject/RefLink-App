@@ -7,7 +7,7 @@ namespace refLInkApi.Tests;
 public class MappingsTests
 {
     [Fact]
-    public void Candidate_CanBeConvertedTo_CandidateResponseDTO()
+    public void Candidate_CanBeMappedTo_CandidateResponseDTO()
     {
         // Arrange
         var mapper = new Mapper();
@@ -16,7 +16,7 @@ public class MappingsTests
             Id = 1,
             Name = "Test",
             Email = "test@test.com",
-            GuidId = default
+            GuidId = Guid.NewGuid(),
         };
         
         // Act
@@ -24,5 +24,24 @@ public class MappingsTests
         
         // Assert
         Assert.Equal(candidate.Name, response.Name);
+    }
+    
+    [Fact]
+    public void CandidateRequestDto_CanBeMappedTo_Candidate()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        CandidateRequestDto request = new CandidateRequestDto()
+        {
+            Name = "Test",
+            Email = "test@test.com"
+        };
+        
+        // Act
+        Candidate candidate = mapper.CandidateRequestDtoToCandidate(request);
+        
+        // Assert
+        Assert.Equal(candidate.Email, request.Email);
+        Assert.NotNull(candidate.GuidId);
     }
 }
