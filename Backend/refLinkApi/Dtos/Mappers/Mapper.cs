@@ -25,4 +25,8 @@ public partial class Mapper
     [MapperIgnoreTarget(nameof(Response.GuidId))]
     public partial Response ResponseRequestDtoToResponse(ResponseRequestDto request);
     public partial ResponseResponseDto ResponseToResponseResponseDto(Response response);
+    
+    [MapperIgnoreTarget(nameof(Employer.GuidId))]
+    public partial Employer EmployerRequestDtoToEmployer(EmployerRequestDto request);
+    public partial EmployerResponseDto EmployerToEmployerResponseDto(Employer employer);
 }
