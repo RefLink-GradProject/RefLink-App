@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace refLinkApi.Models;
 public class Question
@@ -6,7 +7,8 @@ public class Question
     [Key]
     public int Id { get; set; }
 
-    public required Guid GuidId = Guid.NewGuid();
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public required Guid GuidId { get; set; }
 
     public required string Content { get; set; }
 
