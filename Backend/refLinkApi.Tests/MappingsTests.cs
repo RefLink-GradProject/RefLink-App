@@ -44,4 +44,42 @@ public class MappingsTests
         Assert.Equal(candidate.Email, request.Email);
         Assert.NotNull(candidate.GuidId);
     }
+    
+    [Fact]
+    public void PostingRequestDto_CanBeMappedTo_Posting()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        PostingRequestDto request = new PostingRequestDto
+        {
+            Title = "TestTitle",
+            Description = "TestDescription"
+        };
+        
+        // Act
+        Posting posting = mapper.PostingRequestDtoToPosting(request);
+        
+        // Assert
+        Assert.Equal(posting.Title, request.Title);
+        Assert.NotNull(posting.GuidId);
+    }
+    
+    [Fact]
+    public void Posting_CanBeMappedTo_PostingResponseDto()
+    {
+        // Arrange
+        var mapper = new Mapper();
+        Posting posting = new Posting
+        {
+            Title = "TestTitle",
+            Description = "TestDescription"
+        };
+        
+        // Act
+        PostingResponseDto response = mapper.PostingToPostingRequestDto(posting);
+        
+        // Assert
+        Assert.Equal(posting.Title, response.Title);
+        Assert.NotNull(response.GuidId);
+    }
 }
