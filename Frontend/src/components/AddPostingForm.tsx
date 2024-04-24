@@ -2,6 +2,7 @@ import { useState } from "react";
 import Alert from "./Alert";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
+import { Link } from "react-router-dom";
 
 export default function AddPostingForm() {
     const [questionInputs, setQuestionInputs] = useState<string[]>([])
@@ -49,6 +50,7 @@ export default function AddPostingForm() {
                             )
                         }
                     </section>
+                    <Link to="/postings"><button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 ">Back</button></Link>
                     <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>
                 </div>
             </div>
