@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using refLinkApi.Models;
+using refLinkApi.Dtos;
+using refLinkApi.Services;
 
 namespace refLinkApi.Controllers
 {
@@ -13,25 +8,34 @@ namespace refLinkApi.Controllers
     [ApiController]
     public class QuestionsController : ControllerBase
     {
-        private readonly RefLinkContext _context;
+        private readonly IQuestionService _service;
 
-        public QuestionsController(RefLinkContext context)
+        public QuestionsController(IQuestionService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: api/Questions
+        [HttpPost]
+        public async Task<ActionResult<QuestionResponseDto>> PostQuestion(QuestionRequestDto questionRequestDto)
+        {
+            var result = await _service.PostNewQuestion(questionRequestDto);
+            if (result is null)
+            {
+                return NotFound();
+            }
+            return CreatedAtAction("GetQuestion", new { GuidId = result.GuidId }, result);
+        }
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Question>>> GetQuestions()
+        public async Task<ActionResult<IEnumerable<QuestionResponseDto>>> GetAllQuestions()
         {
-            return await _context.Questions.Include(e => e.Responses).ToListAsync();
+            return await _service.GetQuestions();
         }
 
-        // GET: api/Questions/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Question>> GetQuestion(int id)
+        [HttpGet("{guidId}")]
+        public async Task<ActionResult<QuestionResponseDto>> GetQuestion(Guid guidId)
         {
-            var question = await _context.Questions.FindAsync(id);
+            var question = await _service.GetQuestionByGuid(guidId);
 
             if (question == null)
             {
@@ -39,69 +43,6 @@ namespace refLinkApi.Controllers
             }
 
             return question;
-        }
-
-        // PUT: api/Questions/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestion(int id, Question question)
-        {
-            if (id != question.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(question).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!QuestionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Questions
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Question>> PostQuestion(Question question)
-        {
-            _context.Questions.Add(question);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetQuestion", new { id = question.Id }, question);
-        }
-
-        // DELETE: api/Questions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuestion(int id)
-        {
-            var question = await _context.Questions.FindAsync(id);
-            if (question == null)
-            {
-                return NotFound();
-            }
-
-            _context.Questions.Remove(question);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool QuestionExists(int id)
-        {
-            return _context.Questions.Any(e => e.Id == id);
         }
     }
 }

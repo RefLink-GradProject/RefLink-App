@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import logo from '../assets/logo.png'
 import LoginButton from "./LoginButton";
-
 export default function Navbar({ isLoggedIn, userName }: Props) {
+import { useAuth0 } from "@auth0/auth0-react";
 
+export default function Navbar() {
+    const { isAuthenticated, logout, loginWithRedirect} = useAuth0();
     return (
         <>
             <div className="navbar bg-base-100">
@@ -55,8 +57,23 @@ export default function Navbar({ isLoggedIn, userName }: Props) {
                         </li>
                     </ul>
                 </div>
+              // repeated buttons, need resolve
                 <LoginButton  isLoggedIn={isLoggedIn} userName={userName}/>
+                <div className="navbar-end">
+                    {!isAuthenticated && (
+                        <button className="btn text-xl" onClick={() => loginWithRedirect()}>
+                            Log in
+                        </button>
+                    )}
+                    {isAuthenticated && (
+                        <button className="btn text-xl" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                            Log out
+                        </button>
+                    )}
+                </div>
+
             </div>
+
         </>
     )
 }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography.Xml;
 using System.Text.Json.Serialization;
 
@@ -8,10 +9,11 @@ public class Response
 {
     [Key]
     public int Id { get; set; }
-
-    public required Guid GuidId = Guid.NewGuid();
+    public Guid GuidId { get; set; } = Guid.NewGuid();
 
     public required string Content { get; set; }
     
-    public int QuestionId { get; set; }
+    public int? QuestionId { get; set; }
+
+    public int? ReferencerId { get; set; }
 }
