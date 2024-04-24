@@ -20,30 +20,49 @@ export default function AddReferencerForm() {
     }
 
     function addReferencerInputForm() {
-        const newReferencerInputs = [...referencerInputs, {name: "", email: ""}]
+        const newReferencerInputs = [...referencerInputs, { name: "", email: "" }]
         setReferencerInputs(newReferencerInputs);
     }
 
     return (
         <>
+            <h2>Add your referencer details here: </h2>
+            <button className='btn mb-3 mr-3' type="button" onClick={addReferencerInputForm}> + </button>
             <div className="flex justify-center mt-10">
-                <div className="w-1/2 flex">
+                <div className="w-full flex">
                     <div className="w-1/2">
-                    <TextInput inputType="name" labelText="Name" placeholder="Candidate name" />
+                        <TextInput inputType="name" labelText="Name" placeholder="Candidate name" />
                     </div>
                     <div className="w-1/2">
 
-                    <TextInput inputType="email" labelText="Email" placeholder="Candidate email" />
+                        <TextInput inputType="email" labelText="Email" placeholder="Candidate email" />
                     </div>
-
                 </div>
             </div>
+            {referencerInputs.map((input, i) =>
+                <>
+                    <div className="flex justify-center mt-10">
+                        <div className="w-full flex">
+                            <div className="w-1/2">
+                                <TextInput inputType="name" labelText="Name" placeholder="Candidate name" />
+                            </div>
+                            <div className="w-1/2">
+                                <TextInput inputType="email" labelText="Email" placeholder="Candidate email" />
+                            </div>
+                        </div>
+                    </div>
+
+                </>
+            )}
+
+
             <div className="fixed bottom-20 right-20 mb-4 mr-4"> {/* Fixed position at bottom right */}
                 <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm w-20'> Add</button>
             </div>
 
+
             {showAlertAdded && (
-                <Alert alertType="success" alertContent="Candidate added, email for adding referencer has been sendt!" />
+                <Alert alertType="success" alertContent="Your reference has been send!" />
             )}
 
 
