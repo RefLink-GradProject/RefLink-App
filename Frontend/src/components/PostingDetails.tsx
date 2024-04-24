@@ -10,7 +10,7 @@ export default function PostingDetails({clickedPosting, setClickedCandidate}: Pr
     const navigate = useNavigate();
     function handleClick(clickedCandidate: Candidate){
         setClickedCandidate(clickedCandidate);
-        navigate(`/dashboard/${clickedCandidate?.guid}`);
+        navigate(`/candidates/${clickedCandidate?.guid}`);
     }
     
 
@@ -34,7 +34,7 @@ export default function PostingDetails({clickedPosting, setClickedCandidate}: Pr
 
                         <div id="posting-details__candidates">
                             <h2 className="card-title">Candidates</h2>
-                            <Link to="/dashboard/add"><button className="btn">+</button></Link>
+                            <Link to="/candidates/add"><button className="btn">+</button></Link>
                             {clickedPosting.candidates.map((candidate) => {
                                 return (
                                     <>

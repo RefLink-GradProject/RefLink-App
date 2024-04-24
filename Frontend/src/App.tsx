@@ -35,8 +35,8 @@ export default function App() {
           </>
         }
       />
-      <Route path={`/dashboard/:${clickedCandidate?.guid}`} element= {<CandidateDetails candidate={clickedCandidate}/>}/>
-      <Route path='/dashboard/add' element={<AddCandidateForm />}/>
+      <Route path={`/candidates/:${clickedCandidate?.guid}`} element= {<CandidateDetails candidate={clickedCandidate}/>}/>
+      <Route path='/candidates/add' element={<AddCandidateForm />}/>
       <Route path='/add-referencer' element={<AddReferencerForm />}/>
     </Routes>
     
