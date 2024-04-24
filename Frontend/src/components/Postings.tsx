@@ -1,13 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
 import { Posting } from "../Types";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import PostingDetails from "./PostingDetails";
+import {useNavigate} from 'react-router-dom';
 
-export default function Postings({ postings }: Props) {
-    const [clickedPosting, setClickedPosting] = useState<Posting>(postings[0]);
+export default function Postings({ postings, clickedPosting, setClickedPosting }: Props) {
+    const navigate = useNavigate();
 
-    function handleClick(posting: Posting) {
-        setClickedPosting(posting);
+    function handleClick(clickedPosting: Posting) {
+        setClickedPosting(clickedPosting);
+        navigate(`/postings/:${clickedPosting.guid}`)
     }
 
 
@@ -33,39 +36,8 @@ export default function Postings({ postings }: Props) {
                     })}
                 </section>
 
-                <section id="posting-details" className="card  bg-base-100 shadow-xl ">
-                    <div className="card-body">
-                        <div id="posting-details__description">
-                            <h2 className="card-title">Description</h2>
-                            <p>{clickedPosting.description}</p>
-                        </div>
+                
 
-                        <div id="posting-details__questions">
-                            <h2 className="card-title">Questions</h2>
-                            {clickedPosting.questions.map((question) => {
-                                return (
-                                    <p>- {question.content}</p>
-                                )
-                            })}
-                        </div>
-
-                        <div id="posting-details__candidates">
-                            <h2 className="card-title">Candidates</h2>
-                            <Link to="/candidates/add"><button className="btn">+</button></Link>
-                            {clickedPosting.candidates.map((candidate) => {
-                                return (
-                                    <>
-                                        <p>{candidate.name}</p>
-                                        <Link to={"/candidates/" + candidate.guid}>
-                                            <button className="btn btn-xs">Check</button>
-                                        </Link>
-
-                                    </>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </section>
             </div>
         </>
     )
@@ -73,4 +45,6 @@ export default function Postings({ postings }: Props) {
 
 type Props = {
     postings: Posting[];
+    clickedPosting: Posting;
+    setClickedPosting: Dispatch<SetStateAction<Posting>>;
 }
