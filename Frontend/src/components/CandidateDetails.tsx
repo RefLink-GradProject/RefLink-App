@@ -1,7 +1,13 @@
 import { Candidate, Question } from "../Types";
-
+import { useNavigate } from 'react-router-dom';
 
 export default function CandidateDetails({ candidate }: Props) {
+    const navigate = useNavigate();
+
+    function handleBackClik(){
+        navigate(-1);
+    }
+
     return (
         <div className="m-10">
 
@@ -40,6 +46,8 @@ export default function CandidateDetails({ candidate }: Props) {
             <section id="candidate-graf">
 
             </section>
+
+            <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>&larr; Back</button>
         </div>
     )
 }

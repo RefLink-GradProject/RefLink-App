@@ -30,6 +30,10 @@ export default function AddPostingForm() {
         }, 2000);
     }
 
+    function handleBackClik(){
+        navigate(-1);
+    }
+
     return (
         <>
             <div className="flex justify-center mt-10">
@@ -55,7 +59,7 @@ export default function AddPostingForm() {
                             )
                         }
                     </section>
-                    <Link to="/postings"><button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 ">Cancel</button></Link>
+                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>Cancel</button>
                     <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>
                 </div>
             </div>
