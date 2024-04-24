@@ -8,12 +8,12 @@ namespace refLinkApi.Services;
 public class CandidateService : ICandidateService
 {
     private readonly RefLinkContext _context;
-    private readonly Mapper mapper;
+    private readonly MapperlyMapper mapper;
 
     public CandidateService(RefLinkContext context)
     {
         _context = context;
-        mapper = new Mapper();
+        mapper = new MapperlyMapper();
     }
 
     public async Task<CandidateResponseDto> PostNewCandidate(CandidateRequestDto candidateRequestDto)

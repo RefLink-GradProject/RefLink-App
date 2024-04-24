@@ -8,12 +8,12 @@ namespace refLinkApi.Services;
 public class EmployerService
 {
     private readonly RefLinkContext _context;
-    private readonly Mapper mapper;
+    private readonly MapperlyMapper mapper;
 
     public EmployerService(RefLinkContext context)
     {
         _context = context;
-        mapper = new Mapper();
+        mapper = new MapperlyMapper();
     }
 
     public async Task<EmployerResponseDto> PostNewEmployer(EmployerRequestDto employerRequestDto)
