@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <>
-    <Navbar isLoggedIn={isLoggedIn} userName=''/>
+    <Navbar isLoggedIn={!isLoggedIn} userName='Xinnan Luo'/>
     {/* <Link to="/"><button>HOME</button></Link> */}
     <Routes>
       <Route path="/" element= {<Home />} />
