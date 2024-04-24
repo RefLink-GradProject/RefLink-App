@@ -22,7 +22,7 @@ public class PostingService : IPostingService
         {
             return null;
         }
-
+        
         var posting = mapper.PostingRequestDtoToPosting(postingRequestDto);
         _context.Postings.Add(posting);
         await _context.SaveChangesAsync();

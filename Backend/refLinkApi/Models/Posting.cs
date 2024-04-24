@@ -13,7 +13,9 @@ public class Posting
 
     public required string Description { get; set; }
 
-    public int EmployerId { get; set; }
+    public Guid EmployerGuid { get; set; }
+    
+    public Employer? Employer { get; set; }
 
     public ICollection<Candidate>? Candidates { get; set; }
     

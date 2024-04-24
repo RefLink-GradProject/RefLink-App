@@ -18,4 +18,23 @@ using refLinkApi.Models;
         public DbSet<Question> Questions { get; set; } = default!;
         public DbSet<Referencer> Referencers  { get; set; } = default!;
         public DbSet<Response> Responses  { get; set; } = default!;
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Posting>()
+                .HasOne(p => p.Employer)
+                .WithMany(e => e.Postings)
+                .HasForeignKey(p => p.EmployerGuid);
+            
+            modelBuilder.Entity<Employer>()
+                .HasKey(e => e.GuidId);
+            
+            modelBuilder.Entity<Candidate>()
+                .HasOne(c => c.Posting)
+                .WithMany(p => p.Candidates)
+                .HasForeignKey(c => c.PostingGuid);
+            
+            modelBuilder.Entity<Posting>()
+                .HasKey(e => e.GuidId);
+        }
     }

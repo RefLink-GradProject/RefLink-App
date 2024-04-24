@@ -14,7 +14,9 @@ public class Candidate
 
     public required string Email { get; set; }
 
-    public int PostingId { get; set; }
+    public Guid PostingGuid { get; set; }
+    
+    public Posting Posting { get; set; }
 
     public ICollection<Referencer>? Referencers { get; set; }
 }
