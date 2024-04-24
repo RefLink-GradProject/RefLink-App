@@ -42,6 +42,7 @@ public class CandidateService : ICandidateService
         foreach (Candidate candidate in candidates)
         {
             candidateResponseDtos.Add(mapper.CandidateToCandidateResponseDto(candidate));
+            // TODO: consider adding a Dictionary with Question/Response to the response
         }
         return candidateResponseDtos;
     }
