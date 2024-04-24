@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import logo from '../assets/logo.png'
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Navbar() {
+    const { isAuthenticated, isLoading, logout, loginWithPopup} = useAuth0();
+
     return (
         <>
             <div className="navbar bg-base-100">
@@ -13,7 +16,7 @@ export default function Navbar() {
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             <Link to="/"><li><a>Home</a></li></Link>
                             <li>
-                               <Link to="/postings"><a>Postings</a></Link>
+                                <Link to="/postings"><a>Postings</a></Link>
                                 <ul className="p-2">
                                     <li><a>Submenu 1</a></li>
                                     <li><a>Submenu 2</a></li>
@@ -28,10 +31,10 @@ export default function Navbar() {
                     </div>
                     <Link to="/">
                         <a className="btn btn-ghost text-3xl">
-                        <img src={logo} alt="logo" className="w-8"/>
+                            <img src={logo} alt="logo" className="w-8" />
                             RefLink
                         </a>
-                        </Link>
+                    </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-xl">
@@ -54,9 +57,20 @@ export default function Navbar() {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn text-xl">Log in</a>
+                    {!isAuthenticated && (
+                        <button className="btn text-xl" onClick={() => login()}>
+                            Log in
+                        </button>
+                    )}
+                    {isAuthenticated && (
+                        <button className="btn text-xl" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                            Log out
+                        </button>
+                    )}
                 </div>
+
             </div>
+
         </>
     )
 }
