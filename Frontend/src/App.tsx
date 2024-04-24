@@ -19,12 +19,11 @@ export default function App() {
 
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>();
   const [clickedPosting, setClickedPosting] = useState<Posting>(postings[0]);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   return (
     <>
       <div className='mx-12 grow'>
-        <Navbar isLoggedIn={!isLoggedIn} userName='Xinnan Luo' />
+        <Navbar userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route 

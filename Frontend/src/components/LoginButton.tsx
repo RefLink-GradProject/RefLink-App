@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
+export default function LoginButton({ userName }: Props) {
+    const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
-export default function LoginButton( { isLoggedIn, userName }: Props){
-    
     function getInitials(name: string) {
         const words = name.split(' ');
         const initials = words.map(word => word.charAt(0).toUpperCase()).join(' ');
@@ -11,29 +12,32 @@ export default function LoginButton( { isLoggedIn, userName }: Props){
 
     return (
         <>
-                        <div className="navbar-end">
-                    {isLoggedIn ? (
-                        <>
-                            <details className="dropdown">
-                                <summary className="m-1 btn text-xl">{userName ? getInitials(userName) : 'User'}</summary>
-                                <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                                    <li><a className="text-base">log out</a></li>
-                                </ul>
-                            </details>
-                        </>
+            <div className="navbar-end">
+                {isAuthenticated ? (
+                    <>
+                        <details className="dropdown">
+                            <summary className="m-1 btn text-xl">{userName ? getInitials(userName) : 'User'}</summary>
+                            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                <li>
+                                    <a className="text-base">
+                                        <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                                            log out
+                                        </button>
+                                    </a>
+                                </li>
+                            </ul>
+                        </details>
+                    </>
 
-                    ) : (
-                        <Link to="/login">
-                            <button className="btn text-xl">Log in</button>
-                        </Link>
-                    )}
-                </div>
-        
+                ) : (
+                    <button className="btn text-xl" onClick={() => loginWithRedirect()}>Log in</button>
+                )}
+            </div>
+
         </>
     )
 }
 
 type Props = {
-    isLoggedIn: boolean;
     userName?: string;
 }
