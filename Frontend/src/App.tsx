@@ -13,6 +13,7 @@ import AddReferencerForm from './components/AddReferencerForm';
 import PostingDetails from './components/PostingDetails';
 import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
+import Postings from './components/Postings';
 
 export default function App() {
 
@@ -26,44 +27,15 @@ export default function App() {
         <Navbar isLoggedIn={!isLoggedIn} userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/postings" element={
-              <div className='ml-36 mr-36 mt-20 mb-20'>
-              <Link to="/postings/add">
-                <button className="btn btn-neutral">Add Posting</button>
-              </Link>
-              <section id="postings" className='w-full flex'>
-                <div className='w-1/2'>
-                  <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
-
-                </div>
-                <div className='w-1/2'>
-
-                </div>
-              </section>
-            </div>
-            } 
+          <Route 
+            path="/postings" 
+            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate}/>}
           />
           <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path='/dashboard' element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
             path={`/postings/:${clickedPosting.guid}`}
-            element={
-              <div className='ml-36 mr-36 mt-20 mb-20'>
-                <Link to="/postings/add">
-                  <button className="btn btn-neutral">Add Posting</button>
-                </Link>
-                <section id="postings" className='w-full flex'>
-                  <div className='w-1/2'>
-                    <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
-
-                  </div>
-                  <div className='w-1/2'>
-
-                    <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
-                  </div>
-                </section>
-              </div>
-            }
+            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate}/>}
           />
           <Route path={`/candidates/:${clickedCandidate?.guid}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm />} />

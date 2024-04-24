@@ -3,9 +3,16 @@ import { Posting } from "../Types";
 import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from 'react-router-dom';
 
+
 export default function PostingTitles({ postings, setClickedPosting }: Props) {
     const [clickedButtons, setClickedButtons] = useState<boolean[]>(Array(postings.length).fill(false));
     const navigate = useNavigate();
+
+    useState(() => {
+        const newClickedButtons = [...clickedButtons];
+        newClickedButtons[0] = true;
+        setClickedButtons(newClickedButtons);
+    });
 
     function handleClick(clickedPosting: Posting, index: number) {
         setClickedPosting(clickedPosting);
