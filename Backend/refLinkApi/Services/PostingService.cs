@@ -46,8 +46,14 @@ public class PostingService : IPostingService
         return postingResponseDtos;
     }
 
-    public Task<PostingResponseDto> GetPostingById(Guid guidId)
+    public async Task<PostingResponseDto> GetPostingById(Guid guidId)
     {
-        throw new NotImplementedException();
+        if (_context.Postings is null)
+        {
+            return null;
+        }
+
+        var posting = await _context.Postings.FirstOrDefaultAsync(r => r.GuidId == guidId);
+        return mapper.PostingToPostingResponseDto(posting);
     }
 }
