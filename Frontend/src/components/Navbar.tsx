@@ -3,7 +3,7 @@ import logo from '../assets/logo.png'
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Navbar() {
-    const { isAuthenticated, isLoading, logout, loginWithPopup} = useAuth0();
+    const { isAuthenticated, logout, loginWithRedirect} = useAuth0();
 
     return (
         <>
@@ -58,7 +58,7 @@ export default function Navbar() {
                 </div>
                 <div className="navbar-end">
                     {!isAuthenticated && (
-                        <button className="btn text-xl" onClick={() => login()}>
+                        <button className="btn text-xl" onClick={() => loginWithRedirect()}>
                             Log in
                         </button>
                     )}
