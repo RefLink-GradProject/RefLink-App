@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <>
-      <div className='m-12'>
+      <div className='mx-12 grow'>
         <Navbar isLoggedIn={!isLoggedIn} userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
