@@ -24,8 +24,8 @@ export default function AddCandidateForm() {
         <>
             <div className="flex justify-center mt-10">
                 <div className="w-1/2 ">
-                    <TextInput inputType="name" labelText="Name" placeholder="Candidate name" />
-                    <TextInput inputType="email" labelText="Email" placeholder="Candidate email" />
+                    <TextInput inputType="name" labelText="Name" placeholder="Candidate name" name="candidate-name"/>
+                    <TextInput inputType="email" labelText="Email" placeholder="Candidate email" name="candidate-email" />
 
                     <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>Cancel</button>
                     <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>

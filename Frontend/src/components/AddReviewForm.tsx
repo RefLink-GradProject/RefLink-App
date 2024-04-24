@@ -26,9 +26,9 @@ export default function AddReviewForm() {
             <div className="flex justify-center mt-10">
                 <div className="w-1/2 ">
                     <h2 className="text-xl">Information about you: </h2>
-                    <TextInput inputType="text" labelText="Name" value={referencer.name} placeholder="Your name" />
-                    <TextInput inputType="text" labelText="Company" placeholder="Company name that you worked together with the candidate" />
-                    <TextInput inputType="text" labelText="Title" placeholder="Your job title" />
+                    <TextInput name="reviewer-name" inputType="text" labelText="Name" value={referencer.name} placeholder="Your name" />
+                    <TextInput name="reviewer-company" inputType="text" labelText="Company" placeholder="Company name that you worked together with the candidate" />
+                    <TextInput name="reviewer-title" inputType="text" labelText="Title" placeholder="Your job title" />
 
                     <h2 className="text-xl">Reference for the candidate </h2>
                     {

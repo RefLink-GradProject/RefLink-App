@@ -37,7 +37,7 @@ export default function AddPostingForm() {
         <>
             <div className="flex justify-center mt-10">
                 <div className="w-1/2 ">
-                    <TextInput inputType="text" labelText="Name" placeholder="Posting name" />
+                    <TextInput name="posting-name" inputType="text" labelText="Name" placeholder="Posting name" />
                     <TextArea labelText="Description" placeholder="Write description here for AI prompt" />
 
                     <section className="question-form">
