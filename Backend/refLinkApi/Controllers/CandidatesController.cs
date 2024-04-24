@@ -31,7 +31,7 @@ namespace refLinkApi.Controllers
             {
                 return NotFound();
             }
-            return CreatedAtAction("GetCandidate", new { id = result.GuidId }, result);
+            return CreatedAtAction("GetCandidate", new { GuidId = result.GuidId }, result);
         }
 
         // GET: api/Employers
@@ -42,7 +42,7 @@ namespace refLinkApi.Controllers
         }
 
         // GET: api/Employers/5
-        [HttpGet("{id}")]
+        [HttpGet("{guidId}")]
         public async Task<ActionResult<CandidateResponseDto>> GetCandidate(Guid guidId)
         {
             var candidate = await _service.GetCandidateById(guidId);
