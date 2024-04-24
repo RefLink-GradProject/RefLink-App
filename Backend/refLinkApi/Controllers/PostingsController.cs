@@ -35,7 +35,7 @@ namespace refLinkApi.Controllers
         [HttpGet("{guidId}")]
         public async Task<ActionResult<PostingResponseDto>> GetPosting(Guid guidId)
         {
-            var posting = await _service.GetPostingById(guidId);
+            var posting = await _service.GetPostingByGuid(guidId);
 
             if (posting == null)
             {

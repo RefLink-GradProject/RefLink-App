@@ -42,7 +42,7 @@ namespace refLinkApi.Controllers
         [HttpGet("{guidId}")]
         public async Task<ActionResult<CandidateResponseDto>> GetCandidate(Guid guidId)
         {
-            var candidate = await _service.GetCandidateById(guidId);
+            var candidate = await _service.GetCandidateByGuid(guidId);
 
             if (candidate == null)
             {

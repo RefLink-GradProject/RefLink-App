@@ -46,7 +46,7 @@ public class PostingService : IPostingService
         return postingResponseDtos;
     }
 
-    public async Task<PostingResponseDto> GetPostingById(Guid guidId)
+    public async Task<PostingResponseDto> GetPostingByGuid(Guid guidId)
     {
         if (_context.Postings is null)
         {

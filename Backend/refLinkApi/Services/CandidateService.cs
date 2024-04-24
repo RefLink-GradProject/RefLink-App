@@ -46,7 +46,7 @@ public class CandidateService : ICandidateService
         return candidateResponseDtos;
     }
 
-    public async Task<CandidateResponseDto> GetCandidateById(Guid guidId)
+    public async Task<CandidateResponseDto> GetCandidateByGuid(Guid guidId)
     {
         if (_context.Candidates is null)
         {

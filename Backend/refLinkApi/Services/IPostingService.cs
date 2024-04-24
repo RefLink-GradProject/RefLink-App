@@ -6,5 +6,5 @@ public interface IPostingService
 {
     public Task<PostingResponseDto> PostNewPosting(PostingRequestDto postingRequestDto);
     public Task<List<PostingResponseDto>> GetPostings();
-    public Task<PostingResponseDto> GetPostingById(Guid guidId);
+    public Task<PostingResponseDto> GetPostingByGuid(Guid guidId);
 }
