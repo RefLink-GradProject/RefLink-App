@@ -1,10 +1,10 @@
-import { Candidate, Question } from "../Types";
+import { Candidate } from "../Types";
 import { useNavigate } from 'react-router-dom';
 
 export default function CandidateDetails({ candidate }: Props) {
     const navigate = useNavigate();
 
-    function handleBackClik(){
+    function handleBackClik() {
         navigate(-1);
     }
 
@@ -29,10 +29,10 @@ export default function CandidateDetails({ candidate }: Props) {
                                 </div>
                                 <div className="collapse-content">
                                     {referencer.responses!.map((response) => {
-                                        return(
+                                        return (
                                             <>
-                                            <p className="text-2xl">{response.question.content}</p>
-                                            <p>{response.content}</p>
+                                                <p className="text-2xl">{response.question.content}</p>
+                                                <p>{response.content}</p>
                                             </>
                                         )
                                     })}

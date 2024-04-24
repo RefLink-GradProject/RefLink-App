@@ -2,7 +2,7 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { Referencer } from "../Types";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddReferencerForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);

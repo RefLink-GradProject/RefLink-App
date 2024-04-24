@@ -2,9 +2,7 @@ import { useState } from "react";
 import Alert from "./Alert";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
-import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import Footer from "./Footer";
 
 export default function AddPostingForm() {
     const [questionInputs, setQuestionInputs] = useState<string[]>([])
@@ -26,12 +24,12 @@ export default function AddPostingForm() {
         // ToDo: handle confirm
         setShowAlertAdded(true);
         setTimeout(() => {
-            setShowAlertAdded(false); 
+            setShowAlertAdded(false);
             navigate("/postings");
         }, 2000);
     }
 
-    function handleBackClik(){
+    function handleBackClik() {
         navigate(-1);
     }
 
@@ -40,7 +38,7 @@ export default function AddPostingForm() {
             <div className="flex justify-center mt-10">
                 <div className="w-1/2 ">
                     <TextInput inputType="text" labelText="Name" placeholder="Posting name" />
-                    <TextArea labelText="Description" placeholder="Write description here for AI prompt"/>
+                    <TextArea labelText="Description" placeholder="Write description here for AI prompt" />
 
                     <section className="question-form">
                         <p className="label-text mb-3">Questions</p>
@@ -65,7 +63,7 @@ export default function AddPostingForm() {
                 </div>
             </div>
             {showAlertAdded && (
-                    <Alert alertType="success" alertContent="Posting added!"/>
+                <Alert alertType="success" alertContent="Posting added!" />
             )}
         </>
     );

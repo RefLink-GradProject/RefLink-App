@@ -3,7 +3,7 @@ import logo from '../assets/logo.png'
 import LoginButton from "./LoginButton";
 
 
-export default function Navbar({userName }: Props) {
+export default function Navbar({ userName }: Props) {
 
     return (
         <>
@@ -56,8 +56,8 @@ export default function Navbar({userName }: Props) {
                         </li>
                     </ul>
                 </div>
-              {/* repeated buttons, need resolve */}
-                <LoginButton userName={userName}/>
+                {/* repeated buttons, need resolve */}
+                <LoginButton userName={userName} />
 
             </div>
 

@@ -1,4 +1,4 @@
-export default function TextArea({labelText, placeholder }: Props) {
+export default function TextArea({ labelText, placeholder }: Props) {
     return (
         <>
             <label className="form-control w-full mb-4">
