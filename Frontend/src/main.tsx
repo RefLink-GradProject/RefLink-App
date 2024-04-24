@@ -4,7 +4,9 @@ import App from './App.tsx'
 import { Auth0Provider } from '@auth0/auth0-react'
 import './output.css'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Auth0Provider
@@ -15,7 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       }}
     >
       <BrowserRouter>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </BrowserRouter>
     </Auth0Provider>
   </React.StrictMode>,

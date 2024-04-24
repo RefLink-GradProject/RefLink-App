@@ -3,9 +3,24 @@ import { Candidate, Posting } from "../Types";
 import { Link } from "react-router-dom";
 import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
+import { getPostings } from "../services/postingServices";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 
 export default function Postings({ postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
+    // const queryClient = useQueryClient();
+    // const query = useQuery({queryKey: ['getPostings'], queryFn: getPostings});
+    // const backendPostings: Posting[] = await getPostings();
+    // const mutation = useMutation({
+    //     // mutationFn: ,
+    //     onSuccess: () => {
+    //       queryClient.invalidateQueries({ queryKey: ['getdogs'] })
+    //     }
+    //   })
+
+    // if (query.isLoading) return (<p>Loading...</p>)
+    // if (query.error) return (<p>Something went wrong.</p>)
+    
     return (
         <>
             <div className='lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32  mt-20 mb-20'>
