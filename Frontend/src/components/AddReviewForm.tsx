@@ -34,7 +34,7 @@ export default function AddReviewForm() {
                     {
                         referencer.responses!.map((response) =>
                             <>
-                                <TextArea labelText={response.question.content} placeholder="" />
+                                <TextArea name="reviewer-review" labelText={response.question.content} placeholder="" />
                             </>
                         )
                     }
