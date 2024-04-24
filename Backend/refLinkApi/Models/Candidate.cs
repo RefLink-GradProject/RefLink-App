@@ -7,15 +7,16 @@ public class Candidate
 {
     [Key]
     public int Id { get; set; }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid GuidId { get; set; }
+    
+    public Guid GuidId { get; set; } = Guid.NewGuid();
 
     public required string Name { get; set; }
 
     public required string Email { get; set; }
 
-    public int PostingId { get; set; }
+    public Guid PostingGuid { get; set; }
+    
+    public Posting Posting { get; set; }
 
     public ICollection<Referencer>? Referencers { get; set; }
 }

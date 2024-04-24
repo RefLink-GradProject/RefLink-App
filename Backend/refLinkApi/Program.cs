@@ -15,6 +15,10 @@ builder.Services.AddScoped<EmployerService>();
 builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<ICandidateService, CandidateService>();
+builder.Services.AddScoped<IPostingService, PostingService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+
 
 
 var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";

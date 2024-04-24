@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace refLinkApi.Services;
 
-public class CandidateService
+public class CandidateService : ICandidateService
 {
     private readonly RefLinkContext _context;
     private readonly Mapper mapper;
@@ -42,11 +42,12 @@ public class CandidateService
         foreach (Candidate candidate in candidates)
         {
             candidateResponseDtos.Add(mapper.CandidateToCandidateResponseDto(candidate));
+            // TODO: consider adding a Dictionary with Question/Response to the response
         }
         return candidateResponseDtos;
     }
 
-    public async Task<CandidateResponseDto> GetCandidateById(Guid guidId)
+    public async Task<CandidateResponseDto> GetCandidateByGuid(Guid guidId)
     {
         if (_context.Candidates is null)
         {
