@@ -5,7 +5,7 @@ import AddPostingForm from './components/AddPostingForm';
 import Postings from './components/Postings';
 import { Question, Response, Candidate, Referencer, Posting } from './Types';
 import {candidate3, postings} from "./fakeData"
-import Dashborad from './components/Dashboard';
+import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
 import { useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
@@ -25,7 +25,7 @@ export default function App() {
       <Route path="/" element= {<Home />} />
       <Route path="/postings" element= {<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting}/>} />
       <Route path='/postings/add' element={<AddPostingForm />}/>
-      <Route path='/dashborad' element={<Dashborad postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting}/>}/>
+      <Route path='/dashboard' element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting}/>}/>
       <Route 
         path={`/postings/:${clickedPosting.guid}`} 
         element={
@@ -35,8 +35,8 @@ export default function App() {
           </>
         }
       />
-      <Route path={`/dashborad/:${clickedCandidate?.guid}`} element= {<CandidateDetails candidate={clickedCandidate}/>}/>
-      <Route path='/dashborad/add' element={<AddCandidateForm />}/>
+      <Route path={`/dashboard/:${clickedCandidate?.guid}`} element= {<CandidateDetails candidate={clickedCandidate}/>}/>
+      <Route path='/dashboard/add' element={<AddCandidateForm />}/>
       <Route path='/add-referencer' element={<AddReferencerForm />}/>
     </Routes>
     

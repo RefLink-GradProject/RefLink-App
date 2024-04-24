@@ -20,7 +20,7 @@ export default function Navbar() {
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/dashborad">
+                                <Link to="/dashboard">
                                     <a>Dashboard</a>
                                 </Link>
                             </li>
@@ -47,7 +47,7 @@ export default function Navbar() {
                             </details>
                         </li>
                         <li>
-                            <Link to="/dashborad">
+                            <Link to="/dashboard">
                                 <a>Dashboard</a>
                             </Link>
                         </li>

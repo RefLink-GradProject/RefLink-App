@@ -34,7 +34,7 @@ export default function PostingDetails({clickedPosting, setClickedCandidate}: Pr
 
                         <div id="posting-details__candidates">
                             <h2 className="card-title">Candidates</h2>
-                            <Link to="/dashborad/add"><button className="btn">+</button></Link>
+                            <Link to="/dashboard/add"><button className="btn">+</button></Link>
                             {clickedPosting.candidates.map((candidate) => {
                                 return (
                                     <>
