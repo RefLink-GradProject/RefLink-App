@@ -22,7 +22,6 @@ namespace refLinkApi.Controllers
             _service = service;
         }
 
-        // POST: api/Employers
         [HttpPost]
         public async Task<ActionResult<CandidateResponseDto>> PostCandidate(CandidateRequestDto candidateRequestDto)
         {
@@ -34,14 +33,12 @@ namespace refLinkApi.Controllers
             return CreatedAtAction("GetCandidate", new { GuidId = result.GuidId }, result);
         }
 
-        // GET: api/Employers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CandidateResponseDto>>> GetAllCandidates()
         {
             return await _service.GetCandidates();
         }
 
-        // GET: api/Employers/5
         [HttpGet("{guidId}")]
         public async Task<ActionResult<CandidateResponseDto>> GetCandidate(Guid guidId)
         {
@@ -54,57 +51,5 @@ namespace refLinkApi.Controllers
 
             return candidate;
         }
-
-        // // PUT: api/Candidates/5
-        // // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> PutCandidate(int id, Candidate candidate)
-        // {
-        //     if (id != candidate.Id)
-        //     {
-        //         return BadRequest();
-        //     }
-
-        //     _context.Entry(candidate).State = EntityState.Modified;
-
-        //     try
-        //     {
-        //         await _context.SaveChangesAsync();
-        //     }
-        //     catch (DbUpdateConcurrencyException)
-        //     {
-        //         if (!CandidateExists(id))
-        //         {
-        //             return NotFound();
-        //         }
-        //         else
-        //         {
-        //             throw;
-        //         }
-        //     }
-
-        //     return NoContent();
-        // }
-
-        // // DELETE: api/Candidates/5
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> DeleteCandidate(int id)
-        // {
-        //     var candidate = await _context.Candidates.FindAsync(id);
-        //     if (candidate == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     _context.Candidates.Remove(candidate);
-        //     await _context.SaveChangesAsync();
-
-        //     return NoContent();
-        // }
-
-        // private bool CandidateExists(int id)
-        // {
-        //     return _context.Candidates.Any(e => e.Id == id);
-        // }
     }
 }
