@@ -3,10 +3,12 @@ import Alert from "./Alert";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function AddPostingForm() {
     const [questionInputs, setQuestionInputs] = useState<string[]>([])
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     function addQuestionToInputs(question: string, i: number) {
         const newQuestionInput = [...questionInputs];
@@ -22,7 +24,10 @@ export default function AddPostingForm() {
     function handleAdd() {
         // ToDo: handle confirm
         setShowAlertAdded(true);
-        setTimeout(() => setShowAlertAdded(false), 2000);
+        setTimeout(() => {
+            setShowAlertAdded(false); 
+            navigate("/postings");
+        }, 2000);
     }
 
     return (
@@ -50,7 +55,7 @@ export default function AddPostingForm() {
                             )
                         }
                     </section>
-                    <Link to="/postings"><button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 ">Back</button></Link>
+                    <Link to="/postings"><button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 ">Cancel</button></Link>
                     <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>
                 </div>
             </div>
