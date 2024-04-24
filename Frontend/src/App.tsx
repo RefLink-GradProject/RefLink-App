@@ -22,9 +22,8 @@ export default function App() {
 
   return (
     <>
-      <Navbar isLoggedIn={!isLoggedIn} userName='Xinnan Luo' />
-      {/* <Link to="/"><button>HOME</button></Link> */}
       <div className='m-12'>
+        <Navbar isLoggedIn={!isLoggedIn} userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/postings" element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />} />
