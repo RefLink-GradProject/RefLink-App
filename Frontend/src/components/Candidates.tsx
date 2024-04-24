@@ -2,12 +2,17 @@ import { Dispatch, SetStateAction } from "react";
 import { Candidate, Posting } from "../Types";
 import {useNavigate} from 'react-router-dom';
 
-export default function Candidates({ postings, setClickedCandidate: setClikedCandidate}: Props) {
+export default function Candidates({ postings, setClickedCandidate, setClickedPosting}: Props) {
     const navigate = useNavigate();
 
     function handleCandidateClick(candidate: Candidate){
-        setClikedCandidate(candidate);
+        setClickedCandidate(candidate);
         navigate(`/candidates/${candidate?.guid}`)
+    }
+
+    function handlePostingClick(clickedPosting: Posting){
+        setClickedPosting(clickedPosting);
+        navigate(`/postings/${clickedPosting.guid}`)
     }
 
     return (
@@ -22,7 +27,7 @@ export default function Candidates({ postings, setClickedCandidate: setClikedCan
                                     <section className="flex">
                                     <button onClick={() => handleCandidateClick(candidate)} className="btn btn-wide block m-10 w-1/3">{candidate.name}</button>
                                     <p>__</p>
-                                    <button className="btn btn-wide block m-10 w-2/3">{posting.title}</button>
+                                    <button onClick= {() => handlePostingClick(posting)}className="btn btn-wide block m-10 w-2/3">{posting.title}</button>
                                     </section>
                                 )
                             })}
@@ -37,4 +42,5 @@ export default function Candidates({ postings, setClickedCandidate: setClikedCan
 type Props = {
     postings: Posting[];
     setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
+    setClickedPosting: Dispatch<SetStateAction<Posting>>;
 }
