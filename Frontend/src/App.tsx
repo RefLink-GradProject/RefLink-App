@@ -26,13 +26,29 @@ export default function App() {
         <Navbar isLoggedIn={!isLoggedIn} userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/postings" element={<PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />} />
+          <Route path="/postings" element={
+              <div className='ml-36 mr-36 mt-20 mb-20'>
+              <Link to="/postings/add">
+                <button className="btn btn-neutral">Add Posting</button>
+              </Link>
+              <section id="postings" className='w-full flex'>
+                <div className='w-1/2'>
+                  <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
+
+                </div>
+                <div className='w-1/2'>
+
+                </div>
+              </section>
+            </div>
+            } 
+          />
           <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path='/dashboard' element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
             path={`/postings/:${clickedPosting.guid}`}
             element={
-              <div className='m-10'>
+              <div className='ml-36 mr-36 mt-20 mb-20'>
                 <Link to="/postings/add">
                   <button className="btn btn-neutral">Add Posting</button>
                 </Link>
