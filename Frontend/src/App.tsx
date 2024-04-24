@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
@@ -32,10 +32,21 @@ export default function App() {
           <Route
             path={`/postings/:${clickedPosting.guid}`}
             element={
-              <>
-                <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
-                <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
-              </>
+              <div className='m-10'>
+                <Link to="/postings/add">
+                  <button className="btn btn-neutral">Add Posting</button>
+                </Link>
+                <section id="postings" className='w-full flex'>
+                  <div className='w-1/2'>
+                    <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
+
+                  </div>
+                  <div className='w-1/2'>
+
+                    <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
+                  </div>
+                </section>
+              </div>
             }
           />
           <Route path={`/candidates/:${clickedCandidate?.guid}`} element={<CandidateDetails candidate={clickedCandidate} />} />

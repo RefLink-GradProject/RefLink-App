@@ -1,48 +1,42 @@
-import { Link, Route } from "react-router-dom";
-
+import { useState } from "react";
 import { Posting } from "../Types";
-import { Dispatch, SetStateAction, useState } from "react";
-import PostingDetails from "./PostingDetails";
-import {useNavigate} from 'react-router-dom';
+import { Dispatch, SetStateAction } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function PostingTitles({ postings, setClickedPosting }: Props) {
+    const [clickedButtons, setClickedButtons] = useState<boolean[]>(Array(postings.length).fill(false));
     const navigate = useNavigate();
 
-    function handleClick(clickedPosting: Posting) {
+    function handleClick(clickedPosting: Posting, index: number) {
         setClickedPosting(clickedPosting);
-        navigate(`/postings/${clickedPosting.guid}`)
+        navigate(`/postings/${clickedPosting.guid}`);
+        
+        const newClickedButtons = Array(postings.length).fill(false);
+        newClickedButtons[index] = true;
+        setClickedButtons(newClickedButtons);
     }
 
-
     return (
-        <>
-
-            <Link to="/postings/add">
-                <button className="btn btn-active">Add Posting</button>
-            </Link>
-            <div className="">
-
-                <section id="posting-names" className="">
-
-                    {postings.map((posting) => {
-                        return (
-                            <>
-                                <br />
-                                <button className="btn btn-ghost text-xl" onClick={() => handleClick(posting)}>{posting.title}</button>
-                            </>
-                        )
-                    })}
-                </section>
-
-                
-
-            </div>
-        </>
-    )
+        <div className="">
+            <section id="posting-names" className="">
+                {postings.map((posting, index) => (
+                    <div key={posting.guid}>
+                        <br />
+                        <button
+                            className={`btn btn-ghost text-xl ${clickedButtons[index] ? 'bg-neutral-200' : ''}`}
+                            onClick={() => handleClick(posting, index)}
+                        >
+                            {posting.title}
+                        </button>
+                    </div>
+                ))}
+            </section>
+        </div>
+    );
 }
 
 type Props = {
     postings: Posting[];
     clickedPosting: Posting;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
-}
+};
