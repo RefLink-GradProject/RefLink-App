@@ -20,8 +20,8 @@ export default function Navbar() {
                                 </ul>
                             </li>
                             <li>
-                                <Link to="/candidates">
-                                    <a>Candidates</a>
+                                <Link to="/dashborad">
+                                    <a>Dashboard</a>
                                 </Link>
                             </li>
                         </ul>
@@ -47,8 +47,8 @@ export default function Navbar() {
                             </details>
                         </li>
                         <li>
-                            <Link to="/candidates">
-                                <a>Candidates</a>
+                            <Link to="/dashborad">
+                                <a>Dashboard</a>
                             </Link>
                         </li>
                     </ul>

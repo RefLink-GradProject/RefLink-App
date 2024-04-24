@@ -2,12 +2,12 @@ import { Dispatch, SetStateAction } from "react";
 import { Candidate, Posting } from "../Types";
 import {useNavigate} from 'react-router-dom';
 
-export default function Candidates({ postings, setClickedCandidate, setClickedPosting}: Props) {
+export default function Dashborad({ postings, setClickedCandidate, setClickedPosting}: Props) {
     const navigate = useNavigate();
 
     function handleCandidateClick(candidate: Candidate){
         setClickedCandidate(candidate);
-        navigate(`/candidates/${candidate?.guid}`)
+        navigate(`/dashborad/${candidate?.guid}`)
     }
 
     function handlePostingClick(clickedPosting: Posting){
