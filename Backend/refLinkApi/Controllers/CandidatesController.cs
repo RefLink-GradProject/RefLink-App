@@ -15,9 +15,9 @@ namespace refLinkApi.Controllers
     [ApiController]
     public class CandidatesController : ControllerBase
     {
-        private readonly CandidateService _service;
+        private readonly ICandidateService _service;
 
-        public CandidatesController(CandidateService service)
+        public CandidatesController(ICandidateService service)
         {
             _service = service;
         }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace refLinkApi.Services;
 
-public class CandidateService
+public class CandidateService : ICandidateService
 {
     private readonly RefLinkContext _context;
     private readonly Mapper mapper;
