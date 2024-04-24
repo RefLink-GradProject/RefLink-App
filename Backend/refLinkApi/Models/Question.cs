@@ -6,9 +6,8 @@ public class Question
 {
     [Key]
     public int Id { get; set; }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid GuidId { get; set; }
+    
+    public Guid GuidId { get; set; } = Guid.NewGuid();
 
     public required string Content { get; set; }
     
