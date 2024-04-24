@@ -5,12 +5,12 @@ import { Dispatch, SetStateAction, useState } from "react";
 import PostingDetails from "./PostingDetails";
 import {useNavigate} from 'react-router-dom';
 
-export default function Postings({ postings, clickedPosting, setClickedPosting }: Props) {
+export default function Postings({ postings, setClickedPosting }: Props) {
     const navigate = useNavigate();
 
     function handleClick(clickedPosting: Posting) {
         setClickedPosting(clickedPosting);
-        navigate(`/postings/:${clickedPosting.guid}`)
+        navigate(`/postings/${clickedPosting.guid}`)
     }
 
 

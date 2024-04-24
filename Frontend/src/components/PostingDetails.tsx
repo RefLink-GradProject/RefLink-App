@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom";
-import { Posting } from "../Types";
+import { Candidate, Posting } from "../Types";
+import {useNavigate} from 'react-router-dom';
+import { Dispatch, SetStateAction } from "react";
 
 
 
-export default function PostingDetails({posting: clickedPosting}: Props){
+export default function PostingDetails({clickedPosting, setClickedCandidate}: Props){
 
+    const navigate = useNavigate();
+    function handleClick(clickedCandidate: Candidate){
+        setClickedCandidate(clickedCandidate);
+        navigate(`/candidates/${clickedCandidate?.guid}`);
+    }
+    
 
     return (
         <>
@@ -31,9 +39,7 @@ export default function PostingDetails({posting: clickedPosting}: Props){
                                 return (
                                     <>
                                         <p>{candidate.name}</p>
-                                        <Link to={"/candidates/" + candidate.guid}>
-                                            <button className="btn btn-xs">Check</button>
-                                        </Link>
+                                            <button className="btn btn-xs" onClick={() => handleClick(candidate)}>View Details</button>
 
                                     </>
                                 )
@@ -48,5 +54,6 @@ export default function PostingDetails({posting: clickedPosting}: Props){
 
 
 type Props = {
-    posting: Posting;
+    clickedPosting: Posting;
+    setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
 }
