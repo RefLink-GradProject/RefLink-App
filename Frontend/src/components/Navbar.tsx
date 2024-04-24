@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import logo from '../assets/logo.png'
 
-export default function Navbar() {
+export default function Navbar({ isLoggedIn, userName }: Props) {
+
+
+    function getInitials(name: string)  {
+        const words = name.split(' ');
+        const initials = words.map(word => word.charAt(0).toUpperCase()).join(' ');
+        return initials;
+    };
+
     return (
         <>
             <div className="navbar bg-base-100">
@@ -13,7 +21,7 @@ export default function Navbar() {
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             <Link to="/"><li><a>Home</a></li></Link>
                             <li>
-                               <Link to="/postings"><a>Postings</a></Link>
+                                <Link to="/postings"><a>Postings</a></Link>
                                 <ul className="p-2">
                                     <li><a>Submenu 1</a></li>
                                     <li><a>Submenu 2</a></li>
@@ -28,10 +36,10 @@ export default function Navbar() {
                     </div>
                     <Link to="/">
                         <a className="btn btn-ghost text-3xl">
-                        <img src={logo} alt="logo" className="w-8"/>
+                            <img src={logo} alt="logo" className="w-8" />
                             RefLink
                         </a>
-                        </Link>
+                    </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-xl">
@@ -54,9 +62,21 @@ export default function Navbar() {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn text-xl">Log in</a>
+                    {isLoggedIn ? (
+                        <button className="btn text-xl">{userName ? getInitials(userName) : 'User'}</button>
+                    ) : (
+                        <Link to="/login">
+                            <button className="btn text-xl">Log in</button>
+                        </Link>
+                    )}
                 </div>
             </div>
         </>
     )
+}
+
+
+type Props = {
+    isLoggedIn: boolean;
+    userName?: string;
 }

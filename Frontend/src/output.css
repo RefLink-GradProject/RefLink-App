@@ -2814,6 +2814,14 @@ details.collapse summary::-webkit-details-marker {
   width: 100%;
 }
 
+.w-10 {
+  width: 2.5rem;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -2910,6 +2918,10 @@ details.collapse summary::-webkit-details-marker {
 
 .font-medium {
   font-weight: 500;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 .shadow {

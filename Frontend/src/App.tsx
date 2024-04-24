@@ -17,10 +17,11 @@ export default function App() {
 
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>();
   const [clickedPosting, setClickedPosting] = useState<Posting>(postings[0]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   return (
     <>
-    <Navbar />
+    <Navbar isLoggedIn={!isLoggedIn} userName='Xinann Lof'/>
     {/* <Link to="/"><button>HOME</button></Link> */}
     <Routes>
       <Route path="/" element= {<Home />} />
