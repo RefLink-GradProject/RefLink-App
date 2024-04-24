@@ -36,5 +36,10 @@ using refLinkApi.Models;
             
             modelBuilder.Entity<Posting>()
                 .HasKey(e => e.GuidId);
+            
+            modelBuilder.Entity<Question>()
+                .HasOne(q => q.Posting)
+                .WithMany(p => p.Questions)
+                .HasForeignKey(q => q.PostingGuid);
         }
     }

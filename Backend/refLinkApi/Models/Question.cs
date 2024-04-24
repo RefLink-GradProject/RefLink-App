@@ -11,7 +11,8 @@ public class Question
 
     public required string Content { get; set; }
     
-    public int PostingId { get; set; }
+    public Guid PostingGuid { get; set; }
+    public Posting Posting { get; set; }
 
     public ICollection<Response>? Responses { get; set; }
 }
