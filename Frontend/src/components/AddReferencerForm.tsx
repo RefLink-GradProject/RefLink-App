@@ -2,15 +2,21 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { Referencer } from "../Types";
+import {useNavigate} from 'react-router-dom';
 
 export default function AddReferencerForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const [referencerInputs, setReferencerInputs] = useState<Referencer[]>([]);
 
+    const navigate = useNavigate();
+
     function handleAdd() {
         // ToDo: handle confirm
         setShowAlertAdded(true);
-        setTimeout(() => setShowAlertAdded(false), 2000);
+        setTimeout(() => {
+            setShowAlertAdded(false);
+            navigate("/")
+        }, 2000);
     }
 
     function addReferencerToInputs(referencer: Referencer, i: number) {
@@ -62,7 +68,7 @@ export default function AddReferencerForm() {
 
 
             {showAlertAdded && (
-                <Alert alertType="success" alertContent="Candidate added, email for adding referencer has been sendt!" />
+                <Alert alertType="success" alertContent="Your reference has been send!" />
             )}
 
 

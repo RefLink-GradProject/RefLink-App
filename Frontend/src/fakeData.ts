@@ -21,7 +21,7 @@ export const response11: Response = { guid: "901", content: "Highly organized.",
 export const response12: Response = { guid: "902", content: "A team player.", question: question4 };
 
 // Define referencers with responses
-const referencer1: Referencer = {
+export const referencer1: Referencer = {
     guid: "201",
     name: "Jane Smith",
     email: "jane@example.com",

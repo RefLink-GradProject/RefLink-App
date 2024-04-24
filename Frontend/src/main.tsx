@@ -4,6 +4,7 @@ import App from './App.tsx'
 import {Auth0Provider} from '@auth0/auth0-react'
 import './output.css'
 import { BrowserRouter } from 'react-router-dom'
+import Footer from './components/Footer.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -15,9 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     }}
   >
     <BrowserRouter>
-    <div className='m-12'>
       <App />
-    </div>
     </BrowserRouter>
   </Auth0Provider>
   </React.StrictMode>,

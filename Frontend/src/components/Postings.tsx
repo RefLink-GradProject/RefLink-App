@@ -1,50 +1,37 @@
-import { Link, Route } from "react-router-dom";
-
-import { Posting } from "../Types";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
+import { Candidate, Posting } from "../Types";
+import { Link } from "react-router-dom";
+import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
-import {useNavigate} from 'react-router-dom';
-
-export default function Postings({ postings, setClickedPosting }: Props) {
-    const navigate = useNavigate();
-
-    function handleClick(clickedPosting: Posting) {
-        setClickedPosting(clickedPosting);
-        navigate(`/postings/${clickedPosting.guid}`)
-    }
 
 
+export default function Postings({ postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
     return (
         <>
+            <div className='lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32  mt-20 mb-20'>
+                <Link to="/postings/add">
+                    <button className="btn btn-neutral">Add Posting</button>
+                </Link>
+                <section id="postings" className='w-full lg:flex'>
+                    <div className='mr-5 lg:w-1/3 '>
+                        <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
 
-            <Link to="/postings/add">
-                <button className="btn btn-active">Add Posting</button>
-            </Link>
-            <div className="">
+                    </div>
+                    <div className='mt-5 lg:mt-0 lg:w-2/3'>
 
-                <section id="posting-names" className="">
-
-                    {postings.map((posting) => {
-                        return (
-                            <>
-                                <br />
-                                <label className="cursor-pointer" onClick={() => handleClick(posting)}>
-                                    {posting.title}
-                                </label>
-                            </>
-                        )
-                    })}
+                        <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
+                    </div>
                 </section>
-
-                
-
             </div>
         </>
     )
 }
 
+
 type Props = {
     postings: Posting[];
     clickedPosting: Posting;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
+    setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
+
 }
