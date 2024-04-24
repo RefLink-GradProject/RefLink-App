@@ -1,3 +1,5 @@
+import Footer from "./Footer";
+
 export default function Home() {
     return (
       <div className="flex flex-col justify-center items-center h-screen" style={{ marginTop: "-7rem" }}>

@@ -4,6 +4,7 @@ import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import Footer from "./Footer";
 
 export default function AddPostingForm() {
     const [questionInputs, setQuestionInputs] = useState<string[]>([])
