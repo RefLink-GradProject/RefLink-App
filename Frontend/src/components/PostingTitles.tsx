@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import PostingDetails from "./PostingDetails";
 import {useNavigate} from 'react-router-dom';
 
-export default function Postings({ postings, setClickedPosting }: Props) {
+export default function PostingTitles({ postings, setClickedPosting }: Props) {
     const navigate = useNavigate();
 
     function handleClick(clickedPosting: Posting) {
@@ -28,9 +28,7 @@ export default function Postings({ postings, setClickedPosting }: Props) {
                         return (
                             <>
                                 <br />
-                                <label className="cursor-pointer" onClick={() => handleClick(posting)}>
-                                    {posting.title}
-                                </label>
+                                <button className="btn btn-ghost text-xl" onClick={() => handleClick(posting)}>{posting.title}</button>
                             </>
                         )
                     })}
