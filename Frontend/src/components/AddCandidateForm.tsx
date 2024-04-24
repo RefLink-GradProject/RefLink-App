@@ -27,7 +27,7 @@ export default function AddCandidateForm() {
                 </div>
             </div>
             {showAlertAdded && (
-                    <Alert alertType="success" alertContent="Candidate added, email for adding referencer has been sendt!"/>
+                    <Alert alertType="success" alertContent="Candidate added, email for adding referencer has been sent!"/>
             )}
 
         </>
