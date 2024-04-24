@@ -37,7 +37,7 @@ public class PostingService : IPostingService
             return null;
         }
 
-        var postings = await _context.Postings.ToListAsync();
+        var postings = await _context.Postings.Include(p => p.Candidates).Include(p => p.Questions).ToListAsync();
         List<PostingResponseDto> postingResponseDtos = [];
         foreach (Posting posting in postings)
         {
