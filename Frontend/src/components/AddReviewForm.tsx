@@ -5,7 +5,7 @@ import { Referencer } from "../Types";
 import { useNavigate } from 'react-router-dom';
 import TextArea from "./TextArea";
 import { referencer1 } from "../fakeData";
-import { FieldValues, useForm } from "react-hook-form"
+import {  useForm } from "react-hook-form"
 
 const referencer = referencer1; // for testing
 

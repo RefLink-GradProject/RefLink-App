@@ -5,15 +5,13 @@ import AddPostingForm from './components/AddPostingForm';
 import { Candidate, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
 import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
-import { useQuery } from 'react-query';
 import { getCandidates, getPostings, postCandidate } from './services/postingServices';
-import { candidate1, candidate2, candidate3 } from './fakeData';
 import Callback from './Callback';
 
 const allPostings = await getPostings();
@@ -26,7 +24,7 @@ export default function App() {
   // const allPostings = getPostingsQuery.data!;
 
   const [postings, setPostings] = useState<Posting[]>(allPostings);
-  const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
+  // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
 

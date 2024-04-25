@@ -3,12 +3,12 @@ import Alert from "./Alert";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import { useNavigate } from 'react-router-dom';
-import { FieldValues, useForm } from "react-hook-form"
+import { FieldValues, useForm } from "react-hook-form";
 
 export default function AddPostingForm() {
     const [questionInputs, setQuestionInputs] = useState<string[]>([])
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
-    const { register, handleSubmit, getValues } = useForm();
+    const { register, handleSubmit,  } = useForm();
     const navigate = useNavigate();
 
     function addQuestionToInputs(question: string, i: number) {
@@ -22,7 +22,7 @@ export default function AddPostingForm() {
         setQuestionInputs(newQuestionInput);
     }
 
-    function handleAdd(data: FieldValues) {
+    function handleAdd(add: FieldValues) {
         // ToDo: handle confirm
         // const postingName = getValues("posting-name");
         // const postingDescrip = getValues("posting-description");
@@ -30,6 +30,7 @@ export default function AddPostingForm() {
         //     const postingQuestion = getValues(`posting-questions.${i}`);
         //     console.log(`posting-questions.${i}:`, postingQuestion);
         // });
+        console.log(add);
         setShowAlertAdded(true);
         setTimeout(() => {
             setShowAlertAdded(false);
@@ -57,7 +58,7 @@ export default function AddPostingForm() {
                         </label>
                         {
                             questionInputs.map((question, i) =>
-                                <label key={i} className="input input-bordered flex items-center gap-2 mb-3">
+                                <label key={i} className={"input input-bordered flex items-center gap-2 mb-3 " + {question}} >
                                     <input
                                         {...register(`posting-questions.${i}`)} // Register each input with a unique name using array notation
                                         type="text"
@@ -68,6 +69,7 @@ export default function AddPostingForm() {
                                         placeholder=""
                                     />
                                 </label>
+                                
                             )
                         }
 

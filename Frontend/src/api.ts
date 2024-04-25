@@ -1,4 +1,4 @@
-import { IdToken } from "@auth0/auth0-react";
+
 
 
 export const GetUserInfo= async (token : string) => {

@@ -3,12 +3,12 @@ import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { Referencer } from "../Types";
 import { useNavigate } from 'react-router-dom';
-import { FieldValues, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 
 export default function AddReferencerForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const [referencerInputs, setReferencerInputs] = useState<Referencer[]>([]);
-    const { register, handleSubmit, getValues } = useForm();
+    const { register} = useForm();
 
     const navigate = useNavigate();
 

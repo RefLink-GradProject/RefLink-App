@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 export default function AddCandidateForm({addCandidate}: Props) {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
-    const { register, handleSubmit, getValues } = useForm();
+    const { register, getValues } = useForm();
 
     function handleAdd() {
         const candidateName: string = getValues("candidate-name");
