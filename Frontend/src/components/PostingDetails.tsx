@@ -60,5 +60,5 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
 
 type Props = {
     clickedPosting: Posting;
-    setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
+    setClickedCandidate: Dispatch<SetStateAction<Candidate>>;
 }

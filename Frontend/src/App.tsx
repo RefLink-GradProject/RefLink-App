@@ -12,9 +12,10 @@ import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
 import { useQuery } from 'react-query';
-import { getPostings } from './services/postingServices';
+import { getCandidates, getPostings } from './services/postingServices';
 
 const allPostings = await getPostings();
+const allCandidates = await getCandidates();
 
 export default function App() {
 
@@ -24,7 +25,8 @@ export default function App() {
   // const postings = getPostingsQuery.data!;
 
   const[postings, setPostings] = useState<Posting[]>(allPostings);
-  const [clickedCandidate, setClickedCandidate] = useState<Candidate>();
+  const[candidates, setCandidates] = useState<Candidate[]>(allCandidates);
+  const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
   const [clickedPosting, setClickedPosting] = useState<Posting>(postings[0]);
 
   return (

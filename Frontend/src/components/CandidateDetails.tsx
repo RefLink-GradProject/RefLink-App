@@ -10,37 +10,41 @@ export default function CandidateDetails({ candidate }: Props) {
 
     return (
         <div className="m-10">
-
             <section id="candidate-info">
-                <h1 className="text-4xl">{candidate?.name}</h1>
-                <h2 className="text-xl">Id: {candidate?.guidId}</h2>
-                <h2 className="text-xl">Email: {candidate?.email}</h2>
-                <h2 className="text-xl">Referencer number: {candidate?.referencers.length}</h2>
+                <h1 className="text-4xl">{candidate!.name}</h1>
+                {/* <h2 className="text-xl">Id: {candidate!.guidId}</h2> */}
+                <h2 className="text-xl">Email: {candidate!.email}</h2>
+                <h2 className="text-xl">Referencer number: {candidate!.referencers ? candidate!.referencers.length : 0}</h2>
             </section>
 
             <section id="candidate-references">
-                {candidate?.referencers.map((referencer => {
-                    return (
-                        <>
-                            <div className="collapse collapse-arrow bg-base-200">
-                                <input type="radio" name="my-accordion-2" defaultChecked />
-                                <div className="collapse-title text-xl font-medium">
-                                    Reference from {referencer.name}
-                                </div>
-                                <div className="collapse-content">
-                                    {referencer.responses!.map((response) => {
-                                        return (
-                                            <>
-                                                <p className="text-2xl">{response.question.content}</p>
-                                                <p>{response.content}</p>
-                                            </>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        </>
-                    )
-                }))}
+            {candidate!.referencers ? (
+    candidate!.referencers.map((referencer => {
+        return (
+            <>
+                <div className="collapse collapse-arrow bg-base-200">
+                    <input type="radio" name="my-accordion-2" defaultChecked />
+                    <div className="collapse-title text-xl font-medium">
+                        Reference from {referencer.name}
+                    </div>
+                    <div className="collapse-content">
+                        {referencer.responses!.map((response) => {
+                            return (
+                                <>
+                                    <p className="text-2xl">{response.question.content}</p>
+                                    <p>{response.content}</p>
+                                </>
+                            )
+                        })}
+                    </div>
+                </div>
+            </>
+        )
+    }))
+) : (
+    <p></p>
+)}
+
             </section>
 
             <section id="candidate-graf">

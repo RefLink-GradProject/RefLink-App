@@ -41,6 +41,6 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
 
 type Props = {
     postings: Posting[];
-    setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
+    setClickedCandidate: Dispatch<SetStateAction<Candidate>>;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
 }
