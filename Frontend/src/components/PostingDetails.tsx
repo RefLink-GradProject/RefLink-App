@@ -10,7 +10,7 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
     const navigate = useNavigate();
     function handleClick(clickedCandidate: Candidate) {
         setClickedCandidate(clickedCandidate);
-        navigate(`/candidates/${clickedCandidate?.guid}`);
+        navigate(`/candidates/${clickedCandidate?.guidId}`);
     }
 
 

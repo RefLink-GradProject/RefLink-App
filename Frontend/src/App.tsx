@@ -44,7 +44,7 @@ export default function App() {
             element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
           />
 
-          <Route path={`/candidates/:${clickedCandidate?.guid}`} element={<CandidateDetails candidate={clickedCandidate} />} />
+          <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm />} />
           <Route path='/add-referencer' element={<AddReferencerForm />} />
           <Route path='/add-reference' element={<AddReviewForm />} />
