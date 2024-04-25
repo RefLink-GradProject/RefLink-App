@@ -128,7 +128,7 @@ public class MappingsTests
         };
         
         // Act
-        ReferencerResponseDto response = mapper.ReferencerToReferencerResponseDto(referencer);
+        var response = mapper.ReferencerToReferencerResponseDto(referencer);
         
         // Assert
         Assert.Equal(referencer.Name, response.Name);
