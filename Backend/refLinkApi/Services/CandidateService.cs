@@ -97,8 +97,8 @@ public class CandidateService : ICandidateService
                 {
                     ResponseContent = answer.Content,
                     ResponseGuid = answer.GuidId,
-                    Responder = answer.Referencer.Name,
-                    ResponderGuid = answer.Referencer.GuidId,
+                    Referencer = answer.Referencer.Name,
+                    ReferencerGuid = answer.Referencer.GuidId,
                 };
                 
                 questionWithResponsesDto.Responses.Add(questionResponsePairDto);
