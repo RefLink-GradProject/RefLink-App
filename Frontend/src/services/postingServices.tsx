@@ -17,6 +17,13 @@ export async function getCandidates(): Promise<Candidate[]>{
     return result;
 }
 
+
+export async function getCandidateById(guidId: string): Promise<Candidate>{
+    const response = await fetch(`http://localhost:5136/api/candidates/${guidId}`);
+    const result = await response.json() as Candidate;
+    return result;
+}
+
 export async function postCandidate(name: string, email: string, postingGuid: string){
     const response = await fetch("http://localhost:5136/api/candidates",{
         method: 'POST',

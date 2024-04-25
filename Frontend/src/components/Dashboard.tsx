@@ -7,7 +7,7 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
 
     function handleCandidateClick(candidate: Candidate) {
         setClickedCandidate(candidate);
-        navigate(`/candidates/${candidate?.guidId}`)
+        navigate(`/candidates/${candidate!.guidId}`)
     }
 
     function handlePostingClick(clickedPosting: Posting) {
