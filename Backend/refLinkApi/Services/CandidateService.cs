@@ -65,11 +65,9 @@ public class CandidateService : ICandidateService
         }
 
         var candidate = await _context
-            .Candidates
-            .Include(candidate => candidate.Posting)
-            .ThenInclude(posting => posting.Questions)!
-            .ThenInclude(question => question.Responses)!
-            .ThenInclude(response => response.Referencer).Include(candidate => candidate.Referencers)
+            .Candidates.Include(candidate => candidate.Referencers)
+            .ThenInclude(referencer => referencer.Responses)
+            .ThenInclude(response => response.Question)
             .FirstOrDefaultAsync(candidate => candidate.GuidId == guidId);
         
         var response = new CandidateDetailedResponseDto()
@@ -77,17 +75,19 @@ public class CandidateService : ICandidateService
             GuidId = candidate.GuidId,
             Name = candidate.Name,
             Email = candidate.Email,
-            Referencers = new List<RespondersWithQuestionsAndAnswersDto>()
+            Referencers = new List<ReferencersWithQuestionsAndAnswersDto>()
         };
 
         foreach (var referencer in candidate.Referencers)
         {
-            var referencerDetails = new RespondersWithQuestionsAndAnswersDto()
+            var referencerDetails = new ReferencersWithQuestionsAndAnswersDto()
             {
                 GuidId = referencer.GuidId,
                 Name = referencer.Name,
                 Responses = new List<QuestionAndResponsePairDto>(),
             };
+            
+            response.Referencers.Add(referencerDetails);
 
             foreach (var answer in referencer.Responses)
             {

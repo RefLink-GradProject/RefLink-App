@@ -1,6 +1,6 @@
 namespace refLinkApi.Dtos;
 
-public class RespondersWithQuestionsAndAnswersDto
+public class ReferencersWithQuestionsAndAnswersDto
 {
     public string Name { get; set; }
     public Guid GuidId { get; set; }

@@ -17,4 +17,5 @@ public class Referencer
     public Guid CandidateGuid { get; set; }
 
     public List<Response>? Responses { get; set; }
+    public Candidate Candidate { get; set; }
 }
