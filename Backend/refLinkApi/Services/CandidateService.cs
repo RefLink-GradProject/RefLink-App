@@ -42,7 +42,6 @@ public class CandidateService : ICandidateService
         foreach (Candidate candidate in candidates)
         {
             candidateResponseDtos.Add(mapper.CandidateToCandidateResponseDto(candidate));
-            // TODO: consider adding a Dictionary with Question/Response to the response
         }
         return candidateResponseDtos;
     }
@@ -56,5 +55,56 @@ public class CandidateService : ICandidateService
 
         var candidate = await _context.Candidates.FirstOrDefaultAsync(r => r.GuidId == guidId);
         return mapper.CandidateToCandidateResponseDto(candidate);
+    }
+    
+    public async Task<CandidateDetailedResponseDto> GetCandidateByGuidWithQuestionsResponses(Guid guidId)
+    {
+        if (_context.Candidates is null)
+        {
+            return null;
+        }
+
+        var candidate = await _context
+            .Candidates
+            .Include(candidate => candidate.Posting)
+            .ThenInclude(posting => posting.Questions)!
+            .ThenInclude(question => question.Responses)!
+            .ThenInclude(response => response.Referencer)
+            .FirstOrDefaultAsync(candidate => candidate.GuidId == guidId);
+        
+        var response = new CandidateDetailedResponseDto()
+        {
+            GuidId = candidate.GuidId,
+            Name = candidate.Name,
+            Email = candidate.Email,
+            Questions = new List<QuestionWithResponsesAndRespondersDto>()
+        };
+
+        foreach (var question in candidate.Posting.Questions)
+        {
+            var questionWithResponsesDto = new QuestionWithResponsesAndRespondersDto()
+            {
+                QuestionContent = question.Content,
+                QuestionGuidId = question.GuidId,
+                Responses = new List<QuestionResponsesResponseDto>()
+            };
+            
+            response.Questions.Add(questionWithResponsesDto);
+
+            foreach (var answer in question.Responses)
+            {
+                var questionResponsePairDto = new QuestionResponsesResponseDto()
+                {
+                    ResponseContent = answer.Content,
+                    ResponseGuid = answer.GuidId,
+                    Responder = answer.Referencer.Name,
+                    ResponderGuid = answer.Referencer.GuidId,
+                };
+                
+                questionWithResponsesDto.Responses.Add(questionResponsePairDto);
+            }
+        }
+
+        return response;
     }
 }
