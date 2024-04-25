@@ -8,11 +8,32 @@ export type Posting = {
 }
 
 export type Candidate = {
-    guidId?: string;
+    guidId: string;
     name: string;
     email: string;
     referencers: Referencer[];
 }
+
+export type CandidateWithDetails = {
+    guidId?: string;
+    name: string;
+    email: string;
+    referencers: ReferencerInCandidateDetails[];
+}
+
+export type ReferencerInCandidateDetails = {
+    name: string;
+    guidId?: string;
+    responses: ResponseWithQuestionContent[];
+}
+
+export type ResponseWithQuestionContent = {
+    questionContent: string;
+    questionGuidId: string;
+    responseContent: string;
+    responseGuidId: string;
+}
+
 
 export type Referencer = {
     guidId?: string;
@@ -24,7 +45,6 @@ export type Referencer = {
 export type Response = {
     guidId: string;
     content: string;
-    question: Question;
 }
 
 export type Question = {
