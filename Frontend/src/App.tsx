@@ -11,7 +11,8 @@ import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
-import { getCandidates, getPostings, postCandidate } from './services/postingServices';
+import { getCandidates, postCandidate } from './services/candidateServices';
+import { getPostings } from './services/postingServices';
 import Callback from './Callback';
 
 const allPostings = await getPostings();

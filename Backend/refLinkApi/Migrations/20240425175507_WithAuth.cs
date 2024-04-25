@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace refLinkApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Lalala : Migration
+    public partial class WithAuth : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
