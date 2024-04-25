@@ -46,5 +46,5 @@ export default function PostingTitles({ postings, setClickedPosting }: Props) {
 type Props = {
     postings: Posting[];
     clickedPosting: Posting;
-    setClickedPosting: Dispatch<SetStateAction<Posting | undefined>>;
+    setClickedPosting: Dispatch<SetStateAction<Posting>>;
 };

@@ -30,7 +30,7 @@ export default function Postings({postings, clickedPosting, setClickedPosting, s
 
 type Props = {
     clickedPosting: Posting;
-    setClickedPosting: Dispatch<SetStateAction<Posting | undefined>>;
+    setClickedPosting: Dispatch<SetStateAction<Posting>>;
     setClickedCandidate: Dispatch<SetStateAction<Candidate >>;
     postings: Posting[];
 }
