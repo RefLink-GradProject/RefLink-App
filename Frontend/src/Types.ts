@@ -32,3 +32,11 @@ export type Question = {
     content: string;
     responses?: Response[];
 }
+
+export type Employer = {
+    guidId: string;
+    name: string;
+    company: string;
+    emial: string;
+    postings: Posting[];
+}
