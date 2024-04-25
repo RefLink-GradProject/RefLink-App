@@ -16,7 +16,8 @@ public static class SeedData
             GuidId = Guid.NewGuid(),
             Name = "EmployerName",
             Company = "EmpoyerCompany",
-            Email = "EmployerEmail"
+            Email = "EmployerEmail",
+            AuthId = "hello"
         };
         _context.Employers.Add(employer);
         _context.SaveChanges();
