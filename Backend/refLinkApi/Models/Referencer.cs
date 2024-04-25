@@ -14,7 +14,7 @@ public class Referencer
     
     public required string Email { get; set; }
 
-    public int CandidateId { get; set; }
+    public Guid CandidateGuid { get; set; }
 
     public List<Response>? Responses { get; set; }
 }
