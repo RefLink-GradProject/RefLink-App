@@ -56,8 +56,9 @@ export default function Navbar({ userName }: Props) {
                         </li>
                     </ul>
                 </div>
-                {/* repeated buttons, need resolve */}
+                
                 <LoginButton userName={userName} />
+
 
             </div>
 
