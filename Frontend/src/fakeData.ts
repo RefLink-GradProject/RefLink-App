@@ -1,4 +1,4 @@
-import { Question, Response, Candidate, Referencer, Posting } from './Types';
+import { Question, Response, Candidate, Referencer, Posting, Employer } from './Types';
 
 // Define questions
 export const question1: Question = { guidId: "401", content: "What experience do you have with React?" };
@@ -105,3 +105,4 @@ export const posting3: Posting = {
 
 // Export postings array
 export const postings: Posting[] = [posting1, posting2, posting3];
+export const employer: Employer = {guidId: "1234", name: "Mathieas", company:"Salt", emial:"salt@gmail.com", postings:[posting1, posting2, posting3] }
