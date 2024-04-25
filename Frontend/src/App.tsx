@@ -11,6 +11,7 @@ import { useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
 import AddReferencerForm from './components/AddReferencerForm';
 import PostingDetails from './components/PostingDetails';
+import Callback from './Callback';
 
 export default function App() {
 
@@ -23,6 +24,7 @@ export default function App() {
     {/* <Link to="/"><button>HOME</button></Link> */}
     <Routes>
       <Route path="/" element= {<Home />} />
+      <Route path="/callback" element= {<Callback/>} />
       <Route path="/postings" element= {<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting}/>} />
       <Route path='/postings/add' element={<AddPostingForm />}/>
       <Route path='/dashboard' element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting}/>}/>

@@ -63,7 +63,7 @@ export default function Navbar() {
                         </button>
                     )}
                     {isAuthenticated && (
-                        <button className="btn text-xl" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                        <button className="btn text-xl" onClick={() => logout({ logoutParams: { returnTo: "https://localhost:5000" } })}>
                             Log out
                         </button>
                     )}

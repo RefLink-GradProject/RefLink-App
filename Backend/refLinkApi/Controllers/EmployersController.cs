@@ -21,25 +21,7 @@ namespace refLinkApi.Controllers
         {
             _service = service;
         }
-
-        // POST: api/Employers
-        [HttpPost]
-        public async Task<ActionResult<EmployerResponseDto>> PostEmployer(EmployerRequestDto employerRequestDto)
-        {
-            var result = await _service.PostNewEmployer(employerRequestDto);
-            if (result is null)
-            {
-                return NotFound();
-            }
-            return CreatedAtAction("GetEmployer", new { id = result.GuidId }, result);
-        }
-
-        // GET: api/Employers
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployerResponseDto>>> GetEmployer()
-        {
-            return await _service.GetEmployers();
-        }
+        
 
         // GET: api/Employers/5
         [HttpGet("{id}")]
