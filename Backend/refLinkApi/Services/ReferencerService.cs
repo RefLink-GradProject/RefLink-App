@@ -8,12 +8,12 @@ namespace refLinkApi.Services;
 public class ReferencerService : IReferencerService
 {
     private readonly RefLinkContext _context;
-    private readonly Mapper mapper;
+    private readonly MapperlyMapper mapper;
 
     public ReferencerService(RefLinkContext context)
     {
         _context = context;
-        mapper = new Mapper();
+        mapper = new MapperlyMapper();
     }
     
     public async Task<ReferencerResponseDto> PostNewReferencer(ReferencerRequestDto referencerRequestDto)

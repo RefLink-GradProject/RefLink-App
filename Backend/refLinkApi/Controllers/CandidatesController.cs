@@ -51,5 +51,18 @@ namespace refLinkApi.Controllers
 
             return candidate;
         }
+        
+        [HttpGet("{guidId}/with-questions-responses")]
+        public async Task<ActionResult<CandidateDetailedResponseDto>> GetCandidateWithQuestionsAndResponses(Guid guidId)
+        {
+            var candidate = await _service.GetCandidateByGuidWithQuestionsResponses(guidId);
+
+            if (candidate == null)
+            {
+                return NotFound();
+            }
+
+            return candidate;
+        }
     }
 }

@@ -16,4 +16,7 @@ public class Response
     public int? QuestionId { get; set; }
 
     public int? ReferencerId { get; set; }
+    
+    public Referencer Referencer { get; set; }
+    public Question Question { get; set; }
 }
