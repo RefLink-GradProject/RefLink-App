@@ -14,6 +14,7 @@ import Postings from './components/Postings';
 import { useQuery } from 'react-query';
 import { getCandidates, getPostings, postCandidate } from './services/postingServices';
 import { candidate1, candidate2, candidate3 } from './fakeData';
+import Callback from './Callback';
 
 const allPostings = await getPostings();
 const allCandidates = await getCandidates();
@@ -23,18 +24,18 @@ export default function App() {
 
   // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
   // const allPostings = getPostingsQuery.data!;
-  
-  const[postings, setPostings] = useState<Posting[]>(allPostings);
-  const[candidates, setCandidates] = useState<Candidate[]>(allCandidates);
+
+  const [postings, setPostings] = useState<Posting[]>(allPostings);
+  const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
 
-  async function addCandidate(name: string, email: string){
+  async function addCandidate(name: string, email: string) {
     await postCandidate(name, email, clickedPosting.guidId);
     const updatedPostings = await getPostings();
     const updatedClickedPosting = updatedPostings.find(posting => posting.guidId === clickedPosting.guidId);
     if (updatedClickedPosting) {
-        setClickedPosting(updatedClickedPosting);
+      setClickedPosting(updatedClickedPosting);
     }
     setPostings(updatedPostings);
   }
@@ -53,7 +54,7 @@ export default function App() {
             element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
           />
           <Route path='/postings/add' element={<AddPostingForm />} />
-          <Route path="/dashboard" element={<Dashboard postings={postings}  setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
+          <Route path="/dashboard" element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
             path={`/postings/:${clickedPosting.guidId}`}
             element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
@@ -63,6 +64,7 @@ export default function App() {
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer' element={<AddReferencerForm />} />
           <Route path='/add-reference' element={<AddReviewForm />} />
+          <Route path='/callback' element={<Callback />} />
         </Routes>
       </div>
       <Footer />
