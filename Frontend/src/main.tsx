@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+
       <Auth0Provider
   domain={import.meta.env.VITE_AUTH0_DOMAIN}
   clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
@@ -23,5 +23,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </BrowserRouter>
   </Auth0Provider>
 
-  </React.StrictMode>,
 )
