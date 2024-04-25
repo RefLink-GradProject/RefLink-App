@@ -12,12 +12,12 @@ import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
 import { useQuery } from 'react-query';
-import { getCandidates, getPostings } from './services/postingServices';
+import { getCandidates, getPostings, postCandidate } from './services/postingServices';
 import { candidate1, candidate2, candidate3 } from './fakeData';
 
 const allPostings = await getPostings();
-// const allCandidates = await getCandidates();
-const allCandidates = [candidate1, candidate2, candidate3]
+const allCandidates = await getCandidates();
+// const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
 
@@ -28,12 +28,16 @@ export default function App() {
   const[candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
-  
-  useEffect(() => {
-    if (postings.length > 0) {
-      setClickedPosting(postings[0]);
+
+  async function addCandidate(name: string, email: string){
+    await postCandidate(name, email, clickedPosting.guidId);
+    const updatedPostings = await getPostings();
+    const updatedClickedPosting = updatedPostings.find(posting => posting.guidId === clickedPosting.guidId);
+    if (updatedClickedPosting) {
+        setClickedPosting(updatedClickedPosting);
     }
-  }, [postings]);
+    setPostings(updatedPostings);
+  }
 
 
   // if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
@@ -56,7 +60,7 @@ export default function App() {
           />
 
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
-          <Route path='/candidates/add' element={<AddCandidateForm />} />
+          <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer' element={<AddReferencerForm />} />
           <Route path='/add-reference' element={<AddReviewForm />} />
         </Routes>

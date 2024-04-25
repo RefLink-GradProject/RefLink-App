@@ -1,16 +1,19 @@
-import { useState } from "react";
+import {useState } from "react";
 import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
-export default function AddCandidateForm() {
+export default function AddCandidateForm({addCandidate}: Props) {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
     const { register, handleSubmit, getValues } = useForm();
 
     function handleAdd() {
-        // ToDo: handle confirm, update the positions candidates
+        const candidateName: string = getValues("candidate-name");
+        const candidateEmail: string = getValues("candidate-email");
+        addCandidate(candidateName,candidateEmail);
+
         setShowAlertAdded(true);
         setTimeout(() => {
             setShowAlertAdded(false);
@@ -41,3 +44,6 @@ export default function AddCandidateForm() {
     )
 }
 
+type Props = {
+    addCandidate: (name: string, email: string) => void;
+}

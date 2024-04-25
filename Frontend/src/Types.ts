@@ -8,7 +8,7 @@ export type Posting = {
 }
 
 export type Candidate = {
-    guidId: string;
+    guidId?: string;
     name: string;
     email: string;
     referencers: Referencer[];
