@@ -14,14 +14,16 @@ import Postings from './components/Postings';
 import { useQuery } from 'react-query';
 import { getPostings } from './services/postingServices';
 
+const allPostings = await getPostings();
+
 export default function App() {
 
-  const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
-  if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
-  if (getPostingsQuery.error) return (<p>Something went wrong when loading postings.</p>)
-  const postings = getPostingsQuery.data!;
+  // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
+  // if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
+  // if (getPostingsQuery.error) return (<p>Something went wrong when loading postings.</p>)
+  // const postings = getPostingsQuery.data!;
 
-  // const[postings, setPostings] = useState<Posting[]>([]);
+  const[postings, setPostings] = useState<Posting[]>(allPostings);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>();
   const [clickedPosting, setClickedPosting] = useState<Posting>(postings[0]);
 
