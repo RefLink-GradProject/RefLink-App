@@ -65,11 +65,9 @@ public class CandidateService : ICandidateService
         }
 
         var candidate = await _context
-            .Candidates
-            .Include(candidate => candidate.Posting)
-            .ThenInclude(posting => posting.Questions)!
-            .ThenInclude(question => question.Responses)!
-            .ThenInclude(response => response.Referencer)
+            .Candidates.Include(candidate => candidate.Referencers)
+            .ThenInclude(referencer => referencer.Responses)
+            .ThenInclude(response => response.Question)
             .FirstOrDefaultAsync(candidate => candidate.GuidId == guidId);
         
         var response = new CandidateDetailedResponseDto()
@@ -77,34 +75,69 @@ public class CandidateService : ICandidateService
             GuidId = candidate.GuidId,
             Name = candidate.Name,
             Email = candidate.Email,
-            Questions = new List<QuestionWithResponsesAndRespondersDto>()
+            Referencers = new List<ReferencersWithQuestionsAndAnswersDto>()
         };
 
-        foreach (var question in candidate.Posting.Questions)
+        foreach (var referencer in candidate.Referencers)
         {
-            var questionWithResponsesDto = new QuestionWithResponsesAndRespondersDto()
+            var referencerDetails = new ReferencersWithQuestionsAndAnswersDto()
             {
-                QuestionContent = question.Content,
-                QuestionGuidId = question.GuidId,
-                Responses = new List<QuestionResponsesResponseDto>()
+                GuidId = referencer.GuidId,
+                Name = referencer.Name,
+                Responses = new List<QuestionAndResponsePairDto>(),
             };
             
-            response.Questions.Add(questionWithResponsesDto);
+            response.Referencers.Add(referencerDetails);
 
-            foreach (var answer in question.Responses)
+            foreach (var answer in referencer.Responses)
             {
-                var questionResponsePairDto = new QuestionResponsesResponseDto()
+                var questionResponse = new QuestionAndResponsePairDto()
                 {
+                    QuestionContent = answer.Question.Content,
+                    QuestionGuidId = answer.Question.GuidId,
                     ResponseContent = answer.Content,
-                    ResponseGuid = answer.GuidId,
-                    Responder = answer.Referencer.Name,
-                    ResponderGuid = answer.Referencer.GuidId,
+                    ResponseGuidId = answer.GuidId,
                 };
-                
-                questionWithResponsesDto.Responses.Add(questionResponsePairDto);
+
+                referencerDetails.Responses.Add(questionResponse);
             }
         }
 
         return response;
     }
 }
+
+
+
+// var response = new CandidateDetailedResponseDto()
+// {
+//     GuidId = candidate.GuidId,
+//     Name = candidate.Name,
+//     Email = candidate.Email,
+//     Questions = new List<QuestionWithResponsesAndRespondersDto>()
+// };
+//
+// foreach (var question in candidate.Posting.Questions)
+// {
+//     var questionWithResponsesDto = new QuestionWithResponsesAndRespondersDto()
+//     {
+//         QuestionContent = question.Content,
+//         QuestionGuidId = question.GuidId,
+//         Responses = new List<QuestionResponsesResponseDto>()
+//     };
+//     
+//     response.Questions.Add(questionWithResponsesDto);
+//
+//     foreach (var answer in question.Responses)
+//     {
+//         var questionResponsePairDto = new QuestionResponsesResponseDto()
+//         {
+//             ResponseContent = answer.Content,
+//             ResponseGuid = answer.GuidId,
+//             Referencer = answer.Referencer.Name,
+//             ReferencerGuid = answer.Referencer.GuidId,
+//         };
+//         
+//         questionWithResponsesDto.Responses.Add(questionResponsePairDto);
+//     }
+// }

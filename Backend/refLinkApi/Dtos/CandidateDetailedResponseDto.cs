@@ -2,11 +2,9 @@ namespace refLinkApi.Dtos;
 
 public class CandidateDetailedResponseDto
 {
-    public required Guid GuidId { get; set; }
+    public Guid GuidId { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public List<ReferencersWithQuestionsAndAnswersDto> Referencers { get; set; }
 
-    public required string Name { get; set; }
-
-    public required string Email { get; set; }
-
-    public List<QuestionWithResponsesAndRespondersDto> Questions { get; set; }
 }

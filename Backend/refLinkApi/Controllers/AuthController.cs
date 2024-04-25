@@ -15,12 +15,12 @@ public class AuthController(EmployerService service) : ControllerBase
     [Authorize]
     public async Task<IActionResult> EmployerExists()
     {
-        var employer;
-            employer = await service.GetEmployerInfo(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var employer = await service.GetEmployerInfo(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         if (employer == null)
         {
-             await service.CreateEmployerFromClaims(User);
+             var newemployer = await service.CreateEmployerFromClaims(User);
+             return Ok(newemployer);
         }
-        return Ok();
+        return Ok(employer);
     }
 }

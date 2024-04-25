@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using refLinkApi.Models;
+using refLinkApi.Dtos;
+using refLinkApi.Services;
 
 namespace refLinkApi.Controllers
 {
@@ -13,95 +8,41 @@ namespace refLinkApi.Controllers
     [ApiController]
     public class ResponsesController : ControllerBase
     {
-        private readonly RefLinkContext _context;
+        private readonly IResponseService _service;
 
-        public ResponsesController(RefLinkContext context)
+        public ResponsesController(IResponseService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: api/Responses
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Response>>> GetResponses()
-        {
-            return await _context.Responses.ToListAsync();
-        }
-
-        // GET: api/Responses/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Response>> GetResponse(int id)
-        {
-            var response = await _context.Responses.FindAsync(id);
-
-            if (response == null)
-            {
-                return NotFound();
-            }
-
-            return response;
-        }
-
-        // PUT: api/Responses/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutResponse(int id, Response response)
-        {
-            if (id != response.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(response).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ResponseExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Responses
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Response>> PostResponse(Response response)
+        public async Task<ActionResult<ResponseResponseDto>> PostResponse(ResponseRequestDto referencerRequestDto)
         {
-            _context.Responses.Add(response);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetResponse", new { id = response.Id }, response);
+            var result = await _service.PostNewResponse(referencerRequestDto);
+            if (result is null)
+            {
+                return NotFound();
+            }
+            return CreatedAtAction("GetResponse", new { GuidId = result.GuidId }, result);
         }
 
-        // DELETE: api/Responses/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteResponse(int id)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ResponseResponseDto>>> GetAllResponses()
         {
-            var response = await _context.Responses.FindAsync(id);
-            if (response == null)
+            return await _service.GetResponses();
+        }
+
+        [HttpGet("{guidId}")]
+        public async Task<ActionResult<ResponseResponseDto>> GetResponse(Guid guidId)
+        {
+            var referencer = await _service.GetResponseByGuid(guidId);
+
+            if (referencer == null)
             {
                 return NotFound();
             }
 
-            _context.Responses.Remove(response);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool ResponseExists(int id)
-        {
-            return _context.Responses.Any(e => e.Id == id);
+            return referencer;
         }
     }
 }
