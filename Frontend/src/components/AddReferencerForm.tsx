@@ -2,15 +2,21 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { Referencer } from "../Types";
+import { useNavigate } from 'react-router-dom';
 
 export default function AddReferencerForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const [referencerInputs, setReferencerInputs] = useState<Referencer[]>([]);
 
+    const navigate = useNavigate();
+
     function handleAdd() {
         // ToDo: handle confirm
         setShowAlertAdded(true);
-        setTimeout(() => setShowAlertAdded(false), 2000);
+        setTimeout(() => {
+            setShowAlertAdded(false);
+            navigate("/")
+        }, 2000);
     }
 
     function addReferencerToInputs(referencer: Referencer, i: number) {
@@ -31,11 +37,11 @@ export default function AddReferencerForm() {
             <div className="flex justify-center mt-10">
                 <div className="w-full flex">
                     <div className="w-1/2">
-                        <TextInput inputType="name" labelText="Name" placeholder="Candidate name" />
+                        <TextInput name="referencer-name" inputType="name" labelText="Name" placeholder="Candidate name" />
                     </div>
                     <div className="w-1/2">
 
-                        <TextInput inputType="email" labelText="Email" placeholder="Candidate email" />
+                        <TextInput name="referencer-emial" inputType="email" labelText="Email" placeholder="Candidate email" />
                     </div>
                 </div>
             </div>
@@ -44,10 +50,10 @@ export default function AddReferencerForm() {
                     <div className="flex justify-center mt-10">
                         <div className="w-full flex">
                             <div className="w-1/2">
-                                <TextInput inputType="name" labelText="Name" placeholder="Candidate name" />
+                                <TextInput name="referencer-name" inputType="name" labelText="Name" placeholder="Candidate name" />
                             </div>
                             <div className="w-1/2">
-                                <TextInput inputType="email" labelText="Email" placeholder="Candidate email" />
+                                <TextInput name="referencer-emial" inputType="email" labelText="Email" placeholder="Candidate email" />
                             </div>
                         </div>
                     </div>
@@ -62,7 +68,7 @@ export default function AddReferencerForm() {
 
 
             {showAlertAdded && (
-                <Alert alertType="success" alertContent="Candidate added, email for adding referencer has been sendt!" />
+                <Alert alertType="success" alertContent="Your reference has been send!" />
             )}
 
 

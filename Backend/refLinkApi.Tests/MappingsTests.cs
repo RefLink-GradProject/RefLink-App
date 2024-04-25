@@ -10,7 +10,7 @@ public class MappingsTests
     public void Candidate_CanBeMappedTo_CandidateResponseDTO()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         Candidate candidate = new Candidate
         {
             Id = 1,
@@ -30,11 +30,12 @@ public class MappingsTests
     public void CandidateRequestDto_CanBeMappedTo_Candidate()
     {
         // Arrange
-        var mapper = new Mapper();
-        CandidateRequestDto request = new CandidateRequestDto()
+        var mapper = new MapperlyMapper();
+        CandidateRequestDto request = new CandidateRequestDto
         {
             Name = "Test",
-            Email = "test@test.com"
+            Email = "test@test.com",
+            PostingGuid = default
         };
         
         // Act
@@ -48,7 +49,7 @@ public class MappingsTests
     public void PostingRequestDto_CanBeMappedTo_Posting()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         PostingRequestDto request = new PostingRequestDto
         {
             Title = "TestTitle",
@@ -66,7 +67,7 @@ public class MappingsTests
     public void Posting_CanBeMappedTo_PostingResponseDto()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         Posting posting = new Posting
         {
             Title = "TestTitle",
@@ -84,7 +85,7 @@ public class MappingsTests
     public void Question_CanBeMappedTo_QuestionResponseDto()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         Question question = new Question
         {
             Content = "ContentTest"
@@ -101,10 +102,11 @@ public class MappingsTests
     public void QuestionRequestDto_CanBeMappedTo_Question()
     {
         // Arrange
-        var mapper = new Mapper();
-        QuestionRequestDto request = new QuestionRequestDto()
+        var mapper = new MapperlyMapper();
+        QuestionRequestDto request = new QuestionRequestDto
         {
-            Content = "ContentTest"
+            Content = "ContentTest",
+            PostingGuid = default
         };
         
         // Act
@@ -118,7 +120,7 @@ public class MappingsTests
     public void Referencer_CanBeMappedTo_ReferencerResponseDto()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         Referencer referencer = new Referencer
         {
             Name = "ReferencerName",
@@ -126,7 +128,7 @@ public class MappingsTests
         };
         
         // Act
-        ReferencerResponseDto response = mapper.ReferencerToReferencerResponseDto(referencer);
+        var response = mapper.ReferencerToReferencerResponseDto(referencer);
         
         // Assert
         Assert.Equal(referencer.Name, response.Name);
@@ -136,7 +138,7 @@ public class MappingsTests
     public void ReferencerRequestDto_CanBeMappedTo_Referencer()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         ReferencerRequestDto request = new ReferencerRequestDto()
         {
             Name = "ReferencerName",
@@ -154,7 +156,7 @@ public class MappingsTests
     public void Response_CanBeMappedTo_ResponseResponseDto()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         Response referencer = new Response
         {
             GuidId = Guid.NewGuid(),
@@ -172,7 +174,7 @@ public class MappingsTests
     public void ResponseRequestDto_CanBeMappedTo_Response()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         ResponseRequestDto request = new ResponseRequestDto()
         {
             Content = "Content",
@@ -189,7 +191,7 @@ public class MappingsTests
     public void Employer_CanBeMappedTo_EmployerResponseDto()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         Employer employer = new Employer
         {
             Id = 1,
@@ -210,7 +212,7 @@ public class MappingsTests
     public void EmployerRequestDto_CanBeMappedTo_Employer()
     {
         // Arrange
-        var mapper = new Mapper();
+        var mapper = new MapperlyMapper();
         EmployerRequestDto request = new EmployerRequestDto()
         {
             Name = "TestName",

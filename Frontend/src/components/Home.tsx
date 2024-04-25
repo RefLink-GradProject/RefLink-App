@@ -1,3 +1,4 @@
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Home() {
@@ -8,7 +9,4 @@ export default function Home() {
           <button className="btn btn-lg mr-6 w-36" >Log in</button>
           <button className="btn btn-neutral btn-lg w-36" >Sign up</button>
         </div>
-      </div>
-    );
-  }
-  
+}

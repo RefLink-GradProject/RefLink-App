@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import {Auth0Provider} from '@auth0/auth0-react'
+import { Auth0Provider } from '@auth0/auth0-react'
 import './output.css'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
       <Auth0Provider
@@ -14,11 +16,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       redirect_uri: "https://localhost:5000/callback"
     }}
   >
-    <BrowserRouter>
-    <div className='m-12'>
-      <App />
-    </div>
-    </BrowserRouter>
+     <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </BrowserRouter>
   </Auth0Provider>
+
   </React.StrictMode>,
 )

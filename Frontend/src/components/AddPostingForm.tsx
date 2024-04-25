@@ -2,10 +2,12 @@ import { useState } from "react";
 import Alert from "./Alert";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
+import { useNavigate } from 'react-router-dom';
 
 export default function AddPostingForm() {
     const [questionInputs, setQuestionInputs] = useState<string[]>([])
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     function addQuestionToInputs(question: string, i: number) {
         const newQuestionInput = [...questionInputs];
@@ -21,15 +23,22 @@ export default function AddPostingForm() {
     function handleAdd() {
         // ToDo: handle confirm
         setShowAlertAdded(true);
-        setTimeout(() => setShowAlertAdded(false), 2000);
+        setTimeout(() => {
+            setShowAlertAdded(false);
+            navigate("/postings");
+        }, 2000);
+    }
+
+    function handleBackClik() {
+        navigate(-1);
     }
 
     return (
         <>
             <div className="flex justify-center mt-10">
                 <div className="w-1/2 ">
-                    <TextInput inputType="text" labelText="Name" placeholder="Posting name" />
-                    <TextArea labelText="Description" placeholder="Write description here for AI prompt"/>
+                    <TextInput name="posting-name" inputType="text" labelText="Name" placeholder="Posting name" />
+                    <TextArea name="posting-description" labelText="Description" placeholder="Write description here for AI prompt" />
 
                     <section className="question-form">
                         <p className="label-text mb-3">Questions</p>
@@ -49,11 +58,12 @@ export default function AddPostingForm() {
                             )
                         }
                     </section>
+                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>Cancel</button>
                     <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>
                 </div>
             </div>
             {showAlertAdded && (
-                    <Alert alertType="success" alertContent="Posting added!"/>
+                <Alert alertType="success" alertContent="Posting added!" />
             )}
         </>
     );
