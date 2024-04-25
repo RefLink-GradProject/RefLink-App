@@ -80,7 +80,7 @@ export const candidate4: Candidate = {
 
 // Define postings with candidates
 export const posting1: Posting = {
-    guid: "2",
+    guidId: "2",
     title: "Java frontend developer",
     description: "We are looking for a Java developer to join our team. Who can independently code and write tests",
     candidates: [candidate3, candidate4],
@@ -88,7 +88,7 @@ export const posting1: Posting = {
 };
 
 export const posting2: Posting = {
-    guid: "3",
+    guidId: "3",
     title: ".NET senior web app developer",
     description: "We are hiring a .NET developer to lead our team.",
     candidates: [],
@@ -96,7 +96,7 @@ export const posting2: Posting = {
 };
 
 export const posting3: Posting = {
-    guid: "1",
+    guidId: "1",
     title: "Software Engineer Position",
     description: "We are hiring a software engineer to join our team.",
     candidates: [candidate1, candidate2],

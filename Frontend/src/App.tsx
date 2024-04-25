@@ -5,7 +5,7 @@ import AddPostingForm from './components/AddPostingForm';
 import { Candidate, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
 import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
@@ -16,11 +16,12 @@ import { getPostings } from './services/postingServices';
 
 export default function App() {
 
-  const getPostingsQuery = useQuery({queryKey: ['getPostings'], queryFn: getPostings});
+  const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
   if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
   if (getPostingsQuery.error) return (<p>Something went wrong when loading postings.</p>)
+  const postings = getPostingsQuery.data!;
 
-  const[postings, setPostings] = useState<Posting[]>(getPostingsQuery.data!);
+  // const[postings, setPostings] = useState<Posting[]>([]);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>();
   const [clickedPosting, setClickedPosting] = useState<Posting>(postings[0]);
 
@@ -37,9 +38,10 @@ export default function App() {
           <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path='/dashboard' element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
-            path={`/postings/:${clickedPosting.guid}`}
+            path={`/postings/:${clickedPosting.guidId}`}
             element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
           />
+
           <Route path={`/candidates/:${clickedCandidate?.guid}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm />} />
           <Route path='/add-referencer' element={<AddReferencerForm />} />
@@ -47,10 +49,6 @@ export default function App() {
         </Routes>
       </div>
       <Footer />
-
-
     </>
   )
 }
-
-

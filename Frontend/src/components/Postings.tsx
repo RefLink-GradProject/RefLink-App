@@ -19,7 +19,6 @@ export default function Postings({postings, clickedPosting, setClickedPosting, s
 
                     </div>
                     <div className='mt-5 lg:mt-0 lg:w-2/3'>
-
                         <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
                     </div>
                 </section>

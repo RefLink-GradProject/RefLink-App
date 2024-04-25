@@ -21,6 +21,7 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
                     <div id="posting-details__description" className="m-3">
                         <h2 className="card-title mb-2">Description</h2>
                         <p className="text-lg">{clickedPosting.description}</p>
+                        <h2></h2>
                     </div>
 
                     <div id="posting-details__questions" className="m-3">

@@ -1,6 +1,6 @@
 
 export type Posting = {
-    guid: string;
+    guidId: string;
     title: string;
     description: string;
     candidates: Candidate[];
