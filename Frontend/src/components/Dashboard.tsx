@@ -20,8 +20,7 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
             {postings.map((posting) => {
                 return (
                     <>
-
-                        {posting.candidates.map((candidate) => {
+                        {posting.candidates? (posting.candidates.map((candidate) => {
                             return (
 
                                 <section className="flex">
@@ -30,7 +29,7 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
                                     <button onClick={() => handlePostingClick(posting)} className="btn btn-wide block m-10 w-2/3">{posting.title}</button>
                                 </section>
                             )
-                        })}
+                        })):(<p></p>)}
                     </>
                 )
 

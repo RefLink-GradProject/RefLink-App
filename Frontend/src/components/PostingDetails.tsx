@@ -26,11 +26,11 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
 
                     <div id="posting-details__questions" className="m-3">
                         <h2 className="card-title mb-2">Questions</h2>
-                        {clickedPosting.questions.map((question) => {
+                        {clickedPosting.questions?(clickedPosting.questions.map((question) => {
                             return (
                                 <p className="m-1 text-lg">- {question.content}</p>
                             )
-                        })}
+                        })):(<p></p>)}
                     </div>
 
                     <div id="posting-details__candidates" className="m-3">
@@ -38,7 +38,7 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
                             <h2 className="card-title mb-2">Candidates</h2>
                             <Link to="/candidates/add"><button className="btn btn-xs btn-neutral ml-3"> + </button></Link>
                         </div>
-                        {clickedPosting.candidates.map((candidate) => {
+                        {clickedPosting.candidates ?(clickedPosting.candidates.map((candidate) => {
                             return (
                                 <>
                                     <div className="flex m-1">
@@ -48,7 +48,7 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
 
                                 </>
                             )
-                        })}
+                        })):(<p></p>)}
                     </div>
                 </div>
             </section>

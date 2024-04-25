@@ -13,9 +13,11 @@ import Footer from './components/Footer';
 import Postings from './components/Postings';
 import { useQuery } from 'react-query';
 import { getCandidates, getPostings } from './services/postingServices';
+import { candidate1, candidate2, candidate3 } from './fakeData';
 
 const allPostings = await getPostings();
-const allCandidates = await getCandidates();
+// const allCandidates = await getCandidates();
+const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
 

@@ -3,8 +3,8 @@ export type Posting = {
     guidId: string;
     title: string;
     description: string;
-    candidates: Candidate[];
-    questions: Question[];
+    candidates?: Candidate[];
+    questions?: Question[];
 }
 
 export type Candidate = {
