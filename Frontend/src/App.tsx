@@ -14,49 +14,44 @@ import Postings from './components/Postings';
 import { useQuery } from 'react-query';
 import { getCandidates, getPostings } from './services/postingServices';
 
-// const allPostings = await getPostings();
+const allPostings = await getPostings();
 const allCandidates = await getCandidates();
 
 export default function App() {
 
-  const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
-  const allPostings = getPostingsQuery.data!;
+  // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
+  // const allPostings = getPostingsQuery.data!;
   
   const[postings, setPostings] = useState<Posting[]>(allPostings);
   const[candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
-  const [clickedPosting, setClickedPosting] = useState<Posting | undefined>();
+  const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
   
   useEffect(() => {
-    if (postings && postings.length > 0) {
+    if (postings.length > 0) {
       setClickedPosting(postings[0]);
     }
   }, [postings]);
 
-  
 
-  if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
-  if (getPostingsQuery.error) return (<p>Something went wrong when loading postings.</p>)
+  // if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
+  // if (getPostingsQuery.error) return (<p>Something went wrong when loading postings.</p>)
   return (
     <>
       <div className='mx-12 grow'>
         <Navbar userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
-          {clickedPosting && (
-            <Route
-              path="/postings"
-              element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
-            />
-          )}
+          <Route
+            path="/postings"
+            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={() => setClickedPosting} setClickedCandidate={ () =>setClickedCandidate} />}
+          />
           <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path='/dashboard' element={<Dashboard postings={postings} setClickedCandidate={() => setClickedCandidate} setClickedPosting={ () =>setClickedPosting} />} />
-          {clickedPosting && (
           <Route
             path={`/postings/:${clickedPosting.guidId}`}
             element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={ () =>setClickedPosting} setClickedCandidate={ () => setClickedCandidate} />}
           />
-          )}
 
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm />} />
