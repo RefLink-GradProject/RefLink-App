@@ -3,17 +3,9 @@ import { Candidate, Posting } from "../Types";
 import { Link } from "react-router-dom";
 import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
-import { getPostings } from "../services/postingServices";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 
 
-
-
-
-export default function Postings({clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
-    const query = useQuery({queryKey: ['getPostings'], queryFn: getPostings});
-    if (query.isLoading) return (<p>Loading...</p>)
-    if (query.error) return (<p>Something went wrong.</p>)
+export default function Postings({postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
     
     return (
         <>
@@ -23,7 +15,7 @@ export default function Postings({clickedPosting, setClickedPosting, setClickedC
                 </Link>
                 <section id="postings" className='w-full lg:flex'>
                     <div className='mr-5 lg:w-1/3 '>
-                        <PostingTitles postings={query.data!} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
+                        <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
 
                     </div>
                     <div className='mt-5 lg:mt-0 lg:w-2/3'>
@@ -41,5 +33,5 @@ type Props = {
     clickedPosting: Posting;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
     setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
-
+    postings: Posting[];
 }
