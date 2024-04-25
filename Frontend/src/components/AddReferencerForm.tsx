@@ -21,11 +21,11 @@ export default function AddReferencerForm() {
         }, 2000);
     }
 
-    function addReferencerToInputs(referencer: Referencer, i: number) {
-        const newReferencerInputs = [...referencerInputs];
-        newReferencerInputs[i] = referencer;
-        setReferencerInputs(newReferencerInputs);
-    }
+    // function addReferencerToInputs(referencer: Referencer, i: number) {
+    //     const newReferencerInputs = [...referencerInputs];
+    //     newReferencerInputs[i] = referencer;
+    //     setReferencerInputs(newReferencerInputs);
+    // }
 
     function addReferencerInputForm() {
         const newReferencerInputs = [...referencerInputs, { name: "", email: "" }]
@@ -47,7 +47,7 @@ export default function AddReferencerForm() {
                     </div>
                 </div>
             </div>
-            {referencerInputs.map((input, i) =>
+            {referencerInputs.map(() =>
                 <>
                     <div className="flex justify-center mt-10">
                         <div className="w-full flex">

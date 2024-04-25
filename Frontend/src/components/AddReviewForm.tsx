@@ -12,7 +12,7 @@ const referencer = referencer1; // for testing
 export default function AddReviewForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
-    const { register, handleSubmit, getValues } = useForm();
+    const { register} = useForm();
 
     function handleAdd() {
         // ToDo: handle confirm
@@ -55,6 +55,3 @@ export default function AddReviewForm() {
 }
 
 
-type Props = {
-    referencer: Referencer;
-}

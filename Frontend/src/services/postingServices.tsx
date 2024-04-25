@@ -1,5 +1,5 @@
 
-import { Posting, Candidate, Referencer, Response, Question } from "../Types";
+import { Posting, Candidate} from "../Types";
 
 export async function getPostings(): Promise<Posting[]>{
     const response = await fetch("http://localhost:5136/api/postings");
