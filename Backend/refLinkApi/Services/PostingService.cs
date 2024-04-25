@@ -8,12 +8,12 @@ namespace refLinkApi.Services;
 public class PostingService : IPostingService
 {
     private readonly RefLinkContext _context;
-    private readonly Mapper mapper;
+    private readonly MapperlyMapper mapper;
 
     public PostingService(RefLinkContext context)
     {
         _context = context;
-        mapper = new Mapper();
+        mapper = new MapperlyMapper();
     }
     
     public async Task<PostingResponseDto> PostNewPosting(PostingRequestDto postingRequestDto)

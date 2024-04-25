@@ -4,7 +4,7 @@ using Riok.Mapperly.Abstractions;
 namespace refLinkApi.Dtos.Mappers;
 
 [Mapper]
-public partial class Mapper
+public partial class MapperlyMapper
 {
     [MapperIgnoreTarget(nameof(Candidate.GuidId))]
     public partial Candidate CandidateRequestDtoToCandidate(CandidateRequestDto request);

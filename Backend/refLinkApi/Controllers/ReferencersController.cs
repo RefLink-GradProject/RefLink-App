@@ -16,9 +16,9 @@ namespace refLinkApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ReferencerResponseDto>> PostReferencer(ReferencerRequestDto questionRequestDto)
+        public async Task<ActionResult<ReferencerResponseDto>> PostReferencer(ReferencerRequestDto referencerRequestDto)
         {
-            var result = await _service.PostNewReferencer(questionRequestDto);
+            var result = await _service.PostNewReferencer(referencerRequestDto);
             if (result is null)
             {
                 return NotFound();

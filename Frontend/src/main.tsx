@@ -9,18 +9,19 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Auth0Provider
-      domain={import.meta.env.VITE_AUTH0_DOMAIN}
-      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
-      authorizationParams={{
-        redirect_uri: window.location.origin
-      }}
-    >
-      <BrowserRouter>
+      <Auth0Provider
+  domain={import.meta.env.VITE_AUTH0_DOMAIN}
+  clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+    authorizationParams={{
+      redirect_uri: "https://localhost:5000/callback"
+    }}
+  >
+     <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <App />
         </QueryClientProvider>
       </BrowserRouter>
-    </Auth0Provider>
+  </Auth0Provider>
+
   </React.StrictMode>,
 )

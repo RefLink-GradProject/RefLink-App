@@ -6,4 +6,6 @@ public class ReferencerRequestDto
 
     public required string Email { get; set; }
     
+    public Guid CandidateGuid { get; set; }
+    
 }

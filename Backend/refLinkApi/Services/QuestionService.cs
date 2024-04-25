@@ -8,12 +8,12 @@ namespace refLinkApi.Services;
 public class QuestionService : IQuestionService
 {
     private readonly RefLinkContext _context;
-    private readonly Mapper mapper;
+    private readonly MapperlyMapper mapper;
 
     public QuestionService(RefLinkContext context)
     {
         _context = context;
-        mapper = new Mapper();
+        mapper = new MapperlyMapper();
     }
     
     public async Task<QuestionResponseDto> PostNewQuestion(QuestionRequestDto questionRequestDto)
