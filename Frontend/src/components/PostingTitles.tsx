@@ -17,7 +17,7 @@ export default function PostingTitles({ postings, setClickedPosting }: Props) {
     function handleClick(clickedPosting: Posting, index: number) {
         setClickedPosting(clickedPosting);
         navigate(`/postings/${clickedPosting.guid}`);
-        
+
         const newClickedButtons = Array(postings.length).fill(false);
         newClickedButtons[index] = true;
         setClickedButtons(newClickedButtons);

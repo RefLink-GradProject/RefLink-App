@@ -2,7 +2,7 @@ import { useState } from "react";
 import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { Referencer } from "../Types";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddReferencerForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
@@ -37,11 +37,11 @@ export default function AddReferencerForm() {
             <div className="flex justify-center mt-10">
                 <div className="w-full flex">
                     <div className="w-1/2">
-                        <TextInput inputType="name" labelText="Name" placeholder="Candidate name" />
+                        <TextInput name="referencer-name" inputType="name" labelText="Name" placeholder="Candidate name" />
                     </div>
                     <div className="w-1/2">
 
-                        <TextInput inputType="email" labelText="Email" placeholder="Candidate email" />
+                        <TextInput name="referencer-emial" inputType="email" labelText="Email" placeholder="Candidate email" />
                     </div>
                 </div>
             </div>
@@ -50,10 +50,10 @@ export default function AddReferencerForm() {
                     <div className="flex justify-center mt-10">
                         <div className="w-full flex">
                             <div className="w-1/2">
-                                <TextInput inputType="name" labelText="Name" placeholder="Candidate name" />
+                                <TextInput name="referencer-name" inputType="name" labelText="Name" placeholder="Candidate name" />
                             </div>
                             <div className="w-1/2">
-                                <TextInput inputType="email" labelText="Email" placeholder="Candidate email" />
+                                <TextInput name="referencer-emial" inputType="email" labelText="Email" placeholder="Candidate email" />
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ export default function Footer() {
             <footer className="footer footer-center p-10 bg-neutral text-neutral-content bottom-0 mt-auto">
                 <aside>
                     <p className="font-bold text-lg">
-                    School of Applied Technology
+                        School of Applied Technology
                     </p>
                     <p><br />Pontus Löfgren <br />Xinnan Luo <br />Zerophymyr Falk <br />Patricia van Marlen</p>
                 </aside>
