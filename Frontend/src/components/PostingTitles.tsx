@@ -33,6 +33,7 @@ export default function PostingTitles({ postings, setClickedPosting }: Props) {
                             className={`btn btn-ghost text-xl ${clickedButtons[index] ? 'bg-neutral-200' : ''}`}
                             onClick={() => handleClick(posting, index)}
                         >
+                            {/* {console.log(posting.title)} */}
                             {posting.title}
                         </button>
                     </div>
