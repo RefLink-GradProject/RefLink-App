@@ -7,12 +7,12 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
 
     function handleCandidateClick(candidate: Candidate) {
         setClickedCandidate(candidate);
-        navigate(`/candidates/${candidate?.guid}`)
+        navigate(`/candidates/${candidate!.guidId}`)
     }
 
     function handlePostingClick(clickedPosting: Posting) {
         setClickedPosting(clickedPosting);
-        navigate(`/postings/${clickedPosting.guid}`)
+        navigate(`/postings/${clickedPosting.guidId}`)
     }
 
     return (
@@ -20,20 +20,21 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
             {postings.map((posting) => {
                 return (
                     <>
-
-                        {posting.candidates.map((candidate) => {
-                            return (
-
-                                <section className="flex">
-                                    <button onClick={() => handleCandidateClick(candidate)} className="btn btn-wide block m-10 w-1/3">{candidate.name}</button>
-                                    <p>__</p>
-                                    <button onClick={() => handlePostingClick(posting)} className="btn btn-wide block m-10 w-2/3">{posting.title}</button>
-                                </section>
-                            )
-                        })}
+                        {posting.candidates ? (
+                            posting.candidates.map((candidate) => {
+                                return (
+                                    <section className="flex">
+                                        <button onClick={() => handleCandidateClick(candidate)} className="btn btn-wide block m-10 w-1/3">{candidate.name}</button>
+                                        <p>__</p>
+                                        <button onClick={() => handlePostingClick(posting)} className="btn btn-wide block m-10 w-2/3">{posting.title}</button>
+                                    </section>
+                                )
+                            })
+                        ) : (
+                            <p></p>
+                        )}
                     </>
                 )
-
             })}
         </>
     )
@@ -41,6 +42,6 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
 
 type Props = {
     postings: Posting[];
-    setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
+    setClickedCandidate: Dispatch<SetStateAction<Candidate>>;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
 }

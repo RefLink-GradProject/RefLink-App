@@ -1,34 +1,42 @@
 
 export type Posting = {
-    guid: string;
+    guidId: string;
     title: string;
     description: string;
-    candidates: Candidate[];
-    questions: Question[];
+    candidates?: Candidate[];
+    questions?: Question[];
 }
 
 export type Candidate = {
-    guid: string;
+    guidId?: string;
     name: string;
     email: string;
     referencers: Referencer[];
 }
 
 export type Referencer = {
-    guid?: string;
+    guidId?: string;
     name: string;
     email: string;
     responses?: Response[];
 }
 
 export type Response = {
-    guid: string;
+    guidId: string;
     content: string;
     question: Question;
 }
 
 export type Question = {
-    guid: string; 
+    guidId: string; 
     content: string;
     responses?: Response[];
+}
+
+export type Employer = {
+    guidId: string;
+    name: string;
+    company: string;
+    emial: string;
+    postings: Posting[];
 }
