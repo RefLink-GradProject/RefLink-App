@@ -3,23 +3,9 @@ import { Candidate, Posting } from "../Types";
 import { Link } from "react-router-dom";
 import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
-import { getPostings } from "../services/postingServices";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 
 
-export default function Postings({ postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
-    // const queryClient = useQueryClient();
-    // const query = useQuery({queryKey: ['getPostings'], queryFn: getPostings});
-    // const backendPostings: Posting[] = await getPostings();
-    // const mutation = useMutation({
-    //     // mutationFn: ,
-    //     onSuccess: () => {
-    //       queryClient.invalidateQueries({ queryKey: ['getdogs'] })
-    //     }
-    //   })
-
-    // if (query.isLoading) return (<p>Loading...</p>)
-    // if (query.error) return (<p>Something went wrong.</p>)
+export default function Postings({postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
     
     return (
         <>
@@ -33,7 +19,6 @@ export default function Postings({ postings, clickedPosting, setClickedPosting, 
 
                     </div>
                     <div className='mt-5 lg:mt-0 lg:w-2/3'>
-
                         <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
                     </div>
                 </section>
@@ -44,9 +29,8 @@ export default function Postings({ postings, clickedPosting, setClickedPosting, 
 
 
 type Props = {
-    postings: Posting[];
     clickedPosting: Posting;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
-    setClickedCandidate: Dispatch<SetStateAction<Candidate | undefined>>;
-
+    setClickedCandidate: Dispatch<SetStateAction<Candidate >>;
+    postings: Posting[];
 }

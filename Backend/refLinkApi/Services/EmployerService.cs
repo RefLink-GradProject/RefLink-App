@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using refLinkApi.Models;
 using refLinkApi.Dtos;
 using Microsoft.EntityFrameworkCore;
@@ -16,34 +17,27 @@ public class EmployerService
         mapper = new MapperlyMapper();
     }
 
-    public async Task<EmployerResponseDto> PostNewEmployer(EmployerRequestDto employerRequestDto)
+    public async Task<Employer?> GetEmployerInfo(string id)
     {
-        if (_context.Employers == null)
-        {
-            return null;
-        }
+        var employer = await _context.Employers.FirstOrDefaultAsync(emp => emp.AuthId == id);
+        return employer;
+    }
 
-        Employer employer = mapper.EmployerRequestDtoToEmployer(employerRequestDto);
-        _context.Employers.Add(employer);
+    public async Task<Employer> CreateEmployerFromClaims(ClaimsPrincipal user)
+    {
+        var newEmployer = new Employer
+        {
+            AuthId = user.FindFirst(ClaimTypes.NameIdentifier)!.Value,
+            Name = user.FindFirst(ClaimTypes.GivenName)!.Value,
+            Email = user.FindFirst(ClaimTypes.Email)!.Value
+        };
+        
+        _context.Employers.Add(newEmployer);
         await _context.SaveChangesAsync();
-        return mapper.EmployerToEmployerResponseDto(employer);
+
+        return newEmployer;
     }
 
-    public async Task<List<EmployerResponseDto>> GetEmployers()
-    {
-        if (_context.Employers is null)
-        {
-            return null;
-        }
-
-        var employers = await _context.Employers.ToListAsync();
-        List<EmployerResponseDto> employerResponseDtos = [];
-        foreach (Employer employer in employers)
-        {
-            employerResponseDtos.Add(mapper.EmployerToEmployerResponseDto(employer));
-        }
-        return employerResponseDtos;
-    }
 
     public async Task<EmployerResponseDto> GetEmployerById(Guid guidId)
     {

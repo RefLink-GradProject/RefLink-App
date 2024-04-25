@@ -16,7 +16,7 @@ export default function PostingTitles({ postings, setClickedPosting }: Props) {
 
     function handleClick(clickedPosting: Posting, index: number) {
         setClickedPosting(clickedPosting);
-        navigate(`/postings/${clickedPosting.guid}`);
+        navigate(`/postings/${clickedPosting.guidId}`);
 
         const newClickedButtons = Array(postings.length).fill(false);
         newClickedButtons[index] = true;
@@ -27,12 +27,13 @@ export default function PostingTitles({ postings, setClickedPosting }: Props) {
         <div className="">
             <section id="posting-names" className="">
                 {postings.map((posting, index) => (
-                    <div key={posting.guid}>
+                    <div key={posting.guidId}>
                         <br />
                         <button
                             className={`btn btn-ghost text-xl ${clickedButtons[index] ? 'bg-neutral-200' : ''}`}
                             onClick={() => handleClick(posting, index)}
                         >
+                            {/* {console.log(posting.title)} */}
                             {posting.title}
                         </button>
                     </div>
