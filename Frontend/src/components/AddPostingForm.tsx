@@ -27,8 +27,9 @@ export default function AddPostingForm() {
 
     const questionMutation = useMutation({
         mutationFn: postQuestions,
-        onSuccess: () => {
+        onSuccess: async (data) => {
             console.log("We have successfully posted a question");
+            return data;
         },
     })
 
@@ -43,8 +44,16 @@ export default function AddPostingForm() {
         return await response.json(); // I KNOW THIS CONTAINS THE DATA
     }
 
-    async function postQuestions(data, guid) {
+    async function postQuestions(data) {
         console.log("postQuestion", data);
+        const response = await fetch("http://localhost:5136/api/questions", {
+            "method": "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        return await response.json();
     }
 
     async function handleAdd(data: FieldValues) {
@@ -56,14 +65,20 @@ export default function AddPostingForm() {
             employerGuid: "c8b46f7d-2c6a-4b9e-9428-00cdb2c1f9a1" // TODO: get from backend
         }
 
-        const questionsData = Array.from(Object.values(Object.fromEntries(Object.entries(data).slice(2, Object.keys(data).length))))
-
         const postingResponse = await postMutation.mutateAsync(postingData);
         const postingGuid = postingResponse.guidId
 
-        const questionResponse = await questionMutation.mutateAsync(questionsData, postingGuid);
+        const questions = Array.from(Object.values(Object.fromEntries(Object.entries(data).slice(2, Object.keys(data).length))))
 
+        for (const question in questions) {
+            const questionsData = {
+                postingGuid: postingGuid,
+                content: question
+            }
 
+            const questionResponse = await questionMutation.mutateAsync(questionsData);
+            console.log(questionResponse.json)
+        }
 
         // if success then show this
         setShowAlertAdded(true);
