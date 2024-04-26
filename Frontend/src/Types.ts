@@ -7,7 +7,7 @@ export type Posting = {
 };
 
 export type PostingRequest = {
-  guidId: string;
+  employerGuid: string;
   title: string;
   description: string;
 };

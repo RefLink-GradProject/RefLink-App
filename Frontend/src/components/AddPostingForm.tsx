@@ -20,29 +20,49 @@ export default function AddPostingForm() {
 
     const postMutation = useMutation({
         mutationFn: postPosting,
-        onSuccess: () => {
-            console.log("We have successfully posted a posting");
+        onSuccess: async (data) => {
+            return data;
         },
     })
 
-    async function postPosting(data) {
-        console.log(data);
-        console.log(data);
+    const questionMutation = useMutation({
+        mutationFn: postQuestions,
+        onSuccess: () => {
+            console.log("We have successfully posted a question");
+        },
+    })
+
+    async function postPosting(data: PostingRequest) {
+        const response = await fetch("http://localhost:5136/api/postings", {
+            "method": "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        return await response.json(); // I KNOW THIS CONTAINS THE DATA
+    }
+
+    async function postQuestions(data, guid) {
+        console.log("postQuestion", data);
     }
 
     async function handleAdd(data: FieldValues) {
         console.log(data);
 
         const postingData: PostingRequest = {
-            guidId: "", // TODO: get from backend
             title: data.postingTitle,
-            description: data.postingDescription
+            description: data.postingDescription,
+            employerGuid: "c8b46f7d-2c6a-4b9e-9428-00cdb2c1f9a1" // TODO: get from backend
         }
 
-        // const questionsData = Array.from(Object.values(Object.fromEntries(Object.entries(data).slice(2, Object.keys(data).length))))
+        const questionsData = Array.from(Object.values(Object.fromEntries(Object.entries(data).slice(2, Object.keys(data).length))))
 
-        postMutation.mutate(postingData);
-        // await postQuestions(questionsData);
+        const postingResponse = await postMutation.mutateAsync(postingData);
+        const postingGuid = postingResponse.guidId
+
+        const questionResponse = await questionMutation.mutateAsync(questionsData, postingGuid);
+
 
 
         // if success then show this
