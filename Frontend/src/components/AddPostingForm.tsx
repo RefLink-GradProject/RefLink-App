@@ -69,12 +69,15 @@ export default function AddPostingForm() {
         const postingGuid = postingResponse.guidId
 
         const questions = Array.from(Object.values(Object.fromEntries(Object.entries(data).slice(2, Object.keys(data).length))))
+        console.log(questions);
 
         for (const question in questions) {
             const questionsData: QuestionRequest = {
                 postingGuid: postingGuid,
                 content: question
             }
+
+            console.log("Here is a questionRequest: ", questionsData)
 
             const questionResponse = await questionMutation.mutateAsync(questionsData);
             console.log(questionResponse.json)
@@ -111,9 +114,9 @@ export default function AddPostingForm() {
                         <legend className="text-sm text-slate-500 mb-2">Questions</legend>
 
                         {
-                            questionInputs.map((index) =>
+                            questionInputs.map((question, i) =>
                                 <>
-                                    <TextInput register={register} name={`question-${index}`} inputType="text" labelText={`question-${index}`} placeholder="Add a question" />
+                                    <TextInput register={register} name={`question-${i}`} inputType="text" labelText={`question-${i}`} placeholder="Add a question" />
                                     <button className='btn mb-3 mr-3' type="button" onClick={addQuestionInputForm}> + </button>
                                     <button className='btn mb-3 btn-outline' type="button"> AI </button>
                                 </>
