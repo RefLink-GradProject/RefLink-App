@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import logo from '../assets/logo.png'
 import LoginButton from "./LoginButton";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLink } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Navbar({ userName }: Props) {
@@ -31,7 +33,7 @@ export default function Navbar({ userName }: Props) {
                     </div>
                     <Link to="/">
                         <a className="btn btn-ghost text-3xl">
-                            <img src={logo} alt="logo" className="w-8" />
+                        <FontAwesomeIcon icon={faLink} size="lg" />
                             RefLink
                         </a>
                     </Link>
