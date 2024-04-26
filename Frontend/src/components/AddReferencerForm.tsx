@@ -1,17 +1,18 @@
-import { useFieldArray, useForm } from 'react-hook-form';
+import { FieldValues, useFieldArray, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import TextInput from './TextInput';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
+import { ReferencerRequest } from '../Types';
 
 export default function AddReferencerForm() {
+    const navigate = useNavigate();
     const { guid } = useParams();
     const { register, handleSubmit, control } = useForm();
     const { fields, append, remove } = useFieldArray({
         control,
         name: "referencers"
     });
-
 
     if (fields.length === 0) {
         append({
@@ -20,43 +21,71 @@ export default function AddReferencerForm() {
         });
     }
 
-    const navigate = useNavigate();
-
-
     const { isLoading, error, data } = useQuery({
         queryKey: ['repoData'],
         queryFn: async () => {
             const response = await fetch(`http://localhost:5136/api/candidates/${guid}`, {
                 headers: {
                     "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data)
+                }
             })
-            const responseJson = await response.json();
-            console.log(responseJson);
-            return responseJson;
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            return await response.json();
         }
     });
 
+    const referencerMutation = useMutation({
+        mutationFn: postReferencer,
+        onSuccess: async (data) => {
+            return data;
+        },
+    })
 
-    if (isLoading) return 'Loading...'
-
-    if (error) return 'An error has occurred: ' + error.message
-
-
-    async function submitForm(data) {
-        console.log("submitForm")
-        console.log(data);
+    async function postReferencer(data: FieldValues) {
+        const response = await fetch("http://localhost:5136/api/referencers", {
+            "method": "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        const responseJson = await response.json();
+        return responseJson;
     }
 
+    async function submitForm(data: FieldValues) {
+        for (const referencer of data.referencers) {
 
+            const payload: ReferencerRequest = {
+                candidateGuid: guid!,
+                name: referencer.name,
+                email: referencer.email
+            }
+
+            await referencerMutation.mutateAsync(payload);
+        }
+    }
 
     function handleBackClick() {
         navigate(-1);
     }
 
+    if (isLoading) {
+        return (
+            <>
+                <div className="h-full w-full flex justify-center">
+                    <span className="mx-auto loading loading-spinner loading-lg"></span>
+                </div>
+            </>
+        )
+    }
 
-    console.log(guid);
+
+    if (error) return 'An error has occurred.'
 
     return (
         <>
