@@ -1,64 +1,64 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { FieldValue, FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import TextInput from "./components/TextInput";
+// import { useAuth0 } from "@auth0/auth0-react";
+// import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useForm } from "react-hook-form";
+// import TextInput from "./components/TextInput";
 
 
-type CreateEmployer = {
-  name: string;
-  email: string; 
-  company: string;
-}
+// type CreateEmployer = {
+//   name: string;
+//   email: string; 
+//   company: string;
+// }
 
 const Register = () => {
-  const { user, isLoading, error, getIdTokenClaims } = useAuth0();
-  const { register, setValue, reset } = useForm();
-  const navigate = useNavigate();
+  // const { user, isLoading, error, getIdTokenClaims } = useAuth0();
+  // const { register, setValue, reset } = useForm();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      setValue("employer-name", user.name);
-      setValue("employer-email", user.email);
-    }
-  }, [user, setValue]); 
+  // useEffect(() => {
+  //   if (user) {
+  //     setValue("employer-name", user.name);
+  //     setValue("employer-email", user.email);
+  //   }
+  // }, [user, setValue]); 
 
-  const onSubmit = async (data : FormData) => {
-    reset()
-    try {
-      console.log(data);
-      const token = await getIdTokenClaims()
+  // const onSubmit = async (data : FormData) => {
+  //   reset()
+  //   try {
+  //     console.log(data);
+  //     const token = await getIdTokenClaims()
       
-      const response = await fetch('http://localhost:5136/api/Employers', {
-          method : "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + token!.__raw
-          },
-          body: JSON.stringify(data)
+  //     const response = await fetch('http://localhost:5136/api/Employers', {
+  //         method : "POST",
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           "Authorization": "Bearer " + token!.__raw
+  //         },
+  //         body: JSON.stringify(data)
     
     
-        });
+  //       });
       
-      if (response.status === 200) {
-          return navigate("/postings");
-      }
-    } catch (error) {
-      console.error('Error registering user:', error);
-    }
-  };
+  //     if (response.status === 200) {
+  //         return navigate("/postings");
+  //     }
+  //   } catch (error) {
+  //     console.error('Error registering user:', error);
+  //   }
+  // };
 
-  if (isLoading) {
-    return <div>Loading...</div>; 
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>; 
+  // }
 
-  if (error) {
-    return <div>Error: {error.message}</div>; 
-  }
+  // if (error) {
+  //   return <div>Error: {error.message}</div>; 
+  // }
 
   return (
     <>
-      {user && (
+      {/* {user && (
         <>
           <h1 className="text-2xl text-center">Hey {user.name}!</h1>
           <div className="flex justify-center mt-10">
@@ -70,7 +70,7 @@ const Register = () => {
             </form>
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 };

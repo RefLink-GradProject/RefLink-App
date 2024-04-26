@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCodeBranch, faBuilding, faUsers, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCodeBranch, faBuilding, faUsers} from '@fortawesome/free-solid-svg-icons'
 
 export default function Footer() {
 

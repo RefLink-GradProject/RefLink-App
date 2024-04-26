@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
-import { Candidate, CandidateWithDetails, Posting } from './Types';
+import { CandidateWithDetails, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
 import {  useState } from 'react';
