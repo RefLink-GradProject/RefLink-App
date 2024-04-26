@@ -43,11 +43,32 @@ export default function CandidateDetails({ candidate }: Props) {
                 ) : (
                     <p></p>
                 )}
-
             </section>
 
             <section id="candidate-graf">
-
+                {candidate!.referencers ? (
+                    candidate!.referencers.map((referencer => {
+                        return (
+                            <>
+                                <div className="">
+                                    {referencer.ratings?(
+                                        referencer.ratings.map((rating) => {
+                                            return (
+                                                <>
+                                                    <p className="text-2xl">{rating.ratingQuestionContent}</p>
+                                                    <p>{rating.ratingResponseContent}</p>
+                                                </>
+                                            )
+                                        })
+                                    ):(<></>)}
+                                    
+                                </div>
+                            </>
+                        )
+                    }))
+                ) : (
+                    <p></p>
+                )}
             </section>
 
             <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>&larr; Back</button>

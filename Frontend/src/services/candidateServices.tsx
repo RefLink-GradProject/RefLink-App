@@ -1,4 +1,5 @@
 import { Candidate, CandidateWithDetails } from "../Types";
+import { fakeCandidate1WithDetails } from "../fakeData";
 
 export async function getCandidates(): Promise<Candidate[]>{
     const response = await fetch("http://localhost:5136/api/candidates");
@@ -10,7 +11,8 @@ export async function getCandidates(): Promise<Candidate[]>{
 export async function getCandidateWithDetails(guidId: string): Promise<CandidateWithDetails>{
     const response = await fetch(`http://localhost:5136/api/candidates/${guidId}/with-questions-responses`);
     const result = await response.json() as CandidateWithDetails;
-    console.table(result);
+    if(!response.ok)
+        return fakeCandidate1WithDetails;
     return result;
 }
 
