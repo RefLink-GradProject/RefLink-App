@@ -39,8 +39,7 @@ namespace refLinkApi.Controllers
             {
                 BadRequest();
             }
-            
-      
+            return Ok(employer);
         }
 
         // GET: api/Employers/5
