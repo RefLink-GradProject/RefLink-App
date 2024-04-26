@@ -116,9 +116,11 @@ export default function AddPostingForm() {
                         {
                             questionInputs.map((question, i) =>
                                 <>
-                                    <TextInput register={register} name={`question-${i}`} inputType="text" labelText={`question-${i}`} placeholder="Add a question" />
-                                    <button className='btn mb-3 mr-3' type="button" onClick={addQuestionInputForm}> + </button>
-                                    <button className='btn mb-3 btn-outline' type="button"> AI </button>
+                                    <div key={`${question}${i}`}>
+                                        <TextInput register={register} name={`question-${i}`} inputType="text" labelText={`question-${i}`} placeholder="Add a question" />
+                                        <button className='btn mb-3 mr-3' type="button" onClick={addQuestionInputForm}> + </button>
+                                        <button className='btn mb-3 btn-outline' type="button"> AI </button>
+                                    </div>
                                 </>
                             )
                         }
