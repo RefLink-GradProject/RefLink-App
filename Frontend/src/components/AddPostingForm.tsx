@@ -3,7 +3,7 @@ import Alert from "./Alert";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import { useNavigate } from 'react-router-dom';
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { PostingRequest, QuestionRequest } from "../Types";
 import { useMutation } from "react-query";
 

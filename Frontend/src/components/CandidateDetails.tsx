@@ -1,4 +1,4 @@
-import { Candidate, CandidateWithDetails } from "../Types";
+import { CandidateWithDetails } from "../Types";
 import { useNavigate } from 'react-router-dom';
 
 export default function CandidateDetails({ candidate }: Props) {

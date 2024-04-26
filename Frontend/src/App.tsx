@@ -18,7 +18,6 @@ const allCandidates = await getCandidates();
 // const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
-import Callback from './Callback';
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 // const allCandidates = [candidate1, candidate2, candidate3]
 

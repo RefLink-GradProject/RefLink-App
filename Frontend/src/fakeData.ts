@@ -7,18 +7,18 @@ export const question3: Question = { guidId: "403", content: "What projects have
 export const question4: Question = { guidId: "404", content: "How do you handle conflicts in a team?" };
 
 // Define responses with references to corresponding questions
-export const response1: Response = { guidId: "301", content: "John is a skilled developer.", question: question1 };
-export const response2: Response = { guidId: "302", content: "John communicates well with the team.", question: question1 };
-export const response3: Response = { guidId: "501", content: "I have 3 years of experience with React.", question: question1 };
-export const response4: Response = { guidId: "502", content: "I am proficient in React and have built several projects.", question: question1 };
-export const response5: Response = { guidId: "503", content: "I prioritize tasks and communicate effectively to meet deadlines.", question: question2 };
-export const response6: Response = { guidId: "504", content: "I thrive under pressure and can efficiently manage my time.", question: question2 };
-export const response7: Response = { guidId: "701", content: "Strong problem-solving skills.", question: question3 };
-export const response8: Response = { guidId: "702", content: "A quick learner.", question: question3 };
-export const response9: Response = { guidId: "801", content: "Has excellent communication skills.", question: question4 };
-export const response10: Response = { guidId: "802", content: "Very detail-oriented.", question: question4 };
-export const response11: Response = { guidId: "901", content: "Highly organized.", question: question4 };
-export const response12: Response = { guidId: "902", content: "A team player.", question: question4 };
+export const response1: Response = { guidId: "301", content: "John is a skilled developer."};
+export const response2: Response = { guidId: "302", content: "John communicates well with the team."};
+export const response3: Response = { guidId: "501", content: "I have 3 years of experience with React." };
+export const response4: Response = { guidId: "502", content: "I am proficient in React and have built se" };
+export const response5: Response = { guidId: "503", content: "I prioritize tasks and communicate effectively to meet deadlines." };
+export const response6: Response = { guidId: "504", content: "I thrive under pressure and can efficiently manage my time." };
+export const response7: Response = { guidId: "701", content: "Strong problem-solving skills." };
+export const response8: Response = { guidId: "702", content: "A quick learner." };
+export const response9: Response = { guidId: "801", content: "Has excellent communication skills." };
+export const response10: Response = { guidId: "802", content: "Very detail-oriented." };
+export const response11: Response = { guidId: "901", content: "Highly organized." };
+export const response12: Response = { guidId: "902", content: "A team player." };
 
 // Define referencers with responses
 export const referencer1: Referencer = {
@@ -105,4 +105,4 @@ export const posting3: Posting = {
 
 // Export postings array
 export const postings: Posting[] = [posting1, posting2, posting3];
-export const employer: Employer = {guidId: "1234", name: "Mathieas", company:"Salt", emial:"salt@gmail.com", postings:[posting1, posting2, posting3] }
+// export const employer: Employer = {guidId: "1234", name: "Mathieas", company:"Salt", emial:"salt@gmail.com", postings:[posting1, posting2, posting3] }

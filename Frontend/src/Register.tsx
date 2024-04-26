@@ -13,7 +13,7 @@ type CreateEmployer = {
 
 const Register = () => {
   const { user, isLoading, error, getIdTokenClaims } = useAuth0();
-  const { register, handleSubmit, setValue, reset } = useForm();
+  const { register, setValue, reset } = useForm();
   const navigate = useNavigate();
 
   useEffect(() => {

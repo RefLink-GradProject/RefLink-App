@@ -3,10 +3,19 @@ import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { useNavigate } from 'react-router-dom';
 import TextArea from "./TextArea";
-import { referencer1 } from "../fakeData";
 import {  useForm } from "react-hook-form"
+import { ReferencerInCandidateDetails } from "../Types";
 
-const referencer = referencer1; // for testing
+const referencer : ReferencerInCandidateDetails= { // for testing
+    name: "referencer1",
+    guidId: "1001",
+    responses: [
+        {questionContent: "quesstion1", questionGuidId: "1", responseContent: "response1", responseGuidId:"1"},
+        {questionContent: "quesstion2", questionGuidId: "2", responseContent: "response2", responseGuidId:"2"},
+        {questionContent: "quesstion3", questionGuidId: "3", responseContent: "response3", responseGuidId:"3"},
+
+    ]
+}
 
 export default function AddReviewForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
@@ -35,7 +44,7 @@ export default function AddReviewForm() {
                     {
                         referencer.responses!.map((response) =>
                             <>
-                                <TextArea register={register} name="reviewer-review" labelText={response.question.content} placeholder="" />
+                                <TextArea register={register} name="reviewer-review" labelText={response.questionContent} placeholder="" />
                             </>
                         )
                     }
