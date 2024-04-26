@@ -1,20 +1,13 @@
 
 
+// async function getEmployer():  {
 
-export const GetUserInfo= async (token : string) => {
-    const url = `http://localhost:5136/api/Auth/employer`;
+//     const token = await getIdTokenClaims();  
+//     const response = await fetch('http://localhost:5136/api/Employers', {
+//         headers: {
+//           "Authorization": "Bearer " + token!.__raw
+//         }
+//       });
     
-    const response = await fetch(url, {
-      headers: {
-        "Authorization": "Bearer " + token
-      },
-    });
-  
-    if (!response.ok) {
-      return response.text().then((text) => {
-        throw new Error(text);
-      });
-    }
-    const user = await response.json()
-    return user;
-  };
+
+//   }
