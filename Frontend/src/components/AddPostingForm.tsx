@@ -4,7 +4,7 @@ import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { PostingRequest } from "../Types";
+import { PostingRequest, QuestionRequest } from "../Types";
 import { useMutation } from "react-query";
 
 export default function AddPostingForm() {
@@ -41,10 +41,10 @@ export default function AddPostingForm() {
             },
             body: JSON.stringify(data)
         })
-        return await response.json(); // I KNOW THIS CONTAINS THE DATA
+        return await response.json();
     }
 
-    async function postQuestions(data) {
+    async function postQuestions(data: QuestionRequest) {
         console.log("postQuestion", data);
         const response = await fetch("http://localhost:5136/api/questions", {
             "method": "POST",
@@ -71,7 +71,7 @@ export default function AddPostingForm() {
         const questions = Array.from(Object.values(Object.fromEntries(Object.entries(data).slice(2, Object.keys(data).length))))
 
         for (const question in questions) {
-            const questionsData = {
+            const questionsData: QuestionRequest = {
                 postingGuid: postingGuid,
                 content: question
             }
@@ -111,28 +111,13 @@ export default function AddPostingForm() {
                     <fieldset className="border border-slate-150 rounded-sm p-3 mb-5">
                         <legend className="text-sm text-slate-500 mb-2">Questions</legend>
 
-                        {/* <label className="input input-bordered flex items-center gap-2 mb-3">
-                            <input type="text" name="question" onChange={event => addQuestionToInputs(event.target.value, 0)} className="grow" placeholder="" />
-                        </label> */}
                         {
-                            questionInputs.map((question, i) =>
+                            questionInputs.map((index) =>
                                 <>
-                                    <TextInput register={register} name={`question-${i}`} inputType="text" labelText={`question-${i}`} placeholder="Add a question" />
+                                    <TextInput register={register} name={`question-${index}`} inputType="text" labelText={`question-${index}`} placeholder="Add a question" />
                                     <button className='btn mb-3 mr-3' type="button" onClick={addQuestionInputForm}> + </button>
                                     <button className='btn mb-3 btn-outline' type="button"> AI </button>
                                 </>
-                                // <label key={i} className={"input input-bordered flex items-center gap-2 mb-3 " + { question }} >
-                                //     <input
-                                //         {...register(`posting-questions.${i}`)} // Register each input with a unique name using array notation
-                                //         type="text"
-                                //         id={`question-${i}`}
-                                //         name={`question-${i}`}
-                                //         onChange={event => addQuestionToInputs(event.target.value, i)}
-                                //         className="grow"
-                                //         placeholder=""
-                                //     />
-                                // </label>
-
                             )
                         }
                     </fieldset>
