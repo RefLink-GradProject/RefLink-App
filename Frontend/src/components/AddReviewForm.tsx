@@ -24,7 +24,8 @@ export default function AddReviewForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
     const { register } = useForm();
-    const [value, setValue] = useState<number>(3);
+    const initialRatingValues: number[] = referencer.ratings!.map(()=> 3);
+    const [ratingValues, setRatingValues] = useState<number[]>(initialRatingValues);
 
     function handleAdd() {
         // ToDo: handle confirm
@@ -35,10 +36,14 @@ export default function AddReviewForm() {
         }, 2000);
     }
 
-    function handleChange (event: ChangeEvent<HTMLInputElement>) {
-        setValue(Number(event.target.value));
-        console.log(value);
-      }
+    function handleChange (index: number, event: ChangeEvent<HTMLInputElement>) {
+        const newValue = Number(event.target.value);
+        setRatingValues(prevValues => {
+            const newValues = [...prevValues];
+            newValues[index] = newValue;
+            return newValues;
+        });
+    }
 
     return (
         <>
@@ -61,12 +66,12 @@ export default function AddReviewForm() {
                     </section>
 
                     <section id="ratings">
-                        <h2 className="text-xl">Rating of the candidate (0-10) </h2>
+                        <h2 className="text-xl">Rating of the candidate: </h2>
                         {
-                            referencer.ratings!.map((rating) =>
+                            referencer.ratings!.map((rating, index) =>
                                 <div className="mt-5 mb-5">
                                     <h3>{rating.questionContent}</h3>
-                                    <input type="range" min={1} max="5" value={value} className="range" step="1" onChange={handleChange}/>
+                                    <input type="range" min={1} max="5" value={ratingValues[index]} className="range range-secondary" step="1" onChange={(event) => handleChange(index, event)}/>
                                     <div className="w-full flex justify-between text-xs px-2">
                                         <span>1</span>
                                         <span>2</span>

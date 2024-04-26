@@ -2435,6 +2435,10 @@ details.collapse summary::-webkit-details-marker {
       calc(var(--filler-size) * -1 - var(--filler-offset)) 0 0 var(--filler-size);
 }
 
+.range-secondary {
+  --range-shdw: var(--fallback-s,oklch(var(--s)/1));
+}
+
 .rating input {
   -moz-appearance: none;
        appearance: none;
