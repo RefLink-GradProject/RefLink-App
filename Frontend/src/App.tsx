@@ -5,7 +5,7 @@ import AddPostingForm from './components/AddPostingForm';
 import { Candidate, CandidateWithDetails, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
-import {  useState } from 'react';
+import { useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
 import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
@@ -65,13 +65,13 @@ export default function App() {
 
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
-          <Route path='/add-referencer' element={<AddReferencerForm />} />
+          <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
           <Route path='/add-reference' element={<AddReviewForm />} />
-          <Route path='/register' element={<Register/>} />
+          <Route path='/register' element={<Register />} />
         </Routes>
       </div>
       <Footer />
-    
+
 
     </>
   )
