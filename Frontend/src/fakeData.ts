@@ -1,4 +1,4 @@
-import { Question, Response, Candidate, Referencer, Posting, Employer } from './Types';
+import { Question, Response, Candidate, Referencer, Posting} from './Types';
 
 // Define questions
 export const question1: Question = { guidId: "401", content: "What experience do you have with React?" };
