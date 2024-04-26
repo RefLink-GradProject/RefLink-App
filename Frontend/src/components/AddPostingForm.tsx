@@ -103,7 +103,7 @@ export default function AddPostingForm() {
     }
 
 
-    function handleBackClik() {
+    function handleBackClick() {
         navigate(-1);
     }
 
@@ -156,7 +156,7 @@ export default function AddPostingForm() {
                     </fieldset>
 
                     <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
-                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClik}>Cancel</button>
+                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
                 </form>
             </div>
             {showAlertAdded && (
