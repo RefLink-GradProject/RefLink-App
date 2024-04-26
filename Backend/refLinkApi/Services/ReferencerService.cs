@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using refLinkApi.Dtos;
 using refLinkApi.Dtos.Mappers;
@@ -55,5 +56,36 @@ public class ReferencerService : IReferencerService
 
         var referencer = await _context.Referencers.FirstOrDefaultAsync(r => r.GuidId == guidId);
         return mapper.ReferencerToReferencerResponseDto(referencer);
+    }
+
+    public async Task<ActionResult<ReferencerWithQuestionsResponseDto>> GetQuestionsByReferencerGuid(Guid guidId)
+    {
+        var referencer = await _context.Referencers
+            .Include(referencer => referencer.Candidate)
+            .ThenInclude(candidate => candidate.Posting)
+            .ThenInclude(posting => posting.Questions)
+            .FirstOrDefaultAsync(referencer => referencer.GuidId == guidId);
+
+        var questions = referencer.Candidate.Posting.Questions;
+
+        if (questions is null)
+        {
+            return null;
+        }
+        
+        List<QuestionResponseDto> questionResponseDtos = [];
+
+        foreach (var question in questions)
+        {
+            questionResponseDtos.Add(mapper.QuestionToQuestionResponseDto(question));
+        }
+
+        var referencerWithQuestionsResponse = new ReferencerWithQuestionsResponseDto()
+        {
+            Referencer = mapper.ReferencerToReferencerResponseDto(referencer),
+            Questions = questionResponseDtos
+        };
+
+        return referencerWithQuestionsResponse;
     }
 }
