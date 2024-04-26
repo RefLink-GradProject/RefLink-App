@@ -65,13 +65,11 @@ export default function AddPostingForm() {
         const postingData: PostingRequest = {
             title: data.postingTitle,
             description: data.postingDescription,
-            employerGuid: "879bf4e4-ee39-432d-87df-2f7e7dfca2ad" // TODO: get from backend
+            employerGuid: "f59e0e38-019e-4b93-a163-0369b71c2ac5" // TODO: get from backend
         }
 
         const postingResponse = await postMutation.mutateAsync(postingData);
         const postingGuid = postingResponse.guidId
-
-        // const questions = Array.from(Object.values(Object.fromEntries(Object.entries(data).slice(2, Object.keys(data).length))))
 
         const questions = data.questions;
 
