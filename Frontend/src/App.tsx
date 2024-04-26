@@ -20,6 +20,7 @@ const allCandidates = await getCandidates();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
 import { postings, referencerWithQuestions } from './fakeData';
+import ChartsDraft from './components/ChartsDraft';
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 // const allCandidates = [candidate1, candidate2, candidate3]
 
@@ -63,6 +64,7 @@ export default function App() {
           <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
           <Route path='/add-reference' element={<AddReviewForm referencer={referencerWithQuestions}/>} />
           <Route path='/register' element={<Register />} />
+          <Route path='/charts' element={<ChartsDraft />} />
         </Routes>
       </div>
       <Footer />
