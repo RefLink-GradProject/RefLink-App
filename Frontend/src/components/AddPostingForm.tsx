@@ -87,10 +87,9 @@ export default function AddPostingForm() {
         //     setShowAlertAdded(false);
         //     navigate("/postings");
         // }, 2000);
-
-
-
     }
+
+
 
     function handleBackClik() {
         navigate(-1);
