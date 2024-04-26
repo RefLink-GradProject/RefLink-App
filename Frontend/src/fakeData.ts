@@ -151,3 +151,38 @@ export const fakeCandidate1WithDetails: CandidateWithDetails = {
         }
     ]
 };
+
+
+export const fakeCandidatesRating = [
+    {
+        subject: "initialtivity",
+        person1: 3,
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "Efficiency",
+        person1: 1,
+        person2: 5,
+        fullMark: 5
+    },
+    {
+        subject: "Passion",
+        person1: 5,
+        person2: 2,
+        fullMark: 5
+    },
+    {
+        subject: "Happy",
+        person1: 4,
+        person2: 2,
+        fullMark: 5
+    },
+    {
+        subject: "serious",
+        person1: 3,
+        person2: 2,
+        fullMark: 5
+    }
+
+]
