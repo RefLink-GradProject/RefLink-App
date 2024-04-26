@@ -30,6 +30,7 @@ export type ReferencerInCandidateDetails = {
   name: string;
   guidId?: string;
   responses: ResponseWithQuestionContent[];
+  ratings: RatingsWithQuestionContent[];
 };
 
 export type ResponseWithQuestionContent = {
@@ -38,6 +39,13 @@ export type ResponseWithQuestionContent = {
   responseContent: string;
   responseGuidId: string;
 };
+
+export type RatingsWithQuestionContent = {
+  questionContent: string;
+  questionGuidId: string;
+  ratingContent: number;
+  ratingGuidId: string;
+}
 
 export type Referencer = {
   guidId?: string;
@@ -74,3 +82,15 @@ export type CreateEmployer = {
   email: string;
   company: string;
 };
+
+export type RatingQuestion = {
+  guidId: string;
+  content: string;
+  responses?: Response[];
+}
+export type ReferencerWithQuestions = {
+  name: string,
+  guidId: string,
+  questions: Question[]
+  ratingQuestions: RatingQuestion[];
+}
