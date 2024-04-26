@@ -6,13 +6,13 @@ namespace refLinkApi.Models;
 public class Employer
 {
     
-    public string AuthId { get; set; }
+    public required string AuthId { get; set; }
     
     public Guid GuidId { get; set; } = Guid.NewGuid();
 
-    public string? Name { get; set; }
+    public required string Name { get; set; }
 
-    public  string? Company { get; set; }
+    public  required string Company { get; set; }
 
     public required string Email { get; set; } 
 

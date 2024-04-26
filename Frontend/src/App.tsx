@@ -16,14 +16,13 @@ import Register from './Register';
 
 const allPostings = await getPostings();
 const allCandidates = await getCandidates();
-// const CurrentEmployer = await getEmployer();
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
 
   // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
   // const allPostings = getPostingsQuery.data!;
-  // const [employer, SetEmployer] = useState<Employer>(CurrentEmployer);
+ 
   const [postings, setPostings] = useState<Posting[]>(allPostings);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
