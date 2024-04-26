@@ -92,6 +92,7 @@ export default function AddPostingForm() {
             console.log(questionResponse.json)
         }
 
+        // TODO: complete logic with alert and redirect ON SUCCESS ONLY
         // if success then show this
         setShowAlertAdded(true);
 
@@ -110,7 +111,7 @@ export default function AddPostingForm() {
 
 
 
-
+    // TODO: add validations
 
     return (
         <>
