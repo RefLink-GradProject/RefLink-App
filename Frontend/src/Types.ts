@@ -82,3 +82,15 @@ export type CreateEmployer = {
   email: string;
   company: string;
 };
+
+export type RatingQuestion = {
+  guidId: string;
+  content: string;
+  responses?: Response[];
+}
+export type ReferencerWithQuestions = {
+  name: string,
+  guidId: string,
+  questions: Question[]
+  ratingQuestions: RatingQuestion[];
+}

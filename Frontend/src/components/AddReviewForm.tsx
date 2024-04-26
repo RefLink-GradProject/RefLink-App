@@ -3,40 +3,37 @@ import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { useNavigate } from 'react-router-dom';
 import TextArea from "./TextArea";
-import { useForm } from "react-hook-form"
-import { ReferencerInCandidateDetails } from "../Types";
+import { FieldValues, useForm } from "react-hook-form"
+import { ReferencerInCandidateDetails, ReferencerWithQuestions } from "../Types";
+import { postResponse } from "../services/responseServices";
 
-const referencer: ReferencerInCandidateDetails = { // for testing
-    name: "referencer1",
-    guidId: "1001",
-    responses: [
-        { questionContent: "quesstion1", questionGuidId: "1", responseContent: "response1", responseGuidId: "1" },
-        { questionContent: "quesstion2", questionGuidId: "2", responseContent: "response2", responseGuidId: "2" },
-        { questionContent: "quesstion3", questionGuidId: "3", responseContent: "response3", responseGuidId: "3" },
-    ],
-    ratings: [
-        { questionContent: "Work ability", questionGuidId: "1", ratingContent: 0, ratingGuidId: "1" },
-        { questionContent: "Responsibility", questionGuidId: "1", ratingContent: 0, ratingGuidId: "1" },
-    ]
-}
 
-export default function AddReviewForm() {
+
+export default function AddReviewForm({ referencer }: Props) {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
     const { register } = useForm();
-    const initialRatingValues: number[] = referencer.ratings!.map(()=> 3);
+    const initialRatingValues: number[] = referencer.questions!.map(() => 3);
     const [ratingValues, setRatingValues] = useState<number[]>(initialRatingValues);
 
-    function handleAdd() {
-        // ToDo: handle confirm
+    async function handleAdd(data: FieldValues) {
+        const responses = Object.entries(data)
+            .filter(([key]) => key.startsWith("review"))
+            .map(([key, value]) => ({
+                content: value,
+                questionGuid: referencer.questions![parseInt(key.slice(6))].guidId
+            }));
+
+        await Promise.all(responses.map(response => postResponse(response.content, response.questionGuid)));
         setShowAlertAdded(true);
         setTimeout(() => {
             setShowAlertAdded(false);
-            navigate("/")
+            // navigate("/");
         }, 2000);
     }
 
-    function handleChange (index: number, event: ChangeEvent<HTMLInputElement>) {
+
+    function handleChange(index: number, event: ChangeEvent<HTMLInputElement>) {
         const newValue = Number(event.target.value);
         setRatingValues(prevValues => {
             const newValues = [...prevValues];
@@ -59,8 +56,8 @@ export default function AddReviewForm() {
                     <section id="references">
                         <h2 className="text-xl">Reference for the candidate: </h2>
                         {
-                            referencer.responses!.map((response) =>
-                                <TextArea register={register} name="reviewer-review" labelText={response.questionContent} placeholder="" />
+                            referencer.questions!.map((question, i) =>
+                                <TextArea register={register} name={`review${i}`} labelText={question.content} placeholder="" />
                             )
                         }
                     </section>
@@ -68,10 +65,10 @@ export default function AddReviewForm() {
                     <section id="ratings">
                         <h2 className="text-xl">Rating of the candidate: </h2>
                         {
-                            referencer.ratings!.map((rating, index) =>
+                            referencer.ratingQuestions!.map((question, index) =>
                                 <div className="mt-5 mb-5">
-                                    <h3>{rating.questionContent}</h3>
-                                    <input type="range" min={1} max="5" value={ratingValues[index]} className="range range-secondary" step="1" onChange={(event) => handleChange(index, event)}/>
+                                    <h3>{question.content}</h3>
+                                    <input type="range" min={1} max="5" value={ratingValues[index]} className="range range-secondary" step="1" onChange={(event) => handleChange(index, event)} />
                                     <div className="w-full flex justify-between text-xs px-2">
                                         <span>1</span>
                                         <span>2</span>
@@ -99,3 +96,6 @@ export default function AddReviewForm() {
 }
 
 
+type Props = {
+    referencer: ReferencerWithQuestions;
+}
