@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
-import { Candidate, CandidateWithDetails, Posting } from './Types';
+import { CandidateWithDetails, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ const allCandidates = await getCandidates();
 // const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
-import Callback from './Callback';
+import { referencerWithQuestions } from './fakeData';
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 // const allCandidates = [candidate1, candidate2, candidate3]
 

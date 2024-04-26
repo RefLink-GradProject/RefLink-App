@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCodeBranch, faBuilding, faUsers, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCodeBranch, faBuilding, faUsers } from '@fortawesome/free-solid-svg-icons'
 
 export default function Footer() {
 
@@ -14,16 +14,21 @@ export default function Footer() {
                 </aside>
                 <nav>
                     <div className="grid grid-flow-col gap-4">
-                        <a href="https://github.com/RefLink-GradProject/RefLink-App">
-                            <FontAwesomeIcon icon={faCodeBranch} size='xl' />
-                        </a>
-                        <a href="https://github.com/RefLink-GradProject">
+                    <div className="tooltip" data-tip="Github repository">
+                            <a href="https://github.com/RefLink-GradProject/RefLink-App">
+                                <FontAwesomeIcon icon={faCodeBranch} size='xl' />
+                            </a>
+                        </div>
+                        <div className="tooltip" data-tip="Github organization">
+                            <a href="https://github.com/RefLink-GradProject/RefLink-App">
                             <FontAwesomeIcon icon={faUsers} size='xl' />
-                        </a>
-                        <a href="https://salt.dev/">
+                            </a>
+                        </div>
+                        <div className="tooltip " data-tip="&lt;/Salt&gt;">
+                            <a href="https://github.com/RefLink-GradProject/RefLink-App">
                             <FontAwesomeIcon icon={faBuilding} size='xl' />
-                        </a>
-                        
+                            </a>
+                        </div>
                     </div>
                 </nav>
             </footer>
