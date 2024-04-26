@@ -12,26 +12,23 @@ import { postResponse } from "../services/responseServices";
 export default function AddReviewForm({ referencer }: Props) {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
-    const { register } = useForm();
+    const { register,handleSubmit, getValues,formState: { errors }  } = useForm();
     const initialRatingValues: number[] = referencer.questions!.map(() => 3);
     const [ratingValues, setRatingValues] = useState<number[]>(initialRatingValues);
 
-    async function handleAdd(data: FieldValues) {
-        const responses = Object.entries(data)
-            .filter(([key]) => key.startsWith("review"))
-            .map(([key, value]) => ({
-                content: value,
-                questionGuid: referencer.questions![parseInt(key.slice(6))].guidId
-            }));
-
-        await Promise.all(responses.map(response => postResponse(response.content, response.questionGuid)));
+    async function handleAdd() {
+        
+        for(let i=0; i<referencer.questions.length; i++){
+            const responseContent = getValues("review" + i);
+            const questionGuid = referencer.questions[i].guidId;
+            await postResponse(responseContent,questionGuid);
+        }
         setShowAlertAdded(true);
         setTimeout(() => {
             setShowAlertAdded(false);
             // navigate("/");
         }, 2000);
     }
-
 
     function handleChange(index: number, event: ChangeEvent<HTMLInputElement>) {
         const newValue = Number(event.target.value);
@@ -44,7 +41,7 @@ export default function AddReviewForm({ referencer }: Props) {
 
     return (
         <>
-            <div className="flex justify-center mt-10">
+            <form className="flex justify-center mt-10" onSubmit={handleSubmit(handleAdd)}>
                 <div className="w-1/2 ">
                     <section id="referencer-info">
                         <h2 className="text-xl">Information about you: </h2>
@@ -81,9 +78,9 @@ export default function AddReviewForm({ referencer }: Props) {
                         }
 
                     </section>
-                    <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20 mb-10'> Add</button>
+                    <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20 mb-10'> Add</button>
                 </div>
-            </div>
+            </form>
 
 
             {showAlertAdded && (

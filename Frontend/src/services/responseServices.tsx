@@ -7,6 +7,7 @@ export async function postResponse(content: string, questionGuid: string){
             questionGuid: questionGuid
         })
     });
-    if(!response.ok)
+    if(!response.ok){
         throw new Error("Failed to post new candidate!")
+    }
 }
