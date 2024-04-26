@@ -1,12 +1,13 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import TextInput from "./TextInput";
 
 
 export default function AddReviewForm() {
     const { guid } = useParams();
     console.log("guid", guid);
+    const navigate = useNavigate();
     const { register, handleSubmit, control } = useForm();
 
     const { isLoading, error, data } = useQuery({
@@ -26,8 +27,44 @@ export default function AddReviewForm() {
         }
     });
 
+    const responseMutation = useMutation({
+        mutationFn: postResponse,
+        onSuccess: async (data) => {
+            console.log("Success", data);
+            return data;
+        },
+    })
+
+    async function postResponse(data: FieldValues) {
+        const response = await fetch("http://localhost:5136/api/responses", {
+            "method": "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        const responseJson = await response.json();
+        return responseJson;
+    }
+
     async function submitForm(data: FieldValues) {
         console.log("submitForm", data)
+
+        for (const response of data.responses) {
+            console.log(response)
+            const payload = {
+                content: Object.values(response)[0],
+                questionGuid: Object.keys(response)[0]
+            }
+
+            console.log(payload);
+
+            responseMutation.mutate(payload);
+        }
+    }
+
+    function handleBackClick() {
+        navigate(-1);
     }
 
     if (isLoading) {
@@ -57,12 +94,14 @@ export default function AddReviewForm() {
                         data.questions.map((question, i) =>
                             <>
                                 <div key={question.guidId}>
-                                    <TextInput register={register} name={`referencers[${i}].name`} inputType="text" labelText={question.content} placeholder="Type your response" />
+                                    <TextInput register={register} name={`responses[${i}].${question.guidId}`} inputType="text" labelText={question.content} placeholder="Type your response" />
                                 </div>
                             </>
                         )
                     }
                 </fieldset>
+                <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
+                <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
             </form>
         </>
     )
