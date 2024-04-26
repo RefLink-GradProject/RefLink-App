@@ -41,10 +41,10 @@ export type ResponseWithQuestionContent = {
 };
 
 export type RatingsWithQuestionContent = {
-  questionContent: string;
-  questionGuidId: string;
-  ratingContent: number;
-  ratingGuidId: string;
+  ratingQuestionContent: string;
+  ratingQuestionGuidId: string;
+  ratingResponseContent: string;
+  ratingResponseGuidId: string;
 }
 
 export type Referencer = {
