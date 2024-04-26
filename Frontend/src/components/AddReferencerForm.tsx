@@ -1,80 +1,135 @@
-import { useState } from "react";
-import TextInput from "./TextInput";
-import Alert from "./Alert";
-import { Referencer } from "../Types";
+import { FieldValues, useFieldArray, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from "react-hook-form"
+import TextInput from './TextInput';
+import { useMutation, useQuery } from 'react-query';
+import { ReferencerRequest } from '../Types';
 
 export default function AddReferencerForm() {
-    const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
-    const [referencerInputs, setReferencerInputs] = useState<Referencer[]>([]);
-    const { register} = useForm();
-
     const navigate = useNavigate();
+    const { guid } = useParams();
+    const { register, handleSubmit, control } = useForm();
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "referencers"
+    });
 
-    function handleAdd() {
-        // ToDo: handle confirm
-        setShowAlertAdded(true);
-        setTimeout(() => {
-            setShowAlertAdded(false);
-            navigate("/")
-        }, 2000);
+    if (fields.length === 0) {
+        append({
+            name: "",
+            email: "",
+        });
     }
 
-    // function addReferencerToInputs(referencer: Referencer, i: number) {
-    //     const newReferencerInputs = [...referencerInputs];
-    //     newReferencerInputs[i] = referencer;
-    //     setReferencerInputs(newReferencerInputs);
-    // }
+    const { isLoading, error, data } = useQuery({
+        queryKey: ['repoData'],
+        queryFn: async () => {
+            const response = await fetch(`http://localhost:5136/api/candidates/${guid}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
 
-    function addReferencerInputForm() {
-        const newReferencerInputs = [...referencerInputs, { name: "", email: "" }]
-        setReferencerInputs(newReferencerInputs);
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            return await response.json();
+        }
+    });
+
+    const referencerMutation = useMutation({
+        mutationFn: postReferencer,
+        onSuccess: async (data) => {
+            return data;
+        },
+    })
+
+    async function postReferencer(data: FieldValues) {
+        const response = await fetch("http://localhost:5136/api/referencers", {
+            "method": "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        const responseJson = await response.json();
+        return responseJson;
     }
+
+    async function submitForm(data: FieldValues) {
+        for (const referencer of data.referencers) {
+
+            const payload: ReferencerRequest = {
+                candidateGuid: guid!,
+                name: referencer.name,
+                email: referencer.email
+            }
+
+            await referencerMutation.mutateAsync(payload);
+        }
+    }
+
+    function handleBackClick() {
+        navigate(-1);
+    }
+
+    if (isLoading) {
+        return (
+            <>
+                <div className="h-full w-full flex justify-center">
+                    <span className="mx-auto loading loading-spinner loading-lg"></span>
+                </div>
+            </>
+        )
+    }
+
+
+    if (error) return 'An error has occurred.'
 
     return (
         <>
-            <h2>Add your referencer details here: </h2>
-            <button className='btn mb-3 mr-3' type="button" onClick={addReferencerInputForm}> + </button>
-            <div className="flex justify-center mt-10">
-                <div className="w-full flex">
-                    <div className="w-1/2">
-                        <TextInput  register={register}  name="referencer-name" inputType="name" labelText="Name" placeholder="Candidate name" />
-                    </div>
-                    <div className="w-1/2">
+            <>
+                <h1 className="text-xl">Hi {data.name}.</h1>
+                <p>Let's add some referencers.</p>
+                <div className="container-md mx-auto mt-10">
+                    <form className="w-1/2" onSubmit={handleSubmit(submitForm)}>
 
-                        <TextInput  register={register}  name="referencer-emial" inputType="email" labelText="Email" placeholder="Candidate email" />
-                    </div>
+                        <fieldset className="border border-slate-150 rounded-sm p-3 mb-5">
+                            <legend className="text-sm text-slate-500 mb-2">Add referencers</legend>
+
+                            {
+                                fields.map((referencer, i) =>
+                                    <>
+                                        <div className='mb-5' key={`${referencer}${i}`}>
+
+                                            <div className="flex gap-3">
+                                                <TextInput register={register} name={`referencers[${i}].name`} inputType="text" labelText={`Full name`} placeholder="John Doe" />
+                                                <TextInput register={register} name={`referencers[${i}].email`} inputType="text" labelText={`Email address`} placeholder="john.doe@example.com" />
+                                            </div>
+
+                                            <div className="flex gap-3">
+                                                <button className='btn btn-square' type="button" onClick={() => append({ name: "", email: "" })}>
+                                                    <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
+                                                </button>
+                                                <button className='btn btn-square' type="button" onClick={() => remove(i)}>
+                                                    <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </>
+                                )
+                            }
+                        </fieldset>
+
+                        <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
+                        <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
+                    </form>
                 </div>
-            </div>
-            {referencerInputs.map(() =>
-                <>
-                    <div className="flex justify-center mt-10">
-                        <div className="w-full flex">
-                            <div className="w-1/2">
-                                <TextInput register={register}   name="referencer-name" inputType="name" labelText="Name" placeholder="Candidate name" />
-                            </div>
-                            <div className="w-1/2">
-                                <TextInput  register={register}  name="referencer-emial" inputType="email" labelText="Email" placeholder="Candidate email" />
-                            </div>
-                        </div>
-                    </div>
 
-                </>
-            )}
-
-
-            <div className="fixed bottom-20 right-20 mb-4 mr-4"> {/* Fixed position at bottom right */}
-                <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm w-20'> Add</button>
-            </div>
-
-
-            {showAlertAdded && (
-                <Alert alertType="success" alertContent="Your reference has been send!" />
-            )}
-
-
-
+            </>
         </>
     )
 }

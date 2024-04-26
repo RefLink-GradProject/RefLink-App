@@ -54,6 +54,12 @@ export type Referencer = {
   responses?: Response[];
 };
 
+export type ReferencerRequest = {
+  candidateGuid: string;
+  name: string;
+  email: string;
+};
+
 export type Response = {
   guidId: string;
   content: string;

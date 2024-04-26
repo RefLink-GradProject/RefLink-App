@@ -3,19 +3,28 @@ import Alert from "./Alert";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import { useNavigate } from 'react-router-dom';
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { PostingRequest, QuestionRequest } from "../Types";
 import { useMutation } from "react-query";
 
 export default function AddPostingForm() {
-    const [questionInputs, setQuestionInputs] = useState<string[]>([""])
+    // const [questionInputs, setQuestionInputs] = useState<string[]>([""])
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
-    const { register, handleSubmit, } = useForm();
+    const { register, handleSubmit, control } = useForm();
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "questions"
+    });
     const navigate = useNavigate();
 
-    function addQuestionInputForm() {
-        const newQuestionInput = [...questionInputs, ""]
-        setQuestionInputs(newQuestionInput);
+    // function addQuestionInputForm() {
+    //     const newQuestionInput = [...questionInputs, ""]
+    //     setQuestionInputs(newQuestionInput);
+    // }
+
+    // Add default value for the first question field
+    if (fields.length === 0) {
+        append({ content: "" });
     }
 
     const postMutation = useMutation({
@@ -69,6 +78,7 @@ export default function AddPostingForm() {
         const postingGuid = postingResponse.guidId
 
         const questions = Array.from(Object.values(Object.fromEntries(Object.entries(data).slice(2, Object.keys(data).length))))
+        console.log(questions);
 
         for (const question in questions) {
             const questionsData: QuestionRequest = {
@@ -76,10 +86,13 @@ export default function AddPostingForm() {
                 content: question
             }
 
+            console.log("Here is a questionRequest: ", questionsData)
+
             const questionResponse = await questionMutation.mutateAsync(questionsData);
             console.log(questionResponse.json)
         }
 
+        // TODO: complete logic with alert and redirect ON SUCCESS ONLY
         // if success then show this
         setShowAlertAdded(true);
 
@@ -90,10 +103,15 @@ export default function AddPostingForm() {
     }
 
 
-
-    function handleBackClik() {
+    function handleBackClick() {
         navigate(-1);
     }
+
+
+
+
+
+    // TODO: add validations
 
     return (
         <>
@@ -111,18 +129,34 @@ export default function AddPostingForm() {
                         <legend className="text-sm text-slate-500 mb-2">Questions</legend>
 
                         {
-                            questionInputs.map((index) =>
+                            fields.map((question, i) =>
                                 <>
-                                    <TextInput register={register} name={`question-${index}`} inputType="text" labelText={`question-${index}`} placeholder="Add a question" />
-                                    <button className='btn mb-3 mr-3' type="button" onClick={addQuestionInputForm}> + </button>
-                                    <button className='btn mb-3 btn-outline' type="button"> AI </button>
+                                    <div key={`${question}${i}`}>
+                                        <TextInput register={register} name={`questions[${i}].question`} inputType="text" labelText={`Add a question`} placeholder="Add a question" />
+                                        <div className="flex gap-3">
+                                            <button className='btn btn-square' type="button" onClick={() => append({ question: "" })}>
+                                                <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
+                                            </button>
+                                            <button className='btn btn-square' type="button" onClick={() => remove(i)}>
+                                                <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" />
+                                                </svg>
+                                            </button>
+                                            <button className='btn btn-square btn-outline' type="button">
+                                                <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.5A2.493 2.493 0 0 1 7.51 20H7.5a2.468 2.468 0 0 1-2.4-3.154 2.98 2.98 0 0 1-.85-5.274 2.468 2.468 0 0 1 .92-3.182 2.477 2.477 0 0 1 1.876-3.344 2.5 2.5 0 0 1 3.41-1.856A2.5 2.5 0 0 1 12 5.5m0 13v-13m0 13a2.493 2.493 0 0 0 4.49 1.5h.01a2.468 2.468 0 0 0 2.403-3.154 2.98 2.98 0 0 0 .847-5.274 2.468 2.468 0 0 0-.921-3.182 2.477 2.477 0 0 0-1.875-3.344A2.5 2.5 0 0 0 14.5 3 2.5 2.5 0 0 0 12 5.5m-8 5a2.5 2.5 0 0 1 3.48-2.3m-.28 8.551a3 3 0 0 1-2.953-5.185M20 10.5a2.5 2.5 0 0 0-3.481-2.3m.28 8.551a3 3 0 0 0 2.954-5.185" />
+                                                </svg>
+
+                                            </button>
+                                        </div>
+                                    </div>
                                 </>
                             )
                         }
                     </fieldset>
 
                     <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
-                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClik}>Cancel</button>
+                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
                 </form>
             </div>
             {showAlertAdded && (
