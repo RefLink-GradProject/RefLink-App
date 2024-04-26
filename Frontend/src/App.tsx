@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
-import { Candidate, Posting } from './Types';
+import { Candidate, Employer, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
 import {  useState } from 'react';
@@ -12,18 +12,18 @@ import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
 import { getCandidates, getPostings, postCandidate } from './services/postingServices';
-import Profile from './Register';
 import Register from './Register';
 
 const allPostings = await getPostings();
 const allCandidates = await getCandidates();
+// const CurrentEmployer = await getEmployer();
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
 
   // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
   // const allPostings = getPostingsQuery.data!;
-
+  // const [employer, SetEmployer] = useState<Employer>(CurrentEmployer);
   const [postings, setPostings] = useState<Posting[]>(allPostings);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
@@ -72,3 +72,5 @@ export default function App() {
     </>
   )
 }
+
+
