@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Candidate, CandidateWithDetails, Posting } from "../Types";
+import { CandidateWithDetails, Posting } from "../Types";
 import { Link } from "react-router-dom";
 import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
