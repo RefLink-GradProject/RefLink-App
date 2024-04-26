@@ -3,8 +3,8 @@ import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { useNavigate } from 'react-router-dom';
 import TextArea from "./TextArea";
-import { FieldValues, useForm } from "react-hook-form"
-import { ReferencerInCandidateDetails, ReferencerWithQuestions } from "../Types";
+import { useForm } from "react-hook-form"
+import { ReferencerWithQuestions } from "../Types";
 import { postResponse } from "../services/responseServices";
 
 
@@ -12,22 +12,28 @@ import { postResponse } from "../services/responseServices";
 export default function AddReviewForm({ referencer }: Props) {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
-    const { register,handleSubmit, getValues,formState: { errors }  } = useForm();
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm();
     const initialRatingValues: number[] = referencer.questions!.map(() => 3);
     const [ratingValues, setRatingValues] = useState<number[]>(initialRatingValues);
 
     async function handleAdd() {
-        
-        for(let i=0; i<referencer.questions.length; i++){
-            const responseContent = getValues("review" + i);
-            const questionGuid = referencer.questions[i].guidId;
-            await postResponse(responseContent,questionGuid);
-        }
+        // TODO (optional): patch the referencers info if changed.
+        await postAllResponses();
+        // TODO: post the ratings (ratingquestion, ratingContent)
+
         setShowAlertAdded(true);
         setTimeout(() => {
             setShowAlertAdded(false);
             // navigate("/");
         }, 2000);
+    }
+
+    async function postAllResponses() {
+        for (let i = 0; i < referencer.questions.length; i++) {
+            const responseContent = getValues("review" + i);
+            const questionGuid = referencer.questions[i].guidId;
+            await postResponse(responseContent, questionGuid);
+        }
     }
 
     function handleChange(index: number, event: ChangeEvent<HTMLInputElement>) {
