@@ -21,11 +21,12 @@ const allCandidates = await getCandidates();
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
-  const {getIdTokenClaims} = useAuth0();
+  const {getIdTokenClaims, isAuthenticated} = useAuth0();
     
   async function getEmployerByToken() : Promise<Employer | null> {   
       const token = await getIdTokenClaims();
-      if(!token){
+      if(!isAuthenticated){
+        console.log("not auth")
         return null;
       }
       const response = await fetch('http://localhost:5136/api/Employers', {
@@ -33,7 +34,6 @@ export default function App() {
             "Authorization": "Bearer " + token!.__raw
           }
         });
-      console.log(response);
       const employer = await response.json()
       return  employer;
     }
@@ -42,6 +42,7 @@ export default function App() {
     queryKey: ['CurrentEmployee'],
     queryFn: () => getEmployerByToken(),
     onSuccess: (data) => {
+      console.log(data)
       setEmployerData(data);
     },  
 
