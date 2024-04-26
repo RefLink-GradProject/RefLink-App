@@ -57,6 +57,11 @@ export type Employer = {
     guidId: string;
     name: string;
     company: string;
-    emial: string;
+    email: string;
     postings: Posting[];
+}
+export type CreateEmployer = {
+    name: string;
+    email: string; 
+    company: string;
 }

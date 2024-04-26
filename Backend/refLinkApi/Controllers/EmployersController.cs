@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,15 +15,32 @@ namespace refLinkApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployersController : ControllerBase
+    public class EmployersController(EmployerService service) : ControllerBase
     {
-        private readonly EmployerService _service;
+        private readonly EmployerService _service = service;
 
-        public EmployersController(EmployerService service)
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> EmployerHasAccount()
         {
-            _service = service;
+            var employer = await service.GetEmployerInfo(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            if (employer == null)
+            {
+                NotFound();
+            }
+            return Ok(employer);
         }
-        
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateEmployerAccount(EmployerRequestDto dto)
+        {
+            var employer = await service.GetEmployerInfo(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            if (employer != null)
+            {
+                BadRequest();
+            }
+            return Ok(employer);
+        }
 
         // GET: api/Employers/5
         [HttpGet("{id}")]
@@ -36,58 +55,6 @@ namespace refLinkApi.Controllers
 
             return employer;
         }
-
-        // // PUT: api/Employers/5
-        // // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> PutEmployer(int id, Employer employer)
-        // {
-        //     if (id != employer.Id)
-        //     {
-        //         return BadRequest();
-        //     }
-
-        //     _context.Entry(employer).State = EntityState.Modified;
-
-        //     try
-        //     {
-        //         await _context.SaveChangesAsync();
-        //     }
-        //     catch (DbUpdateConcurrencyException)
-        //     {
-        //         if (!EmployerExists(id))
-        //         {
-        //             return NotFound();
-        //         }
-        //         else
-        //         {
-        //             throw;
-        //         }
-        //     }
-
-        //     return NoContent();
-        // }
-
-
-        // // DELETE: api/Employers/5
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> DeleteEmployer(int id)
-        // {
-        //     var employer = await _context.Employers.FindAsync(id);
-        //     if (employer == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     _context.Employers.Remove(employer);
-        //     await _context.SaveChangesAsync();
-
-        //     return NoContent();
-        // }
-
-        // private bool EmployerExists(int id)
-        // {
-        //     return _context.Employers.Any(e => e.Id == id);
-        // }
+        
     }
 }

@@ -11,12 +11,14 @@ import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
-import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
-import { getPostings } from './services/postingServices';
-import Callback from './Callback';
+import Register from './Register';
 
 const allPostings = await getPostings();
 const allCandidates = await getCandidates();
+// const CurrentEmployer = await getEmployer();
+import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
+import { getPostings } from './services/postingServices';
+import Callback from './Callback';
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 // const allCandidates = [candidate1, candidate2, candidate3]
 
@@ -24,7 +26,7 @@ export default function App() {
 
   // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
   // const allPostings = getPostingsQuery.data!;
-
+  // const [employer, SetEmployer] = useState<Employer>(CurrentEmployer);
   const [postings, setPostings] = useState<Posting[]>(allPostings);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
@@ -65,11 +67,14 @@ export default function App() {
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer' element={<AddReferencerForm />} />
           <Route path='/add-reference' element={<AddReviewForm />} />
-          <Route path='/callback' element={<Callback />} />
+          <Route path='/register' element={<Register/>} />
         </Routes>
       </div>
       <Footer />
+    
 
     </>
   )
 }
+
+
