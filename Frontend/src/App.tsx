@@ -13,16 +13,44 @@ import Footer from './components/Footer';
 import Postings from './components/Postings';
 import { getCandidates, getPostings, postCandidate } from './services/postingServices';
 import Register from './Register';
+import { useQuery } from 'react-query';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const allPostings = await getPostings();
 const allCandidates = await getCandidates();
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
+  const {getIdTokenClaims} = useAuth0();
+    
+  async function getEmployerByToken() : Promise<Employer | null> {   
+      const token = await getIdTokenClaims();
+      if(!token){
+        return null;
+      }
+      const response = await fetch('http://localhost:5136/api/Employers', {
+          headers: {
+            "Authorization": "Bearer " + token!.__raw
+          }
+        });
+      console.log(response);
+      const employer = await response.json()
+      return  employer;
+    }
+  
+   useQuery({
+    queryKey: ['CurrentEmployee'],
+    queryFn: () => getEmployerByToken(),
+    onSuccess: (data) => {
+      setEmployerData(data);
+    },  
+
+  })
 
   // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
   // const allPostings = getPostingsQuery.data!;
- 
+
+  const [employer, setEmployerData] = useState<Employer | null>(null);
   const [postings, setPostings] = useState<Posting[]>(allPostings);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
@@ -41,7 +69,7 @@ export default function App() {
 
   // if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
   // if (getPostingsQuery.error) return (<p>Something went wrong when loading postings.</p>)
-  return (
+  return (  
     <>
       <div className='mx-12 grow'>
         <Navbar userName='Xinnan Luo' />

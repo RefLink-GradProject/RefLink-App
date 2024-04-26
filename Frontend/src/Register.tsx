@@ -34,12 +34,8 @@ const Register = () => {
             "Authorization": "Bearer " + token!.__raw
           },
           body: JSON.stringify(data)
-    
-    
         });
-
       if (response.status === 200) {  
-
         return navigate("/postings");
       }
     } catch (error) {

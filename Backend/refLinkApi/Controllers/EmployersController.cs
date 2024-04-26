@@ -40,7 +40,7 @@ namespace refLinkApi.Controllers
                 return BadRequest();
             }
 
-            var createEmployer  = service.CreateEmployerFromClaims(User, dto);
+            var createEmployer  = await service.CreateEmployerFromClaims(User, dto);
             return Ok(createEmployer);
         }
 

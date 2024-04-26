@@ -6,7 +6,7 @@ namespace refLinkApi.Models;
 public class Employer
 {
     
-    public required string AuthId { get; set; }
+    public  string AuthId { get; set; }
     
     public Guid GuidId { get; set; } = Guid.NewGuid();
 
