@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   domain={import.meta.env.VITE_AUTH0_DOMAIN}
   clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
     authorizationParams={{
-      redirect_uri: "https://localhost:5000/callback"
+      redirect_uri: "https://localhost:5000/register"
     }}
   >
      <BrowserRouter>
