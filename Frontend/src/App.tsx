@@ -12,7 +12,8 @@ import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
 import { getCandidates, getPostings, postCandidate } from './services/postingServices';
-import Callback from './Callback';
+import Profile from './Register';
+import Register from './Register';
 
 const allPostings = await getPostings();
 const allCandidates = await getCandidates();
@@ -62,10 +63,11 @@ export default function App() {
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer' element={<AddReferencerForm />} />
           <Route path='/add-reference' element={<AddReviewForm />} />
-          <Route path='/callback' element={<Callback />} />
+          <Route path='/register' element={<Register/>} />
         </Routes>
       </div>
       <Footer />
+    
 
     </>
   )
