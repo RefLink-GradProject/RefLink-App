@@ -19,13 +19,21 @@ export default function AddReviewForm({ referencer }: Props) {
     async function handleAdd() {
         // TODO (optional): patch the referencers info if changed.
         await postAllResponses();
-        // TODO: post the ratings (ratingquestion, ratingContent)
-
+        // await postAllRatingResponses();
+ 
         setShowAlertAdded(true);
         setTimeout(() => {
             setShowAlertAdded(false);
             // navigate("/");
         }, 2000);
+    }
+
+    async function postAllRatingResponses(){
+        for(let i=0; i<ratingValues.length; i++){
+            const ratingValue = ratingValues[i].toString();
+            const ratingQuestionGuid = referencer.ratingQuestions[i].guidId;
+            await postResponse(ratingValue, ratingQuestionGuid)
+        }
     }
 
     async function postAllResponses() {
@@ -35,6 +43,8 @@ export default function AddReviewForm({ referencer }: Props) {
             await postResponse(responseContent, questionGuid);
         }
     }
+
+    
 
     function handleChange(index: number, event: ChangeEvent<HTMLInputElement>) {
         const newValue = Number(event.target.value);
@@ -60,7 +70,7 @@ export default function AddReviewForm({ referencer }: Props) {
                         <h2 className="text-xl">Reference for the candidate: </h2>
                         {
                             referencer.questions!.map((question, i) =>
-                                <TextArea register={register} name={`review${i}`} labelText={question.content} placeholder="" />
+                                <TextArea key={question.guidId} register={register} name={`review${i}`} labelText={question.content} placeholder="" />
                             )
                         }
                     </section>
@@ -69,7 +79,7 @@ export default function AddReviewForm({ referencer }: Props) {
                         <h2 className="text-xl">Rating of the candidate: </h2>
                         {
                             referencer.ratingQuestions!.map((question, index) =>
-                                <div className="mt-5 mb-5">
+                                <div className="mt-5 mb-5" key={question.guidId}>
                                     <h3>{question.content}</h3>
                                     <input type="range" min={1} max="5" value={ratingValues[index]} className="range range-secondary" step="1" onChange={(event) => handleChange(index, event)} />
                                     <div className="w-full flex justify-between text-xs px-2">
