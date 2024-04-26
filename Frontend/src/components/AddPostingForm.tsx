@@ -3,19 +3,28 @@ import Alert from "./Alert";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import { useNavigate } from 'react-router-dom';
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { PostingRequest, QuestionRequest } from "../Types";
 import { useMutation } from "react-query";
 
 export default function AddPostingForm() {
-    const [questionInputs, setQuestionInputs] = useState<string[]>([""])
+    // const [questionInputs, setQuestionInputs] = useState<string[]>([""])
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
-    const { register, handleSubmit, } = useForm();
+    const { register, handleSubmit, control } = useForm();
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "questions"
+    });
     const navigate = useNavigate();
 
-    function addQuestionInputForm() {
-        const newQuestionInput = [...questionInputs, ""]
-        setQuestionInputs(newQuestionInput);
+    // function addQuestionInputForm() {
+    //     const newQuestionInput = [...questionInputs, ""]
+    //     setQuestionInputs(newQuestionInput);
+    // }
+
+    // Add default value for the first question field
+    if (fields.length === 0) {
+        append({ content: "" });
     }
 
     const postMutation = useMutation({
@@ -93,10 +102,15 @@ export default function AddPostingForm() {
     }
 
 
-
     function handleBackClik() {
         navigate(-1);
     }
+
+
+
+
+
+
 
     return (
         <>
@@ -114,11 +128,12 @@ export default function AddPostingForm() {
                         <legend className="text-sm text-slate-500 mb-2">Questions</legend>
 
                         {
-                            questionInputs.map((question, i) =>
+                            fields.map((question, i) =>
                                 <>
                                     <div key={`${question}${i}`}>
-                                        <TextInput register={register} name={`question-${i}`} inputType="text" labelText={`question-${i}`} placeholder="Add a question" />
-                                        <button className='btn mb-3 mr-3' type="button" onClick={addQuestionInputForm}> + </button>
+                                        <TextInput register={register} name={`questions[${i}].question`} inputType="text" labelText={`Add a question`} placeholder="Add a question" />
+                                        <button className='btn mb-3 mr-3' type="button" onClick={() => append({ question: "" })}> + </button>
+                                        <button className='btn mb-3 mr-3' type="button" onClick={() => remove(i)}> - </button>
                                         <button className='btn mb-3 btn-outline' type="button"> AI </button>
                                     </div>
                                 </>
