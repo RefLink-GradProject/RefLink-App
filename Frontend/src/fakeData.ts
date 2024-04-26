@@ -116,8 +116,8 @@ export const referencerWithQuestions: ReferencerWithQuestions = {
         // { content: "quesstion3", guidId: "3"},
     ],
     ratingQuestions: [
-        { content: "rating1", guidId: "1q"},
-        { content: "rating2", guidId: "2f"},
-        { content: "rating3", guidId: "3g"},
+        { content: "rating1", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
+        { content: "rating2", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
+        { content: "rating3", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
     ]
   }

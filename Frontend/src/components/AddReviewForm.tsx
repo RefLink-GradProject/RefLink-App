@@ -13,13 +13,13 @@ export default function AddReviewForm({ referencer }: Props) {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
     const { register, handleSubmit, getValues, formState: { errors } } = useForm();
-    const initialRatingValues: number[] = referencer.questions!.map(() => 3);
+    const initialRatingValues: number[] = referencer.ratingQuestions!.map(() => 3);
     const [ratingValues, setRatingValues] = useState<number[]>(initialRatingValues);
 
     async function handleAdd() {
         // TODO (optional): patch the referencers info if changed.
         await postAllResponses();
-        // await postAllRatingResponses();
+        await postAllRatingResponses();
  
         setShowAlertAdded(true);
         setTimeout(() => {
