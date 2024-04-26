@@ -22,7 +22,7 @@ export default function AddReferencerForm() {
     }
 
     const { isLoading, error, data } = useQuery({
-        queryKey: ['repoData'],
+        queryKey: ['getCandidateByGuid'],
         queryFn: async () => {
             const response = await fetch(`http://localhost:5136/api/candidates/${guid}`, {
                 headers: {
