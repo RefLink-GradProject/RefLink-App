@@ -46,7 +46,7 @@ namespace refLinkApi.Controllers
         }
 
         [HttpGet("{guidId}/questions")]
-        public async Task<ActionResult<List<QuestionResponseDto>>> GetReferencerQuestions(Guid guidId)
+        public async Task<ActionResult<ReferencerWithQuestionsResponseDto>> GetReferencerQuestions(Guid guidId)
         {
             var referencersQuestions = await _service.GetQuestionsByReferencerGuid(guidId);
             

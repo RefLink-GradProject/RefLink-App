@@ -58,7 +58,7 @@ public class ReferencerService : IReferencerService
         return mapper.ReferencerToReferencerResponseDto(referencer);
     }
 
-    public async Task<ActionResult<List<QuestionResponseDto>>> GetQuestionsByReferencerGuid(Guid guidId)
+    public async Task<ActionResult<ReferencerWithQuestionsResponseDto>> GetQuestionsByReferencerGuid(Guid guidId)
     {
         var referencer = await _context.Referencers
             .Include(referencer => referencer.Candidate)
@@ -80,6 +80,12 @@ public class ReferencerService : IReferencerService
             questionResponseDtos.Add(mapper.QuestionToQuestionResponseDto(question));
         }
 
-        return questionResponseDtos;
+        var referencerWithQuestionsResponse = new ReferencerWithQuestionsResponseDto()
+        {
+            Referencer = mapper.ReferencerToReferencerResponseDto(referencer),
+            Questions = questionResponseDtos
+        };
+
+        return referencerWithQuestionsResponse;
     }
 }
