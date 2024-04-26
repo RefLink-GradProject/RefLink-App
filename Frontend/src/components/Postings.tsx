@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Candidate, Posting } from "../Types";
+import { Candidate, CandidateWithDetails, Posting } from "../Types";
 import { Link } from "react-router-dom";
 import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
@@ -31,6 +31,6 @@ export default function Postings({postings, clickedPosting, setClickedPosting, s
 type Props = {
     clickedPosting: Posting;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
-    setClickedCandidate: Dispatch<SetStateAction<Candidate >>;
+    setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails >>;
     postings: Posting[];
 }

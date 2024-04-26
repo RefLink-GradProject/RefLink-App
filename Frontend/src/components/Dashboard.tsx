@@ -1,13 +1,15 @@
 import { Dispatch, SetStateAction } from "react";
-import { Candidate, Posting } from "../Types";
+import { Candidate, CandidateWithDetails, Posting } from "../Types";
 import { useNavigate } from 'react-router-dom';
+import { getCandidateWithDetails } from "../services/candidateServices";
 
 export default function Dashboard({ postings, setClickedCandidate, setClickedPosting }: Props) {
     const navigate = useNavigate();
 
-    function handleCandidateClick(candidate: Candidate) {
-        setClickedCandidate(candidate);
-        navigate(`/candidates/${candidate!.guidId}`)
+    async function handleCandidateClick(clickedCandidate: Candidate) {
+        const candidateWithDetails: CandidateWithDetails = await getCandidateWithDetails(clickedCandidate.guidId!)
+        setClickedCandidate(candidateWithDetails);
+        navigate(`/candidates/${clickedCandidate!.guidId}`)
     }
 
     function handlePostingClick(clickedPosting: Posting) {
@@ -42,6 +44,6 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
 
 type Props = {
     postings: Posting[];
-    setClickedCandidate: Dispatch<SetStateAction<Candidate>>;
+    setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails>>;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
 }

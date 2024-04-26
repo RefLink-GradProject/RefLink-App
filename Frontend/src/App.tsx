@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
-import { Candidate, Employer, Posting } from './Types';
+import { Candidate, CandidateWithDetails, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
 import {  useState } from 'react';
@@ -11,12 +11,15 @@ import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
-import { getCandidates, getPostings, postCandidate } from './services/postingServices';
 import Register from './Register';
 
 const allPostings = await getPostings();
 const allCandidates = await getCandidates();
 // const CurrentEmployer = await getEmployer();
+import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
+import { getPostings } from './services/postingServices';
+import Callback from './Callback';
+const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
@@ -26,7 +29,7 @@ export default function App() {
   // const [employer, SetEmployer] = useState<Employer>(CurrentEmployer);
   const [postings, setPostings] = useState<Posting[]>(allPostings);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
-  const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
+  const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
 
   async function addCandidate(name: string, email: string) {
@@ -38,6 +41,7 @@ export default function App() {
     }
     setPostings(updatedPostings);
   }
+
 
 
   // if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
