@@ -7,7 +7,7 @@ export type Posting = {
 };
 
 export type PostingRequest = {
-  guidId: string;
+  employerGuid: string;
   title: string;
   description: string;
 };
@@ -57,15 +57,20 @@ export type Question = {
   responses?: Response[];
 };
 
+export type QuestionRequest = {
+  postingGuid: string;
+  content: string;
+};
+
 export type Employer = {
-    guidId: string;
-    name: string;
-    company: string;
-    email: string;
-    postings: Posting[];
-}
+  guidId: string;
+  name: string;
+  company: string;
+  email: string;
+  postings: Posting[];
+};
 export type CreateEmployer = {
-    name: string;
-    email: string; 
-    company: string;
-}
+  name: string;
+  email: string;
+  company: string;
+};
