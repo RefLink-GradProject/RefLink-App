@@ -1,25 +1,46 @@
 import { CandidateWithDetails } from "../Types";
 import { useNavigate } from 'react-router-dom';
+'use client';
+import { BarChart, Bar, ResponsiveContainer, Tooltip, Legend, YAxis, XAxis, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
+import { fakeCandidatesRating } from "../fakeData";
 
 export default function CandidateDetails({ candidate }: Props) {
     const navigate = useNavigate();
     function getCandidatesRatings() {
-        return candidate.referencers.flatMap(referencer => {
-            return referencer.responses.map(response => {
-                if (countWords(response.questionContent) < 4) {
-                    return {
-                        subject: response.questionContent,
-                        score: parseInt(response.responseContent),
-                        fullMark: 5
-                    };
+        const questionScores: { [subject: string]: number[] } = {};
+
+        // Iterate through each referencer and response to aggregate scores
+        candidate.referencers.forEach(referencer => {
+            referencer.responses.forEach(response => {
+                const subject = response.questionContent;
+                const score = parseInt(response.responseContent);
+
+                if (questionScores[subject]) {
+                    questionScores[subject].push(score);
                 } else {
-                    return null; // Skip this response
+                    questionScores[subject] = [score];
                 }
-            }).filter(Boolean); // Filter out null values
+            });
         });
+
+        // Calculate the average score for each question
+        const ratings: { subject: string; score: number; fullMark: number; }[] = [];
+        for (const subject in questionScores) {
+            if (questionScores.hasOwnProperty(subject)) {
+                const scores = questionScores[subject];
+                const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / scores.length;
+                ratings.push({
+                    subject: subject,
+                    score: averageScore,
+                    fullMark: 5
+                });
+            }
+        }
+
+        return ratings;
     }
-    
     console.table(getCandidatesRatings());
+    console.table(fakeCandidatesRating);
 
     function handleBackClik() {
         navigate(-1);
@@ -69,31 +90,10 @@ export default function CandidateDetails({ candidate }: Props) {
                             </>
                         )
                     }))
+
                 )}
+
             </section>
-
-            <section id="candidate-graf">
-                {candidate!.referencers && (
-                    candidate!.referencers.map((referencer => {
-                        return (
-                            <>
-                                {referencer.ratings ? (
-                                    referencer.ratings.map((rating) => {
-                                        return (
-                                            <>
-                                                <p className="text-2xl">{rating.ratingQuestionContent}</p>
-                                                <p>{rating.ratingResponseContent}</p>
-                                            </>
-                                        )
-                                    })
-                                ) : (<></>)}
-
-                            </>
-                        )
-                    }))
-                )}
-            </section>
-
             <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>&larr; Back</button>
         </div>
     )
@@ -103,3 +103,4 @@ export default function CandidateDetails({ candidate }: Props) {
 type Props = {
     candidate: CandidateWithDetails;
 }
+

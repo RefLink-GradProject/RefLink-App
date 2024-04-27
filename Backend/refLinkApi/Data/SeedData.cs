@@ -59,7 +59,14 @@ public static class SeedData
         };
         Question question4 = new Question()
         {
-            Content = "Coding Efficiency",
+            Content = "Efficiency",
+            Posting = posting,
+            PostingGuid = posting.GuidId,
+            Responses = new List<Response>(),
+        };
+        Question question5 = new Question()
+        {
+            Content = "Time Management",
             Posting = posting,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
@@ -69,11 +76,13 @@ public static class SeedData
         posting.Questions.Add(question2);
         posting.Questions.Add(question3);
         posting.Questions.Add(question4);
+        posting.Questions.Add(question5);
         
         _context.Questions.Add(question);
         _context.Questions.Add(question2);
         _context.Questions.Add(question3);
         _context.Questions.Add(question4);
+        _context.Questions.Add(question5);
         _context.SaveChanges();
         
         RatingQuestion ratingQuestion = new RatingQuestion()
@@ -141,11 +150,20 @@ public static class SeedData
             QuestionId = question4.Id,
             ReferencerId = referencer.Id,
         };
+        var response5 = new Response()
+        {
+            Content = "5",
+            Question = question5,
+            Referencer = referencer,
+            QuestionId = question5.Id,
+            ReferencerId = referencer.Id,
+        };
 
         _context.Responses.Add(response);
         _context.Responses.Add(response2);
         _context.Responses.Add(response3);
         _context.Responses.Add(response4);
+        _context.Responses.Add(response5);
         _context.SaveChanges();
         
 
