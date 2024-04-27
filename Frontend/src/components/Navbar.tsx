@@ -8,7 +8,7 @@ export default function Navbar({ userName }: Props) {
 
     return (
         <>
-            <div className="navbar">
+            <div className="navbar mb-5 md:mb-10">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
@@ -27,7 +27,7 @@ export default function Navbar({ userName }: Props) {
                         </ul>
                     </div>
                     <Link to="/">
-                        <a className="btn btn-ghost text-xl md:text-2xl lg:text-3xl">
+                        <a className="btn btn-ghost text-lg md:text-2xl lg:text-3xl w-32 md:w-40 lg:w-48">
                         <FontAwesomeIcon icon={faLink} size="sm" />
                             RefLink
                         </a>

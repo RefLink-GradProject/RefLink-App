@@ -1709,6 +1709,10 @@ html {
   .btn-neutral {
     --btn-color: var(--fallback-n);
   }
+
+  .btn-success {
+    --btn-color: var(--fallback-su);
+  }
 }
 
 @supports (color: color-mix(in oklab, black, black)) {
@@ -1758,12 +1762,22 @@ html {
   .btn-neutral {
     --btn-color: var(--n);
   }
+
+  .btn-success {
+    --btn-color: var(--su);
+  }
 }
 
 .btn-neutral {
   --tw-text-opacity: 1;
   color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
   outline-color: var(--fallback-n,oklch(var(--n)/1));
+}
+
+.btn-success {
+  --tw-text-opacity: 1;
+  color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-su,oklch(var(--su)/1));
 }
 
 .btn.glass {
@@ -3088,6 +3102,10 @@ details.collapse summary::-webkit-details-marker {
   margin: 0.75rem;
 }
 
+.m-0 {
+  margin: 0px;
+}
+
 .mx-12 {
   margin-left: 3rem;
   margin-right: 3rem;
@@ -3096,6 +3114,36 @@ details.collapse summary::-webkit-details-marker {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .mb-2 {
@@ -3166,6 +3214,18 @@ details.collapse summary::-webkit-details-marker {
   margin-right: 0.75rem;
 }
 
+.ml-10 {
+  margin-left: 2.5rem;
+}
+
+.mr-10 {
+  margin-right: 2.5rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
 .block {
   display: block;
 }
@@ -3212,6 +3272,14 @@ details.collapse summary::-webkit-details-marker {
 
 .h-28 {
   height: 7rem;
+}
+
+.h-48 {
+  height: 12rem;
+}
+
+.h-64 {
+  height: 16rem;
 }
 
 .w-1\/2 {
@@ -3264,6 +3332,22 @@ details.collapse summary::-webkit-details-marker {
 
 .w-32 {
   width: 8rem;
+}
+
+.w-10 {
+  width: 2.5rem;
+}
+
+.w-1 {
+  width: 0.25rem;
+}
+
+.w-2 {
+  width: 0.5rem;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .max-w-16 {
@@ -3387,6 +3471,21 @@ details.collapse summary::-webkit-details-marker {
 .bg-accent {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-a,oklch(var(--a)/var(--tw-bg-opacity)));
+}
+
+.bg-emerald-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(4 120 87 / var(--tw-bg-opacity));
+}
+
+.bg-neutral-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(212 212 212 / var(--tw-bg-opacity));
+}
+
+.bg-neutral-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(163 163 163 / var(--tw-bg-opacity));
 }
 
 .stroke-current {
@@ -3765,6 +3864,14 @@ details.collapse summary::-webkit-details-marker {
     outline-color: var(--fallback-p,oklch(var(--p)/1));
   }
 
+  .md\:btn-sm {
+    height: 2rem;
+    min-height: 2rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-size: 0.875rem;
+  }
+
   .md\:btn-lg {
     height: 4rem;
     min-height: 4rem;
@@ -3773,9 +3880,22 @@ details.collapse summary::-webkit-details-marker {
     font-size: 1.125rem;
   }
 
+  .btn-square:where(.md\:btn-sm) {
+    height: 2rem;
+    width: 2rem;
+    padding: 0px;
+  }
+
   .btn-square:where(.md\:btn-lg) {
     height: 4rem;
     width: 4rem;
+    padding: 0px;
+  }
+
+  .btn-circle:where(.md\:btn-sm) {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 9999px;
     padding: 0px;
   }
 
@@ -3820,8 +3940,32 @@ details.collapse summary::-webkit-details-marker {
     margin-right: 3rem;
   }
 
+  .md\:mx-10 {
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
+  .md\:mx-1 {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+
+  .md\:mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .md\:mx-3 {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+  }
+
   .md\:mr-6 {
     margin-right: 1.5rem;
+  }
+
+  .md\:mb-10 {
+    margin-bottom: 2.5rem;
   }
 
   .md\:flex {
@@ -3834,6 +3978,14 @@ details.collapse summary::-webkit-details-marker {
 
   .md\:w-32 {
     width: 8rem;
+  }
+
+  .md\:w-36 {
+    width: 9rem;
+  }
+
+  .md\:w-40 {
+    width: 10rem;
   }
 
   .md\:grow {
@@ -3872,6 +4024,11 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mx-10 {
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
   .lg\:ml-5 {
     margin-left: 1.25rem;
   }
@@ -3882,6 +4039,10 @@ details.collapse summary::-webkit-details-marker {
 
   .lg\:mt-0 {
     margin-top: 0px;
+  }
+
+  .lg\:mr-3 {
+    margin-right: 0.75rem;
   }
 
   .lg\:flex {
@@ -3898,6 +4059,22 @@ details.collapse summary::-webkit-details-marker {
 
   .lg\:w-2\/3 {
     width: 66.666667%;
+  }
+
+  .lg\:w-48 {
+    width: 12rem;
+  }
+
+  .lg\:w-1\/2 {
+    width: 50%;
+  }
+
+  .lg\:w-2\/5 {
+    width: 40%;
+  }
+
+  .lg\:w-3\/5 {
+    width: 60%;
   }
 
   .lg\:text-5xl {

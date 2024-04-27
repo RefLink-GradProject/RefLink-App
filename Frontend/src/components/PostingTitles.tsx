@@ -28,9 +28,8 @@ export default function PostingTitles({ postings, setClickedPosting }: Props) {
             <section id="posting-names" className="">
                 {postings.map((posting, index) => (
                     <div key={posting.guidId}>
-                        <br />
                         <button
-                            className={`btn btn-ghost text-xl ${clickedButtons[index] ? 'bg-neutral-200' : ''}`}
+                            className={`btn btn-ghost btn-wide w-full text-lg md:text-xl ${clickedButtons[index] ? 'bg-neutral-300' : ''}`}
                             onClick={() => handleClick(posting, index)}
                         >
                             {/* {console.log(posting.title)} */}
