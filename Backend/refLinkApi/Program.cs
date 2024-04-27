@@ -17,7 +17,8 @@ builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<ICandidateService, CandidateService>();
 builder.Services.AddScoped<IPostingService, PostingService>();
-builder.Services.AddScoped<IQuestionService, RatingQuestionService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IRatingQuestionService, RatingQuestionService>();
 builder.Services.AddScoped<IReferencerService, ReferencerService>();
 builder.Services.AddScoped<IResponseService, ResponseService>();
 

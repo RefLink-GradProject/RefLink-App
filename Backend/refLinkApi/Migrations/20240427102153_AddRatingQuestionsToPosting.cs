@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace refLinkApi.Migrations
 {
     /// <inheritdoc />
-    public partial class WithRatingQuestion : Migration
+    public partial class AddRatingQuestionsToPosting : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,6 +90,28 @@ namespace refLinkApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RatingQuestions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostingGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PostingGuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RatingQuestions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RatingQuestions_Postings_PostingGuidId",
+                        column: x => x.PostingGuidId,
+                        principalTable: "Postings",
+                        principalColumn: "GuidId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Referencers",
                 columns: table => new
                 {
@@ -120,7 +142,8 @@ namespace refLinkApi.Migrations
                     GuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QuestionId = table.Column<int>(type: "int", nullable: true),
-                    ReferencerId = table.Column<int>(type: "int", nullable: true)
+                    ReferencerId = table.Column<int>(type: "int", nullable: true),
+                    RatingQuestionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,6 +152,11 @@ namespace refLinkApi.Migrations
                         name: "FK_Responses_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Responses_RatingQuestions_RatingQuestionId",
+                        column: x => x.RatingQuestionId,
+                        principalTable: "RatingQuestions",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Responses_Referencers_ReferencerId",
@@ -153,6 +181,11 @@ namespace refLinkApi.Migrations
                 column: "PostingGuid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RatingQuestions_PostingGuidId",
+                table: "RatingQuestions",
+                column: "PostingGuidId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Referencers_CandidateGuid",
                 table: "Referencers",
                 column: "CandidateGuid");
@@ -161,6 +194,11 @@ namespace refLinkApi.Migrations
                 name: "IX_Responses_QuestionId",
                 table: "Responses",
                 column: "QuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Responses_RatingQuestionId",
+                table: "Responses",
+                column: "RatingQuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Responses_ReferencerId",
@@ -176,6 +214,9 @@ namespace refLinkApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "RatingQuestions");
 
             migrationBuilder.DropTable(
                 name: "Referencers");
