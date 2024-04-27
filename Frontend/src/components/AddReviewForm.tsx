@@ -4,9 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import TextInput from "./TextInput";
 import { Question } from "../Types";
 import { getReferencerWithQuestions, postResponse } from "../services/responseServices";
+import { useState } from "react";
+import Alert from "./Alert";
 
 
 export default function AddReviewForm() {
+    const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const { guid } = useParams();
     // console.log("guid", guid);
     const navigate = useNavigate();
@@ -36,6 +39,11 @@ export default function AddReviewForm() {
             // console.log(payload);
             responseMutation.mutate(payload);
         }
+        setShowAlertAdded(true);
+        setTimeout(() => {
+            setShowAlertAdded(false);
+            navigate("/");
+        }, 3000);
     }
 
     function handleBackClick() {
@@ -78,6 +86,9 @@ export default function AddReviewForm() {
                 <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
                 <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
             </form>
+            {showAlertAdded && (
+                <Alert alertType="success" alertContent="Referencer has been sent!" />
+            )}
         </>
     )
 
