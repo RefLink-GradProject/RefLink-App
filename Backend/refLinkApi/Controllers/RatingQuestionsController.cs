@@ -8,15 +8,15 @@ namespace refLinkApi.Controllers;
 [ApiController]
 public class RatingQuestionsController : ControllerBase
 {
-    private readonly IQuestionService _service;
+    private readonly IRatingQuestionService _service;
 
-    public RatingQuestionsController(IQuestionService service)
+    public RatingQuestionsController(IRatingQuestionService service)
     {
         _service = service;
     }
 
     [HttpPost]
-    public async Task<ActionResult<QuestionResponseDto>> PostQuestion(QuestionRequestDto questionRequestDto)
+    public async Task<ActionResult<RatingQuestionResponseDto>> PostQuestion(RatingQuestionRequestDto questionRequestDto)
     {
         var result = await _service.PostNewQuestion(questionRequestDto);
         if (result is null)
@@ -27,13 +27,13 @@ public class RatingQuestionsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<QuestionResponseDto>>> GetAllQuestions()
+    public async Task<ActionResult<IEnumerable<RatingQuestionResponseDto>>> GetAllQuestions()
     {
         return await _service.GetQuestions();
     }
 
     [HttpGet("{guidId}")]
-    public async Task<ActionResult<QuestionResponseDto>> GetQuestion(Guid guidId)
+    public async Task<ActionResult<RatingQuestionResponseDto>> GetQuestion(Guid guidId)
     {
         var question = await _service.GetQuestionByGuid(guidId);
 
