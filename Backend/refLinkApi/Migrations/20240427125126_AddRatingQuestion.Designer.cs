@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace refLinkApi.Migrations
 {
     [DbContext(typeof(RefLinkContext))]
-    [Migration("20240427102153_AddRatingQuestionsToPosting")]
-    partial class AddRatingQuestionsToPosting
+    [Migration("20240427125126_AddRatingQuestion")]
+    partial class AddRatingQuestion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -281,7 +281,7 @@ namespace refLinkApi.Migrations
                         .WithMany("Responses")
                         .HasForeignKey("QuestionId");
 
-                    b.HasOne("refLinkApi.Models.RatingQuestion", null)
+                    b.HasOne("refLinkApi.Models.RatingQuestion", "RatingQuestion")
                         .WithMany("Responses")
                         .HasForeignKey("RatingQuestionId");
 
@@ -290,6 +290,8 @@ namespace refLinkApi.Migrations
                         .HasForeignKey("ReferencerId");
 
                     b.Navigation("Question");
+
+                    b.Navigation("RatingQuestion");
 
                     b.Navigation("Referencer");
                 });
