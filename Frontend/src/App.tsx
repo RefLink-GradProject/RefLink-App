@@ -62,7 +62,7 @@ export default function App() {
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
-          <Route path='/add-reference' element={<AddReviewForm referencer={referencerWithQuestions}/>} />
+          <Route path='/add-reference/:guid' element={<AddReviewForm />} />
           <Route path='/register' element={<Register />} />
           <Route path='/charts' element={<ChartsDraft />} />
         </Routes>

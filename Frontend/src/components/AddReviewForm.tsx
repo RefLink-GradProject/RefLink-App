@@ -1,114 +1,110 @@
-import { ChangeEvent, useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
+import { useMutation, useQuery } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import TextInput from "./TextInput";
-import Alert from "./Alert";
-import { useNavigate } from 'react-router-dom';
-import TextArea from "./TextArea";
-import { useForm } from "react-hook-form"
-import { ReferencerWithQuestions } from "../Types";
-import { postResponse } from "../services/responseServices";
 
 
-
-export default function AddReviewForm({ referencer }: Props) {
-    const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
+export default function AddReviewForm() {
+    const { guid } = useParams();
+    console.log("guid", guid);
     const navigate = useNavigate();
-    const { register, handleSubmit, getValues, formState: { errors } } = useForm();
-    const initialRatingValues: number[] = referencer.ratingQuestions!.map(() => 3);
-    const [ratingValues, setRatingValues] = useState<number[]>(initialRatingValues);
+    const { register, handleSubmit, control } = useForm();
 
-    async function handleAdd() {
-        // TODO (optional): patch the referencers info if changed.
-        await postAllResponses();
-        await postAllRatingResponses();
- 
-        setShowAlertAdded(true);
-        setTimeout(() => {
-            setShowAlertAdded(false);
-            // navigate("/");
-        }, 2000);
+    const { isLoading, error, data } = useQuery({
+        queryKey: ['getReferencerByGuid'],
+        queryFn: async () => {
+            const response = await fetch(`http://localhost:5136/api/referencers/${guid}/questions`, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+
+            return await response.json();
+        }
+    });
+
+    const responseMutation = useMutation({
+        mutationFn: postResponse,
+        onSuccess: async (data) => {
+            console.log("Success", data);
+            return data;
+        },
+    })
+
+    async function postResponse(data: FieldValues) {
+        const response = await fetch("http://localhost:5136/api/responses", {
+            "method": "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        const responseJson = await response.json();
+        return responseJson;
     }
 
-    async function postAllRatingResponses(){
-        for(let i=0; i<ratingValues.length; i++){
-            const ratingValue = ratingValues[i].toString();
-            const ratingQuestionGuid = referencer.ratingQuestions[i].guidId;
-            await postResponse(ratingValue, ratingQuestionGuid)
+    async function submitForm(data: FieldValues) {
+        console.log("submitForm", data)
+
+        for (const response of data.responses) {
+            console.log(response)
+            const payload = {
+                content: Object.values(response)[0],
+                questionGuid: Object.keys(response)[0]
+            }
+
+            console.log(payload);
+
+            responseMutation.mutate(payload);
         }
     }
 
-    async function postAllResponses() {
-        for (let i = 0; i < referencer.questions.length; i++) {
-            const responseContent = getValues("review" + i);
-            const questionGuid = referencer.questions[i].guidId;
-            await postResponse(responseContent, questionGuid);
-        }
+    function handleBackClick() {
+        navigate(-1);
     }
 
-    
-
-    function handleChange(index: number, event: ChangeEvent<HTMLInputElement>) {
-        const newValue = Number(event.target.value);
-        setRatingValues(prevValues => {
-            const newValues = [...prevValues];
-            newValues[index] = newValue;
-            return newValues;
-        });
+    if (isLoading) {
+        return (
+            <>
+                <div className="h-full w-full flex justify-center">
+                    <span className="mx-auto loading loading-spinner loading-lg"></span>
+                </div>
+            </>
+        )
     }
+
+
+    if (error) return 'An error has occurred.'
 
     return (
         <>
-            <form className="flex justify-center mt-10" onSubmit={handleSubmit(handleAdd)}>
-                <div className="w-1/2 ">
-                    <section id="referencer-info">
-                        <h2 className="text-xl">Information about you: </h2>
-                        <TextInput register={register} name="reviewer-name" inputType="text" labelText="Name" value={referencer.name} placeholder="Your name" />
-                        <TextInput register={register} name="reviewer-company" inputType="text" labelText="Company" placeholder="Company name that you worked together with the candidate" />
-                        <TextInput register={register} name="reviewer-title" inputType="text" labelText="Title" placeholder="Your job title" />
-                    </section>
+            <h2>Hello {data.referencer.name}!</h2>
+            <p>We appreciate you providing your honest reference.</p>
+            {console.log(data)}
 
-                    <section id="references">
-                        <h2 className="text-xl">Reference for the candidate: </h2>
-                        {
-                            referencer.questions!.map((question, i) =>
-                                <TextArea key={question.guidId} register={register} name={`review${i}`} labelText={question.content} placeholder="" />
-                            )
-                        }
-                    </section>
+            <form className="w-1/2" onSubmit={handleSubmit(submitForm)}>
 
-                    <section id="ratings">
-                        <h2 className="text-xl">Rating of the candidate: </h2>
-                        {
-                            referencer.ratingQuestions!.map((question, index) =>
-                                <div className="mt-5 mb-5" key={question.guidId}>
-                                    <h3>{question.content}</h3>
-                                    <input type="range" min={1} max="5" value={ratingValues[index]} className="range range-secondary" step="1" onChange={(event) => handleChange(index, event)} />
-                                    <div className="w-full flex justify-between text-xs px-2">
-                                        <span>1</span>
-                                        <span>2</span>
-                                        <span>3</span>
-                                        <span>4</span>
-                                        <span>5</span>
-                                    </div>
+                <fieldset className="border border-slate-150 rounded-sm p-3 mb-5">
+                    <legend className="text-sm text-slate-500 mb-2">Add your response</legend>
+                    {
+                        data.questions.map((question, i) =>
+                            <>
+                                <div key={question.guidId}>
+                                    <TextInput register={register} name={`responses[${i}].${question.guidId}`} inputType="text" labelText={question.content} placeholder="Type your response" />
                                 </div>
-                            )
-                        }
-
-                    </section>
-                    <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20 mb-10'> Add</button>
-                </div>
+                            </>
+                        )
+                    }
+                </fieldset>
+                <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
+                <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
             </form>
-
-
-            {showAlertAdded && (
-                <Alert alertType="success" alertContent="Reference has been sent!" />
-            )}
         </>
     )
 
 
-}
-
-
-type Props = {
-    referencer: ReferencerWithQuestions;
 }
