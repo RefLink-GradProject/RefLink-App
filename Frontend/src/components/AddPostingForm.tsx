@@ -7,8 +7,11 @@ import { FieldValues, SubmitHandler, useFieldArray, useForm } from "react-hook-f
 import { PostingRequest, QuestionRequest } from "../Types";
 import { useMutation } from "react-query";
 
+const ratingQuestions = ["Rating questions","Adaptability",  "Collaboration", "Creativity", "Detail-oriented", "Learning Agility", "Work Efficiency", "Time Management"];
+
 export default function AddPostingForm() {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
+    const [clickedButtons, setClickedButtons] = useState<boolean[]>(Array(ratingQuestions.length).fill(false));
     const { register, handleSubmit, control } = useForm();
     const { fields, append, remove } = useFieldArray({
         control,
@@ -87,6 +90,19 @@ export default function AddPostingForm() {
             const questionResponse = await questionMutation.mutateAsync(questionsData);
             console.log(questionResponse.json)
         }
+        
+        // post rating questions
+        for(let i=0; i<ratingQuestions.length; i++){
+            if(clickedButtons[i] == true){
+                const ratingQuestionsData: QuestionRequest = {
+                    postingGuid: postingGuid,
+                    content: ratingQuestions[i]
+                }
+                const postedQuestions = await postQuestions(ratingQuestionsData);
+                console.log("!!!!! ratingQuestions posted: " + postedQuestions)
+            }
+        }
+
 
         // TODO: complete logic with alert and redirect ON SUCCESS ONLY
         // if success then show this
@@ -96,6 +112,13 @@ export default function AddPostingForm() {
             setShowAlertAdded(false);
             // navigate("/postings");
         }, 2000);
+    }
+
+
+    function handleClick(index: number) {
+        const newClickedButtons = [...clickedButtons];
+        newClickedButtons[index] = !clickedButtons[index]
+        setClickedButtons(newClickedButtons);
     }
 
 
@@ -146,6 +169,15 @@ export default function AddPostingForm() {
                                         </div>
                                     </div>
                                 </>
+                            )
+                        }
+                    </fieldset>
+
+                    <fieldset id="rating-question-tags" className="border border-slate-150 rounded-sm p-3 mb-5">
+                        <legend className="text-sm text-slate-500 mb-2">Rating questions</legend>
+                        {
+                            ratingQuestions.map((question, i) => 
+                                <button className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''}`} onClick={() =>handleClick(i)} name={i.toString()}>{question}</button>
                             )
                         }
                     </fieldset>
