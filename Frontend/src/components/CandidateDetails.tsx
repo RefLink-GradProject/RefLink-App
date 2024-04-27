@@ -3,10 +3,33 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CandidateDetails({ candidate }: Props) {
     const navigate = useNavigate();
+    function getCandidatesRatings() {
+        return candidate.referencers.flatMap(referencer => {
+            return referencer.responses.map(response => {
+                if (countWords(response.questionContent) < 4) {
+                    return {
+                        subject: response.questionContent,
+                        score: parseInt(response.responseContent),
+                        fullMark: 5
+                    };
+                } else {
+                    return null; // Skip this response
+                }
+            }).filter(Boolean); // Filter out null values
+        });
+    }
+    
+    console.table(getCandidatesRatings());
 
     function handleBackClik() {
         navigate(-1);
     }
+
+    function countWords(text: string): number {
+        const words = text.trim().split(/\s+/);
+        return words.length;
+    }
+
 
     return (
         <div className="m-10">
@@ -17,7 +40,7 @@ export default function CandidateDetails({ candidate }: Props) {
             </section>
 
             <section id="candidate-references">
-                {candidate!.referencers ? (
+                {candidate!.referencers && (
                     candidate!.referencers.map((referencer => {
                         return (
                             <>
@@ -30,8 +53,14 @@ export default function CandidateDetails({ candidate }: Props) {
                                         {referencer.responses!.map((response) => {
                                             return (
                                                 <>
-                                                    <p className="text-2xl">{response.questionContent}</p>
-                                                    <p>{response.responseContent}</p>
+                                                    {countWords(response.questionContent) >= 4 && (
+                                                        <>
+                                                            <p className="text-2xl">{response.questionContent}</p>
+                                                            <p>{response.responseContent}</p>
+                                                        </>
+                                                    )
+                                                    }
+
                                                 </>
                                             )
                                         })}
@@ -40,34 +69,28 @@ export default function CandidateDetails({ candidate }: Props) {
                             </>
                         )
                     }))
-                ) : (
-                    <p></p>
                 )}
             </section>
 
             <section id="candidate-graf">
-                {candidate!.referencers ? (
+                {candidate!.referencers && (
                     candidate!.referencers.map((referencer => {
                         return (
                             <>
-                                <div className="">
-                                    {referencer.ratings?(
-                                        referencer.ratings.map((rating) => {
-                                            return (
-                                                <>
-                                                    <p className="text-2xl">{rating.ratingQuestionContent}</p>
-                                                    <p>{rating.ratingResponseContent}</p>
-                                                </>
-                                            )
-                                        })
-                                    ):(<></>)}
-                                    
-                                </div>
+                                {referencer.ratings ? (
+                                    referencer.ratings.map((rating) => {
+                                        return (
+                                            <>
+                                                <p className="text-2xl">{rating.ratingQuestionContent}</p>
+                                                <p>{rating.ratingResponseContent}</p>
+                                            </>
+                                        )
+                                    })
+                                ) : (<></>)}
+
                             </>
                         )
                     }))
-                ) : (
-                    <p></p>
                 )}
             </section>
 
