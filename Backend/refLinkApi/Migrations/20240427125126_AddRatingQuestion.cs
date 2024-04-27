@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace refLinkApi.Migrations
 {
     /// <inheritdoc />
-    public partial class AddRatingQuestionsToPosting : Migration
+    public partial class AddRatingQuestion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
