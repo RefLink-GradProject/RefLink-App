@@ -5,7 +5,7 @@ using refLinkApi.Models;
 
 namespace refLinkApi.Services;
 
-public class RatingQuestionService : IQuestionService
+public class RatingQuestionService : IRatingQuestionService
 {
     private readonly RefLinkContext _context;
     private readonly MapperlyMapper mapper;
@@ -16,21 +16,21 @@ public class RatingQuestionService : IQuestionService
         mapper = new MapperlyMapper();
     }
     
-    public async Task<QuestionResponseDto> PostNewQuestion(QuestionRequestDto questionRequestDto)
+    public async Task<RatingQuestionResponseDto> PostNewQuestion(RatingQuestionRequestDto questionRequestDto)
     {
         if (_context.RatingQuestions == null)
         {
             return null;
         }
         
-        var question = mapper.QuestionRequestDtoToQuestion(questionRequestDto);
+        var question = mapper.RatingQuestionRequestDtoToRatingQuestion(questionRequestDto);
         _context.RatingQuestions.Add(question);
         await _context.SaveChangesAsync();
 
-        return mapper.QuestionToQuestionResponseDto(question);
+        return mapper.RatingQuestionToRatingQuestionResponseDto(question);
     }
 
-    public async Task<List<QuestionResponseDto>> GetQuestions()
+    public async Task<List<RatingQuestionResponseDto>> GetQuestions()
     {
         if (_context.RatingQuestions is null)
         {
@@ -38,15 +38,15 @@ public class RatingQuestionService : IQuestionService
         }
 
         var questions = await _context.RatingQuestions.ToListAsync();
-        List<QuestionResponseDto> questionResponseDtos = [];
-        foreach (Question question in questions)
+        List<RatingQuestionResponseDto> questionResponseDtos = [];
+        foreach (RatingQuestion question in questions)
         {
-            questionResponseDtos.Add(mapper.QuestionToQuestionResponseDto(question));
+            questionResponseDtos.Add(mapper.RatingQuestionToRatingQuestionResponseDto(question));
         }
         return questionResponseDtos;
     }
 
-    public async Task<QuestionResponseDto> GetQuestionByGuid(Guid guidId)
+    public async Task<RatingQuestionResponseDto> GetQuestionByGuid(Guid guidId)
     {
         if (_context.RatingQuestions is null)
         {
@@ -54,6 +54,6 @@ public class RatingQuestionService : IQuestionService
         }
 
         var question = await _context.RatingQuestions.FirstOrDefaultAsync(r => r.GuidId == guidId);
-        return mapper.QuestionToQuestionResponseDto(question);
+        return mapper.RatingQuestionToRatingQuestionResponseDto(question);
     }
 }
