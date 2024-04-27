@@ -29,6 +29,7 @@ public static class SeedData
             Description = "PostingDescription",
             Employer = employer,
             EmployerGuid = employer.GuidId,
+            RatingQuestions = new List<RatingQuestion>(),
             Questions = new List<Question>(),
         };
         
@@ -50,7 +51,7 @@ public static class SeedData
         
         RatingQuestion ratingQuestion = new RatingQuestion()
         {
-            Content = "This is a rating question",
+            Content = "This is a RATING question",
             Posting = posting,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
