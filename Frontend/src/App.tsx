@@ -44,7 +44,7 @@ export default function App() {
 
   return (
     <>
-      <div className='mx-12 grow'>
+      <div className='md:mx-12 md:grow '>
         <Navbar userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />

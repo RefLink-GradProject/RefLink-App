@@ -30,7 +30,7 @@ export default function LoginButton({ userName }: Props) {
                     </>
 
                 ) : (
-                    <button className="btn text-xl" onClick={() => loginWithRedirect()}>Log in</button>
+                    <button className="btn btn-sm md:btn md:text-xl " onClick={() => loginWithRedirect()}>Log in</button>
                 )}
             </div>
 
