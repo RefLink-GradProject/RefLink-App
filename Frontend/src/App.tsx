@@ -67,7 +67,6 @@ export default function App() {
           <Route path='/charts' element={<ChartsDraft />} />
         </Routes>
       </div>
-      <Footer />
 
 
     </>

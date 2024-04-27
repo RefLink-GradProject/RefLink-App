@@ -5,6 +5,7 @@ import { Auth0Provider } from '@auth0/auth0-react'
 import './output.css'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from "react-query";
+import Footer from './components/Footer.tsx'
 
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -18,7 +19,13 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   >
      <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <div className='flex justify-center'>
+            <div className='max-w-screen-xl'>
+              <App />
+
+            </div>
+          </div>
+          <Footer />
         </QueryClientProvider>
       </BrowserRouter>
   </Auth0Provider>
