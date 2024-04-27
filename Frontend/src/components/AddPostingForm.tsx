@@ -92,10 +92,10 @@ export default function AddPostingForm() {
         // if success then show this
         setShowAlertAdded(true);
 
-        // setTimeout(() => {
-        //     setShowAlertAdded(false);
-        //     navigate("/postings");
-        // }, 2000);
+        setTimeout(() => {
+            setShowAlertAdded(false);
+            // navigate("/postings");
+        }, 2000);
     }
 
 

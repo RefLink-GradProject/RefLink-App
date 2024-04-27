@@ -7,11 +7,25 @@ export async function postResponse(data: FieldValues){
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     });
-    const result = await response.json() as Response;
+    // const result = await response.json() as Response;
     if(!response.ok){
         throw new Error("Failed to post new candidate!")
     }
     return response;
+}
+
+export async function postRatingResponse(content: string, questionGuid: string){
+    const response = await fetch("http://localhost:5136/api/responses",{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            content:content,
+            questionGuid: questionGuid
+        })
+    });
+    if(!response.ok){
+        throw new Error("Failed to post new candidate!")
+    }
 }
 
 export async function getReferencerWithQuestions(guid: string): Promise<ReferencerWithQuestions>{

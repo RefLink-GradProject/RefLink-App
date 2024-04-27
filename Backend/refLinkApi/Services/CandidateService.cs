@@ -68,6 +68,7 @@ public class CandidateService : ICandidateService
             .Candidates.Include(candidate => candidate.Referencers)
             .ThenInclude(referencer => referencer.Responses)
             .ThenInclude(response => response.Question)
+            // also include response.RatingQuesion here
             .FirstOrDefaultAsync(candidate => candidate.GuidId == guidId);
         
         var response = new CandidateDetailedResponseDto()

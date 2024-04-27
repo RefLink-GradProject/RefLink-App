@@ -43,10 +43,19 @@ public static class SeedData
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
+        Question question2 = new Question()
+        {
+            Content = "Creativity",
+            Posting = posting,
+            PostingGuid = posting.GuidId,
+            Responses = new List<Response>(),
+        };
         // Does this need to be persisted in Posting context?
         posting.Questions.Add(question);
+        posting.Questions.Add(question2);
         
         _context.Questions.Add(question);
+        _context.Questions.Add(question2);
         _context.SaveChanges();
         
         RatingQuestion ratingQuestion = new RatingQuestion()
