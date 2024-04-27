@@ -108,18 +108,22 @@ export const postings: Posting[] = [posting1, posting2, posting3];
 // export const employer: Employer = {guidId: "1234", name: "Mathieas", company:"Salt", emial:"salt@gmail.com", postings:[posting1, posting2, posting3] }
 
 export const referencerWithQuestions: ReferencerWithQuestions = { 
-    name: "referencer1",
-    guidId: "1001",
+
+    referencer: {
+        name: "referencer1",
+        guidId: "1001",
+        email: "xx@gmail.com",
+    },
     questions: [
         { content: "This is a question", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
         // { content: "quesstion2", guidId: "2"},
         // { content: "quesstion3", guidId: "3"},
     ],
-    ratingQuestions: [
-        { content: "rating1", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
-        { content: "rating2", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
-        { content: "rating3", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
-    ]
+    // ratingQuestions: [
+    //     { content: "rating1", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
+    //     { content: "rating2", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
+    //     { content: "rating3", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
+    // ]
   }
 
 

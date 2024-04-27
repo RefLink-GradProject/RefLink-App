@@ -59,6 +59,11 @@ export type ReferencerRequest = {
   name: string;
   email: string;
 };
+export type ReferencerDto = {
+  guidId: string;
+  name: string;
+  email: string;
+};
 
 export type Response = {
   guidId: string;
@@ -76,6 +81,10 @@ export type QuestionRequest = {
   content: string;
 };
 
+export type QuestionDto = {
+  guidId: string;
+  content: string
+}
 export type Employer = {
   guidId: string;
   name: string;
@@ -95,8 +104,7 @@ export type RatingQuestion = {
   responses?: Response[];
 }
 export type ReferencerWithQuestions = {
-  name: string,
-  guidId: string,
-  questions: Question[]
-  ratingQuestions: RatingQuestion[];
+  referencer: ReferencerDto;
+  questions: QuestionDto[];
+  // ratingQuestions?: RatingQuestion[];
 }
