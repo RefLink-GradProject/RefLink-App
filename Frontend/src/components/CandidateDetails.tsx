@@ -12,13 +12,15 @@ export default function CandidateDetails({ candidate }: Props) {
         // Iterate through each referencer and response to aggregate scores
         candidate.referencers.forEach(referencer => {
             referencer.responses.forEach(response => {
-                const subject = response.questionContent;
-                const score = parseInt(response.responseContent);
-
-                if (questionScores[subject]) {
-                    questionScores[subject].push(score);
-                } else {
-                    questionScores[subject] = [score];
+                if(countWords(response.questionContent) < 4){
+                    const subject = response.questionContent;
+                    const score = parseInt(response.responseContent);
+    
+                    if (questionScores[subject]) {
+                        questionScores[subject].push(score);
+                    } else {
+                        questionScores[subject] = [score];
+                    }
                 }
             });
         });
@@ -101,14 +103,14 @@ export default function CandidateDetails({ candidate }: Props) {
         <>
             <h2 className="text-2xl mb-3">Ratings:</h2>
             <div className="flex justify-center">
-                <div className="bg-slate-100 w-100 h-50 flex items-center justify-center">
+                <div className="w-100 h-50 flex items-center justify-center">
                     <ResponsiveContainer width={500} height={300}>
                         <RadarChart outerRadius={100} width={100} height={100} data={getCandidatesRatings()}>
                             <PolarGrid />
                             <PolarAngleAxis dataKey="subject" />
                             <PolarRadiusAxis domain={[0, 5]} />
                             <Tooltip />
-                            <Radar name="Mike" dataKey="score" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#8884d8" fillOpacity={0.6} />
                         </RadarChart>
                     </ResponsiveContainer>
                 </div>
