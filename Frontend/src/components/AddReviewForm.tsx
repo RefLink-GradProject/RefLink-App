@@ -125,7 +125,7 @@ export default function AddReviewForm() {
                                 {wordCount < 3 && (
                                <div className="mt-5 mb-5" key={question.guidId}>
                                <h3>{question.content}</h3>
-                               <input  type="range" min={1} max="5" value={ratingValues[i]} className="range range-secondary" step="1" onChange={(event) => handleChange(i, event)} />
+                               <input  type="range" min={1} max="5" value={ratingValues[i]} className="range range-success" step="1" onChange={(event) => handleChange(i, event)} />
                                <div className="w-full flex justify-between text-xs px-2">
                                    <span>1</span>
                                    <span>2</span>
