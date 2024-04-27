@@ -71,7 +71,7 @@ export default function AddReviewForm() {
 
             <form className="w-1/2" onSubmit={handleSubmit(submitForm)}>
 
-                <fieldset className="border border-slate-150 rounded-sm p-3 mb-5">
+                <fieldset id="questions-text" className="border border-slate-150 rounded-sm p-3 mb-5">
                     <legend className="text-sm text-slate-500 mb-2">Add your response</legend>
                     {
                         data!.questions.map((question:Question, i:number) =>
@@ -83,6 +83,13 @@ export default function AddReviewForm() {
                         )
                     }
                 </fieldset>
+
+                <fieldset id="questions-rating" className="border border-slate-150 rounded-sm p-3 mb-5">
+                    <legend className="text-sm text-slate-500 mb-2">Add your ratings</legend>
+                </fieldset>
+
+
+
                 <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
                 <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
             </form>
