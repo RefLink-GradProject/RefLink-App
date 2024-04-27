@@ -16,6 +16,7 @@ using refLinkApi.Models;
         public DbSet<Candidate> Candidates { get; set; } = default!;
         public DbSet<Posting> Postings { get; set; } = default!;
         public DbSet<Question> Questions { get; set; } = default!;
+        public DbSet<Question> RatingQuestions { get; set; } = default!;
         public DbSet<Referencer> Referencers  { get; set; } = default!;
         public DbSet<Response> Responses  { get; set; } = default!;
         
