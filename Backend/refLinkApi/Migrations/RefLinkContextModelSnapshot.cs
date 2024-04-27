@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,11 +10,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace refLinkApi.Migrations
 {
     [DbContext(typeof(RefLinkContext))]
-    [Migration("20240425175507_WithAuth")]
-    partial class WithAuth
+    partial class RefLinkContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,6 +125,34 @@ namespace refLinkApi.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("refLinkApi.Models.RatingQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("GuidId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PostingGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PostingGuidId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostingGuidId");
+
+                    b.ToTable("RatingQuestions");
+                });
+
             modelBuilder.Entity("refLinkApi.Models.Referencer", b =>
                 {
                     b.Property<int>("Id")
@@ -175,12 +200,17 @@ namespace refLinkApi.Migrations
                     b.Property<int?>("QuestionId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RatingQuestionId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ReferencerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
+
+                    b.HasIndex("RatingQuestionId");
 
                     b.HasIndex("ReferencerId");
 
@@ -220,6 +250,17 @@ namespace refLinkApi.Migrations
                     b.Navigation("Posting");
                 });
 
+            modelBuilder.Entity("refLinkApi.Models.RatingQuestion", b =>
+                {
+                    b.HasOne("refLinkApi.Models.Posting", "Posting")
+                        .WithMany("RatingQuestions")
+                        .HasForeignKey("PostingGuidId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Posting");
+                });
+
             modelBuilder.Entity("refLinkApi.Models.Referencer", b =>
                 {
                     b.HasOne("refLinkApi.Models.Candidate", "Candidate")
@@ -236,6 +277,10 @@ namespace refLinkApi.Migrations
                     b.HasOne("refLinkApi.Models.Question", "Question")
                         .WithMany("Responses")
                         .HasForeignKey("QuestionId");
+
+                    b.HasOne("refLinkApi.Models.RatingQuestion", null)
+                        .WithMany("Responses")
+                        .HasForeignKey("RatingQuestionId");
 
                     b.HasOne("refLinkApi.Models.Referencer", "Referencer")
                         .WithMany("Responses")
@@ -261,9 +306,16 @@ namespace refLinkApi.Migrations
                     b.Navigation("Candidates");
 
                     b.Navigation("Questions");
+
+                    b.Navigation("RatingQuestions");
                 });
 
             modelBuilder.Entity("refLinkApi.Models.Question", b =>
+                {
+                    b.Navigation("Responses");
+                });
+
+            modelBuilder.Entity("refLinkApi.Models.RatingQuestion", b =>
                 {
                     b.Navigation("Responses");
                 });
