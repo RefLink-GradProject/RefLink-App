@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace refLinkApi.Migrations
 {
     [DbContext(typeof(RefLinkContext))]
-    [Migration("20240425175507_WithAuth")]
-    partial class WithAuth
+    [Migration("20240427093724_WithRatingQuestion")]
+    partial class WithRatingQuestion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
