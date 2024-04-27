@@ -99,7 +99,7 @@ export default function CandidateDetails({ candidate }: Props) {
                 </section>
 
                 <section id="reference-rating" className="mb-5">
-                    {candidate!.referencers && (
+                    {getCandidatesRatings().length >=1 && (
                         <>
                             <h2 className="text-2xl mb-3">Ratings:</h2>
                             <div className="flex justify-center">
