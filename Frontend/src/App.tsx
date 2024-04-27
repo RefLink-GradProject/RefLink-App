@@ -14,20 +14,18 @@ import Postings from './components/Postings';
 import Register from './Register';
 
 const allPostings = await getPostings();
+const postingsPlusFakes: Posting[] = allPostings.concat(postings);
 const allCandidates = await getCandidates();
 // const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
-import { referencerWithQuestions } from './fakeData';
+import { postings, referencerWithQuestions } from './fakeData';
+import ChartsDraft from './components/ChartsDraft';
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
-
-  // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
-  // const allPostings = getPostingsQuery.data!;
-  // const [employer, SetEmployer] = useState<Employer>(CurrentEmployer);
-  const [postings, setPostings] = useState<Posting[]>(allPostings);
+  const [postings, setPostings] = useState<Posting[]>(postingsPlusFakes);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
@@ -44,8 +42,6 @@ export default function App() {
 
 
 
-  // if (getPostingsQuery.isLoading) return (<p>Loading Postings...</p>)
-  // if (getPostingsQuery.error) return (<p>Something went wrong when loading postings.</p>)
   return (
     <>
       <div className='mx-12 grow'>
@@ -68,6 +64,7 @@ export default function App() {
           <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
           <Route path='/add-reference/:guid' element={<AddReviewForm />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/charts' element={<ChartsDraft />} />
         </Routes>
       </div>
       <Footer />

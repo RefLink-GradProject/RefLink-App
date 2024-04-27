@@ -1,4 +1,4 @@
-import { Question, Response, Candidate, Referencer, Posting, ReferencerWithQuestions} from './Types';
+import { Question, Response, Candidate, Referencer, Posting, ReferencerWithQuestions, CandidateWithDetails} from './Types';
 
 // Define questions
 export const question1: Question = { guidId: "401", content: "What experience do you have with React?" };
@@ -116,8 +116,73 @@ export const referencerWithQuestions: ReferencerWithQuestions = {
         // { content: "quesstion3", guidId: "3"},
     ],
     ratingQuestions: [
-        { content: "rating1", guidId: "1q"},
-        { content: "rating2", guidId: "2f"},
-        { content: "rating3", guidId: "3g"},
+        { content: "rating1", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
+        { content: "rating2", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
+        { content: "rating3", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
     ]
   }
+
+
+// CandidateWithDetails
+
+export const fakeCandidate1WithDetails: CandidateWithDetails = {
+    name: candidate1.name,
+    email: candidate1.email,
+    referencers: [
+        {
+            name: referencer1.name,
+            guidId: referencer1.guidId,
+            responses: [
+                {
+                    questionContent: question1.content,
+                    questionGuidId: question1.guidId,
+                    responseContent: response1.content,
+                    responseGuidId: response1.guidId,
+                }
+            ],
+            ratings: [
+                {
+                    ratingQuestionContent: "Rate his initialtivity",
+                    ratingQuestionGuidId: "33",
+                    ratingResponseContent: "5",
+                    ratingResponseGuidId: "44"
+                }
+            ] 
+        }
+    ]
+};
+
+
+export const fakeCandidatesRating = [
+    {
+        subject: "initialtivity",
+        person1: 3,
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "Efficiency",
+        person1: 1,
+        person2: 5,
+        fullMark: 5
+    },
+    {
+        subject: "Passion",
+        person1: 5,
+        person2: 2,
+        fullMark: 5
+    },
+    {
+        subject: "Happy",
+        person1: 4,
+        person2: 2,
+        fullMark: 5
+    },
+    {
+        subject: "serious",
+        person1: 3,
+        person2: 2,
+        fullMark: 5
+    }
+
+]
