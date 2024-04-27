@@ -12,10 +12,10 @@ export default function CandidateDetails({ candidate }: Props) {
         // Iterate through each referencer and response to aggregate scores
         candidate.referencers.forEach(referencer => {
             referencer.responses.forEach(response => {
-                if(countWords(response.questionContent) < 4){
+                if (countWords(response.questionContent) < 4) {
                     const subject = response.questionContent;
                     const score = parseInt(response.responseContent);
-    
+
                     if (questionScores[subject]) {
                         questionScores[subject].push(score);
                     } else {
@@ -99,26 +99,37 @@ export default function CandidateDetails({ candidate }: Props) {
                 </section>
 
                 <section id="reference-rating" className="mb-5">
-    {candidate!.referencers && (
-        <>
-            <h2 className="text-2xl mb-3">Ratings:</h2>
-            <div className="flex justify-center">
-                <div className="w-100 h-50 flex items-center justify-center">
-                    <ResponsiveContainer width={500} height={300}>
-                        <RadarChart outerRadius={100} width={100} height={100} data={getCandidatesRatings()}>
-                            <PolarGrid />
-                            <PolarAngleAxis dataKey="subject" />
-                            <PolarRadiusAxis domain={[0, 5]} />
-                            <Tooltip />
-                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#8884d8" fillOpacity={0.6} />
-                        </RadarChart>
-                    </ResponsiveContainer>
-                </div>
-            </div>
-        </>
-    )}
-</section>
+                    {candidate!.referencers && (
+                        <>
+                            <h2 className="text-2xl mb-3">Ratings:</h2>
+                            <div className="flex justify-center">
+                                <div className="w-100 h-50 flex items-center justify-center">
+                                    <ResponsiveContainer width={500} height={300}>
+                                        <RadarChart outerRadius={100} width={100} height={100} data={getCandidatesRatings()}>
+                                            <PolarGrid />
+                                            <PolarAngleAxis dataKey="subject" />
+                                            <PolarRadiusAxis domain={[0, 5]} />
+                                            <Tooltip />
+                                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#8884d8" fillOpacity={0.6} />
+                                        </RadarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                                <div className="flex w-1/2">
+                                    <ResponsiveContainer width={500} height={300}>
+                                        <BarChart width={100} height={100} data={getCandidatesRatings()}>
+                                            <YAxis domain={[0, 5]} />
+                                            <XAxis dataKey="subject" />
+                                            <Tooltip />
+                                            {/* <Legend /> */}
+                                            <Bar dataKey="score" fill="#929AAB" />
+                                        </BarChart>
 
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </section>
 
             </section>
             <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>&larr; Back</button>
