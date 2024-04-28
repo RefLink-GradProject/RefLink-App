@@ -3509,6 +3509,36 @@ details.collapse summary::-webkit-details-marker {
   animation: fade-down 1s both;
 }
 
+@keyframes fade-left {
+  0% {
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-left {
+  animation: fade-left 1s both;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade {
+  animation: fade 1s both;
+}
+
 .list-disc {
   list-style-type: disc;
 }
@@ -3774,6 +3804,11 @@ details.collapse summary::-webkit-details-marker {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.saturate-100 {
+  --tw-saturate: saturate(1);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .animate-delay-300 {
   animation-delay: 300ms;
 }
@@ -3788,6 +3823,38 @@ details.collapse summary::-webkit-details-marker {
 
 .animate-delay-500 {
   animation-delay: 500ms;
+}
+
+.animate-delay-0 {
+  animation-delay: 0ms;
+}
+
+.animate-duration-\[1ms\] {
+  animation-duration: 1ms;
+}
+
+.animate-duration-\[10ms\] {
+  animation-duration: 10ms;
+}
+
+.animate-duration-\[100ms\] {
+  animation-duration: 100ms;
+}
+
+.animate-duration-\[1000ms\] {
+  animation-duration: 1000ms;
+}
+
+.animate-duration-\[700ms\] {
+  animation-duration: 700ms;
+}
+
+.animate-duration-\[500ms\] {
+  animation-duration: 500ms;
+}
+
+.animate-duration-\[400ms\] {
+  animation-duration: 400ms;
 }
 
 @media (min-width: 768px) {

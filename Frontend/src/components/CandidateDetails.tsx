@@ -55,7 +55,7 @@ export default function CandidateDetails({ candidate }: Props) {
 
 
     return (
-        <div className="m-10">
+        <div className="m-10 animate-fade-up animate-duration-[400ms]">
             <section id="candidate-info" className="mb-10">
                 <h1 className="text-4xl">{candidate!.name}</h1>
                 <p className="text-">Email: {candidate!.email}</p>
@@ -110,18 +110,18 @@ export default function CandidateDetails({ candidate }: Props) {
                                             <PolarAngleAxis dataKey="subject" />
                                             <PolarRadiusAxis domain={[0, 5]} />
                                             <Tooltip />
-                                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#8884d8" fillOpacity={0.6} />
+                                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#16a34a" fillOpacity={0.6} />
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
                                 <div className="flex w-1/2">
-                                    <ResponsiveContainer width={500} height={300}>
+                                    <ResponsiveContainer width={300} height={300}>
                                         <BarChart width={100} height={100} data={getCandidatesRatings()}>
                                             <YAxis domain={[0, 5]} />
                                             <XAxis dataKey="subject" />
                                             <Tooltip />
                                             {/* <Legend /> */}
-                                            <Bar dataKey="score" fill="#929AAB" />
+                                            <Bar dataKey="score" fill="#15803d"/>
                                         </BarChart>
 
                                     </ResponsiveContainer>
