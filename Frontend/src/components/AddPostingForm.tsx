@@ -136,14 +136,14 @@ export default function AddPostingForm() {
         <>
             <div className="">
                 <form className="lg:w-2/3" onSubmit={handleSubmit(handleAdd)}>
-                    <fieldset className="border border-slate-150 rounded-sm p-3 mb-5">
+                    <fieldset className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
                         <legend className="text-sm text-slate-500 mb-2">Posting details</legend>
                         <TextInput register={register} name="postingTitle" inputType="text" labelText="Name" placeholder="Posting name" />
                         <TextArea register={register} name="postingDescription" labelText="Description" placeholder="Write description here for AI prompt" />
                     </fieldset>
 
 
-                    <fieldset className="border border-slate-150 rounded-sm p-3 mb-5">
+                    <fieldset className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
                         <legend className="text-sm text-slate-500 mb-2">Questions</legend>
 
                         {
@@ -173,7 +173,7 @@ export default function AddPostingForm() {
                         }
                     </fieldset>
 
-                    <fieldset id="rating-question-tags" className="border border-slate-150 rounded-sm p-3 mb-5">
+                    <fieldset id="rating-question-tags" className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
                         <legend className="text-sm text-slate-500 mb-2">Rating questions</legend>
                         {
                             ratingQuestions.map((question, i) => 
@@ -187,7 +187,7 @@ export default function AddPostingForm() {
                 </form>
             </div>
             {showAlertAdded && (
-                <Alert alertType="success" alertContent="Posting added!" />
+                <Alert alertType="alert-success" alertContent="Posting added!" />
             )}
         </>
     );

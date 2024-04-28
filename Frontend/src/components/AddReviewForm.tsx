@@ -146,7 +146,7 @@ export default function AddReviewForm() {
                 <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
             </form>
             {showAlertAdded && (
-                <Alert alertType="success" alertContent="Referencer has been sent!" />
+                <Alert alertType="alert-success" alertContent="Referencer has been sent!" />
             )}
         </>
     )
