@@ -21,37 +21,10 @@ const allCandidates = await getCandidates();
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
-  const {getIdTokenClaims, isAuthenticated} = useAuth0();
-    
-  async function getEmployerByToken() : Promise<Employer | null> {   
-      const token = await getIdTokenClaims();
-      if(!isAuthenticated){
-        console.log("not auth")
-        return null;
-      }
-      const response = await fetch('http://localhost:5136/api/Employers', {
-          headers: {
-            "Authorization": "Bearer " + token!.__raw
-          }
-        });
-      const employer = await response.json()
-      return  employer;
-    }
-  
-   useQuery({
-    queryKey: ['CurrentEmployee'],
-    queryFn: () => getEmployerByToken(),
-    onSuccess: (data) => {
-      console.log(data)
-      setEmployerData(data);
-    },  
-
-  })
-
+ 
   // const getPostingsQuery = useQuery({ queryKey: ['getPostings'], queryFn: getPostings });
   // const allPostings = getPostingsQuery.data!;
 
-  const [employer, setEmployerData] = useState<Employer | null>(null);
   const [postings, setPostings] = useState<Posting[]>(allPostings);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<Candidate>(allCandidates[0]);
@@ -76,6 +49,7 @@ export default function App() {
         <Navbar userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route></Route>
           <Route
             path="/postings"
             element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
