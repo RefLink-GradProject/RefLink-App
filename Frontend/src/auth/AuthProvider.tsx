@@ -9,7 +9,6 @@ interface AuthProviderProps {
 	children: ReactNode;
 }
 
-// Provider component to wrap your application and provide the context
 const AuthProvider: React.FC<AuthProviderProps> = (props) => {
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
   const [employer, setEmployer] = useState<Employer | null>(null);
@@ -17,7 +16,6 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
 
   useEffect(() => {
     const EmployerHasRegistration = async () => {
-      if (isAuthenticated) {
         try {
           const token = await getIdTokenClaims();
           const acc = await getEmployerByToken(token!); 
@@ -28,12 +26,10 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
         } finally {
           setIsLoading(false);
         }
-      } else {
-        setIsLoading(false);
-      }
     };
-
-    EmployerHasRegistration();
+    if (isAuthenticated) {
+      EmployerHasRegistration();
+    }
   }, [isAuthenticated, getIdTokenClaims]);
 
   // Value to be provided by the context

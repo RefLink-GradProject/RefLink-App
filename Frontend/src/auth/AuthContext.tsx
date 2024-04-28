@@ -8,6 +8,5 @@ export interface AuthContextValue {
 
 export const AuthContext = createContext<AuthContextValue>({
 	employer: null,
-	setEmployer: () => {},
-	
+	setEmployer: () => {},	
 });
