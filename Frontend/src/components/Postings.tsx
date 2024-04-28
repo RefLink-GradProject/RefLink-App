@@ -9,7 +9,7 @@ export default function Postings({postings, clickedPosting, setClickedPosting, s
     
     return (
         <>
-            <div className='lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32 mb-20 w-full animate-fade-left animate-duration-[400ms]'>
+            <div className='lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32 mb-16 mt-26 w-full h-full animate-fade-left animate-duration-[400ms]'>
                 <Link to="/postings/add">
                     <button className="btn btn-success mb-3 ">+ Add Posting</button>
                 </Link>
@@ -18,7 +18,7 @@ export default function Postings({postings, clickedPosting, setClickedPosting, s
                         <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
 
                     </div>
-                    <div className='mt-5 lg:mt-0 lg:w-3/5 shadow-2xl animate-fade-left animate-duration-[400ms]'>
+                    <div className='mt-5 lg:mt-0 lg:w-3/5 animate-fade-left animate-duration-[400ms]'>
                         <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
                     </div>
                 </section>

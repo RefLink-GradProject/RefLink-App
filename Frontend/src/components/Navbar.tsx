@@ -8,7 +8,7 @@ export default function Navbar({ userName }: Props) {
 
     return (
         <>
-            <div className="navbar mb-5 md:mb-10  animate-fade-down">
+            <div className="navbar mb-10 md:mb-10  animate-fade-down">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
