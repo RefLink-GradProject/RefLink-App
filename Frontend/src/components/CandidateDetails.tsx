@@ -55,53 +55,56 @@ export default function CandidateDetails({ candidate }: Props) {
 
 
     return (
-        <div className="m-10">
-            <section id="candidate-info" className="mb-10">
-                <h1 className="text-4xl">{candidate!.name}</h1>
-                <p className="text-">Email: {candidate!.email}</p>
-                <p className="text-">Referencer number: {candidate!.referencers ? candidate!.referencers.length : 0}</p>
-            </section>
+        <>
+            <div className="lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32 mb-20 mt-14 w-full animate-fade-up animate-duration-[400ms]">
+                <section className="w-full lg:flex mb-10 ">
+                    <section id="candidate-info" className="mb-10 lg:w-2/5 lg:mr-3">
+                        <h1 className="text-4xl">{candidate!.name}</h1>
+                        <p className="text-">Email: {candidate!.email}</p>
+                        <p className="text-">Referencer number: {candidate!.referencers ? candidate!.referencers.length : 0}</p>
+                    </section>
 
-            <section id="candidate-references">
-                <section id="referenc-texts" className="mb-5">
-                    <h2 className="text-2xl mb-3">Text References:</h2>
-                    {candidate!.referencers && (
-                        candidate!.referencers.map((referencer => {
-                            return (
-                                <>
-                                    <div className="collapse collapse-arrow bg-base-200">
-                                        <input type="radio" name="my-accordion-2" defaultChecked />
-                                        <div className="collapse-title text-xl font-medium">
-                                            <h3 className="text-2xl">Reference from {referencer.name}</h3>
+                    <section id="candidate-references" className="mt-5 lg:mt-0 lg:w-3/5">
+                        {/* <h2 className="text-2xl mb-3">Text References:</h2> */}
+                        {candidate!.referencers && (
+                            candidate!.referencers.map((referencer => {
+                                return (
+                                    <>
+                                        <div className="collapse collapse-arrow shadow-xl">
+                                            <input type="radio" name="my-accordion-2" defaultChecked />
+                                            <div className="collapse-title text-xl font-medium">
+                                                <h3 className="text-2xl">Reference from {referencer.name}</h3>
+                                            </div>
+                                            <div className="collapse-content">
+                                                {referencer.responses!.map((response) => {
+                                                    return (
+                                                        <>
+                                                            {countWords(response.questionContent) >= 4 && (
+                                                                <>
+                                                                    <h4 className="text-xl">{response.questionContent}</h4>
+                                                                    <p className="text-sm">{response.responseContent}</p>
+                                                                </>
+                                                            )
+                                                            }
+
+                                                        </>
+                                                    )
+                                                })}
+                                            </div>
                                         </div>
-                                        <div className="collapse-content">
-                                            {referencer.responses!.map((response) => {
-                                                return (
-                                                    <>
-                                                        {countWords(response.questionContent) >= 4 && (
-                                                            <>
-                                                                <h4 className="text-xl">{response.questionContent}</h4>
-                                                                <p className="text-sm">{response.responseContent}</p>
-                                                            </>
-                                                        )
-                                                        }
+                                    </>
+                                )
+                            }))
 
-                                                    </>
-                                                )
-                                            })}
-                                        </div>
-                                    </div>
-                                </>
-                            )
-                        }))
+                        )}
 
-                    )}
+                    </section>
+
                 </section>
-
                 <section id="reference-rating" className="mb-5">
-                    {getCandidatesRatings().length >=1 && (
+                    {getCandidatesRatings().length >= 1 && (
                         <>
-                            <h2 className="text-2xl mb-3">Ratings:</h2>
+                            {/* <h2 className="text-2xl mb-3">Ratings:</h2> */}
                             <div className="flex justify-center">
                                 <div className="w-100 h-50 flex items-center justify-center">
                                     <ResponsiveContainer width={500} height={300}>
@@ -110,18 +113,18 @@ export default function CandidateDetails({ candidate }: Props) {
                                             <PolarAngleAxis dataKey="subject" />
                                             <PolarRadiusAxis domain={[0, 5]} />
                                             <Tooltip />
-                                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#8884d8" fillOpacity={0.6} />
+                                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#16a34a" fillOpacity={0.6} />
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
                                 <div className="flex w-1/2">
-                                    <ResponsiveContainer width={500} height={300}>
+                                    <ResponsiveContainer width={300} height={300}>
                                         <BarChart width={100} height={100} data={getCandidatesRatings()}>
                                             <YAxis domain={[0, 5]} />
                                             <XAxis dataKey="subject" />
                                             <Tooltip />
                                             {/* <Legend /> */}
-                                            <Bar dataKey="score" fill="#929AAB" />
+                                            <Bar dataKey="score" fill="#15803d" />
                                         </BarChart>
 
                                     </ResponsiveContainer>
@@ -131,9 +134,9 @@ export default function CandidateDetails({ candidate }: Props) {
                     )}
                 </section>
 
-            </section>
-            <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>&larr; Back</button>
-        </div>
+                <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>&larr; Back</button>
+            </div>
+        </>
     )
 }
 

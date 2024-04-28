@@ -18,7 +18,7 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
     }
 
     return (
-        <>
+        <div className="animate-fade-left animate-duration-[400ms]">
             {postings.map((posting) => {
                 return (
                     <>
@@ -38,7 +38,7 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
                     </>
                 )
             })}
-        </>
+        </div>
     )
 }
 
