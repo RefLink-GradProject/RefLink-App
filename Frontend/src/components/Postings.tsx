@@ -18,7 +18,7 @@ export default function Postings({postings, clickedPosting, setClickedPosting, s
                         <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
 
                     </div>
-                    <div className='mt-5 lg:mt-0 lg:w-3/5'>
+                    <div className='mt-5 lg:mt-0 lg:w-3/5 shadow-2xl '>
                         <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
                     </div>
                 </section>
