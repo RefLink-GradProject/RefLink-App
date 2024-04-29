@@ -18,10 +18,6 @@ public partial class MapperlyMapper
     public partial Question QuestionRequestDtoToQuestion(QuestionRequestDto request);
     public partial QuestionResponseDto QuestionToQuestionResponseDto(Question posting);
 
-    [MapperIgnoreTarget(nameof(RatingQuestion.GuidId))]
-    public partial RatingQuestion RatingQuestionRequestDtoToRatingQuestion(RatingQuestionRequestDto request);
-    public partial RatingQuestionResponseDto RatingQuestionToRatingQuestionResponseDto(RatingQuestion posting);
-
     [MapperIgnoreTarget(nameof(Referencer.GuidId))]
     public partial Referencer ReferencerRequestDtoToReferencer(ReferencerRequestDto request);
     public partial ReferencerResponseDto ReferencerToReferencerResponseDto(Referencer reference);

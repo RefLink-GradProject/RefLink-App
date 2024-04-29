@@ -19,5 +19,4 @@ public class Response
     
     public Referencer Referencer { get; set; }
     public Question? Question { get; set; }
-    public RatingQuestion? RatingQuestion { get; set; }
 }

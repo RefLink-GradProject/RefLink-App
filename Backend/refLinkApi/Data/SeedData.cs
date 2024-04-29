@@ -11,16 +11,16 @@ public static class SeedData
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
 
-        Employer employer = new Employer
-        {
-            GuidId = Guid.NewGuid(),
-            Name = "EmployerName",
-            Company = "EmpoyerCompany",
-            Email = "EmployerEmail",
-            AuthId = "hello"
-        };
-        _context.Employers.Add(employer);
-        _context.SaveChanges();
+            Employer employer = new Employer
+            {
+                GuidId = Guid.NewGuid(),
+                Name = "EmployerName",
+                Company = "EmpoyerCompany",
+                Email = "EmployerEmail",
+                AuthId = "hello"
+            };
+            _context.Employers.Add(employer);
+            _context.SaveChanges();
         
         Posting posting = new Posting
         {
@@ -29,7 +29,6 @@ public static class SeedData
             Description = "PostingDescription",
             Employer = employer,
             EmployerGuid = employer.GuidId,
-            RatingQuestions = new List<RatingQuestion>(),
             Questions = new List<Question>(),
         };
         
@@ -83,17 +82,6 @@ public static class SeedData
         _context.Questions.Add(question3);
         _context.Questions.Add(question4);
         _context.Questions.Add(question5);
-        _context.SaveChanges();
-        
-        RatingQuestion ratingQuestion = new RatingQuestion()
-        {
-            Content = "This is a RATING question",
-            Posting = posting,
-            PostingGuid = posting.GuidId,
-            Responses = new List<Response>(),
-        };
-        posting.RatingQuestions.Add(ratingQuestion);
-        _context.RatingQuestions.Add(ratingQuestion);
         _context.SaveChanges();
         
         Candidate candidate = new Candidate
