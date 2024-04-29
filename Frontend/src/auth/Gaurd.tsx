@@ -5,7 +5,8 @@ export const RegistrationGuard = () => {
     const {employer} = useAuth()
     const navigate = useNavigate();
     if (!employer) {
-      navigate("/register")
+      return( <div>Return to home</div> )
+      // navigate("/register")
     }
     return <Outlet />;
   };

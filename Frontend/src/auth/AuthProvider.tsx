@@ -15,6 +15,16 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
   const [employer, setEmployer] = useState<Employer | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const value = {
+    employer,
+    setEmployer
+  };
+
+  if(!isAuthenticated) {
+    return (
+      <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
+    );
+  }
 
   const EmployerHasRegistration = async () => {
     try {
@@ -33,12 +43,6 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
   if (isAuthenticated && !employer) {
     EmployerHasRegistration();
   }
-
-
-  const value = {
-    employer,
-    setEmployer
-  };
 
   if (isLoading) {
     return (

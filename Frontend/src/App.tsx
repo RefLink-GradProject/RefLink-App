@@ -53,12 +53,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
          
-          {/* <Route element={<RegistrationGuard />}> */}
+          <Route element={<RegistrationGuard />}>
             <Route
               path="/postings"
               element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
             />
-          {/* </Route> */}
+          </Route>
        
           <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path="/dashboard" element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
