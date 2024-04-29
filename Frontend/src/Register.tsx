@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import TextInput from "./components/TextInput";
 
-
 type CreateEmployer = {
   name: string;
   email: string; 
@@ -17,18 +16,17 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    
     if (user) {
-      setValue("employer-name", user.name);
-      setValue("employer-email", user.email);
+      setValue("name", user.name);
+      setValue("email", user.email);
     }
   }, [user, setValue]); 
 
   const onSubmit = async (data : FormData) => {
-    reset()
     try {
-      console.log(data);
       const token = await getIdTokenClaims()
-      
+      console.log(token!.__raw)
       const response = await fetch('http://localhost:5136/api/Employers', {
           method : "POST",
           headers: {
@@ -36,12 +34,9 @@ const Register = () => {
             "Authorization": "Bearer " + token!.__raw
           },
           body: JSON.stringify(data)
-    
-    
         });
-      
-      if (response.status === 200) {
-          return navigate("/postings");
+      if (response.status === 200) {  
+        return navigate("/postings");
       }
     } catch (error) {
       console.error('Error registering user:', error);
@@ -60,9 +55,9 @@ const Register = () => {
     <>
       {user && (
         <>
-          <h1 className="text-2xl text-center">Hey {user.name}!</h1>
+          <h1 className="text-2xl text-center">Hey {user!.name}!</h1>
           <div className="flex justify-center mt-10">
-            <form className="w-1/2" onSubmit={()=>{}}>
+            <form className="w-1/2" onSubmit={handleSubmit(onSubmit)}>
               <TextInput register={register} name="name" value={user!.name} inputType="text" labelText="Name" placeholder="Posting name" />
               <TextInput register={register} name="email" inputType="text"  value={user!.email} labelText="Email" placeholder="Posting name" />
               <TextInput register={register} name="company" inputType="text" labelText="Company" placeholder="Posting name" />

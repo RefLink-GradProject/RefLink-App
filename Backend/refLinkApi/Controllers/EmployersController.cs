@@ -23,7 +23,7 @@ namespace refLinkApi.Controllers
         [Authorize]
         public async Task<IActionResult> EmployerHasAccount()
         {
-            var employer = await service.GetEmployerInfo(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var employer = await service.GetEmployerByAuthID(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             if (employer == null)
             {
                 NotFound();
@@ -34,12 +34,14 @@ namespace refLinkApi.Controllers
         [Authorize]
         public async Task<IActionResult> CreateEmployerAccount(EmployerRequestDto dto)
         {
-            var employer = await service.GetEmployerInfo(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var employer = await service.GetEmployerByAuthID(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             if (employer != null)
             {
-                BadRequest();
+                return BadRequest();
             }
-            return Ok(employer);
+
+            var createEmployer  = await service.CreateEmployerFromClaims(User, dto);
+            return Ok(createEmployer);
         }
 
         // GET: api/Employers/5

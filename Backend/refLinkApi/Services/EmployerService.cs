@@ -17,19 +17,20 @@ public class EmployerService
         mapper = new MapperlyMapper();
     }
 
-    public async Task<Employer?> GetEmployerInfo(string id)
+    public async Task<Employer?> GetEmployerByAuthID(string id)
     {
         var employer = await _context.Employers.FirstOrDefaultAsync(emp => emp.AuthId == id);
         return employer;
     }
 
-    public async Task<Employer> CreateEmployerFromClaims(ClaimsPrincipal user)
+    public async Task<Employer> CreateEmployerFromClaims(ClaimsPrincipal user, EmployerRequestDto dto)
     {
         var newEmployer = new Employer
         {
             AuthId = user.FindFirst(ClaimTypes.NameIdentifier)!.Value,
-            Name = user.FindFirst(ClaimTypes.GivenName)!.Value,
-            Email = user.FindFirst(ClaimTypes.Email)!.Value
+            Email = dto.Email, 
+            Company = dto.Company,
+            Name = dto.Name
         };
         
         _context.Employers.Add(newEmployer);

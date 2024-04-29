@@ -12,10 +12,15 @@ import AddReviewForm from './components/AddReviewForm';
 import Footer from './components/Footer';
 import Postings from './components/Postings';
 import Register from './Register';
+import { useQuery } from 'react-query';
+import { useAuth0 } from '@auth0/auth0-react';
+import AuthProvider from './auth/AuthProvider';
+import { RegistrationGuard } from './auth/Gaurd';
 
 const allPostings = await getPostings();
 const postingsPlusFakes: Posting[] = allPostings.concat(postings);
 const allCandidates = await getCandidates();
+
 // const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
@@ -45,13 +50,18 @@ export default function App() {
   return (
     <>
       <div className='md:mx-12 md:grow '>
+
         <Navbar userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/postings"
-            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
-          />
+         
+          {/* <Route element={<RegistrationGuard />}> */}
+            <Route
+              path="/postings"
+              element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
+            />
+          {/* </Route> */}
+       
           <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path="/dashboard" element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
@@ -67,7 +77,6 @@ export default function App() {
           <Route path='/charts' element={<ChartsDraft />} />
         </Routes>
       </div>
-
 
     </>
   )
