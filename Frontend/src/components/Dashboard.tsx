@@ -16,30 +16,66 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
         setClickedPosting(clickedPosting);
         navigate(`/postings/${clickedPosting.guidId}`)
     }
-
+    let i = 0;
     return (
-        <div className="animate-fade-left animate-duration-[400ms]">
-            {postings.map((posting) => {
-                return (
-                    <>
-                        {posting.candidates ? (
-                            posting.candidates.map((candidate) => {
+        <>
+        <div className="text-sm breadcrumbs mb-10">
+        <ul>
+            <li><a href="/">Home</a></li> 
+            <li className="font-bold">Dashboard</li>
+        </ul>
+        </div>
+
+            <table className="table animate-fade-left animate-duration-[400ms]">
+                <thead> 
+                    <tr>
+                        <th></th>
+                        <div className="flex text-base">
+                            <th className="w-1/3">Candidate</th>
+                            <th className="w-1/3">Emial</th>
+                            <th className="w-1/3">Posting</th>
+
+                        </div>
+                        {/* <th>Number of referencer</th>
+                        <th>Number of references</th> */}
+                    </tr>
+                </thead>
+                <tbody >
+                    {postings.map((posting, postingIndex) => {
+                        return (
+                            posting.candidates && posting.candidates.map((candidate) => {
+                                i++;
                                 return (
-                                    <section className="flex">
-                                        <button onClick={() => handleCandidateClick(candidate)} className="btn btn-wide block m-10 w-1/3">{candidate.name}</button>
-                                        <p>__</p>
-                                        <button onClick={() => handlePostingClick(posting)} className="btn btn-wide block m-10 w-2/3">{posting.title}</button>
-                                    </section>
+                                    <tr key={`${postingIndex}`} className="h-16">
+                                        <th>{i}</th>
+                                        <div className="flex">
+                                            <td className="w-1/3">
+                                                <p onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"> {candidate.name}</p>
+                                            </td>
+                                            <td className="w-1/3">
+                                                <p onClick={() => handleCandidateClick(candidate)}  className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</p>
+                                            </td>
+                                            <td className="w-1/3" >
+                                                <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</p>
+                                            </td>
+
+                                        </div>
+                                        {/* <td>
+                                            <p>1</p>
+                                        </td>
+                                        <td>
+                                            <p>1</p>
+                                        </td> */}
+                                    </tr>
                                 )
                             })
-                        ) : (
-                            <p></p>
-                        )}
-                    </>
-                )
-            })}
-        </div>
-    )
+                        )
+                    })}
+                </tbody>
+            </table>
+        </>
+    );
+
 }
 
 type Props = {
