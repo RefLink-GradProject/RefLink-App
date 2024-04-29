@@ -39,6 +39,7 @@ public static class SeedData
         {
             Content = "This is a question",
             Posting = posting,
+            Type = QuestionType.Text,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -46,6 +47,7 @@ public static class SeedData
         {
             Content = "Creativity",
             Posting = posting,
+            Type = QuestionType.Rating,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -53,6 +55,7 @@ public static class SeedData
         {
             Content = "Adaptability",
             Posting = posting,
+            Type = QuestionType.Rating,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -60,6 +63,7 @@ public static class SeedData
         {
             Content = "Efficiency",
             Posting = posting,
+            Type = QuestionType.Rating,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -67,6 +71,7 @@ public static class SeedData
         {
             Content = "Time Management",
             Posting = posting,
+            Type = QuestionType.Rating,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
