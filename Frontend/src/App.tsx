@@ -32,12 +32,14 @@ export default function App() {
 
   async function addCandidate(name: string, email: string) {
     await postCandidate(name, email, clickedPosting.guidId);
+    console.log("!!!!!!!!!!!!!")
     const updatedPostings = await getPostings();
     const updatedClickedPosting = updatedPostings.find(posting => posting.guidId === clickedPosting.guidId);
     if (updatedClickedPosting) {
       setClickedPosting(updatedClickedPosting);
     }
     setPostings(updatedPostings);
+
   }
 
   return (
