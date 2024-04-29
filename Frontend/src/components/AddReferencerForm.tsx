@@ -4,8 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import TextInput from './TextInput';
 import { useMutation, useQuery } from 'react-query';
 import { ReferencerRequest } from '../Types';
+import { Dispatch, SetStateAction, useState } from 'react';
+import Alert from './Alert';
 
-export default function AddReferencerForm() {
+export default function AddReferencerForm({setIsCleanNavbar}: Props) {
+
+    const [showAlertSubmitted, setShowAlertSubmitted] = useState<boolean>(false);
     const navigate = useNavigate();
     const { guid } = useParams();
     const { register, handleSubmit, control } = useForm();
@@ -54,6 +58,13 @@ export default function AddReferencerForm() {
             body: JSON.stringify(data)
         })
         const responseJson = await response.json();
+        setShowAlertSubmitted(true);
+
+        setTimeout(() => {
+            setShowAlertSubmitted(false);
+            navigate("/");
+        }, 2000);
+
         return responseJson;
     }
 
@@ -68,6 +79,7 @@ export default function AddReferencerForm() {
 
             await referencerMutation.mutateAsync(payload);
         }
+
     }
 
     function handleBackClick() {
@@ -88,13 +100,13 @@ export default function AddReferencerForm() {
     if (error) return 'An error has occurred.'
 
     return (
-        <>
-            <h1 className="text-xl">Hi {data.name}.</h1>
-            <p>Let's add some referencers.</p>
-            <div className="container-md mx-auto mt-10">
-                <form className="w-1/2" onSubmit={handleSubmit(submitForm)}>
+        <div className='flex flex-col items-center justify-center'>
+            <h1 className="text-xl text-center">Hi, {data.name}!</h1>
+            <p className='mb-8 '>Let's add some referencers.</p>
 
-                    <fieldset className="border border-slate-150 rounded-sm p-3 mb-5">
+                <form className="w-full md:w-3/4 lg:w-2/3" onSubmit={handleSubmit(submitForm)}>
+
+                    <fieldset className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
                         <legend className="text-sm text-slate-500 mb-2">Add referencers</legend>
 
                         {
@@ -108,11 +120,11 @@ export default function AddReferencerForm() {
                                         </div>
 
                                         <div className="flex gap-3">
-                                            <button className='btn btn-square' type="button" onClick={() => append({ name: "", email: "" })}>
-                                                <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
+                                            <button className='btn btn-square btn-xs' type="button" onClick={() => append({ name: "", email: "" })}>
+                                                <svg className="w-6 h-6 text-gray-800 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
                                             </button>
-                                            <button className='btn btn-square' type="button" onClick={() => remove(i)}>
-                                                <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <button className='btn btn-square btn-xs' type="button" onClick={() => remove(i)}>
+                                                <svg className="w-6 h-6 text-gray-800 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" />
                                                 </svg>
                                             </button>
@@ -126,7 +138,15 @@ export default function AddReferencerForm() {
                     <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
                     <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
                 </form>
-            </div>
-        </>
+                {showAlertSubmitted && (
+                <Alert alertType="alert-success" alertContent="Referencers Submitted!" />
+            )}
+
+        </div>
     )
+}
+
+
+type Props = {
+    setIsCleanNavbar: Dispatch<SetStateAction<boolean>>;
 }
