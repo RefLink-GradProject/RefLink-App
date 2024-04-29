@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import TextInput from './TextInput';
 import { useMutation, useQuery } from 'react-query';
 import { ReferencerRequest } from '../Types';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Alert from './Alert';
 
-export default function AddReferencerForm() {
+export default function AddReferencerForm({setIsCleanNavbar}: Props) {
+
     const [showAlertSubmitted, setShowAlertSubmitted] = useState<boolean>(false);
     const navigate = useNavigate();
     const { guid } = useParams();
@@ -143,4 +144,9 @@ export default function AddReferencerForm() {
 
         </div>
     )
+}
+
+
+type Props = {
+    setIsCleanNavbar: Dispatch<SetStateAction<boolean>>;
 }
