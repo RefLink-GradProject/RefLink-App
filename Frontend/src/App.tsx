@@ -73,6 +73,7 @@ export default function App() {
 
   if (isAuthenticated && !employer) {
     EmployerHasRegistration().then(() => console.log(employer));
+
   }
 
   if (isLoading && isAuthenticated) {
