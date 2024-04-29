@@ -5,7 +5,7 @@ export default function TextInput({register, inputType, labelText, placeholder, 
         <>
             <label className="form-control w-full mb-4">
                 <span className="label-text">{labelText}</span>
-                <input {...register(name)} name={name} type={inputType} value={value} className="input input-bordered input-md w-full " placeholder={placeholder} />
+                <input {...register(name,{ required: "This field can not be empty" })} name={name} type={inputType} value={value} className="input input-bordered input-md w-full " placeholder={placeholder} />
             </label>
         </>
     )
