@@ -48,8 +48,6 @@ public class CandidateService : ICandidateService
             TemplateId = 2,
         };
         
-        Console.WriteLine("Sending email: ");
-        Console.WriteLine($"{candidate.Email}");
         await _emailClient.SendEmail(emailRequest);
 
         return mapper.CandidateToCandidateResponseDto(candidate);
@@ -93,7 +91,6 @@ public class CandidateService : ICandidateService
             .Candidates.Include(candidate => candidate.Referencers)
             .ThenInclude(referencer => referencer.Responses)
             .ThenInclude(response => response.Question)
-            // also include response.RatingQuesion here
             .FirstOrDefaultAsync(candidate => candidate.GuidId == guidId);
         
         var response = new CandidateDetailedResponseDto()

@@ -10,10 +10,12 @@ public class ReferencerService : IReferencerService
 {
     private readonly RefLinkContext _context;
     private readonly MapperlyMapper mapper;
+    private readonly IBrevoClient _emailClient;
 
-    public ReferencerService(RefLinkContext context)
+    public ReferencerService(RefLinkContext context, IBrevoClient emailClient)
     {
         _context = context;
+        _emailClient = emailClient;
         mapper = new MapperlyMapper();
     }
     
@@ -27,6 +29,28 @@ public class ReferencerService : IReferencerService
         var referencer = mapper.ReferencerRequestDtoToReferencer(referencerRequestDto);
         _context.Referencers.Add(referencer);
         await _context.SaveChangesAsync();
+        
+        // TODO: create mapper for this
+        Console.WriteLine("Adding a referencer");
+        var emailRequest = new EmailTemplateRequest
+        {
+            To = new List<EmailTemplateRequest.RecipientRecord>
+            {
+                new EmailTemplateRequest.RecipientRecord()
+                {
+                    Name = referencer.Name,
+                    Email = referencer.Email,
+                }
+            },
+            Params = new EmailTemplateRequest.ParamsRecord()
+            {
+                FNAME = referencer.Name,
+                URL = $"https://localhost:5000/add-reference/{referencer.GuidId}"
+            },
+            TemplateId = 5,
+        };
+        
+        await _emailClient.SendEmail(emailRequest);
 
         return mapper.ReferencerToReferencerResponseDto(referencer);
     }

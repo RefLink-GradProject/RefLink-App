@@ -18,6 +18,7 @@ public class BrevoEmailClient : IBrevoClient
 
     public async Task SendEmail(EmailTemplateRequest emailDetails)
     {
+        Console.WriteLine("Sending an email");
         var request = new RestRequest("");
         request.AddHeader("accept", "application/json");
         request.AddHeader("api-key", _apiSecret);
