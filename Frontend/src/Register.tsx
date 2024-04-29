@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FieldValue, FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import TextInput from "./components/TextInput";
 
 type CreateEmployer = {
@@ -12,7 +12,7 @@ type CreateEmployer = {
 
 const Register = () => {
   const { user, isLoading, error, getIdTokenClaims } = useAuth0();
-  const { register, handleSubmit, setValue, reset } = useForm()<CreateEmployer>
+  const { register, setValue, reset } = useForm();
   const navigate = useNavigate();
 
   useEffect(() => {

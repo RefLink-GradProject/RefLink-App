@@ -29,6 +29,7 @@ public static class SeedData
             Description = "PostingDescription",
             Employer = employer,
             EmployerGuid = employer.GuidId,
+            RatingQuestions = new List<RatingQuestion>(),
             Questions = new List<Question>(),
         };
         
@@ -42,11 +43,57 @@ public static class SeedData
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
-        
+        Question question2 = new Question()
+        {
+            Content = "Creativity",
+            Posting = posting,
+            PostingGuid = posting.GuidId,
+            Responses = new List<Response>(),
+        };
+        Question question3 = new Question()
+        {
+            Content = "Adaptability",
+            Posting = posting,
+            PostingGuid = posting.GuidId,
+            Responses = new List<Response>(),
+        };
+        Question question4 = new Question()
+        {
+            Content = "Efficiency",
+            Posting = posting,
+            PostingGuid = posting.GuidId,
+            Responses = new List<Response>(),
+        };
+        Question question5 = new Question()
+        {
+            Content = "Time Management",
+            Posting = posting,
+            PostingGuid = posting.GuidId,
+            Responses = new List<Response>(),
+        };
         // Does this need to be persisted in Posting context?
         posting.Questions.Add(question);
+        posting.Questions.Add(question2);
+        posting.Questions.Add(question3);
+        posting.Questions.Add(question4);
+        posting.Questions.Add(question5);
         
         _context.Questions.Add(question);
+        _context.Questions.Add(question2);
+        _context.Questions.Add(question3);
+        _context.Questions.Add(question4);
+        _context.Questions.Add(question5);
+        _context.SaveChanges();
+        
+        RatingQuestion ratingQuestion = new RatingQuestion()
+        {
+            Content = "This is a RATING question",
+            Posting = posting,
+            PostingGuid = posting.GuidId,
+            Responses = new List<Response>(),
+        };
+        posting.RatingQuestions.Add(ratingQuestion);
+        _context.RatingQuestions.Add(ratingQuestion);
         _context.SaveChanges();
         
         Candidate candidate = new Candidate
@@ -79,8 +126,44 @@ public static class SeedData
             QuestionId = question.Id,
             ReferencerId = referencer.Id,
         };
+        var response2 = new Response()
+        {
+            Content = "4",
+            Question = question2,
+            Referencer = referencer,
+            QuestionId = question2.Id,
+            ReferencerId = referencer.Id,
+        };
+        var response3 = new Response()
+        {
+            Content = "2",
+            Question = question3,
+            Referencer = referencer,
+            QuestionId = question3.Id,
+            ReferencerId = referencer.Id,
+        };
+        var response4 = new Response()
+        {
+            Content = "5",
+            Question = question4,
+            Referencer = referencer,
+            QuestionId = question4.Id,
+            ReferencerId = referencer.Id,
+        };
+        var response5 = new Response()
+        {
+            Content = "5",
+            Question = question5,
+            Referencer = referencer,
+            QuestionId = question5.Id,
+            ReferencerId = referencer.Id,
+        };
 
         _context.Responses.Add(response);
+        _context.Responses.Add(response2);
+        _context.Responses.Add(response3);
+        _context.Responses.Add(response4);
+        _context.Responses.Add(response5);
         _context.SaveChanges();
         
 

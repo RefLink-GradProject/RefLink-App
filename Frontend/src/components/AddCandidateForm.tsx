@@ -37,7 +37,7 @@ export default function AddCandidateForm({addCandidate}: Props) {
                 </div>
             </div>
             {showAlertAdded && (
-                <Alert alertType="success" alertContent="Candidate added, email for adding referencer has been sent!" />
+                <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencer has been sent!" />
             )}
 
         </>
