@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import TextInput from "./components/TextInput";
+import { CallbackPage } from "./auth0/Callback";
 
 type CreateEmployer = {
   name: string;
@@ -44,7 +45,7 @@ const Register = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; 
+    <CallbackPage/>
   }
 
   if (error) {
@@ -57,7 +58,7 @@ const Register = () => {
         <>
           <h1 className="text-2xl text-center">Hey {user!.name}!</h1>
           <div className="flex justify-center mt-10">
-            <form className="w-1/2" onSubmit={handleSubmit(onSubmit)}>
+            <form className="w-1/2" onSubmit={() => (console.log("yo"))}>
               <TextInput register={register} name="name" value={user!.name} inputType="text" labelText="Name" placeholder="Posting name" />
               <TextInput register={register} name="email" inputType="text"  value={user!.email} labelText="Email" placeholder="Posting name" />
               <TextInput register={register} name="company" inputType="text" labelText="Company" placeholder="Posting name" />

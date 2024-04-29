@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
-import { CandidateWithDetails, Posting } from './Types';
+import { CandidateWithDetails, Employer, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
 import { useState } from 'react';
@@ -14,22 +14,28 @@ import Postings from './components/Postings';
 import Register from './Register';
 import { useQuery } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
-import AuthProvider from './auth/AuthProvider';
-import { RegistrationGuard } from './auth/Gaurd';
+
 
 const allPostings = await getPostings();
 const postingsPlusFakes: Posting[] = allPostings.concat(postings);
 const allCandidates = await getCandidates();
+const employer = await getEmployerByToken();
 
 // const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
 import { postings, referencerWithQuestions } from './fakeData';
 import ChartsDraft from './components/ChartsDraft';
+import { CallbackPage } from './auth0/Callback';
+import { AuthGaurd } from './auth0/AuthGaurd';
+import { getEmployerByToken } from './services/employerService';
+
+
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
+  const [employer, setEmployer] = useState<Employer | null>()
   const [postings, setPostings] = useState<Posting[]>(postingsPlusFakes);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
@@ -54,15 +60,13 @@ export default function App() {
         <Navbar userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
-         
-          {/* <Route element={<RegistrationGuard />}> */}
-            <Route
-              path="/postings"
-              element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
-            />
-          {/* </Route> */}
-       
+          <Route
+            path="/postings"
+            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
+          />
+
           <Route path='/postings/add' element={<AddPostingForm />} />
+          <Route path="/callback" element={<CallbackPage />} />
           <Route path="/dashboard" element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
             path={`/postings/:${clickedPosting.guidId}`}
@@ -74,7 +78,8 @@ export default function App() {
           <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
           <Route path='/add-reference/:guid' element={<AddReviewForm />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/charts' element={<ChartsDraft />} />
+          <Route path='/charts' element={ <AuthGaurd component={ChartsDraft} />} />
+          
         </Routes>
       </div>
 
