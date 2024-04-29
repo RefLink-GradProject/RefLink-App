@@ -43,7 +43,7 @@ export default function App() {
   return (
     <>
       <div className='md:mx-12 md:grow '>
-        {isCleanNavbar ? (<Navbar userName='Xinnan Luo' />) :(<Navbar userName='Xinnan Luo' />)}
+        {isCleanNavbar ? (<NavbarClean userName='Xinnan Luo' />) :(<Navbar userName='Xinnan Luo' />)}
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -63,7 +63,7 @@ export default function App() {
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer/:guid' element={<AddReferencerForm setIsCleanNavbar={setIsCleanNavbar}/>} />
-          <Route path='/add-reference/:guid' element={<AddReviewForm />} />
+          <Route path='/add-reference/:guid' element={<AddReviewForm setIsCleanNavbar={setIsCleanNavbar}/>} />
           <Route path='/register' element={<Register />} />
           <Route path='/charts' element={<ChartsDraft />} />
         </Routes>

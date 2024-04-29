@@ -4,11 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import TextInput from "./TextInput";
 import { Question } from "../Types";
 import { getReferencerWithQuestions, postRatingResponse, postResponse } from "../services/responseServices";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import Alert from "./Alert";
 
 
-export default function AddReviewForm() {
+export default function AddReviewForm({setIsCleanNavbar}: Props) {
+    useEffect(() => {
+        setIsCleanNavbar(true);
+
+        return () => {
+            setIsCleanNavbar(false); // This will be executed when leaving the page
+        };
+    }, [setIsCleanNavbar]);
+    
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const [ratingValues, setRatingValues] = useState<number[]>(Array(20).fill(3));
     const { guid } = useParams();
@@ -115,7 +123,7 @@ export default function AddReviewForm() {
                 </fieldset>
 
 
-                <fieldset id="questions-rating" className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
+                <fieldset id="questions-rating" className="border border-slate-150 rounded-sm p-3 mb-3 shadow-lg">
                     <legend className="text-sm text-slate-500 mb-2">Add your ratings</legend>
                     {data!.questions.map((question: Question, i: number) => {
                         return (
@@ -137,8 +145,7 @@ export default function AddReviewForm() {
                         );
                     })}
                 </fieldset>
-
-
+                <p className="text-xs mb-10">* Your reference will remain anonymous to the candidate, only visible to our HR team. Therefore, feel free to provide honest feedback.</p>
 
                 <button type="submit" className='btn btn-neutral btn-sm mr-2 w-20'> Submit</button>
                 <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20" onClick={handleBackClick}>Cancel</button>
@@ -150,4 +157,7 @@ export default function AddReviewForm() {
     )
 
 
+}
+type Props = {
+    setIsCleanNavbar: Dispatch<SetStateAction<boolean>>;
 }

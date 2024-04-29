@@ -4,11 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import TextInput from './TextInput';
 import { useMutation, useQuery } from 'react-query';
 import { ReferencerRequest } from '../Types';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Alert from './Alert';
 
 export default function AddReferencerForm({setIsCleanNavbar}: Props) {
+    useEffect(() => {
+        setIsCleanNavbar(true);
 
+        return () => {
+            setIsCleanNavbar(false); // This will be executed when leaving the page
+        };
+    }, [setIsCleanNavbar]);
     const [showAlertSubmitted, setShowAlertSubmitted] = useState<boolean>(false);
     const navigate = useNavigate();
     const { guid } = useParams();

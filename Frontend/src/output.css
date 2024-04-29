@@ -3114,6 +3114,10 @@ details.collapse summary::-webkit-details-marker {
   bottom: var(--tooltip-tail-offset);
 }
 
+.visible {
+  visibility: visible;
+}
+
 .collapse {
   visibility: collapse;
 }
