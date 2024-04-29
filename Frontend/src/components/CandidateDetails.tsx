@@ -56,6 +56,14 @@ export default function CandidateDetails({ candidate }: Props) {
 
     return (
         <>
+            <div className="text-sm breadcrumbs mb-10">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/postings">Postings</a></li>
+                    <li className="text-black font-bold">Candidate details</li>
+                </ul>
+            </div>
+
             <div className="lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32 mb-20 mt-14 w-full animate-fade-up animate-duration-[400ms]">
                 <section className="w-full lg:flex mb-10 ">
                     <section id="candidate-info" className="mb-10 lg:w-2/5 lg:mr-3">
