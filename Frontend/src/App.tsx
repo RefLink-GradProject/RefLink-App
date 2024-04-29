@@ -16,6 +16,7 @@ import { getPostings } from './services/postingServices';
 import { postings, referencerWithQuestions } from './fakeData';
 import ChartsDraft from './components/ChartsDraft';
 import NavbarClean from './components/NavbarClean';
+import AI from './components/AI';
 
 
 const allPostings = await getPostings();
@@ -68,6 +69,7 @@ export default function App() {
           <Route path='/add-reference/:guid' element={<AddReviewForm setIsCleanNavbar={setIsCleanNavbar}/>} />
           <Route path='/register' element={<Register />} />
           <Route path='/charts' element={<ChartsDraft />} />
+          <Route path='/ai' element={<AI />} />
         </Routes>
       </div>
 
