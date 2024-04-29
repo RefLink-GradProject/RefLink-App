@@ -10,6 +10,7 @@ export async function getEmployerByToken(token: IdToken) : Promise<Employer | nu
           "Authorization": "Bearer " + token!.__raw
         }
       });
+    console.log(response)
     const employer = await response.json()
     return employer;
   }

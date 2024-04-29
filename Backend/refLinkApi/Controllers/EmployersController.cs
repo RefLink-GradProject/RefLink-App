@@ -26,7 +26,7 @@ namespace refLinkApi.Controllers
             var employer = await service.GetEmployerByAuthID(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             if (employer == null)
             {
-                NotFound();
+                return NotFound();
             }
             return Ok(employer);
         }

@@ -19,7 +19,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 const allPostings = await getPostings();
 const postingsPlusFakes: Posting[] = allPostings.concat(postings);
 const allCandidates = await getCandidates();
-const employer = await getEmployerByToken();
+
 
 // const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
@@ -35,11 +35,14 @@ const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].g
 // const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
-  const [employer, setEmployer] = useState<Employer | null>()
+
+  const { isAuthenticated, getIdTokenClaims } = useAuth0();
+  const [employer, setEmployer] = useState<Employer | null>(null)
   const [postings, setPostings] = useState<Posting[]>(postingsPlusFakes);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function addCandidate(name: string, email: string) {
     await postCandidate(name, email, clickedPosting.guidId);
@@ -51,7 +54,35 @@ export default function App() {
     setPostings(updatedPostings);
   }
 
+  console.log(isAuthenticated);
 
+  const EmployerHasRegistration = async () => {
+    try {
+      const token = await getIdTokenClaims();
+      const acc = await getEmployerByToken(token!);
+      if (acc != null) {
+        setEmployer(acc);
+      }
+    } catch (error) {
+      console.error('Error checking registration:', error);
+
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isAuthenticated && !employer) {
+    EmployerHasRegistration().then(() => console.log(employer));
+  }
+
+  if (isLoading && isAuthenticated) {
+    return (
+      <div className='min-h-screen flex items-center justify-center'>
+        <span className='loading loading-dots loading-lg text-secondary'></span>
+        <div> hi</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -78,8 +109,8 @@ export default function App() {
           <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
           <Route path='/add-reference/:guid' element={<AddReviewForm />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/charts' element={ <AuthGaurd component={ChartsDraft} />} />
-          
+          <Route path='/charts' element={<AuthGaurd component={ChartsDraft} />} />
+
         </Routes>
       </div>
 
