@@ -1,22 +1,24 @@
 import { Link } from "react-router-dom";
-import { Candidate, Posting } from "../Types";
+import { Candidate, CandidateWithDetails, Posting } from "../Types";
 import { useNavigate } from 'react-router-dom';
 import { Dispatch, SetStateAction } from "react";
+import { getCandidateWithDetails } from "../services/candidateServices";
 
 
 
 export default function PostingDetails({ clickedPosting, setClickedCandidate }: Props) {
 
     const navigate = useNavigate();
-    function handleClick(clickedCandidate: Candidate) {
-        setClickedCandidate(clickedCandidate);
+    async function handleClick(clickedCandidate: Candidate) {
+        const candidateWithDetails = await getCandidateWithDetails(clickedCandidate.guidId!)
+        setClickedCandidate(candidateWithDetails);
         navigate(`/candidates/${clickedCandidate?.guidId}`);
     }
 
 
     return (
         <>
-            <section id="posting-details" className="card  bg-base-100 shadow-xl ">
+            <section id="posting-details" className="card  bg-base-100 shadow-2xl  ">
                 <div className="card-body">
                     <div id="posting-details__description" className="m-3">
                         <h2 className="card-title mb-2">Description</h2>
@@ -60,5 +62,5 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
 
 type Props = {
     clickedPosting: Posting;
-    setClickedCandidate: Dispatch<SetStateAction<Candidate>>;
+    setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails>>;
 }

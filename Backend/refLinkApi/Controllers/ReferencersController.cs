@@ -44,5 +44,18 @@ namespace refLinkApi.Controllers
 
             return referencer;
         }
+
+        [HttpGet("{guidId}/questions")]
+        public async Task<ActionResult<ReferencerWithQuestionsResponseDto>> GetReferencerQuestions(Guid guidId)
+        {
+            var referencersQuestions = await _service.GetQuestionsByReferencerGuid(guidId);
+            
+            if (referencersQuestions == null)
+            {
+                return NotFound();
+            }
+
+            return referencersQuestions;
+        }
     }
 }
