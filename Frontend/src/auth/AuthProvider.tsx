@@ -27,10 +27,12 @@ const AuthProvider: React.FC<AuthProviderProps> = (props) => {
           setIsLoading(false);
         }
     };
-    if (isAuthenticated) {
+    console.log(isAuthenticated)
+    if(isAuthenticated && !employer){
       EmployerHasRegistration();
     }
-  }, [isAuthenticated, getIdTokenClaims]);
+    
+  }, [isAuthenticated]);
 
   // Value to be provided by the context
   const value = {
