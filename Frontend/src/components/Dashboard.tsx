@@ -16,30 +16,51 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
         setClickedPosting(clickedPosting);
         navigate(`/postings/${clickedPosting.guidId}`)
     }
-
+    let i = 0;
     return (
-        <div className="animate-fade-left animate-duration-[400ms]">
-            {postings.map((posting) => {
-                return (
-                    <>
-                        {posting.candidates ? (
-                            posting.candidates.map((candidate) => {
-                                return (
-                                    <section className="flex">
-                                        <button onClick={() => handleCandidateClick(candidate)} className="btn btn-wide block m-10 w-1/3">{candidate.name}</button>
-                                        <p>__</p>
-                                        <button onClick={() => handlePostingClick(posting)} className="btn btn-wide block m-10 w-2/3">{posting.title}</button>
-                                    </section>
-                                )
-                            })
-                        ) : (
-                            <p></p>
-                        )}
-                    </>
-                )
-            })}
-        </div>
-    )
+        <table className="table animate-fade-left animate-duration-[400ms]">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Candidate</th>
+                    <th>Emial</th>
+                    <th>Posting</th>
+                    {/* <th>Number of referencer</th>
+                    <th>Number of references</th> */}
+                </tr>
+            </thead>
+            <tbody>
+                {postings.map((posting, postingIndex) => {
+                    return (
+                        posting.candidates && posting.candidates.map((candidate) => {
+                            i++;
+                            return (
+                                <tr key={`${postingIndex}`} className="bg-base-200">
+                                    <th>{i}</th>
+                                    <td className="">
+                                        <a onClick={() => handleCandidateClick(candidate)} className="">{candidate.name}</a>
+                                    </td>
+                                    <td>
+                                        <p>{candidate.email}</p>
+                                    </td>
+                                    <td>
+                                        <p onClick={() => handlePostingClick(posting)} className="">{posting.title}</p>
+                                    </td>
+                                    {/* <td>
+                                        <p>1</p>
+                                    </td>
+                                    <td>
+                                        <p>1</p>
+                                    </td> */}
+                                </tr>
+                            )
+                        })
+                    )
+                })}
+            </tbody>
+        </table>
+    );
+
 }
 
 type Props = {
