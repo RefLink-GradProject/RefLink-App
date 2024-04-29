@@ -1,18 +1,22 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Posting } from "../Types";
 import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from 'react-router-dom';
 
-
-export default function PostingTitles({ postings, setClickedPosting }: Props) {
+export default function PostingTitles({ postings, clickedPosting, setClickedPosting }: Props) {
     const [clickedButtons, setClickedButtons] = useState<boolean[]>(Array(postings.length).fill(false));
     const navigate = useNavigate();
 
-    useState(() => {
-        const newClickedButtons = [...clickedButtons];
-        newClickedButtons[0] = true;
-        setClickedButtons(newClickedButtons);
-    });
+    useEffect(() => {
+        // Find the index of the clicked posting in the postings array
+        const index = postings.findIndex(post => post.guidId === clickedPosting.guidId);
+        // If the clicked posting is found, update clickedButtons array to reflect it
+        if (index !== -1) {
+            const newClickedButtons = Array(postings.length).fill(false);
+            newClickedButtons[index] = true;
+            setClickedButtons(newClickedButtons);
+        }
+    }, [clickedPosting, postings]);
 
     function handleClick(clickedPosting: Posting, index: number) {
         setClickedPosting(clickedPosting);
