@@ -9,10 +9,10 @@ export default function AddCandidateForm({ addCandidate }: Props) {
     const navigate = useNavigate();
     const { register, getValues } = useForm();
 
-    function handleAdd() {
+    async function handleAdd() {
         const candidateName: string = getValues("candidate-name");
         const candidateEmail: string = getValues("candidate-email");
-        addCandidate(candidateName, candidateEmail);
+        await addCandidate(candidateName, candidateEmail);
 
         setShowAlertAdded(true);
         setTimeout(() => {
@@ -21,9 +21,6 @@ export default function AddCandidateForm({ addCandidate }: Props) {
         }, 3000);
     }
 
-    function handleBackClik() {
-        navigate(-1);
-    }
 
     return (
         <>
@@ -34,24 +31,24 @@ export default function AddCandidateForm({ addCandidate }: Props) {
                     <li className=" font-bold">Add candidate</li>
                 </ul>
             </div>
-
-            <div className="flex justify-center mt-10">
-                <div className="w-1/2 ">
+            <div className="flex flex-col items-center justify-center">
+                <h2 className="text-xl mb-8 text-center">Add a Candidate to Posting</h2>
+                <form className="w-full md:w-3/4 lg:w-2/3">
                     <TextInput register={register} inputType="name" labelText="Name" placeholder="Candidate name" name="candidate-name" />
                     <TextInput register={register} inputType="email" labelText="Email" placeholder="Candidate email" name="candidate-email" />
 
                     <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>
-                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>Cancel</button>
-                </div>
-            </div>
-            {showAlertAdded && (
-                <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencer has been sent!" />
-            )}
+                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={()=>  navigate("/postings")}>Cancel</button>
+                </form>
+                {showAlertAdded && (
+                    <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencer has been sent!" />
+                )}
 
+            </div>
         </>
     )
 }
 
 type Props = {
-    addCandidate: (name: string, email: string) => void;
+    addCandidate: (name: string, email: string) => Promise<void>;
 }

@@ -134,8 +134,9 @@ export default function AddPostingForm() {
 
     return (
         <>
-            <div className="">
-                <form className="lg:w-2/3" onSubmit={handleSubmit(handleAdd)}>
+            <div className="flex flex-col items-center justify-center">
+            <h2 className="text-xl mb-8 text-center">Add a Posting</h2>
+                <form className="w-full md:w-3/4 lg:w-2/3" onSubmit={handleSubmit(handleAdd)}>
                     <fieldset className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
                         <legend className="text-sm text-slate-500 mb-2">Posting details</legend>
                         <TextInput register={register} name="postingTitle" inputType="text" labelText="Name" placeholder="Posting name" />
@@ -144,7 +145,7 @@ export default function AddPostingForm() {
 
 
                     <fieldset className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
-                        <legend className="text-sm text-slate-500 mb-2">Questions</legend>
+                        <legend className="text-sm text-slate-500 mb-2">Text questions</legend>
 
                         {
                             fields.map((question, i) =>

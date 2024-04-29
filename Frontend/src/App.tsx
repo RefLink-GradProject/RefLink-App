@@ -55,7 +55,7 @@ export default function App() {
 
           <Route
             path="/postings"
-            element={<AuthenticationGuard component={ChartsDraft } />} // <Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate}/>
+            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate}/>} // 
           />
 
           <Route path='/postings/add' element={<AddPostingForm />} />
