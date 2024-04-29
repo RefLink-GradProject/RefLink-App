@@ -15,7 +15,7 @@ import Register from './Register';
 import { useQuery } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
 import AuthProvider from './auth/AuthProvider';
-import { RegistrationGuard } from './auth/Gaurd';
+import { AuthenticationGuard } from './auth/Gaurd';
 
 const allPostings = await getPostings();
 const postingsPlusFakes: Posting[] = allPostings.concat(postings);
@@ -45,8 +45,6 @@ export default function App() {
     setPostings(updatedPostings);
   }
 
-
-
   return (
     <>
       <div className='md:mx-12 md:grow '>
@@ -54,14 +52,12 @@ export default function App() {
         <Navbar userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
-         
-          {/* <Route element={<RegistrationGuard />}> */}
-            <Route
-              path="/postings"
-              element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
-            />
-          {/* </Route> */}
-       
+
+          <Route
+            path="/postings"
+            element={<AuthenticationGuard component={ChartsDraft } />} // <Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate}/>
+          />
+
           <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path="/dashboard" element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
