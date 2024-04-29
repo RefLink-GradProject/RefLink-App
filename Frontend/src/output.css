@@ -3114,6 +3114,10 @@ details.collapse summary::-webkit-details-marker {
   bottom: var(--tooltip-tail-offset);
 }
 
+.visible {
+  visibility: visible;
+}
+
 .collapse {
   visibility: collapse;
 }
@@ -3258,6 +3262,14 @@ details.collapse summary::-webkit-details-marker {
 
 .mt-5 {
   margin-top: 1.25rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-7 {
+  margin-bottom: 1.75rem;
 }
 
 .flex {

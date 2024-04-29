@@ -145,14 +145,14 @@ export default function AddPostingForm() {
 
 
                     <fieldset className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
-                        <legend className="text-sm text-slate-500 mb-2">Text questions</legend>
+                        <legend className="text-sm text-slate-500 mb-2">Add text questions</legend>
 
                         {
                             fields.map((question, i) =>
                                 <>
                                     <div key={`${question}${i}`}>
-                                        <TextInput register={register} name={`questions[${i}].content`} inputType="text" labelText={`Add a question`} placeholder="Add a question" />
-                                        <div className="flex gap-3">
+                                        <TextInput register={register} name={`questions[${i}].content`} inputType="text" labelText={``} placeholder="Add a question" />
+                                        <div className="flex gap-3 mb-6">
                                             <button className='btn btn-square btn-xs' type="button" onClick={() => append({ content: "" })}>
                                                 <svg className="w-6 h-6 text-gray-800 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
                                             </button>

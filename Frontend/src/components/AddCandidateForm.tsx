@@ -31,7 +31,7 @@ export default function AddCandidateForm({ addCandidate }: Props) {
                     <li className=" font-bold">Add candidate</li>
                 </ul>
             </div>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center animate-fade-up animate-duration-[400ms]">
                 <h2 className="text-xl mb-8 text-center">Add a Candidate to Posting</h2>
                 <form className="w-full md:w-3/4 lg:w-2/3">
                     <TextInput register={register} inputType="name" labelText="Name" placeholder="Candidate name" name="candidate-name" />
@@ -43,8 +43,8 @@ export default function AddCandidateForm({ addCandidate }: Props) {
                 {showAlertAdded && (
                     <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencer has been sent!" />
                 )}
-
             </div>
+            {/* <button className="btn bth-neutral btn-outline btn-sm mr-2 mt-10  w-20 " onClick={()=> navigate(-1)}>&larr; Back</button> */}
         </>
     )
 }
