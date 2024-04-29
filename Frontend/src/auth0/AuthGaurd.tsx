@@ -2,7 +2,7 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { CallbackPage } from "./Callback";
 
 
-export const AuthGaurd = ({ component }) => {
+export const AuthGaurd = ({ component, ...props  }) => {
   const Component = withAuthenticationRequired(component, {
     onRedirecting: () => (      
         <CallbackPage/>
@@ -10,5 +10,5 @@ export const AuthGaurd = ({ component }) => {
 
   });
 
-  return <Component />;
+  return <Component {...props}/>;
 };
