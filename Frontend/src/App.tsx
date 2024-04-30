@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import AddPostingForm from './components/AddPostingForm';
-import { CandidateWithDetails, Employer, Posting } from './Types';
+import { Candidate, CandidateWithDetails, Employer, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
 import { useEffect, useState } from 'react';
@@ -11,19 +11,14 @@ import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
 import Postings from './components/Postings';
 import Register from './Register';
-
-import { useQuery } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
-
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
-import { postings, referencerWithQuestions } from './fakeData';
+import { postings } from './fakeData';
 import ChartsDraft from './components/ChartsDraft';
-
 import { CallbackPage } from './auth0/Callback';
 import { AuthGuard } from './auth0/AuthGuard';
 import { getEmployerByToken } from './services/employerService';
-
 import NavbarClean from './components/NavbarClean';
 import AI from './components/AI';
 
@@ -42,15 +37,12 @@ export default function App() {
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
-
   const [isLoading, setIsLoading] = useState(true);
-
   const [isCleanNavbar, setIsCleanNavbar] = useState<boolean>(false);
 
 
   async function addCandidate(name: string, email: string) {
     await postCandidate(name, email, clickedPosting.guidId);
-    console.log("!!!!!!!!!!!!!")
     const updatedPostings = await getPostings();
     const updatedClickedPosting = updatedPostings.find(posting => posting.guidId === clickedPosting.guidId);
     if (updatedClickedPosting) {
