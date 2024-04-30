@@ -16,19 +16,22 @@ export default function Postings({ postings, clickedPosting, setClickedPosting, 
                 </ul>
             </div>
 
-            <div className='lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32 mb-16 mt-26 w-full h-full animate-fade-left animate-duration-[400ms]'>
-                <Link to="/postings/add">
-                    <button className="btn btn-success mb-3 ">+ Add Posting</button>
-                </Link>
-                <section id="postings" className='w-full lg:flex'>
-                    <div className='lg:w-2/5 lg:mr-3'>
-                        <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
-
+            <div className='lg:ml-0 lg:mr-0 xl:ml-0 xl:mr-0 mb-16 mt-26 w-auto h-full animate-fade-left animate-duration-[400ms]'>
+                <div id="postings" className='w-full lg:flex'>
+                    <div className='lg:w-2/5 lg:mr-3 flex flex-col'>
+                        <div className="w-full">
+                            <Link to="/postings/add">
+                                <button className="btn btn-success w-full mb-3 ">+ Add Posting</button>
+                            </Link>
+                        </div>
+                        <div>
+                            <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
+                        </div>
                     </div>
                     <div className='mt-5 lg:mt-0 lg:w-3/5 animate-fade-left animate-duration-[400ms]'>
                         <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
                     </div>
-                </section>
+                </div>
             </div>
         </>
     )

@@ -1,6 +1,6 @@
-import { useState } from "react";
 import TextInput from "./TextInput";
 import Alert from "./Alert";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
@@ -21,7 +21,6 @@ export default function AddCandidateForm({ addCandidate }: Props) {
         }, 3000);
     }
 
-
     return (
         <>
             <div className="text-sm breadcrumbs mb-10">
@@ -38,13 +37,12 @@ export default function AddCandidateForm({ addCandidate }: Props) {
                     <TextInput register={register} inputType="email" labelText="Email" placeholder="Candidate email" name="candidate-email" />
 
                     <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>
-                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={()=>  navigate("/postings")}>Cancel</button>
+                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={() => navigate("/postings")}>Cancel</button>
                 </form>
                 {showAlertAdded && (
                     <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencer has been sent!" />
                 )}
             </div>
-            {/* <button className="btn bth-neutral btn-outline btn-sm mr-2 mt-10  w-20 " onClick={()=> navigate(-1)}>&larr; Back</button> */}
         </>
     )
 }
