@@ -122,7 +122,7 @@ export default function App() {
                 setClickedPosting={setClickedPosting}
               />}
           />
-          <Route path='/postings/add' element={<AddPostingForm />} />
+          <Route path='/postings/add' element={<AddPostingForm employer={employer!}/>} />
           <Route path={`/postings/:${clickedPosting.guidId}`} element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}/>
           <Route path="/callback" element={<Loader />} />
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
