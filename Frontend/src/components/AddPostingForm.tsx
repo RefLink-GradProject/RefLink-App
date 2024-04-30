@@ -24,6 +24,7 @@ const ratingQuestions = [
 ];
 
 export default function AddPostingForm({ employer }: Props) {
+
   const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
   const [clickedButtons, setClickedButtons] = useState<boolean[]>(
     Array(ratingQuestions.length).fill(false)
@@ -87,6 +88,7 @@ export default function AddPostingForm({ employer }: Props) {
 
   async function handleAdd(data: FieldValues) {
     console.log("handleAdd data", data);
+    console.log("Employer: ", employer.guidId);
 
     const postingData: PostingRequest = {
       title: data.postingTitle,
@@ -105,44 +107,40 @@ export default function AddPostingForm({ employer }: Props) {
       console.log("question", question.content);
       const questionsData: QuestionRequest = {
         postingGuid: postingGuid,
+        type: 0,
         content: question.content,
       };
 
       console.log("Here is a questionRequest: ", questionsData);
 
-      const questionResponse = await questionMutation.mutateAsync(
-        questionsData
-      );
+      const questionResponse = await questionMutation.mutateAsync(questionsData);
       console.log(questionResponse.json);
     }
 
-    // // post rating questions
-    // for (let i = 0; i < ratingQuestions.length; i++) {
-    //   if (clickedButtons[i] == true) {
-    //     const ratingQuestionsData: QuestionRequest = {
-    //       postingGuid: postingGuid,
-    //       content: ratingQuestions[i],
-    //     };
-    //     const postedQuestions = await postQuestions(ratingQuestionsData);   // TODO: Why are you not using questionMutation.mutateAsync? // I CAN CHANGE THIS
-    //     console.log("!!!!! ratingQuestions posted: " + postedQuestions);
-    //   }
-    // }
+    for (const [key, value] of Object.entries(data.rating)) {
+      if (value) {
+        const ratingQuestionData: QuestionRequest = {
+          postingGuid: postingGuid,
+          type: 0,
+          content: key,
+        }
+        console.log("ratingQuestionData:", ratingQuestionData);
+        const ratingQuestionResponse = await questionMutation.mutateAsync(ratingQuestionData);
+        console.log(ratingQuestionResponse.json);
+      }
+
+    }
 
     // TODO: complete logic with alert and redirect ON SUCCESS ONLY
     // if success then show this
     setShowAlertAdded(true);
 
     setTimeout(() => {
-      setShowAlertAdded(false);
-      navigate("/postings");
+      // setShowAlertAdded(false);
+      // navigate("/postings");
     }, 2000);
   }
 
-  // function handleClick(index: number) {
-  //   const newClickedButtons = [...clickedButtons];
-  //   newClickedButtons[index] = !clickedButtons[index];
-  //   setClickedButtons(newClickedButtons);
-  // }
 
   function handleBackClick() {
     navigate(-1);
@@ -191,11 +189,11 @@ export default function AddPostingForm({ employer }: Props) {
             />
 
             <label className="form-control w-full mb-4">
-              <TextArea                   // TODO: Why are you not using TextArea?
+              <TextArea
                 register={register}
                 labelText="Please add the job description"
                 name={`postingDescription`}
-                placeholder="Write description here for AI prompt"     // TODO: Why are you mixing RHF and event listeners?
+                placeholder="Enter the job description"
               />
             </label>
           </fieldset>
@@ -218,8 +216,9 @@ export default function AddPostingForm({ employer }: Props) {
                       <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
                     </button>
                     <button className='btn btn-square' type="button" onClick={() => {
-                      remove(i)
-                      setIsFetching(isFetching.filter(status => status.questionNumber !== i))
+                      if (fields.length > 1) {
+                        remove(i)
+                      }
                     }
                     }>
                       <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -264,24 +263,21 @@ export default function AddPostingForm({ employer }: Props) {
             ))}
           </fieldset>
 
-          {/* <fieldset
-          id="rating-question-tags"
-          className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg"
-        >
-          <legend className="text-sm text-slate-500 mb-2">
-            Rating questions
-          </legend>
-          {ratingQuestions.map((question, i) => (
-            <button
-              className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? "btn-success" : ""
-                }`}
-              onClick={() => handleClick(i)}
-              name={i.toString()}
-            >
-              {question}
-            </button>
-          ))}
-        </fieldset> */}
+          <fieldset
+            id="rating-question-tags"
+            className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg"
+          >
+            <legend className="text-sm text-slate-500 mb-2">
+              Rating questions
+            </legend>
+            {ratingQuestions.map((question, i) => (
+              <>
+                <label htmlFor={`rating.${question}`} className={`peer-checked/${i}:text-sky-500 btn btn-sm mb-2 mr-2 hover:text-gray-600`}>{question}
+                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i}`} />
+                </label>
+              </>
+            ))}
+          </fieldset>
 
           <button type="submit" className="btn btn-neutral btn-sm mr-2 w-20">
             {" "}
