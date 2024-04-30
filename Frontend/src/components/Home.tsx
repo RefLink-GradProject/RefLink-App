@@ -1,7 +1,13 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { LoginButton } from "../auth0/LoginButton"
+import { SignupButton } from "../auth0/SignupButton"
+import { useAuth0 } from "@auth0/auth0-react";
 export default function Home() {
+  const { isAuthenticated } = useAuth0();
+
   return (
+   
     <>
       <div className="flex flex-col justify-center items-center h-screen max-w-screen-lg" style={{ marginTop: "-7rem" }}>
         <br className="md:invisible" />
@@ -32,11 +38,13 @@ export default function Home() {
           </div>
         </div>
 
-
+        {!isAuthenticated && (
         <div className="space-y-4 m-5">
-          <button className="btn mr-3 w-24 md:btn-lg md:w-32 md:mr-6 animate-flip-up animate-delay-500" >Log in</button>
-          <button className="btn btn-neutral w-24 md:btn-lg md:w-32 animate-flip-up animate-delay-500" >Sign up</button>
-        </div>
+        <LoginButton/>
+        <SignupButton/>
+      </div>
+      )}
+      
       </div>
     </>
   )

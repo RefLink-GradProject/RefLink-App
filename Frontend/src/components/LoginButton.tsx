@@ -1,7 +1,9 @@
 
 import { useAuth0 } from "@auth0/auth0-react";
+import { LoginButton } from "../auth0/LoginButton";
+import { LogoutButton } from "../auth0/LogoutButton";
 
-export default function LoginButton({ userName }: Props) {
+export default function LoginButtonToggle({ userName }: Props) {
     const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
     function getInitials(name: string) {
@@ -20,9 +22,7 @@ export default function LoginButton({ userName }: Props) {
                             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
                                 <li>
                                     <a className="text-base">
-                                        <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-                                            log out
-                                        </button>
+                                       <LogoutButton/>
                                     </a>
                                 </li>
                             </ul>
@@ -30,7 +30,7 @@ export default function LoginButton({ userName }: Props) {
                     </>
 
                 ) : (
-                    <button className="btn btn-sm md:btn md:text-xl " onClick={() => loginWithRedirect()}>Log in</button>
+                    <LoginButton/>
                 )}
             </div>
 

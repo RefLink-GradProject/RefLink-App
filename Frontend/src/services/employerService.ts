@@ -10,6 +10,26 @@ export async function getEmployerByToken(token: IdToken) : Promise<Employer | nu
           "Authorization": "Bearer " + token!.__raw
         }
       });
+    console.log(response)
     const employer = await response.json()
     return employer;
   }
+
+export async function postEmployerByToken(token: IdToken, data: FormData) : Promise<Employer | null> {   
+  if(!token){
+      return null
+  }
+  const response = await fetch('http://localhost:5136/api/Employers', {
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + token!.__raw
+      },
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+  console.log(response)
+  const employer = await response.json()
+  return employer;
+}
+  
+  
