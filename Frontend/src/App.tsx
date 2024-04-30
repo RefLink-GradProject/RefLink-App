@@ -5,12 +5,14 @@ import AddPostingForm from './components/AddPostingForm';
 import { CandidateWithDetails, Employer, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
-import {useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
 import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
 import Postings from './components/Postings';
 import Register from './Register';
+
+import { useQuery } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const allPostings = await getPostings();
@@ -20,12 +22,15 @@ const allCandidates = await getCandidates();
 // const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
-import { postings} from './fakeData';
+import { postings, referencerWithQuestions } from './fakeData';
 import ChartsDraft from './components/ChartsDraft';
 
-import { CallbackPage } from './auth0/Callback';
+import { Loader } from './components/Loader';
 import { AuthGuard } from './auth0/AuthGuard';
 import { getEmployerByToken, postEmployerByToken } from './services/employerService';
+
+import NavbarClean from './components/NavbarClean';
+import AI from './components/AI';
 
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 
@@ -37,8 +42,10 @@ export default function App() {
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
+
   const [isLoading, setIsLoading] = useState(true);
-  // const [isCleanNavbar, setIsCleanNavbar] = useState<boolean>(false);
+
+  const [isCleanNavbar, setIsCleanNavbar] = useState<boolean>(false);
 
 
   async function addCandidate(name: string, email: string) {
@@ -75,15 +82,12 @@ export default function App() {
     }
   }
 
-
   if (isAuthenticated && !employer)
     HandleEmployer()
 
   if (isAuthenticated && isLoading) {
     return (
-      <div className='min-h-screen flex items-center justify-center'>
-        <span className='loading loading-dots loading-lg text-secondary'></span>
-      </div>
+      <Loader/>
     );
   }
 
@@ -118,9 +122,9 @@ export default function App() {
                 setClickedPosting={setClickedPosting}
               />}
           />
-          <Route path='/postings/add' element={<AddPostingForm employer={employer!}/>} />
+          <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path={`/postings/:${clickedPosting.guidId}`} element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}/>
-          <Route path="/callback" element={<CallbackPage />} />
+          <Route path="/callback" element={<Loader />} />
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
 
