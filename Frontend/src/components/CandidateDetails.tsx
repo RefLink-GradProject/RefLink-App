@@ -2,10 +2,10 @@ import { CandidateWithDetails } from "../Types";
 import { useNavigate } from 'react-router-dom';
 'use client';
 import { BarChart, Bar, ResponsiveContainer, Tooltip, Legend, YAxis, XAxis, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
-import { fakeCandidatesRating } from "../fakeData";
 
 export default function CandidateDetails({ candidate }: Props) {
     const navigate = useNavigate();
+
     function getCandidatesRatings() {
         const questionScores: { [subject: string]: number[] } = {};
 
@@ -42,8 +42,6 @@ export default function CandidateDetails({ candidate }: Props) {
         return ratings;
     }
     console.table(getCandidatesRatings());
-    console.table(fakeCandidatesRating);
-
     function handleBackClik() {
         navigate(-1);
     }
@@ -63,8 +61,8 @@ export default function CandidateDetails({ candidate }: Props) {
                     <li className="text-black font-bold">Candidate details</li>
                 </ul>
             </div>
-
-            <div className="lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32 mb-20 mt-14 w-full animate-fade-up animate-duration-[400ms]">
+            {!candidate && <><h1>Candidate does not exist</h1></>}
+            <div className="lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32 mb-20 mt-14 w-full animate-fade-up animate-duration-[400ms] ">
                 <section className="w-full lg:flex mb-10 ">
                     <section id="candidate-info" className="mb-10 lg:w-2/5 lg:mr-3">
                         <h1 className="text-4xl">{candidate!.name}</h1>
@@ -72,13 +70,13 @@ export default function CandidateDetails({ candidate }: Props) {
                         <p className="text-">Referencer number: {candidate!.referencers ? candidate!.referencers.length : 0}</p>
                     </section>
 
-                    <section id="candidate-references" className="mt-5 lg:mt-0 lg:w-3/5">
+                    <section id="candidate-references" className="mt-5 lg:mt-0 lg:w-3/5 shadow-xl">
                         {/* <h2 className="text-2xl mb-3">Text References:</h2> */}
                         {candidate!.referencers && (
                             candidate!.referencers.map((referencer => {
                                 return (
                                     <>
-                                        <div className="collapse collapse-arrow shadow-xl">
+                                        <div className="collapse collapse-arrow">
                                             <input type="radio" name="my-accordion-2" defaultChecked />
                                             <div className="collapse-title text-xl font-medium">
                                                 <h3 className="text-2xl">Reference from {referencer.name}</h3>
@@ -99,6 +97,7 @@ export default function CandidateDetails({ candidate }: Props) {
                                                     )
                                                 })}
                                             </div>
+                                                <hr />
                                         </div>
                                     </>
                                 )

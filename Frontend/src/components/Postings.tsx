@@ -1,11 +1,85 @@
-import { Dispatch, SetStateAction } from "react";
-import { CandidateWithDetails, Posting } from "../Types";
+import { Dispatch, SetStateAction, useState } from "react";
+import { Candidate, CandidateWithDetails, Posting } from "../Types";
 import { Link } from "react-router-dom";
 import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { getCandidateWithDetails } from "../services/candidateServices";
+
 
 
 export default function Postings({ postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
+
+    // const[nestedRatings, setNestedRatings] = useState<Rating[][]>([]);
+
+    // // candidate's average rating for each its posting
+    // async function getCandidateRatings(candidate: Candidate) {
+    //     const candidateWithDetails: CandidateWithDetails = await getCandidateWithDetails(candidate.guidId);
+        
+    //     const questionScores: { [subject: string]: number[] } = {};
+
+    //     // Iterate through each referencer and response to aggregate scores
+    //     candidateWithDetails.referencers.forEach(referencer => {
+    //         if(referencer.responses){
+    //             referencer.responses!.forEach(response => {
+    //                 if (countWords(response.questionContent) < 4) {
+    //                     const subject = response.questionContent;
+    //                     const score = parseInt(response.responseContent);
+    //                     if (questionScores[subject]) {
+    //                         questionScores[subject].push(score);
+    //                     } else {
+    //                         questionScores[subject] = [score];
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     });
+    //     // Calculate the average score for each question
+    //     const ratings: Rating[] = [];
+    //     for (const subject in questionScores) {
+    //         if (questionScores.hasOwnProperty(subject)) {
+    //             const scores = questionScores[subject];
+    //             const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / scores.length;
+    //             ratings.push({
+    //                 subject: subject,
+    //                 score: averageScore,
+    //                 fullMark: 5
+    //             });
+    //         }
+    //     }
+
+    //     const newNestedRatings = [...nestedRatings];
+    //     newNestedRatings.push(ratings);
+    //     setNestedRatings(newNestedRatings);
+    // }
+
+    
+    // function combineCandidateRatings(ratingsList: CandidateRating[][]): CandidateRating[] {
+    //     const combinedRatings: CandidateRating[] = [];
+    
+    //     ratingsList.forEach(ratings => {
+    //         ratings.forEach(rating => {
+    //             const existingRatingIndex = combinedRatings.findIndex(
+    //                 combinedRating => combinedRating.subject === rating.subject
+    //             );
+    //             if (existingRatingIndex !== -1) {
+    //                 combinedRatings[existingRatingIndex] = {
+    //                     ...combinedRatings[existingRatingIndex],
+    //                     ...rating
+    //                 };
+    //             } else {
+    //                 combinedRatings.push(rating);
+    //             }
+    //         });
+    //     });
+    
+    //     return combinedRatings;
+    // }
+
+    // function countWords(text: string): number {
+    //     const words = text.trim().split(/\s+/);
+    //     return words.length;
+    // }
 
     return (
         <>
@@ -40,4 +114,17 @@ type Props = {
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
     setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails>>;
     postings: Posting[];
+}
+
+type CandidateRating = {
+    subject: string;
+    person1?: number;
+    person2?: number;
+    fullMark: number;
+}
+
+type Rating = { 
+    subject: string; 
+    score: number; 
+    fullMark: number; 
 }
