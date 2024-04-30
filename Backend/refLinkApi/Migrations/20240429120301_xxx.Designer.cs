@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace refLinkApi.Migrations
 {
     [DbContext(typeof(RefLinkContext))]
-    [Migration("20240427125126_AddRatingQuestion")]
-    partial class AddRatingQuestion
+    [Migration("20240429120301_xxx")]
+    partial class xxx
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,7 @@ namespace refLinkApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -69,6 +70,7 @@ namespace refLinkApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GuidId");
@@ -105,64 +107,35 @@ namespace refLinkApi.Migrations
 
             modelBuilder.Entity("refLinkApi.Models.Question", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("GuidId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("GuidId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("PostingGuid")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("GuidId");
 
                     b.HasIndex("PostingGuid");
 
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("refLinkApi.Models.RatingQuestion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("GuidId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PostingGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PostingGuidId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostingGuidId");
-
-                    b.ToTable("RatingQuestions");
-                });
-
             modelBuilder.Entity("refLinkApi.Models.Referencer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("GuidId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CandidateGuid")
                         .HasColumnType("uniqueidentifier");
@@ -171,14 +144,14 @@ namespace refLinkApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("GuidId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("GuidId");
 
                     b.HasIndex("CandidateGuid");
 
@@ -200,22 +173,17 @@ namespace refLinkApi.Migrations
                     b.Property<Guid>("GuidId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("QuestionId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("QuestionGuid")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("RatingQuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReferencerId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ReferencerGuid")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QuestionId");
+                    b.HasIndex("QuestionGuid");
 
-                    b.HasIndex("RatingQuestionId");
-
-                    b.HasIndex("ReferencerId");
+                    b.HasIndex("ReferencerGuid");
 
                     b.ToTable("Responses");
                 });
@@ -253,17 +221,6 @@ namespace refLinkApi.Migrations
                     b.Navigation("Posting");
                 });
 
-            modelBuilder.Entity("refLinkApi.Models.RatingQuestion", b =>
-                {
-                    b.HasOne("refLinkApi.Models.Posting", "Posting")
-                        .WithMany("RatingQuestions")
-                        .HasForeignKey("PostingGuidId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Posting");
-                });
-
             modelBuilder.Entity("refLinkApi.Models.Referencer", b =>
                 {
                     b.HasOne("refLinkApi.Models.Candidate", "Candidate")
@@ -279,19 +236,13 @@ namespace refLinkApi.Migrations
                 {
                     b.HasOne("refLinkApi.Models.Question", "Question")
                         .WithMany("Responses")
-                        .HasForeignKey("QuestionId");
-
-                    b.HasOne("refLinkApi.Models.RatingQuestion", "RatingQuestion")
-                        .WithMany("Responses")
-                        .HasForeignKey("RatingQuestionId");
+                        .HasForeignKey("QuestionGuid");
 
                     b.HasOne("refLinkApi.Models.Referencer", "Referencer")
                         .WithMany("Responses")
-                        .HasForeignKey("ReferencerId");
+                        .HasForeignKey("ReferencerGuid");
 
                     b.Navigation("Question");
-
-                    b.Navigation("RatingQuestion");
 
                     b.Navigation("Referencer");
                 });
@@ -311,16 +262,9 @@ namespace refLinkApi.Migrations
                     b.Navigation("Candidates");
 
                     b.Navigation("Questions");
-
-                    b.Navigation("RatingQuestions");
                 });
 
             modelBuilder.Entity("refLinkApi.Models.Question", b =>
-                {
-                    b.Navigation("Responses");
-                });
-
-            modelBuilder.Entity("refLinkApi.Models.RatingQuestion", b =>
                 {
                     b.Navigation("Responses");
                 });

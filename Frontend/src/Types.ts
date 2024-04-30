@@ -73,7 +73,7 @@ export type Response = {
 export type Question = {
   guidId: string;
   content: string;
-  responses?: Response[];
+  type: "0" | "1"
 };
 
 export type QuestionRequest = {
@@ -83,7 +83,8 @@ export type QuestionRequest = {
 
 export type QuestionDto = {
   guidId: string;
-  content: string
+  content: string;
+  type: "0" | "1"
 }
 export type Employer = {
   guidId: string;

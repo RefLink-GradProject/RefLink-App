@@ -1,18 +1,18 @@
-import {useState } from "react";
+import { useState } from "react";
 import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
-export default function AddCandidateForm({addCandidate}: Props) {
+export default function AddCandidateForm({ addCandidate }: Props) {
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const navigate = useNavigate();
     const { register, getValues } = useForm();
 
-    function handleAdd() {
+    async function handleAdd() {
         const candidateName: string = getValues("candidate-name");
         const candidateEmail: string = getValues("candidate-email");
-        addCandidate(candidateName,candidateEmail);
+        await addCandidate(candidateName, candidateEmail);
 
         setShowAlertAdded(true);
         setTimeout(() => {
@@ -21,29 +21,34 @@ export default function AddCandidateForm({addCandidate}: Props) {
         }, 3000);
     }
 
-    function handleBackClik() {
-        navigate(-1);
-    }
 
     return (
         <>
-            <div className="flex justify-center mt-10">
-                <div className="w-1/2 ">
-                    <TextInput register={register} inputType="name" labelText="Name" placeholder="Candidate name" name="candidate-name"/>
+            <div className="text-sm breadcrumbs mb-10">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/postings">Postings</a></li>
+                    <li className=" font-bold">Add candidate</li>
+                </ul>
+            </div>
+            <div className="flex flex-col items-center justify-center animate-fade-up animate-duration-[400ms]">
+                <h2 className="text-xl mb-8 text-center">Add a Candidate to Posting</h2>
+                <form className="w-full md:w-3/4 lg:w-2/3">
+                    <TextInput register={register} inputType="name" labelText="Name" placeholder="Candidate name" name="candidate-name" />
                     <TextInput register={register} inputType="email" labelText="Email" placeholder="Candidate email" name="candidate-email" />
 
-                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>Cancel</button>
                     <button type="submit" onClick={handleAdd} className='btn btn-neutral btn-sm mr-2 w-20'> Add</button>
-                </div>
+                    <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={()=>  navigate("/postings")}>Cancel</button>
+                </form>
+                {showAlertAdded && (
+                    <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencer has been sent!" />
+                )}
             </div>
-            {showAlertAdded && (
-                <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencer has been sent!" />
-            )}
-
+            {/* <button className="btn bth-neutral btn-outline btn-sm mr-2 mt-10  w-20 " onClick={()=> navigate(-1)}>&larr; Back</button> */}
         </>
     )
 }
 
 type Props = {
-    addCandidate: (name: string, email: string) => void;
+    addCandidate: (name: string, email: string) => Promise<void>;
 }

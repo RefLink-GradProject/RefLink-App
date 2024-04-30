@@ -13,11 +13,10 @@ public class Response
 
     public required string Content { get; set; }
     
-    public int? QuestionId { get; set; }
+    public Guid? QuestionGuid { get; set; }
 
-    public int? ReferencerId { get; set; }
+    public Guid? ReferencerGuid { get; set; }
     
     public Referencer Referencer { get; set; }
     public Question? Question { get; set; }
-    public RatingQuestion? RatingQuestion { get; set; }
 }

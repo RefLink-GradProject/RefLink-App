@@ -5,10 +5,17 @@ import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
 
 
-export default function Postings({postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
-    
+export default function Postings({ postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
+
     return (
         <>
+            <div className="text-sm breadcrumbs mb-10">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li className=" font-bold">Postings</li>
+                </ul>
+            </div>
+
             <div className='lg:ml-5 lg:mr-5 xl:ml-32 xl:mr-32 mb-16 mt-26 w-full h-full animate-fade-left animate-duration-[400ms]'>
                 <Link to="/postings/add">
                     <button className="btn btn-success mb-3 ">+ Add Posting</button>
@@ -31,6 +38,6 @@ export default function Postings({postings, clickedPosting, setClickedPosting, s
 type Props = {
     clickedPosting: Posting;
     setClickedPosting: Dispatch<SetStateAction<Posting>>;
-    setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails >>;
+    setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails>>;
     postings: Posting[];
 }
