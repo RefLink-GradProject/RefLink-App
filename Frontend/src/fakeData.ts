@@ -1,10 +1,16 @@
 import { Question, Response, Candidate, Referencer, Posting, ReferencerWithQuestions, CandidateWithDetails} from './Types';
 
 // Define questions
-export const question1: Question = { guidId: "401", content: "What experience do you have with React?" };
-export const question2: Question = { guidId: "402", content: "How do you handle tight deadlines?" };
-export const question3: Question = { guidId: "403", content: "What projects have you worked on in the past?" };
-export const question4: Question = { guidId: "404", content: "How do you handle conflicts in a team?" };
+export const question1: Question = { type:"0", guidId: "401", content: "What experience do you have with React?" };
+export const question2: Question = { type:"0", guidId: "402", content: "How do you handle tight deadlines?" };
+export const question3: Question = { type:"0", guidId: "403", content: "What projects have you worked on in the past?" };
+export const question4: Question = { type:"0", guidId: "404", content: "How do you handle conflicts in a team?" };
+
+export const question5: Question = { type:"1", guidId: "405", content: "Empathy" };
+export const question6: Question = { type:"1", guidId: "406", content: "Patience" };
+export const question7: Question = { type:"1", guidId: "407", content: "Curiosity" };
+export const question8: Question = { type:"1", guidId: "408", content: "Amicability" };
+export const question9: Question = { type:"1", guidId: "409", content: "Persistence" };
 
 // Define responses with references to corresponding questions
 export const response1: Response = { guidId: "301", content: "John is a skilled developer."};
@@ -17,8 +23,13 @@ export const response7: Response = { guidId: "701", content: "Strong problem-sol
 export const response8: Response = { guidId: "702", content: "A quick learner." };
 export const response9: Response = { guidId: "801", content: "Has excellent communication skills." };
 export const response10: Response = { guidId: "802", content: "Very detail-oriented." };
-export const response11: Response = { guidId: "901", content: "Highly organized." };
-export const response12: Response = { guidId: "902", content: "A team player." };
+
+
+export const response11: Response = { guidId: "410", content: "1"};
+export const response12: Response = { guidId: "411", content: "2"};
+export const response13: Response = { guidId: "412", content: "3"};
+export const response14: Response = { guidId: "413", content: "4"};
+export const response15: Response = { guidId: "414", content: "5"};
 
 // Define referencers with responses
 export const referencer1: Referencer = {
@@ -115,7 +126,7 @@ export const referencerWithQuestions: ReferencerWithQuestions = {
         email: "xx@gmail.com",
     },
     questions: [
-        { content: "This is a question", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503"},
+        { content: "This is a question", guidId: "070e678d-2639-48a0-bb2b-0267ab2d8503", type: "0"},
         // { content: "quesstion2", guidId: "2"},
         // { content: "quesstion3", guidId: "3"},
     ],
@@ -129,9 +140,9 @@ export const referencerWithQuestions: ReferencerWithQuestions = {
 
 // CandidateWithDetails
 
-export const fakeCandidate1WithDetails: CandidateWithDetails = {
-    name: candidate1.name,
-    email: candidate1.email,
+export const fakeCandidate1WithDetailsEmby: CandidateWithDetails = {
+    name: candidate3.name,
+    email: candidate3.email,
     referencers: [
         {
             name: referencer1.name,
@@ -142,22 +153,152 @@ export const fakeCandidate1WithDetails: CandidateWithDetails = {
                     questionGuidId: question1.guidId,
                     responseContent: response1.content,
                     responseGuidId: response1.guidId,
-                }
-            ],
-            ratings: [
+                },
                 {
-                    ratingQuestionContent: "Rate his initialtivity",
-                    ratingQuestionGuidId: "33",
-                    ratingResponseContent: "5",
-                    ratingResponseGuidId: "44"
-                }
-            ] 
+                    questionContent: question2.content,
+                    questionGuidId: question2.guidId,
+                    responseContent: response2.content,
+                    responseGuidId: response2.guidId,
+                },
+                {
+                    questionContent: question5.content,
+                    questionGuidId: question5.guidId,
+                    responseContent: response12.content,
+                    responseGuidId: response12.guidId,
+                },
+                {
+                    questionContent: question6.content,
+                    questionGuidId: question6.guidId,
+                    responseContent: response12.content,
+                    responseGuidId: response12.guidId,
+                },
+                {
+                    questionContent: question7.content,
+                    questionGuidId: question7.guidId,
+                    responseContent: response13.content,
+                    responseGuidId: response13.guidId,
+                },
+                {
+                    questionContent: question8.content,
+                    questionGuidId: question8.guidId,
+                    responseContent: response11.content,
+                    responseGuidId: response11.guidId,
+                },
+                {
+                    questionContent: question9.content,
+                    questionGuidId: question9.guidId,
+                    responseContent: response15.content,
+                    responseGuidId: response15.guidId,
+                },
+            ]
+        },
+        {
+            name: referencer2.name,
+            guidId: referencer2.guidId,
+            responses: [
+                {
+                    questionContent: question1.content,
+                    questionGuidId: question1.guidId,
+                    responseContent: response1.content,
+                    responseGuidId: response1.guidId,
+                },
+                {
+                    questionContent: question2.content,
+                    questionGuidId: question2.guidId,
+                    responseContent: response2.content,
+                    responseGuidId: response2.guidId,
+                },
+                {
+                    questionContent: question5.content,
+                    questionGuidId: question5.guidId,
+                    responseContent: response13.content,
+                    responseGuidId: response13.guidId,
+                },
+                {
+                    questionContent: question6.content,
+                    questionGuidId: question6.guidId,
+                    responseContent: response12.content,
+                    responseGuidId: response12.guidId,
+                },
+                {
+                    questionContent: question7.content,
+                    questionGuidId: question7.guidId,
+                    responseContent: response11.content,
+                    responseGuidId: response11.guidId,
+                },
+                {
+                    questionContent: question8.content,
+                    questionGuidId: question8.guidId,
+                    responseContent: response11.content,
+                    responseGuidId: response11.guidId,
+                },
+                {
+                    questionContent: question9.content,
+                    questionGuidId: question9.guidId,
+                    responseContent: response12.content,
+                    responseGuidId: response12.guidId,
+                },
+            ],
+        }
+    ]
+};
+export const fakeCandidate1WithDetailsDavid: CandidateWithDetails = {
+    name: candidate4.name,
+    email: candidate4.email,
+    referencers: [
+        {
+            name: referencer1.name,
+            guidId: referencer1.guidId,
+            responses: [
+                {
+                    questionContent: question1.content,
+                    questionGuidId: question1.guidId,
+                    responseContent: response1.content,
+                    responseGuidId: response1.guidId,
+                },
+                {
+                    questionContent: question2.content,
+                    questionGuidId: question2.guidId,
+                    responseContent: response2.content,
+                    responseGuidId: response2.guidId,
+                },
+                {
+                    questionContent: question5.content,
+                    questionGuidId: question5.guidId,
+                    responseContent: response15.content,
+                    responseGuidId: response15.guidId,
+                },
+                {
+                    questionContent: question6.content,
+                    questionGuidId: question6.guidId,
+                    responseContent: response15.content,
+                    responseGuidId: response15.guidId,
+                },
+                {
+                    questionContent: question7.content,
+                    questionGuidId: question7.guidId,
+                    responseContent: response15.content,
+                    responseGuidId: response15.guidId,
+                },
+                {
+                    questionContent: question8.content,
+                    questionGuidId: question8.guidId,
+                    responseContent: response15.content,
+                    responseGuidId: response15.guidId,
+                },
+                {
+                    questionContent: question9.content,
+                    questionGuidId: question9.guidId,
+                    responseContent: response15.content,
+                    responseGuidId: response15.guidId,
+                },
+            ]
         }
     ]
 };
 
 
-export const fakeCandidatesRating = [
+export const fakeCandidatesRating1 = [
     {
         subject: "initialtivity",
         person1: 3,
@@ -181,6 +322,66 @@ export const fakeCandidatesRating = [
     {
         subject: "serious",
         person1: 3,
+        fullMark: 5
+    }
+]
+const fakeCandidatesRating2 = [
+    {
+        subject: "initialtivity",
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "Efficiency",
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "Passion",
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "Happy",
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "serious",
+        person2: 4,
+        fullMark: 5
+    }
+]
+
+export const fakeCandidatesRatings = [
+    {
+        subject: "initialtivity",
+        person1: 3,
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "Efficiency",
+        person1: 1,
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "Passion",
+        person1: 5,
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "Happy",
+        person1: 4,
+        person2: 4,
+        fullMark: 5
+    },
+    {
+        subject: "serious",
+        person1: 3,
+        person2: 4,
         fullMark: 5
     }
 

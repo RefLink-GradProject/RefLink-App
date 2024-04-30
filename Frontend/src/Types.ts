@@ -30,7 +30,6 @@ export type ReferencerInCandidateDetails = {
   name: string;
   guidId?: string;
   responses: ResponseWithQuestionContent[];
-  ratings: RatingsWithQuestionContent[];
 };
 
 export type ResponseWithQuestionContent = {
@@ -108,4 +107,15 @@ export type ReferencerWithQuestions = {
   referencer: ReferencerDto;
   questions: QuestionDto[];
   // ratingQuestions?: RatingQuestion[];
+}
+
+export type ratingDataOnePerson = {
+  subject: string;
+    score: number;
+    fullMark: number;
+}
+export type ratingData = {
+  subject: string;
+    score: number;
+    fullMark: number;
 }
