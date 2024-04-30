@@ -3,26 +3,17 @@ import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import TextInput from "./TextInput";
 import { Question } from "../Types";
-import { getReferencerWithQuestions, postRatingResponse, postResponse } from "../services/responseServices";
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
+import { getReferencerWithQuestions, postResponse } from "../services/responseServices";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import Alert from "./Alert";
 
 
 export default function AddReviewForm() {
-    // useEffect(() => {
-    //     setIsCleanNavbar(true);
-
-    //     return () => {
-    //         setIsCleanNavbar(false); // This will be executed when leaving the page
-    //     };
-    // }, [setIsCleanNavbar]);
-    
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const [ratingValues, setRatingValues] = useState<number[]>(Array(20).fill(3));
     const { guid } = useParams();
-    // console.log("guid", guid);
     const navigate = useNavigate();
-    const { register, handleSubmit, control } = useForm();
+    const { register, handleSubmit } = useForm();
 
     function handleChange(index: number, event: ChangeEvent<HTMLInputElement>) {
         const newValue = Number(event.target.value);
@@ -41,28 +32,22 @@ export default function AddReviewForm() {
     const responseMutation = useMutation({
         mutationFn: postResponse,
         onSuccess: async (data) => {
-            // console.log("Success", data);
+            console.log("Success", data);
             return data;
         },
     })
 
-    async function submitForm(filedData: FieldValues) {
-        
-        for (const response of filedData.responses) {
+    async function submitForm(data: FieldValues) {
+        console.log(data);
+
+        for (const [key, value] of Object.entries(data.responses)) {
             const payload = {
-                content: Object.values(response)[0],
-                questionGuid: Object.keys(response)[0],
+                content: value,
+                questionGuid: key,
                 referencerGuid: guid
             }
-            // console.log(payload);
+            console.log("payload", payload);
             responseMutation.mutate(payload);
-        }
-        for (let i = 0; i < ratingValues.length; i++) {
-            const ratingValue = ratingValues[i].toString();
-            if (data!.questions[i] != null) {
-                const ratingQuestionGuid = data!.questions[i].guidId;
-                await postRatingResponse(ratingValue, ratingQuestionGuid, guid!)
-            }
         }
         setShowAlertAdded(true);
         setTimeout(() => {
@@ -85,7 +70,6 @@ export default function AddReviewForm() {
         )
     }
 
-
     if (error) return 'An error has occurred.'
 
     return (
@@ -102,15 +86,14 @@ export default function AddReviewForm() {
 
                 <fieldset id="questions-text" className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg">
                     <legend className="text-sm text-slate-500 mb-2">Add your response</legend>
-                    {data!.questions.map((question: Question, i: number) => {
-                        
+                    {data!.questions.map((question: Question) => {
                         return (
                             <>
-                                {question.type =="0" && (
+                                {question.type == "0" && (
                                     <div key={question.guidId}>
                                         <TextInput
                                             register={register}
-                                            name={`responses[${i}].${question.guidId}`}
+                                            name={`responses.${question.guidId}`}
                                             inputType="text"
                                             labelText={question.content}
                                             placeholder="Type your response"
@@ -131,7 +114,16 @@ export default function AddReviewForm() {
                                 {question.type == "1" && (
                                     <div className="mt-5 mb-5" key={question.guidId}>
                                         <h3>{question.content}</h3>
-                                        <input type="range" min={1} max="5" value={ratingValues[i]} className="range range-success" step="1" onChange={(event) => handleChange(i, event)} />
+                                        <input
+                                            type="range"
+                                            {...register(`responses.${question.guidId}`)}
+                                            onChange={(event) => handleChange(i, event)}
+                                            value={ratingValues[i]}
+                                            min="1"
+                                            max="5"
+                                            step="1"
+                                            className="range range-success"
+                                        />
                                         <div className="w-full flex justify-between text-xs px-2">
                                             <span>1</span>
                                             <span>2</span>
@@ -155,9 +147,4 @@ export default function AddReviewForm() {
             )}
         </div>
     )
-
-
-}
-type Props = {
-    setIsCleanNavbar: Dispatch<SetStateAction<boolean>>;
 }
