@@ -20,7 +20,6 @@ const allPostings = await getPostings();
 const postingsPlusFakes: Posting[] = allPostings.concat(postings);
 const allCandidates = await getCandidates();
 
-
 // const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
@@ -63,10 +62,10 @@ export default function App() {
           acc = await postEmployerByToken(token!, {
             name: user!.name,
             email: user!.email,
-            company: null
+            company: ""
           })
         }
-        setEmployer(acc);
+        await setEmployer(acc);
       }
     } catch (error) {
       console.error('Error checking registration:', error);
@@ -76,11 +75,8 @@ export default function App() {
     }
   }
 
-  console.log(employer)
-
   if (isAuthenticated && !employer)
     HandleEmployer()
-
 
   if (isAuthenticated && isLoading) {
     return (
@@ -93,30 +89,43 @@ export default function App() {
   return (
     <>
       <div className='md:mx-12 md:grow '>
-
         <Navbar userName='Xinnan Luo' />
+
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Home />}
+          />
           <Route
             path="/postings"
-            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
+            element={
+              <AuthGuard
+                component={Postings}
+                postings={postings}
+                clickedPosting={clickedPosting}
+                setClickedPosting={setClickedPosting}
+                setClickedCandidate={setClickedCandidate}
+              />}
           />
-
-          <Route path='/postings/add' element={<AddPostingForm />} />
-          <Route path="/callback" element={<CallbackPage />} />
-          <Route path="/dashboard" element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
-            path={`/postings/:${clickedPosting.guidId}`}
-            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
+            path="/dashboard"
+            element={
+              <AuthGuard
+                component={Dashboard}
+                postings={postings}
+                setClickedCandidate={setClickedCandidate}
+                setClickedPosting={setClickedPosting}
+              />}
           />
-
+          <Route path='/postings/add' element={<AddPostingForm />} />
+          <Route path={`/postings/:${clickedPosting.guidId}`} element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}/>
+          <Route path="/callback" element={<CallbackPage />} />
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
           <Route path='/add-reference/:guid' element={<AddReviewForm />} />
-          <Route path='/register' element={<AuthGuard employer={employer} auth={isAuthenticated} component={Register} />} />
-          <Route path='/charts' element={<AuthGuard employer={employer} auth={isAuthenticated} component={ChartsDraft} />} />
-
+          <Route path='/register' element={<AuthGuard component={Register} />} />
+          <Route path='/charts' element={<AuthGuard component={ChartsDraft} />} />
         </Routes>
       </div>
 
