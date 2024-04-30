@@ -8,11 +8,13 @@ namespace refLinkApi.Services;
 public class CandidateService : ICandidateService
 {
     private readonly RefLinkContext _context;
+    private readonly IBrevoClient _emailClient;
     private readonly MapperlyMapper mapper;
 
-    public CandidateService(RefLinkContext context)
+    public CandidateService(RefLinkContext context, IBrevoClient emailClient)
     {
         _context = context;
+        _emailClient = emailClient;
         mapper = new MapperlyMapper();
     }
 
@@ -26,6 +28,29 @@ public class CandidateService : ICandidateService
         Candidate candidate = mapper.CandidateRequestDtoToCandidate(candidateRequestDto);
         _context.Candidates.Add(candidate);
         await _context.SaveChangesAsync();
+        
+        // TODO: create mapper for this
+        var emailRequest = new EmailTemplateRequest
+        {
+            To = new List<EmailTemplateRequest.RecipientRecord>
+            {
+                new EmailTemplateRequest.RecipientRecord()
+                {
+                    Name = candidate.Name,
+                    Email = candidate.Email,
+                }
+            },
+            Params = new EmailTemplateRequest.ParamsRecord()
+            {
+                FNAME = candidate.Name,
+                URL = $"https://localhost:5000/add-referencer/{candidate.GuidId}"
+            },
+            TemplateId = 2,
+        };
+        
+        Console.WriteLine("Sending email: ");
+        Console.WriteLine($"{candidate.Email}");
+        await _emailClient.SendEmail(emailRequest);
 
         return mapper.CandidateToCandidateResponseDto(candidate);
     }
