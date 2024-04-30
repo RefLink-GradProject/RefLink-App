@@ -45,7 +45,7 @@ export type RatingsWithQuestionContent = {
   ratingQuestionGuidId: string;
   ratingResponseContent: string;
   ratingResponseGuidId: string;
-}
+};
 
 export type Referencer = {
   guidId?: string;
@@ -73,19 +73,20 @@ export type Response = {
 export type Question = {
   guidId: string;
   content: string;
-  type: "0" | "1"
+  type: "0" | "1";
 };
 
 export type QuestionRequest = {
   postingGuid: string;
+  type: number;
   content: string;
 };
 
 export type QuestionDto = {
   guidId: string;
   content: string;
-  type: "0" | "1"
-}
+  type: "0" | "1";
+};
 export type Employer = {
   guidId: string;
   name: string;
@@ -103,9 +104,9 @@ export type RatingQuestion = {
   guidId: string;
   content: string;
   responses?: Response[];
-}
+};
 export type ReferencerWithQuestions = {
   referencer: ReferencerDto;
   questions: QuestionDto[];
   // ratingQuestions?: RatingQuestion[];
-}
+};
