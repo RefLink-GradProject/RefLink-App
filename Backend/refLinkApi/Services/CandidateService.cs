@@ -121,6 +121,7 @@ public class CandidateService : ICandidateService
                 {
                     QuestionContent = answer.Question.Content,
                     QuestionGuidId = answer.Question.GuidId,
+                    Type = answer.Question.Type,
                     ResponseContent = answer.Content,
                     ResponseGuidId = answer.GuidId,
                 };
