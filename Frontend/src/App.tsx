@@ -19,20 +19,30 @@ import { postings } from './fakeData';
 import { Loader } from './components/Loader';
 import { AuthGuard } from './auth0/AuthGuard';
 import { getEmployerByToken, postEmployerByToken } from './services/employerService';
+import { useQuery } from 'react-query';
 
 const allPostings = await getPostings();
-const postingsPlusFakes: Posting[] = allPostings.concat(postings);
+const postingsPlusFakes: Posting[] = allPostings!.concat(postings);
 const allCandidates = await getCandidates();
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 
 export default function App() {
-
   const { isAuthenticated, getIdTokenClaims, user } = useAuth0();
   const [employer, setEmployer] = useState<Employer | null>(null)
   const [postings, setPostings] = useState<Posting[]>(postingsPlusFakes);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // TODO: Hacky solution to fix issue with no rerender of postings list
+  // this data that is seeded in the FE
+  const postingsQuery = useQuery({
+    queryKey: ['getAllPostings'],
+    queryFn: getPostings,
+    onSuccess: (data) => {
+      setPostings(data);
+    }
+  })
 
   async function addCandidate(name: string, email: string) {
     await postCandidate(name, email, clickedPosting.guidId);

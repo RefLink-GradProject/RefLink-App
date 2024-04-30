@@ -5,13 +5,13 @@ import TextArea from "./TextArea";
 import { useNavigate } from "react-router-dom";
 import {
   FieldValues,
-  SubmitHandler,
   useFieldArray,
   useForm,
 } from "react-hook-form";
 import { Employer, PostingRequest, QuestionRequest } from "../Types";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { getAIAnswer } from "../services/aiServices";
+
 
 const ratingQuestions = [
   "Adaptability",
@@ -24,16 +24,9 @@ const ratingQuestions = [
 ];
 
 export default function AddPostingForm({ employer }: Props) {
-
+  const queryClient = useQueryClient()
   const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
-  const [clickedButtons, setClickedButtons] = useState<boolean[]>(
-    Array(ratingQuestions.length).fill(false)
-  );
   const { register, handleSubmit, control, getValues, setValue } = useForm();
-  const [inputText, setInputText] = useState("");
-  const [generatedTexts, setGeneratedTexts] = useState<string[]>(
-    Array(15).fill("")
-  );
   const [isFetching, setIsFetching] = useState<fetchingType[]>(Array(1).fill({ questionNumber: 0, status: false }));
 
   const { fields, append, remove } = useFieldArray({
@@ -133,8 +126,9 @@ export default function AddPostingForm({ employer }: Props) {
 
     setShowAlertAdded(true);
     setTimeout(() => {
-      // setShowAlertAdded(false);
-      // navigate("/postings");
+      setShowAlertAdded(false);
+      queryClient.invalidateQueries({ queryKey: ['getAllPostings'] })
+      navigate("/postings");
     }, 2000);
   }
 
@@ -143,7 +137,6 @@ export default function AddPostingForm({ employer }: Props) {
     navigate(-1);
   }
 
-  // TODO: add job description to prompt
   async function handleAiRequest(currentInput: string) {
     try {
       if (currentInput === "") {
@@ -152,18 +145,17 @@ export default function AddPostingForm({ employer }: Props) {
 
       const jobDescription = getValues("postingDescription");
 
-      // setFetching(true); // TODO: understand what this does
-      // const result = await getAIAnswer(`Job description: ${jobDescription}. Current input (may be empty): ${currentInput}`);
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const result = await getAIAnswer(`Job description: ${jobDescription}. Current input (may be empty): ${currentInput}`);
+      return result;
+      // await new Promise(resolve => setTimeout(resolve, 2000));
+      // return "Uncomment line above"
 
-      return "Uncomment line above"
     } catch (error) {
       console.log("Error handleAiRequest", error)
     } finally {
       // setFetching(false);
     }
   }
-
 
   return (
     <>
@@ -299,7 +291,6 @@ export default function AddPostingForm({ employer }: Props) {
 type Props = {
   employer: Employer;
 }
-
 
 type fetchingType = {
   questionNumber: number,
