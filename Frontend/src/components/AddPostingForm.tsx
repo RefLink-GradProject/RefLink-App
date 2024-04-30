@@ -9,8 +9,9 @@ import {
   useForm,
 } from "react-hook-form";
 import { Employer, PostingRequest, QuestionRequest } from "../Types";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { getAIAnswer } from "../services/aiServices";
+
 
 const ratingQuestions = [
   "Adaptability",
@@ -23,7 +24,7 @@ const ratingQuestions = [
 ];
 
 export default function AddPostingForm({ employer }: Props) {
-
+  const queryClient = useQueryClient()
   const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
   const { register, handleSubmit, control, getValues, setValue } = useForm();
   const [isFetching, setIsFetching] = useState<fetchingType[]>(Array(1).fill({ questionNumber: 0, status: false }));
@@ -126,6 +127,7 @@ export default function AddPostingForm({ employer }: Props) {
     setShowAlertAdded(true);
     setTimeout(() => {
       setShowAlertAdded(false);
+      queryClient.invalidateQueries({ queryKey: ['getAllPostings'] })
       navigate("/postings");
     }, 2000);
   }
