@@ -15,9 +15,11 @@ public class ChatController : ControllerBase
 {
     private OpenAIClient _client;
 
-    public ChatController()
+    public ChatController(IConfiguration config)
     {
-        string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY")!;
+        string apiKey = config["ApiKeys:OpenAiApiKey"]!;
+        Console.WriteLine("[DEBUG]: apiKey");
+        Console.WriteLine(apiKey);
         if (string.IsNullOrEmpty(apiKey))
             throw new InvalidOperationException("OpenAI API key not found in environment variable OPENAI_API_KEY");
         _client = new(apiKey);

@@ -9,12 +9,11 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
-import { PostingRequest, QuestionRequest } from "../Types";
+import { Employer, PostingRequest, QuestionRequest } from "../Types";
 import { useMutation } from "react-query";
 import { getAIAnswer } from "../services/aiServices";
 
 const ratingQuestions = [
-  "Rating questions",
   "Adaptability",
   "Collaboration",
   "Creativity",
@@ -24,12 +23,12 @@ const ratingQuestions = [
   "Time Management",
 ];
 
-export default function AddPostingForm() {
+export default function AddPostingForm({ employer }: Props) {
   const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
   const [clickedButtons, setClickedButtons] = useState<boolean[]>(
     Array(ratingQuestions.length).fill(false)
   );
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit, control, getValues, setValue } = useForm();
   const [inputText, setInputText] = useState("");
   const [generatedTexts, setGeneratedTexts] = useState<string[]>(
     Array(15).fill("")
@@ -42,7 +41,8 @@ export default function AddPostingForm() {
   });
   const navigate = useNavigate();
 
-  // Add default value for the first question field
+  // Add default value for the first question field.
+  // Otherwise no field will be mapped out at start
   if (fields.length === 0) {
     append({ content: "" });
   }
@@ -91,7 +91,7 @@ export default function AddPostingForm() {
     const postingData: PostingRequest = {
       title: data.postingTitle,
       description: data.postingDescription,
-      employerGuid: "f59e0e38-019e-4b93-a163-0369b71c2ac5", // TODO: get from backend
+      employerGuid: employer.guidId,
     };
 
     const postingResponse = await postMutation.mutateAsync(postingData);
@@ -116,17 +116,17 @@ export default function AddPostingForm() {
       console.log(questionResponse.json);
     }
 
-    // post rating questions
-    for (let i = 0; i < ratingQuestions.length; i++) {
-      if (clickedButtons[i] == true) {
-        const ratingQuestionsData: QuestionRequest = {
-          postingGuid: postingGuid,
-          content: ratingQuestions[i],
-        };
-        const postedQuestions = await postQuestions(ratingQuestionsData);
-        console.log("!!!!! ratingQuestions posted: " + postedQuestions);
-      }
-    }
+    // // post rating questions
+    // for (let i = 0; i < ratingQuestions.length; i++) {
+    //   if (clickedButtons[i] == true) {
+    //     const ratingQuestionsData: QuestionRequest = {
+    //       postingGuid: postingGuid,
+    //       content: ratingQuestions[i],
+    //     };
+    //     const postedQuestions = await postQuestions(ratingQuestionsData);   // TODO: Why are you not using questionMutation.mutateAsync? // I CAN CHANGE THIS
+    //     console.log("!!!!! ratingQuestions posted: " + postedQuestions);
+    //   }
+    // }
 
     // TODO: complete logic with alert and redirect ON SUCCESS ONLY
     // if success then show this
@@ -134,36 +134,40 @@ export default function AddPostingForm() {
 
     setTimeout(() => {
       setShowAlertAdded(false);
-      // navigate("/postings");
+      navigate("/postings");
     }, 2000);
   }
 
-  function handleClick(index: number) {
-    const newClickedButtons = [...clickedButtons];
-    newClickedButtons[index] = !clickedButtons[index];
-    setClickedButtons(newClickedButtons);
-  }
+  // function handleClick(index: number) {
+  //   const newClickedButtons = [...clickedButtons];
+  //   newClickedButtons[index] = !clickedButtons[index];
+  //   setClickedButtons(newClickedButtons);
+  // }
 
   function handleBackClick() {
     navigate(-1);
   }
 
-  async function handleAiRequest(inputText: string, i: number) {
-    console.log("input text: " + inputText);
+  // TODO: add job description to prompt
+  async function handleAiRequest(currentInput: string) {
     try {
-      const newGeneratedTexts = [...generatedTexts];
-      setFetching(true);
-      const result = await getAIAnswer(inputText);
-      console.log("generated: " + result); // Testing
-      newGeneratedTexts[i] = result;
-      setGeneratedTexts(newGeneratedTexts);
+      if (currentInput === "") {
+        currentInput = "";
+      }
+
+      const jobDescription = getValues("postingDescription");
+
+      setFetching(true); // TODO: understand what this does
+      // const result = await getAIAnswer(`Job description: ${jobDescription}. Current input (may be empty): ${currentInput}`);
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      return "Uncomment line above"
     } catch (error) {
+      console.log("Error handleAiRequest", error)
     } finally {
       setFetching(false);
     }
   }
-
-  // TODO: add validations
 
   return (
     <>
@@ -184,17 +188,13 @@ export default function AddPostingForm() {
               labelText="Name"
               placeholder="Posting name"
             />
-            {/* AI prop text */}
+
             <label className="form-control w-full mb-4">
-              <span className="label-text">Description</span>
-              <textarea
-                {...register(`postingDescription>`, {
-                  required: "This field can not be empty",
-                })}
+              <TextArea                   // TODO: Why are you not using TextArea?
+                register={register}
+                labelText="Please add the job description"
                 name={`postingDescription`}
-                className="input input-bordered input-md w-full "
-                placeholder="Write description here for AI prompt"
-                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Write description here for AI prompt"     // TODO: Why are you mixing RHF and event listeners?
               />
             </label>
           </fieldset>
@@ -206,120 +206,57 @@ export default function AddPostingForm() {
 
             {fields.map((question, i) => (
               <>
-                <div key={`${question}${i}`}>
-                  <label className="form-control w-full mb-4">
-                    <span className="label-text"></span>
-                    {/* AI generated question */}
-                    <textarea
-                      {...register(`questions[${i}].content`, {
-                        required: "This field can not be empty",
-                      })}
-                      name={`questions[${i}].content`}
-                      className="input input-bordered input-md w-full h-16"
-                      placeholder="Add a question"
-                      value={generatedTexts[i]}
-                    />
-                  </label>
-
-                  <div className="flex gap-3 mb-6">
-                    <button
-                      className="btn btn-square btn-xs"
-                      type="button"
-                      onClick={() => append({ content: "" })}
-                    >
-                      <svg
-                        className="w-6 h-6 text-gray-800 w-4"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        {" "}
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M5 12h14m-7 7V5"
-                        />{" "}
+                <div key={`${question}${i}`} className="mb-5">
+                  <TextArea register={register} name={`questions[${i}].content`} labelText={`Add a question`} placeholder="Add a question" />
+                  <div className="flex gap-3">
+                    <button className='btn btn-square' type="button" onClick={() => append({ content: "" })}>
+                      <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
+                    </button>
+                    <button className='btn btn-square' type="button" onClick={() => remove(i)}>
+                      <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" />
                       </svg>
                     </button>
                     <button
-                      className="btn btn-square btn-xs"
+                      className='btn btn-square'
                       type="button"
-                      onClick={() => remove(i)}
-                    >
-                      <svg
-                        className="w-6 h-6 text-gray-800 w-4"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M5 12h14"
-                        />
-                      </svg>
-                    </button>
-                    <button
-                      disabled={fetching}
-                      className={
-                        "btn btn-square btn-xs " +
-                        `${fetching ? "btn-base" : "btn-outline"}`
-                      }
-                      onClick={() => handleAiRequest(inputText, i)}
-                    >
-                      <svg
-                        className="w-6 h-6 text-gray-800 w-4"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 18.5A2.493 2.493 0 0 1 7.51 20H7.5a2.468 2.468 0 0 1-2.4-3.154 2.98 2.98 0 0 1-.85-5.274 2.468 2.468 0 0 1 .92-3.182 2.477 2.477 0 0 1 1.876-3.344 2.5 2.5 0 0 1 3.41-1.856A2.5 2.5 0 0 1 12 5.5m0 13v-13m0 13a2.493 2.493 0 0 0 4.49 1.5h.01a2.468 2.468 0 0 0 2.403-3.154 2.98 2.98 0 0 0 .847-5.274 2.468 2.468 0 0 0-.921-3.182 2.477 2.477 0 0 0-1.875-3.344A2.5 2.5 0 0 0 14.5 3 2.5 2.5 0 0 0 12 5.5m-8 5a2.5 2.5 0 0 1 3.48-2.3m-.28 8.551a3 3 0 0 1-2.953-5.185M20 10.5a2.5 2.5 0 0 0-3.481-2.3m.28 8.551a3 3 0 0 0 2.954-5.185"
-                        />
-                      </svg>
+                      onClick={async () => {
+                        const currentValue = getValues(`questions[${i}].content`);
+                        console.log("Currentvalue", currentValue);
+                        const newValue = await handleAiRequest(currentValue);
+                        console.log(newValue);
+                        setValue(`questions[${i}].content`, `${newValue}`, { shouldValidate: true })
+                      }} >
+                      {!fetching &&
+                        <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.5A2.493 2.493 0 0 1 7.51 20H7.5a2.468 2.468 0 0 1-2.4-3.154 2.98 2.98 0 0 1-.85-5.274 2.468 2.468 0 0 1 .92-3.182 2.477 2.477 0 0 1 1.876-3.344 2.5 2.5 0 0 1 3.41-1.856A2.5 2.5 0 0 1 12 5.5m0 13v-13m0 13a2.493 2.493 0 0 0 4.49 1.5h.01a2.468 2.468 0 0 0 2.403-3.154 2.98 2.98 0 0 0 .847-5.274 2.468 2.468 0 0 0-.921-3.182 2.477 2.477 0 0 0-1.875-3.344A2.5 2.5 0 0 0 14.5 3 2.5 2.5 0 0 0 12 5.5m-8 5a2.5 2.5 0 0 1 3.48-2.3m-.28 8.551a3 3 0 0 1-2.953-5.185M20 10.5a2.5 2.5 0 0 0-3.481-2.3m.28 8.551a3 3 0 0 0 2.954-5.185" />
+                        </svg>}
+                      {fetching && <span className="loading loading-spinner loading-md"></span>}
                     </button>
                   </div>
-                </div>
+                </div >
               </>
             ))}
           </fieldset>
 
-          <fieldset
-            id="rating-question-tags"
-            className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg"
-          >
-            <legend className="text-sm text-slate-500 mb-2">
-              Rating questions
-            </legend>
-            {ratingQuestions.map((question, i) => (
-              <button
-                className={`btn btn-sm mb-2 mr-2 ${
-                  clickedButtons[i] ? "btn-success" : ""
+          {/* <fieldset
+          id="rating-question-tags"
+          className="border border-slate-150 rounded-sm p-3 mb-9 shadow-lg"
+        >
+          <legend className="text-sm text-slate-500 mb-2">
+            Rating questions
+          </legend>
+          {ratingQuestions.map((question, i) => (
+            <button
+              className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? "btn-success" : ""
                 }`}
-                onClick={() => handleClick(i)}
-                name={i.toString()}
-              >
-                {question}
-              </button>
-            ))}
-          </fieldset>
+              onClick={() => handleClick(i)}
+              name={i.toString()}
+            >
+              {question}
+            </button>
+          ))}
+        </fieldset> */}
 
           <button type="submit" className="btn btn-neutral btn-sm mr-2 w-20">
             {" "}
@@ -332,10 +269,15 @@ export default function AddPostingForm() {
             Cancel
           </button>
         </form>
-      </div>
+      </div >
       {showAlertAdded && (
         <Alert alertType="alert-success" alertContent="Posting added!" />
-      )}
+      )
+      }
     </>
   );
+}
+
+type Props = {
+  employer: Employer;
 }
