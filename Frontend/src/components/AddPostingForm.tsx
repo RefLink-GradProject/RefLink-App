@@ -14,7 +14,6 @@ import { useMutation } from "react-query";
 import { getAIAnswer } from "../services/aiServices";
 
 const ratingQuestions = [
-  "Rating questions",
   "Adaptability",
   "Collaboration",
   "Creativity",
@@ -42,7 +41,8 @@ export default function AddPostingForm({ employer }: Props) {
   });
   const navigate = useNavigate();
 
-  // Add default value for the first question field
+  // Add default value for the first question field.
+  // Otherwise no field will be mapped out at start
   if (fields.length === 0) {
     append({ content: "" });
   }
@@ -123,7 +123,7 @@ export default function AddPostingForm({ employer }: Props) {
           postingGuid: postingGuid,
           content: ratingQuestions[i],
         };
-        const postedQuestions = await postQuestions(ratingQuestionsData);
+        const postedQuestions = await postQuestions(ratingQuestionsData);   // TODO: Why are you not using questionMutation.mutateAsync? // I CAN CHANGE THIS
         console.log("!!!!! ratingQuestions posted: " + postedQuestions);
       }
     }
@@ -134,7 +134,7 @@ export default function AddPostingForm({ employer }: Props) {
 
     setTimeout(() => {
       setShowAlertAdded(false);
-      // navigate("/postings");
+      navigate("/postings");
     }, 2000);
   }
 
@@ -187,14 +187,14 @@ export default function AddPostingForm({ employer }: Props) {
             {/* AI prop text */}
             <label className="form-control w-full mb-4">
               <span className="label-text">Description</span>
-              <textarea
+              <textarea                   // TODO: Why are you not using TextArea?
                 {...register(`postingDescription>`, {
                   required: "This field can not be empty",
                 })}
                 name={`postingDescription`}
                 className="input input-bordered input-md w-full "
                 placeholder="Write description here for AI prompt"
-                onChange={(e) => setInputText(e.target.value)}
+                onChange={(e) => setInputText(e.target.value)}        // TODO: Why are you mixing RHF and event listeners?
               />
             </label>
           </fieldset>
@@ -210,14 +210,15 @@ export default function AddPostingForm({ employer }: Props) {
                   <label className="form-control w-full mb-4">
                     <span className="label-text"></span>
                     {/* AI generated question */}
-                    <textarea
+                    <textarea     // TODO: why are you not using our TextArea component?
                       {...register(`questions[${i}].content`, {
                         required: "This field can not be empty",
                       })}
                       name={`questions[${i}].content`}
                       className="input input-bordered input-md w-full h-16"
                       placeholder="Add a question"
-                      value={generatedTexts[i]}
+                      // value={generatedTexts[i]}
+                      value="Hello"
                     />
                   </label>
 
