@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <QueryClientProvider client={queryClient}>
           {/* <div className='flex justify-center'> */}
 
-            <div className='max-w-screen-xl mx-8 lg:mx-15 mb-20 min-h-full'>
+            <div className='max-w-screen-xl mx-8 lg:mx-15 mb-20'>
               <App />
 
             {/* </div> */}

@@ -113,7 +113,7 @@ export default function CandidateDetails({ candidate }: Props) {
                     {getCandidatesRatings().length >= 1 && (
                         <>
                             {/* <h2 className="text-2xl mb-3">Ratings:</h2> */}
-                            <div className="flex justify-center">
+                            <div className="md:flex md:justify-center">
                                 <div className="w-100 h-50 flex items-center justify-center">
                                     <ResponsiveContainer width={500} height={300}>
                                         <RadarChart outerRadius={100} width={100} height={100} data={getCandidatesRatings()}>
@@ -125,16 +125,15 @@ export default function CandidateDetails({ candidate }: Props) {
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
-                                <div className="flex w-1/2">
-                                    <ResponsiveContainer width={300} height={300}>
-                                        <BarChart width={100} height={100} data={getCandidatesRatings()}>
-                                            <YAxis domain={[0, 5]} />
-                                            <XAxis dataKey="subject" />
+                                <div className="md:flex md:w-1/2">
+                                    <ResponsiveContainer width={400} height={300}>
+                                        <BarChart barSize={40} width={100} height={100} data={getCandidatesRatings()}>
+                                            <YAxis domain={[0, 5]}  />
+                                            <XAxis dataKey="subject" tick={{fontSize:12}}/>
                                             <Tooltip />
                                             {/* <Legend /> */}
                                             <Bar dataKey="score" fill="#15803d" />
                                         </BarChart>
-
                                     </ResponsiveContainer>
                                 </div>
                             </div>

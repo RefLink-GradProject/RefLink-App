@@ -15,10 +15,6 @@ import Register from './Register';
 import { useQuery } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const allPostings = await getPostings();
-const postingsPlusFakes: Posting[] = allPostings.concat(postings);
-const allCandidates = await getCandidates();
-
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
 import { postings, referencerWithQuestions } from './fakeData';
