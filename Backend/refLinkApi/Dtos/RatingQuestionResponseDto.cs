@@ -1,6 +1,6 @@
 namespace refLinkApi.Dtos;
 
-public class QuestionResponseDto
+public class RatingQuestionResponseDto
 {
     public required Guid GuidId { get; set; }
     public required string Content { get; set; }

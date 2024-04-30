@@ -11,16 +11,16 @@ public static class SeedData
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
 
-            Employer employer = new Employer
-            {
-                GuidId = Guid.NewGuid(),
-                Name = "EmployerName",
-                Company = "EmpoyerCompany",
-                Email = "EmployerEmail",
-                AuthId = "hello"
-            };
-            _context.Employers.Add(employer);
-            _context.SaveChanges();
+        Employer employer = new Employer
+        {
+            GuidId = Guid.NewGuid(),
+            Name = "EmployerName",
+            Company = "EmpoyerCompany",
+            Email = "EmployerEmail",
+            AuthId = "hello"
+        };
+        _context.Employers.Add(employer);
+        _context.SaveChanges();
         
         Posting posting = new Posting
         {
@@ -29,6 +29,7 @@ public static class SeedData
             Description = "PostingDescription",
             Employer = employer,
             EmployerGuid = employer.GuidId,
+            RatingQuestions = new List<RatingQuestion>(),
             Questions = new List<Question>(),
         };
         
@@ -39,7 +40,6 @@ public static class SeedData
         {
             Content = "This is a question",
             Posting = posting,
-            Type = QuestionType.Text,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -47,7 +47,6 @@ public static class SeedData
         {
             Content = "Creativity",
             Posting = posting,
-            Type = QuestionType.Rating,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -55,7 +54,6 @@ public static class SeedData
         {
             Content = "Adaptability",
             Posting = posting,
-            Type = QuestionType.Rating,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -63,7 +61,6 @@ public static class SeedData
         {
             Content = "Efficiency",
             Posting = posting,
-            Type = QuestionType.Rating,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -71,7 +68,6 @@ public static class SeedData
         {
             Content = "Time Management",
             Posting = posting,
-            Type = QuestionType.Rating,
             PostingGuid = posting.GuidId,
             Responses = new List<Response>(),
         };
@@ -87,6 +83,17 @@ public static class SeedData
         _context.Questions.Add(question3);
         _context.Questions.Add(question4);
         _context.Questions.Add(question5);
+        _context.SaveChanges();
+        
+        RatingQuestion ratingQuestion = new RatingQuestion()
+        {
+            Content = "This is a RATING question",
+            Posting = posting,
+            PostingGuid = posting.GuidId,
+            Responses = new List<Response>(),
+        };
+        posting.RatingQuestions.Add(ratingQuestion);
+        _context.RatingQuestions.Add(ratingQuestion);
         _context.SaveChanges();
         
         Candidate candidate = new Candidate
@@ -116,40 +123,40 @@ public static class SeedData
             Content = "This is a response",
             Question = question,
             Referencer = referencer,
-            QuestionGuid = question.GuidId,
-            ReferencerGuid = referencer.GuidId,
+            QuestionId = question.Id,
+            ReferencerId = referencer.Id,
         };
         var response2 = new Response()
         {
             Content = "4",
             Question = question2,
             Referencer = referencer,
-            QuestionGuid = question2.GuidId,
-            ReferencerGuid = referencer.GuidId,
+            QuestionId = question2.Id,
+            ReferencerId = referencer.Id,
         };
         var response3 = new Response()
         {
             Content = "2",
             Question = question3,
             Referencer = referencer,
-            QuestionGuid = question3.GuidId,
-            ReferencerGuid = referencer.GuidId,
+            QuestionId = question3.Id,
+            ReferencerId = referencer.Id,
         };
         var response4 = new Response()
         {
             Content = "5",
             Question = question4,
             Referencer = referencer,
-            QuestionGuid = question4.GuidId,
-            ReferencerGuid = referencer.GuidId,
+            QuestionId = question4.Id,
+            ReferencerId = referencer.Id,
         };
         var response5 = new Response()
         {
             Content = "5",
             Question = question5,
             Referencer = referencer,
-            QuestionGuid = question5.GuidId,
-            ReferencerGuid = referencer.GuidId,
+            QuestionId = question5.Id,
+            ReferencerId = referencer.Id,
         };
 
         _context.Responses.Add(response);

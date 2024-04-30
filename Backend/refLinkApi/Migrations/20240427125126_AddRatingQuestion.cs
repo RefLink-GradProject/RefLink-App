@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace refLinkApi.Migrations
 {
     /// <inheritdoc />
-    public partial class xxx : Migration
+    public partial class AddRatingQuestion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,8 +17,8 @@ namespace refLinkApi.Migrations
                 {
                     GuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AuthId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Company = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Company = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -72,15 +72,15 @@ namespace refLinkApi.Migrations
                 name: "Questions",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     GuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostingGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Questions", x => x.GuidId);
+                    table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Questions_Postings_PostingGuid",
                         column: x => x.PostingGuid,
@@ -90,18 +90,41 @@ namespace refLinkApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RatingQuestions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostingGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PostingGuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RatingQuestions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RatingQuestions_Postings_PostingGuidId",
+                        column: x => x.PostingGuidId,
+                        principalTable: "Postings",
+                        principalColumn: "GuidId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Referencers",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     GuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CandidateGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Referencers", x => x.GuidId);
+                    table.PrimaryKey("PK_Referencers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Referencers_Candidates_CandidateGuid",
                         column: x => x.CandidateGuid,
@@ -118,22 +141,28 @@ namespace refLinkApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GuidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    QuestionGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ReferencerGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    QuestionId = table.Column<int>(type: "int", nullable: true),
+                    ReferencerId = table.Column<int>(type: "int", nullable: true),
+                    RatingQuestionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Responses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Responses_Questions_QuestionGuid",
-                        column: x => x.QuestionGuid,
+                        name: "FK_Responses_Questions_QuestionId",
+                        column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "GuidId");
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Responses_Referencers_ReferencerGuid",
-                        column: x => x.ReferencerGuid,
+                        name: "FK_Responses_RatingQuestions_RatingQuestionId",
+                        column: x => x.RatingQuestionId,
+                        principalTable: "RatingQuestions",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Responses_Referencers_ReferencerId",
+                        column: x => x.ReferencerId,
                         principalTable: "Referencers",
-                        principalColumn: "GuidId");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -152,19 +181,29 @@ namespace refLinkApi.Migrations
                 column: "PostingGuid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RatingQuestions_PostingGuidId",
+                table: "RatingQuestions",
+                column: "PostingGuidId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Referencers_CandidateGuid",
                 table: "Referencers",
                 column: "CandidateGuid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Responses_QuestionGuid",
+                name: "IX_Responses_QuestionId",
                 table: "Responses",
-                column: "QuestionGuid");
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Responses_ReferencerGuid",
+                name: "IX_Responses_RatingQuestionId",
                 table: "Responses",
-                column: "ReferencerGuid");
+                column: "RatingQuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Responses_ReferencerId",
+                table: "Responses",
+                column: "ReferencerId");
         }
 
         /// <inheritdoc />
@@ -175,6 +214,9 @@ namespace refLinkApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "RatingQuestions");
 
             migrationBuilder.DropTable(
                 name: "Referencers");

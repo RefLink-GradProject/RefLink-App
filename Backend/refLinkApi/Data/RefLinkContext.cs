@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Azure;
 using Microsoft.EntityFrameworkCore;
 using refLinkApi.Models;
-using Response = refLinkApi.Models.Response;
 
-public class RefLinkContext : DbContext
+    public class RefLinkContext : DbContext
     {
         public RefLinkContext (DbContextOptions<RefLinkContext> options)
             : base(options)
@@ -18,6 +16,7 @@ public class RefLinkContext : DbContext
         public DbSet<Candidate> Candidates { get; set; } = default!;
         public DbSet<Posting> Postings { get; set; } = default!;
         public DbSet<Question> Questions { get; set; } = default!;
+        public DbSet<RatingQuestion> RatingQuestions { get; set; } = default!;
         public DbSet<Referencer> Referencers  { get; set; } = default!;
         public DbSet<Response> Responses  { get; set; } = default!;
         
@@ -27,22 +26,6 @@ public class RefLinkContext : DbContext
                 .HasOne(p => p.Employer)
                 .WithMany(e => e.Postings)
                 .HasForeignKey(p => p.EmployerGuid);
-            
-            modelBuilder.Entity<Response>()
-                .HasOne(p => p.Referencer)
-                .WithMany(e => e.Responses)
-                .HasForeignKey(p => p.ReferencerGuid);
-            
-            modelBuilder.Entity<Response>()
-                .HasOne(p => p.Question)
-                .WithMany(e => e.Responses)
-                .HasForeignKey(p => p.QuestionGuid);
-            
-            modelBuilder.Entity<Question>()
-                .HasKey(e => e.GuidId);
-            
-            modelBuilder.Entity<Referencer>()
-                .HasKey(c => c.GuidId);
             
             modelBuilder.Entity<Employer>()
                 .HasKey(e => e.GuidId);
