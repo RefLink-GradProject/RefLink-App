@@ -10,12 +10,13 @@ export async function getEmployerByToken(token: IdToken) : Promise<Employer | nu
           "Authorization": "Bearer " + token!.__raw
         }
       });
-    console.log(response)
+      if(response.status==404)
+        return null
     const employer = await response.json()
     return employer;
   }
 
-export async function postEmployerByToken(token: IdToken, data: FormData) : Promise<Employer | null> {   
+export async function postEmployerByToken(token: IdToken, data: any) : Promise<Employer | null> {   
   if(!token){
       return null
   }

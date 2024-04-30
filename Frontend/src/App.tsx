@@ -19,6 +19,7 @@ const allPostings = await getPostings();
 const postingsPlusFakes: Posting[] = allPostings.concat(postings);
 const allCandidates = await getCandidates();
 
+// const CurrentEmployer = await getEmployer();
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
 import { postings, referencerWithQuestions } from './fakeData';
@@ -26,7 +27,7 @@ import ChartsDraft from './components/ChartsDraft';
 
 import { CallbackPage } from './auth0/Callback';
 import { AuthGuard } from './auth0/AuthGuard';
-import { getEmployerByToken } from './services/employerService';
+import { getEmployerByToken, postEmployerByToken } from './services/employerService';
 
 import NavbarClean from './components/NavbarClean';
 import AI from './components/AI';
@@ -35,7 +36,7 @@ const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].g
 
 export default function App() {
 
-  const { isAuthenticated, getIdTokenClaims } = useAuth0();
+  const { isAuthenticated, getIdTokenClaims, user } = useAuth0();
   const [employer, setEmployer] = useState<Employer | null>(null)
   const [postings, setPostings] = useState<Posting[]>(postingsPlusFakes);
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
@@ -58,30 +59,34 @@ export default function App() {
 
   }
 
-  console.log(isAuthenticated);
 
-  useEffect(() => {
-    const fetchData = async () => {
+  async function HandleEmployer() {
+    try {
       if (isAuthenticated && !employer) {
-        try {
-          const token = await getIdTokenClaims();
-          const acc = await getEmployerByToken(token!);
-          setEmployer(acc);
-        } catch (error) {
-          console.error('Error checking registration:', error);
-        } finally {
-          setIsLoading(false);
+        const token = await getIdTokenClaims();
+        let acc = await getEmployerByToken(token!);
+        if (!acc) {
+          acc = await postEmployerByToken(token!, {
+            name: user!.name,
+            email: user!.email,
+            company: ""
+          })
         }
-      } else {
-        setIsLoading(false);
+        await setEmployer(acc);
       }
-    };
+    } catch (error) {
+      console.error('Error checking registration:', error);
+    }
+    finally {
+      setIsLoading(false)
+    }
+  }
 
-    fetchData();
-  }, [isAuthenticated]);
 
+  if (isAuthenticated && !employer)
+    HandleEmployer()
 
-  if (isLoading) {
+  if (isAuthenticated && isLoading) {
     return (
       <div className='min-h-screen flex items-center justify-center'>
         <span className='loading loading-dots loading-lg text-secondary'></span>
@@ -92,32 +97,44 @@ export default function App() {
   return (
     <>
       <div className='md:mx-12 md:grow '>
-        {isCleanNavbar ? (<NavbarClean userName='Xinnan Luo' />) : (<Navbar userName='Xinnan Luo' />)}
+        <Navbar userName='Xinnan Luo' />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Home />}
+          />
           <Route
             path="/postings"
-
-            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
-
+            element={
+              <AuthGuard
+                component={Postings}
+                postings={postings}
+                clickedPosting={clickedPosting}
+                setClickedPosting={setClickedPosting}
+                setClickedCandidate={setClickedCandidate}
+              />}
           />
-
-          <Route path='/postings/add' element={<AddPostingForm employer={employer} />} />
-          <Route path="/callback" element={<CallbackPage />} />
-          <Route path="/dashboard" element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
-            path={`/postings/:${clickedPosting.guidId}`}
-            element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
+            path="/dashboard"
+            element={
+              <AuthGuard
+                component={Dashboard}
+                postings={postings}
+                setClickedCandidate={setClickedCandidate}
+                setClickedPosting={setClickedPosting}
+              />}
           />
-
+          <Route path='/postings/add' element={<AddPostingForm />} />
+          <Route path={`/postings/:${clickedPosting.guidId}`} element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}/>
+          <Route path="/callback" element={<CallbackPage />} />
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
-          <Route path='/add-referencer/:guid' element={<AddReferencerForm setIsCleanNavbar={setIsCleanNavbar} />} />
-          <Route path='/add-reference/:guid' element={<AddReviewForm setIsCleanNavbar={setIsCleanNavbar} />} />
-          <Route path='/register' element={<AuthGuard employer={employer} component={Register} />} />
-          <Route path='/charts' element={<AuthGuard employer={employer} component={ChartsDraft} />} />
-          <Route path='/ai' element={<AI />} />
+
+          <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
+          <Route path='/add-reference/:guid' element={<AddReviewForm />} />
+          <Route path='/register' element={<AuthGuard component={Register} />} />
+          <Route path='/charts' element={<AuthGuard component={ChartsDraft} />} />
 
         </Routes>
       </div>
