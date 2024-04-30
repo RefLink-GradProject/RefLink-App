@@ -31,11 +31,6 @@ import { getEmployerByToken } from './services/employerService';
 import NavbarClean from './components/NavbarClean';
 import AI from './components/AI';
 
-
-const allPostings = await getPostings();
-const postingsPlusFakes: Posting[] = allPostings.concat(postings);
-const allCandidates = await getCandidates();
-
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 
 export default function App() {
@@ -54,7 +49,6 @@ export default function App() {
 
   async function addCandidate(name: string, email: string) {
     await postCandidate(name, email, clickedPosting.guidId);
-    console.log("!!!!!!!!!!!!!")
     const updatedPostings = await getPostings();
     const updatedClickedPosting = updatedPostings.find(posting => posting.guidId === clickedPosting.guidId);
     if (updatedClickedPosting) {
@@ -68,7 +62,7 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isAuthenticated && !employer) { 
+      if (isAuthenticated && !employer) {
         try {
           const token = await getIdTokenClaims();
           const acc = await getEmployerByToken(token!);
@@ -82,10 +76,10 @@ export default function App() {
         setIsLoading(false);
       }
     };
-  
+
     fetchData();
-  }, [isAuthenticated]); 
-  
+  }, [isAuthenticated]);
+
 
   if (isLoading) {
     return (
@@ -98,7 +92,7 @@ export default function App() {
   return (
     <>
       <div className='md:mx-12 md:grow '>
-        {isCleanNavbar ? (<NavbarClean userName='Xinnan Luo' />) :(<Navbar userName='Xinnan Luo' />)}
+        {isCleanNavbar ? (<NavbarClean userName='Xinnan Luo' />) : (<Navbar userName='Xinnan Luo' />)}
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -109,7 +103,7 @@ export default function App() {
 
           />
 
-          <Route path='/postings/add' element={<AddPostingForm />} />
+          <Route path='/postings/add' element={<AddPostingForm employer={employer} />} />
           <Route path="/callback" element={<CallbackPage />} />
           <Route path="/dashboard" element={<Dashboard postings={postings} setClickedCandidate={setClickedCandidate} setClickedPosting={setClickedPosting} />} />
           <Route
@@ -119,9 +113,9 @@ export default function App() {
 
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
-          <Route path='/add-referencer/:guid' element={<AddReferencerForm setIsCleanNavbar={setIsCleanNavbar}/>} />
-          <Route path='/add-reference/:guid' element={<AddReviewForm setIsCleanNavbar={setIsCleanNavbar}/>} />
-          <Route path='/register' element={<AuthGuard employer={employer} component={Register}/> } />
+          <Route path='/add-referencer/:guid' element={<AddReferencerForm setIsCleanNavbar={setIsCleanNavbar} />} />
+          <Route path='/add-reference/:guid' element={<AddReviewForm setIsCleanNavbar={setIsCleanNavbar} />} />
+          <Route path='/register' element={<AuthGuard employer={employer} component={Register} />} />
           <Route path='/charts' element={<AuthGuard employer={employer} component={ChartsDraft} />} />
           <Route path='/ai' element={<AI />} />
 
