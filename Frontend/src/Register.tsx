@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import TextInput from "./components/TextInput";
-import { CallbackPage } from "./auth0/Callback";
+import { Loader } from "./components/Loader";
 import { postEmployerByToken } from "./services/employerService";
 
 type CreateEmployer = {
@@ -39,7 +39,7 @@ const Register = () => {
   };
 
   if (isLoading) {
-    <CallbackPage/>
+    <Loader/>
   }
 
   if (error) {

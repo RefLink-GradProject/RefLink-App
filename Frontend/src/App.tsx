@@ -25,7 +25,7 @@ import { getPostings } from './services/postingServices';
 import { postings, referencerWithQuestions } from './fakeData';
 import ChartsDraft from './components/ChartsDraft';
 
-import { CallbackPage } from './auth0/Callback';
+import { Loader } from './components/Loader';
 import { AuthGuard } from './auth0/AuthGuard';
 import { getEmployerByToken, postEmployerByToken } from './services/employerService';
 
@@ -82,15 +82,12 @@ export default function App() {
     }
   }
 
-
   if (isAuthenticated && !employer)
     HandleEmployer()
 
   if (isAuthenticated && isLoading) {
     return (
-      <div className='min-h-screen flex items-center justify-center'>
-        <span className='loading loading-dots loading-lg text-secondary'></span>
-      </div>
+      <Loader/>
     );
   }
 
@@ -127,7 +124,7 @@ export default function App() {
           />
           <Route path='/postings/add' element={<AddPostingForm />} />
           <Route path={`/postings/:${clickedPosting.guidId}`} element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}/>
-          <Route path="/callback" element={<CallbackPage />} />
+          <Route path="/callback" element={<Loader />} />
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
 

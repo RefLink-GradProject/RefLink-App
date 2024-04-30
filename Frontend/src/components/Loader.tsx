@@ -1,8 +1,8 @@
 
-export const CallbackPage = () => {
+export const Loader = () => {
   return (
        <div className='min-h-screen flex items-center justify-center'>
-        <span className='loading loading-dots loading-lg text-secondary'></span>
+        <span className="loading loading-spinner loading-lg"></span>
         <div> Loading</div>
       </div>
   );
