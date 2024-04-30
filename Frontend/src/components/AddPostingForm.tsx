@@ -121,7 +121,7 @@ export default function AddPostingForm({ employer }: Props) {
       if (value) {
         const ratingQuestionData: QuestionRequest = {
           postingGuid: postingGuid,
-          type: 0,
+          type: 1,
           content: key,
         }
         console.log("ratingQuestionData:", ratingQuestionData);
@@ -131,13 +131,10 @@ export default function AddPostingForm({ employer }: Props) {
 
     }
 
-    // TODO: complete logic with alert and redirect ON SUCCESS ONLY
-    // if success then show this
     setShowAlertAdded(true);
-
     setTimeout(() => {
-      // setShowAlertAdded(false);
-      // navigate("/postings");
+      setShowAlertAdded(false);
+      navigate("/postings");
     }, 2000);
   }
 
