@@ -109,8 +109,8 @@ export default function App() {
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
           <Route path='/add-reference/:guid' element={<AddReviewForm />} />
-          <Route path='/register' element={<AuthGuard employer={employer} component={Register}/> } />
-          <Route path='/charts' element={<AuthGuard employer={employer} component={ChartsDraft} />} />
+          <Route path='/register' element={<AuthGuard employer={employer} auth={isAuthenticated} component={Register}/> } />
+          <Route path='/charts' element={<AuthGuard employer={employer} auth={isAuthenticated} component={ChartsDraft} />} />
 
         </Routes>
       </div>
