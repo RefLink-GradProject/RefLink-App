@@ -9,7 +9,7 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
-import { PostingRequest, QuestionRequest } from "../Types";
+import { Employer, PostingRequest, QuestionRequest } from "../Types";
 import { useMutation } from "react-query";
 import { getAIAnswer } from "../services/aiServices";
 
@@ -24,7 +24,7 @@ const ratingQuestions = [
   "Time Management",
 ];
 
-export default function AddPostingForm() {
+export default function AddPostingForm({ employer }: Props) {
   const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
   const [clickedButtons, setClickedButtons] = useState<boolean[]>(
     Array(ratingQuestions.length).fill(false)
@@ -91,7 +91,7 @@ export default function AddPostingForm() {
     const postingData: PostingRequest = {
       title: data.postingTitle,
       description: data.postingDescription,
-      employerGuid: "f59e0e38-019e-4b93-a163-0369b71c2ac5", // TODO: get from backend
+      employerGuid: employer.guidId,
     };
 
     const postingResponse = await postMutation.mutateAsync(postingData);
@@ -310,9 +310,8 @@ export default function AddPostingForm() {
             </legend>
             {ratingQuestions.map((question, i) => (
               <button
-                className={`btn btn-sm mb-2 mr-2 ${
-                  clickedButtons[i] ? "btn-success" : ""
-                }`}
+                className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? "btn-success" : ""
+                  }`}
                 onClick={() => handleClick(i)}
                 name={i.toString()}
               >
@@ -338,4 +337,8 @@ export default function AddPostingForm() {
       )}
     </>
   );
+}
+
+type Props = {
+  employer: Employer;
 }
