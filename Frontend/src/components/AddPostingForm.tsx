@@ -33,7 +33,7 @@ export default function AddPostingForm({ employer }: Props) {
   const [generatedTexts, setGeneratedTexts] = useState<string[]>(
     Array(15).fill("")
   );
-  const [fetching, setFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState<fetchingType[]>(Array(1).fill({ questionNumber: 0, status: false }));
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -157,7 +157,7 @@ export default function AddPostingForm({ employer }: Props) {
 
       const jobDescription = getValues("postingDescription");
 
-      setFetching(true); // TODO: understand what this does
+      // setFetching(true); // TODO: understand what this does
       // const result = await getAIAnswer(`Job description: ${jobDescription}. Current input (may be empty): ${currentInput}`);
       await new Promise(resolve => setTimeout(resolve, 2000));
 
@@ -165,9 +165,10 @@ export default function AddPostingForm({ employer }: Props) {
     } catch (error) {
       console.log("Error handleAiRequest", error)
     } finally {
-      setFetching(false);
+      // setFetching(false);
     }
   }
+
 
   return (
     <>
@@ -209,10 +210,18 @@ export default function AddPostingForm({ employer }: Props) {
                 <div key={`${question}${i}`} className="mb-5">
                   <TextArea register={register} name={`questions[${i}].content`} labelText={`Add a question`} placeholder="Add a question" />
                   <div className="flex gap-3">
-                    <button className='btn btn-square' type="button" onClick={() => append({ content: "" })}>
+                    <button className='btn btn-square' type="button" onClick={() => {
+                      append({ content: "" });
+                      setIsFetching([...isFetching, { questionNumber: i, status: false }])
+                    }
+                    }>
                       <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
                     </button>
-                    <button className='btn btn-square' type="button" onClick={() => remove(i)}>
+                    <button className='btn btn-square' type="button" onClick={() => {
+                      remove(i)
+                      setIsFetching(isFetching.filter(status => status.questionNumber !== i))
+                    }
+                    }>
                       <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14" />
                       </svg>
@@ -221,17 +230,33 @@ export default function AddPostingForm({ employer }: Props) {
                       className='btn btn-square'
                       type="button"
                       onClick={async () => {
+                        let fetchingStatus: fetchingType[] = isFetching.map((status, idx) => {
+                          if (idx == i) {
+                            return { questionNumber: idx, status: true }
+                          } else {
+                            return { questionNumber: idx, status: false }
+                          }
+                        })
+                        setIsFetching(fetchingStatus);
+
                         const currentValue = getValues(`questions[${i}].content`);
-                        console.log("Currentvalue", currentValue);
                         const newValue = await handleAiRequest(currentValue);
-                        console.log(newValue);
                         setValue(`questions[${i}].content`, `${newValue}`, { shouldValidate: true })
+
+                        fetchingStatus = isFetching.map((status, idx) => {
+                          if (idx == i) {
+                            return { questionNumber: idx, status: false }
+                          } else {
+                            return { questionNumber: idx, status: false }
+                          }
+                        })
+                        setIsFetching(fetchingStatus);
                       }} >
-                      {!fetching &&
+                      {!isFetching[i].status &&
                         <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.5A2.493 2.493 0 0 1 7.51 20H7.5a2.468 2.468 0 0 1-2.4-3.154 2.98 2.98 0 0 1-.85-5.274 2.468 2.468 0 0 1 .92-3.182 2.477 2.477 0 0 1 1.876-3.344 2.5 2.5 0 0 1 3.41-1.856A2.5 2.5 0 0 1 12 5.5m0 13v-13m0 13a2.493 2.493 0 0 0 4.49 1.5h.01a2.468 2.468 0 0 0 2.403-3.154 2.98 2.98 0 0 0 .847-5.274 2.468 2.468 0 0 0-.921-3.182 2.477 2.477 0 0 0-1.875-3.344A2.5 2.5 0 0 0 14.5 3 2.5 2.5 0 0 0 12 5.5m-8 5a2.5 2.5 0 0 1 3.48-2.3m-.28 8.551a3 3 0 0 1-2.953-5.185M20 10.5a2.5 2.5 0 0 0-3.481-2.3m.28 8.551a3 3 0 0 0 2.954-5.185" />
                         </svg>}
-                      {fetching && <span className="loading loading-spinner loading-md"></span>}
+                      {isFetching[i].status && <span className="loading loading-spinner loading-md"></span>}
                     </button>
                   </div>
                 </div >
@@ -280,4 +305,10 @@ export default function AddPostingForm({ employer }: Props) {
 
 type Props = {
   employer: Employer;
+}
+
+
+type fetchingType = {
+  questionNumber: number,
+  status: boolean
 }
