@@ -72,7 +72,7 @@ export default function CandidateDetails({ candidate }: Props) {
                         <p className="text-">Referencer number: {candidate!.referencers ? candidate!.referencers.length : 0}</p>
                     </section>
 
-                    <section id="candidate-references" className="mt-5 lg:mt-0 lg:w-3/5">
+                    <section id="candidate-references" className="mt-5 lg:mt-0 lg:w-2/5">
                         {/* <h2 className="text-2xl mb-3">Text References:</h2> */}
                         {candidate!.referencers && (
                             candidate!.referencers.map((referencer => {
@@ -125,18 +125,18 @@ export default function CandidateDetails({ candidate }: Props) {
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
-                                <div className="flex w-1/2">
+                                {/* <div className="flex w-1/2">
                                     <ResponsiveContainer width={300} height={300}>
                                         <BarChart width={100} height={100} data={getCandidatesRatings()}>
                                             <YAxis domain={[0, 5]} />
                                             <XAxis dataKey="subject" />
                                             <Tooltip />
-                                            {/* <Legend /> */}
+                                            {/* <Legend /> 
                                             <Bar dataKey="score" fill="#15803d" />
                                         </BarChart>
 
                                     </ResponsiveContainer>
-                                </div>
+                                </div> */}
                             </div>
                         </>
                     )}

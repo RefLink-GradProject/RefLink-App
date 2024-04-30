@@ -77,46 +77,49 @@ export default function App() {
 
   return (
     <>
-      <div className='md:mx-12 md:grow '>
-        <Navbar userName={employer?.name} />
+      <div className='md:mx-12 md:grow flex justify-center flex-col'>
+        <div>
+          <Navbar userName={employer?.name} />
+        </div>
+        <div>
+          <Routes>
+            <Route
+              path="/"
+              element={<Home />}
+            />
+            <Route
+              path="/postings"
+              element={
+                <AuthGuard
+                  component={Postings}
+                  postings={postings}
+                  clickedPosting={clickedPosting}
+                  setClickedPosting={setClickedPosting}
+                  setClickedCandidate={setClickedCandidate}
+                />}
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <AuthGuard
+                  component={Dashboard}
+                  postings={postings}
+                  setClickedCandidate={setClickedCandidate}
+                  setClickedPosting={setClickedPosting}
+                />}
+            />
 
-        <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
-          <Route
-            path="/postings"
-            element={
-              <AuthGuard
-                component={Postings}
-                postings={postings}
-                clickedPosting={clickedPosting}
-                setClickedPosting={setClickedPosting}
-                setClickedCandidate={setClickedCandidate}
-              />}
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <AuthGuard
-                component={Dashboard}
-                postings={postings}
-                setClickedCandidate={setClickedCandidate}
-                setClickedPosting={setClickedPosting}
-              />}
-          />
-
-          <Route path='/postings/add' element={<AddPostingForm employer={employer!} />} />
-          <Route path={`/postings/:${clickedPosting.guidId}`} element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />} />
-          <Route path="/callback" element={<Loader />} />
-          <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
-          <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
-          <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
-          <Route path='/add-reference/:guid' element={<AddReviewForm />} />
-          <Route path='/register' element={<AuthGuard component={Register} />} />
-          <Route path='/charts' element={<AuthGuard component={ChartsDraft} />} />
-        </Routes>
+            <Route path='/postings/add' element={<AddPostingForm employer={employer!} />} />
+            <Route path={`/postings/:${clickedPosting.guidId}`} element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />} />
+            <Route path="/callback" element={<Loader />} />
+            <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
+            <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
+            <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
+            <Route path='/add-reference/:guid' element={<AddReviewForm />} />
+            <Route path='/register' element={<AuthGuard component={Register} />} />
+            <Route path='/charts' element={<AuthGuard component={ChartsDraft} />} />
+          </Routes>
+        </div>
       </div>
 
     </>
