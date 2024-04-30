@@ -27,6 +27,22 @@ using refLinkApi.Models;
                 .WithMany(e => e.Postings)
                 .HasForeignKey(p => p.EmployerGuid);
             
+            modelBuilder.Entity<Response>()
+                .HasOne(p => p.Referencer)
+                .WithMany(e => e.Responses)
+                .HasForeignKey(p => p.ReferencerGuid);
+            
+            modelBuilder.Entity<Response>()
+                .HasOne(p => p.Question)
+                .WithMany(e => e.Responses)
+                .HasForeignKey(p => p.QuestionGuid);
+            
+            modelBuilder.Entity<Question>()
+                .HasKey(e => e.GuidId);
+            
+            modelBuilder.Entity<Referencer>()
+                .HasKey(c => c.GuidId);
+            
             modelBuilder.Entity<Employer>()
                 .HasKey(e => e.GuidId);
             
