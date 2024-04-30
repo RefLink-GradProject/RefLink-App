@@ -9,30 +9,34 @@ import { useEffect, useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
 import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
-import Footer from './components/Footer';
 import Postings from './components/Postings';
 import Register from './Register';
+
 import { useQuery } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
+
+const allPostings = await getPostings();
+const postingsPlusFakes: Posting[] = allPostings.concat(postings);
+const allCandidates = await getCandidates();
+
+import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
+import { getPostings } from './services/postingServices';
+import { postings, referencerWithQuestions } from './fakeData';
+import ChartsDraft from './components/ChartsDraft';
+
+import { CallbackPage } from './auth0/Callback';
+import { AuthGuard } from './auth0/AuthGuard';
+import { getEmployerByToken } from './services/employerService';
+
+import NavbarClean from './components/NavbarClean';
+import AI from './components/AI';
 
 
 const allPostings = await getPostings();
 const postingsPlusFakes: Posting[] = allPostings.concat(postings);
 const allCandidates = await getCandidates();
 
-
-// const CurrentEmployer = await getEmployer();
-import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
-import { getPostings } from './services/postingServices';
-import { postings, referencerWithQuestions } from './fakeData';
-import ChartsDraft from './components/ChartsDraft';
-import { CallbackPage } from './auth0/Callback';
-import { AuthGuard } from './auth0/AuthGuard';
-import { getEmployerByToken } from './services/employerService';
-
-
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
-// const allCandidates = [candidate1, candidate2, candidate3]
 
 export default function App() {
 
@@ -42,16 +46,22 @@ export default function App() {
   // const [candidates, setCandidates] = useState<Candidate[]>(allCandidates);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
+
   const [isLoading, setIsLoading] = useState(true);
+
+  const [isCleanNavbar, setIsCleanNavbar] = useState<boolean>(false);
+
 
   async function addCandidate(name: string, email: string) {
     await postCandidate(name, email, clickedPosting.guidId);
+    console.log("!!!!!!!!!!!!!")
     const updatedPostings = await getPostings();
     const updatedClickedPosting = updatedPostings.find(posting => posting.guidId === clickedPosting.guidId);
     if (updatedClickedPosting) {
       setClickedPosting(updatedClickedPosting);
     }
     setPostings(updatedPostings);
+
   }
 
   console.log(isAuthenticated);
@@ -88,13 +98,15 @@ export default function App() {
   return (
     <>
       <div className='md:mx-12 md:grow '>
+        {isCleanNavbar ? (<NavbarClean userName='Xinnan Luo' />) :(<Navbar userName='Xinnan Luo' />)}
 
-        <Navbar userName='Xinnan Luo' />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
             path="/postings"
+
             element={<Postings postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} setClickedCandidate={setClickedCandidate} />}
+
           />
 
           <Route path='/postings/add' element={<AddPostingForm />} />
@@ -107,10 +119,11 @@ export default function App() {
 
           <Route path={`/candidates/:${clickedCandidate?.guidId}`} element={<CandidateDetails candidate={clickedCandidate} />} />
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
-          <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
-          <Route path='/add-reference/:guid' element={<AddReviewForm />} />
+          <Route path='/add-referencer/:guid' element={<AddReferencerForm setIsCleanNavbar={setIsCleanNavbar}/>} />
+          <Route path='/add-reference/:guid' element={<AddReviewForm setIsCleanNavbar={setIsCleanNavbar}/>} />
           <Route path='/register' element={<AuthGuard employer={employer} component={Register}/> } />
           <Route path='/charts' element={<AuthGuard employer={employer} component={ChartsDraft} />} />
+          <Route path='/ai' element={<AI />} />
 
         </Routes>
       </div>

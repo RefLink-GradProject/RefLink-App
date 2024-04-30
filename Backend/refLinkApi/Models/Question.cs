@@ -8,6 +8,7 @@ public class Question
     public int Id { get; set; }
     
     public Guid GuidId { get; set; } = Guid.NewGuid();
+    public QuestionType Type { get; set; }
 
     public required string Content { get; set; }
     
@@ -15,4 +16,10 @@ public class Question
     public Posting Posting { get; set; }
 
     public ICollection<Response>? Responses { get; set; }
+}
+
+public enum QuestionType
+{
+    Text,
+    Rating,
 }

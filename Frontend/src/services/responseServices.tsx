@@ -14,13 +14,14 @@ export async function postResponse(data: FieldValues){
     return response;
 }
 
-export async function postRatingResponse(content: string, questionGuid: string){
+export async function postRatingResponse(content: string, questionGuid: string, referencerGuid: string){
     const response = await fetch("http://localhost:5136/api/responses",{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             content:content,
-            questionGuid: questionGuid
+            questionGuid: questionGuid,
+            referencerGuid: referencerGuid
         })
     });
     if(!response.ok){
