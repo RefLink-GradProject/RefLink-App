@@ -7,14 +7,14 @@ import { ReferencerRequest } from '../Types';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Alert from './Alert';
 
-export default function AddReferencerForm({setIsCleanNavbar}: Props) {
-    useEffect(() => {
-        setIsCleanNavbar(true);
+export default function AddReferencerForm() {
+    // useEffect(() => {
+    //     setIsCleanNavbar(true);
 
-        return () => {
-            setIsCleanNavbar(false); // This will be executed when leaving the page
-        };
-    }, [setIsCleanNavbar]);
+    //     return () => {
+    //         setIsCleanNavbar(false); // This will be executed when leaving the page
+    //     };
+    // }, [setIsCleanNavbar]);
     const [showAlertSubmitted, setShowAlertSubmitted] = useState<boolean>(false);
     const navigate = useNavigate();
     const { guid } = useParams();

@@ -8,14 +8,14 @@ import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "reac
 import Alert from "./Alert";
 
 
-export default function AddReviewForm({setIsCleanNavbar}: Props) {
-    useEffect(() => {
-        setIsCleanNavbar(true);
+export default function AddReviewForm() {
+    // useEffect(() => {
+    //     setIsCleanNavbar(true);
 
-        return () => {
-            setIsCleanNavbar(false); // This will be executed when leaving the page
-        };
-    }, [setIsCleanNavbar]);
+    //     return () => {
+    //         setIsCleanNavbar(false); // This will be executed when leaving the page
+    //     };
+    // }, [setIsCleanNavbar]);
     
     const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
     const [ratingValues, setRatingValues] = useState<number[]>(Array(20).fill(3));
