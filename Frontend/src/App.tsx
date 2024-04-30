@@ -5,7 +5,7 @@ import AddPostingForm from './components/AddPostingForm';
 import { CandidateWithDetails, Employer, Posting } from './Types';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddCandidateForm from './components/AddCandidateForm';
 import AddReferencerForm from './components/AddReferencerForm';
 import AddReviewForm from './components/AddReviewForm';
@@ -27,7 +27,7 @@ import { getPostings } from './services/postingServices';
 import { postings, referencerWithQuestions } from './fakeData';
 import ChartsDraft from './components/ChartsDraft';
 import { CallbackPage } from './auth0/Callback';
-import { AuthGaurd } from './auth0/AuthGaurd';
+import { AuthGuard } from './auth0/AuthGuard';
 import { getEmployerByToken } from './services/employerService';
 
 
@@ -56,27 +56,28 @@ export default function App() {
 
   console.log(isAuthenticated);
 
-  const EmployerHasRegistration = async () => {
-    try {
-      const token = await getIdTokenClaims();
-      const acc = await getEmployerByToken(token!);
-      if (acc != null) {
-        setEmployer(acc);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (isAuthenticated && !employer) { 
+        try {
+          const token = await getIdTokenClaims();
+          const acc = await getEmployerByToken(token!);
+          setEmployer(acc);
+        } catch (error) {
+          console.error('Error checking registration:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('Error checking registration:', error);
+    };
+  
+    fetchData();
+  }, [isAuthenticated]); 
+  
 
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (isAuthenticated && !employer) {
-    EmployerHasRegistration().then(() => console.log(employer));
-
-  }
-
-  if (isLoading && isAuthenticated) {
+  if (isLoading) {
     return (
       <div className='min-h-screen flex items-center justify-center'>
         <span className='loading loading-dots loading-lg text-secondary'></span>
@@ -108,8 +109,8 @@ export default function App() {
           <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
           <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
           <Route path='/add-reference/:guid' element={<AddReviewForm />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/charts' element={<AuthGaurd component={ChartsDraft} />} />
+          <Route path='/register' element={<AuthGuard employer={employer} component={Register}/> } />
+          <Route path='/charts' element={<AuthGuard employer={employer} component={ChartsDraft} />} />
 
         </Routes>
       </div>
