@@ -94,7 +94,7 @@ export default function App() {
   return (
     <>
       <div className='md:mx-12 md:grow '>
-        <Navbar userName='Xinnan Luo' />
+        <Navbar userName={employer?.name} />
 
         <Routes>
           <Route
