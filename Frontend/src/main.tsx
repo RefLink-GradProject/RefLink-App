@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <div className='lg:mx-32 mb-20 min-h-full'>
               <App />
 
+
             {/* </div> */}
           </div>
           <Footer />
