@@ -124,10 +124,11 @@ export default function AddPostingForm({ employer }: Props) {
 
     }
 
+    queryClient.invalidateQueries({ queryKey: ['getAllPostings', 'getOnePosting'] })
+
     setShowAlertAdded(true);
     setTimeout(() => {
       setShowAlertAdded(false);
-      queryClient.invalidateQueries({ queryKey: ['getAllPostings'] })
       navigate("/postings");
     }, 2000);
   }
@@ -269,10 +270,10 @@ export default function AddPostingForm({ employer }: Props) {
             </legend>
             {ratingQuestions.map((question, i) => (
               <>
-                <label htmlFor={`rating.${question}`} className={`btn btn-sm mb-2 mr-2  ${clickedButtons[i] ? ' btn-success' : ''}`} onClick={() =>handleClick(i)}>{question}
+                <label htmlFor={`rating.${question}`} className={`btn btn-sm mb-2 mr-2  ${clickedButtons[i] ? ' btn-success' : ''}`} onClick={() => handleClick(i)}>{question}
                   <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i} hidden`} />
                 </label>
-                 {/* <button className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''}`} onClick={() =>handleClick(i)} name={i.toString()}>{question}</button> */}
+                {/* <button className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''}`} onClick={() =>handleClick(i)} name={i.toString()}>{question}</button> */}
               </>
             ))}
           </fieldset>

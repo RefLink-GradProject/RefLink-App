@@ -1,20 +1,21 @@
-import { Link } from "react-router-dom";
-import { Candidate, CandidateWithDetails, Posting } from "../Types";
-import { useNavigate } from 'react-router-dom';
-import { Dispatch, SetStateAction } from "react";
-import { getCandidateWithDetails } from "../services/candidateServices";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Posting } from "../Types";
 
+export default function PostingDetails({ postings }: Params) {
+    console.log("Prop data", postings);
+    const { guid } = useParams();
 
+    console.log("guid:", guid);
+    const [postingDetails, setPostingDetails] = useState<Posting>(postings[0])
 
-export default function PostingDetails({ clickedPosting, setClickedCandidate }: Props) {
-
-    const navigate = useNavigate();
-    async function handleClick(clickedCandidate: Candidate) {
-        const candidateWithDetails = await getCandidateWithDetails(clickedCandidate.guidId!)
-        setClickedCandidate(candidateWithDetails);
-        navigate(`/candidates/${clickedCandidate?.guidId}`);
-    }
-
+    useEffect(() => {
+        if (guid) {
+            const posting = postings.find(posting => posting.guidId == guid);
+            setPostingDetails(posting!);
+            console.log("posting:", posting);
+        }
+    }, [postings, guid])
 
     return (
         <>
@@ -22,45 +23,41 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
                 <div className="card-body">
                     <div id="posting-details__description" className="m-3">
                         <h2 className="card-title mb-2">Description</h2>
-                        <p className="text-lg">{clickedPosting.description}</p>
+                        <p className="text-lg">{postingDetails!.description}</p>
                         <h2></h2>
                     </div>
 
                     <div id="posting-details__questions" className="m-3">
                         <h2 className="card-title mb-2">Questions</h2>
-                        {clickedPosting.questions?(clickedPosting.questions.map((question) => {
+                        {postingDetails!.questions ? (postingDetails!.questions.map((question) => {
                             return (
                                 <p className="text-lg">- {question.content}</p>
                             )
-                        })):(<p></p>)}
+                        })) : (<p></p>)}
                     </div>
 
                     <div id="posting-details__candidates" className="m-3">
                         <div className="flex">
                             <h2 className="card-title mb-2">Candidates</h2>
-                            <Link to="/candidates/add"><button className="btn btn-xs btn-neutral ml-3 self-center"> + </button></Link>
+                            <Link to={`/postings/${guid}/add-candidate`}><button className="btn btn-xs btn-neutral ml-3 self-center"> + </button></Link>
                         </div>
-                        {clickedPosting.candidates ?(clickedPosting.candidates.map((candidate) => {
+                        {postingDetails!.candidates ? (postingDetails!.candidates.map((candidate) => {
                             return (
                                 <>
                                     <div className="flex">
                                         <h3 className="text-lg">{candidate.name}</h3>
-                                        <button className="btn btn-xs btn-outline ml-3 self-center" onClick={() => handleClick(candidate)}>View details</button>
+                                        <Link to={`/candidates/${candidate.guidId}`} className="btn btn-xs btn-outline ml-3 self-center">View details</Link>
                                     </div>
-
                                 </>
                             )
-                        })):(<p></p>)}
+                        })) : (<p></p>)}
                     </div>
                 </div>
             </section>
-
         </>
     )
 }
 
-
-type Props = {
-    clickedPosting: Posting;
-    setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails>>;
+type Params = {
+    postings: Posting[];
 }

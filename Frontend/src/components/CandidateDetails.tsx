@@ -1,19 +1,29 @@
-import { CandidateWithDetails } from "../Types";
-import { useNavigate } from 'react-router-dom';
-'use client';
-import { BarChart, Bar, ResponsiveContainer, Tooltip, Legend, YAxis, XAxis, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
-import { fakeCandidatesRating } from "../fakeData";
+import { useQuery } from "react-query";
+import { Loader } from "./Loader";
+import { getCandidateWithDetails } from "../services/candidateServices";
+import { useNavigate, useParams } from "react-router-dom";
+import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Tooltip } from "recharts";
 
-export default function CandidateDetails({ candidate }: Props) {
+export default function CandidateDetails() {
+    const { guid } = useParams();
     const navigate = useNavigate();
+
+    const { isLoading, data: candidate } = useQuery({
+        queryKey: ['getCandidateDetails'],
+        queryFn: () => getCandidateWithDetails(guid),
+        onSuccess: (data) => {
+            console.log("Success", data);
+        }
+    })
+
+    if (isLoading) {
+        return <Loader />
+    }
     function getCandidatesRatings() {
         const questionScores: { [subject: string]: number[] } = {};
 
-
-
-
         // Iterate through each referencer and response to aggregate scores
-        candidate.referencers.forEach(referencer => {
+        candidate!.referencers.forEach(referencer => {
             referencer.responses.forEach(response => {
                 if (response.type == 1) {
                     const subject = response.questionContent;
@@ -45,17 +55,10 @@ export default function CandidateDetails({ candidate }: Props) {
         return ratings;
     }
     console.table(getCandidatesRatings());
-    console.table(fakeCandidatesRating);
 
-    function handleBackClik() {
+    function handleBackClick() {
         navigate(-1);
     }
-
-    function countWords(text: string): number {
-        const words = text.trim().split(/\s+/);
-        return words.length;
-    }
-
 
     return (
         <>
@@ -90,7 +93,7 @@ export default function CandidateDetails({ candidate }: Props) {
                                                 {referencer.responses!.map((response) => {
                                                     return (
                                                         <>
-                                                            {countWords(response.questionContent) >= 4 && (
+                                                            {response.type == 1 && (
                                                                 <>
                                                                     <h4 className="text-xl">{response.questionContent}</h4>
                                                                     <p className="text-sm">{response.responseContent}</p>
@@ -124,35 +127,17 @@ export default function CandidateDetails({ candidate }: Props) {
                                             <PolarAngleAxis dataKey="subject" />
                                             <PolarRadiusAxis domain={[0, 5]} />
                                             <Tooltip />
-                                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#16a34a" fillOpacity={0.6} />
+                                            <Radar name={candidate!.name} dataKey="score" stroke="" fill="#16a34a" fillOpacity={0.6} />
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
-                                {/* <div className="flex w-1/2">
-                                    <ResponsiveContainer width={300} height={300}>
-                                        <BarChart width={100} height={100} data={getCandidatesRatings()}>
-                                            <YAxis domain={[0, 5]} />
-                                            <XAxis dataKey="subject" />
-                                            <Tooltip />
-                                            {/* <Legend /> 
-                                            <Bar dataKey="score" fill="#15803d" />
-                                        </BarChart>
-
-                                    </ResponsiveContainer>
-                                </div> */}
                             </div>
                         </>
                     )}
                 </section>
 
-                <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>&larr; Back</button>
+                <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClick}>&larr; Back</button>
             </div>
         </>
     )
 }
-
-
-type Props = {
-    candidate: CandidateWithDetails;
-}
-

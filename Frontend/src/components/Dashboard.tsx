@@ -1,33 +1,30 @@
-import { Dispatch, SetStateAction } from "react";
-import { Candidate, CandidateWithDetails, Posting } from "../Types";
-import { useNavigate } from 'react-router-dom';
-import { getCandidateWithDetails } from "../services/candidateServices";
+import { useQuery } from "react-query";
+import { Loader } from "./Loader";
+import { getPostings } from "../services/postingServices";
+import { Link } from "react-router-dom";
 
-export default function Dashboard({ postings, setClickedCandidate, setClickedPosting }: Props) {
-    const navigate = useNavigate();
+export default function Dashboard() {
 
-    async function handleCandidateClick(clickedCandidate: Candidate) {
-        const candidateWithDetails: CandidateWithDetails = await getCandidateWithDetails(clickedCandidate.guidId!)
-        setClickedCandidate(candidateWithDetails);
-        navigate(`/candidates/${clickedCandidate!.guidId}`)
+    const { isLoading, data: postings } = useQuery({
+        queryKey: ['getAllPostings'],
+        queryFn: getPostings
+    })
+
+    if (isLoading) {
+        return <Loader />
     }
 
-    function handlePostingClick(clickedPosting: Posting) {
-        setClickedPosting(clickedPosting);
-        navigate(`/postings/${clickedPosting.guidId}`)
-    }
-    let i = 0;
     return (
         <>
-        <div className="text-sm breadcrumbs mb-10">
-        <ul>
-            <li><a href="/">Home</a></li> 
-            <li className="font-bold">Dashboard</li>
-        </ul>
-        </div>
+            <div className="text-sm breadcrumbs mb-10">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li className="font-bold">Dashboard</li>
+                </ul>
+            </div>
 
             <table className="table animate-fade-left animate-duration-[400ms]">
-                <thead> 
+                <thead>
                     <tr>
                         <th></th>
                         <div className="flex text-base">
@@ -36,36 +33,26 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
                             <th className="w-1/3">Posting</th>
 
                         </div>
-                        {/* <th>Number of referencer</th>
-                        <th>Number of references</th> */}
                     </tr>
                 </thead>
                 <tbody >
-                    {postings.map((posting, postingIndex) => {
+                    {postings!.map((posting, postingIndex) => {
                         return (
                             posting.candidates && posting.candidates.map((candidate) => {
-                                i++;
                                 return (
                                     <tr key={`${postingIndex}`} className="h-16">
-                                        <th>{i}</th>
+                                        <th>{postingIndex + 1}</th>
                                         <div className="flex">
                                             <td className="w-1/3">
-                                                <p onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"> {candidate.name}</p>
+                                                <Link to={`/candidates/${candidate.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</Link>
                                             </td>
                                             <td className="w-1/3">
-                                                <p onClick={() => handleCandidateClick(candidate)}  className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</p>
+                                                <Link to={`/candidates/${candidate.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</Link>
                                             </td>
                                             <td className="w-1/3" >
-                                                <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</p>
+                                                <Link to={`/postings/${posting.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</Link>
                                             </td>
-
                                         </div>
-                                        {/* <td>
-                                            <p>1</p>
-                                        </td>
-                                        <td>
-                                            <p>1</p>
-                                        </td> */}
                                     </tr>
                                 )
                             })
@@ -75,11 +62,4 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
             </table>
         </>
     );
-
-}
-
-type Props = {
-    postings: Posting[];
-    setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails>>;
-    setClickedPosting: Dispatch<SetStateAction<Posting>>;
 }
