@@ -29,7 +29,18 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
                     <div id="posting-details__questions" className="m-3">
                         <h2 className="card-title mb-2">Questions</h2>
                         {clickedPosting.questions?(clickedPosting.questions.map((question) => {
+                            if (question.type=="0")
                             return (
+                                <p className="text-lg">- {question.content}</p>
+                            )
+                        })):(<p></p>)}
+                    </div>
+
+                    <div id="posting-details__questions" className="m-3">
+                        <h2 className="card-title mb-2">Rating questions</h2>
+                        {clickedPosting.questions?(clickedPosting.questions.map((question) => {
+                            if (question.type=="1")
+                                return (
                                 <p className="text-lg">- {question.content}</p>
                             )
                         })):(<p></p>)}
