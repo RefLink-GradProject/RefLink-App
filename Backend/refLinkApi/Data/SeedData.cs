@@ -681,6 +681,49 @@ public static class SeedData
             _context.Responses.Add(response35);
             _context.SaveChanges();
 
+            
+            // posting3
+            Posting posting3 = new Posting
+            {
+                GuidId = Guid.NewGuid(),
+                Title = "IT Support Specialist",
+                Description = "Digital Dynamics Corporation is looking for an IT Support Specialist to provide technical assistance and support to our employees. The ideal candidate will have a solid understanding of computer systems, hardware, and software, as well as excellent communication and customer service skills. ",
+                Employer = employer,
+                EmployerGuid = employer.GuidId,
+                Questions = new List<Question>(),
+            };
+
+            // Adding posting2 to the context
+            _context.Postings.Add(posting3);
+            _context.SaveChanges();
+
+            // Creating text questions
+            Question questionT5 = new Question()
+            {
+                Content = "How would you describe the candidate's technical skills in computer systems and software support",
+                Posting = posting3,
+                Type = QuestionType.Text,
+                PostingGuid = posting2.GuidId,
+                Responses = new List<Response>(),
+            };
+            Question questionT6 = new Question()
+            {
+                Content = "Can you share a specific instance where the candidate showcased strong communication and problem-solving abilities in an IT support scenario?",
+                Posting = posting3,
+                Type = QuestionType.Text,
+                PostingGuid = posting2.GuidId,
+                Responses = new List<Response>(),
+            };
+
+            // Adding text questions to posting2
+            posting2.Questions.Add(questionT5);
+            posting2.Questions.Add(questionT6);
+
+            // Adding questions to the context
+            _context.Questions.Add(questionT5);
+            _context.Questions.Add(questionT6);
+            _context.SaveChanges();
+        
         }
     }
 
