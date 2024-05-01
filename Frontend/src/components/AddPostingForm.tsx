@@ -138,11 +138,9 @@ export default function AddPostingForm({ employer }: Props) {
   }
 
   function handleClick(index: number) {
-    console.log(clickedButtons)
     const newClickedButtons = [...clickedButtons];
     newClickedButtons[index] = !clickedButtons[index]
     setClickedButtons(newClickedButtons);
-    console.log(clickedButtons)
   }
 
   async function handleAiRequest(currentInput: string) {
@@ -206,8 +204,10 @@ export default function AddPostingForm({ employer }: Props) {
                   <TextArea register={register} name={`questions[${i}].content`} labelText={`Add a question`} placeholder="Add a question" />
                   <div className="flex gap-3">
                     <button className='btn btn-square' type="button" onClick={() => {
-                      append({ content: "" });
-                      setIsFetching([...isFetching, { questionNumber: i, status: false }])
+                      if (getValues(`questions[${i}].content`).length > 0) {
+                        append({ content: "" });
+                        setIsFetching([...isFetching, { questionNumber: i, status: false }])
+                      }
                     }
                     }>
                       <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
@@ -223,7 +223,7 @@ export default function AddPostingForm({ employer }: Props) {
                       </svg>
                     </button>
                     <button
-                      className='btn btn-square'
+                      className='btn btn-square p-1'
                       type="button"
                       onClick={async () => {
                         let fetchingStatus: fetchingType[] = isFetching.map((status, idx) => {
@@ -249,9 +249,38 @@ export default function AddPostingForm({ employer }: Props) {
                         setIsFetching(fetchingStatus);
                       }} >
                       {!isFetching[i].status &&
-                        <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.5A2.493 2.493 0 0 1 7.51 20H7.5a2.468 2.468 0 0 1-2.4-3.154 2.98 2.98 0 0 1-.85-5.274 2.468 2.468 0 0 1 .92-3.182 2.477 2.477 0 0 1 1.876-3.344 2.5 2.5 0 0 1 3.41-1.856A2.5 2.5 0 0 1 12 5.5m0 13v-13m0 13a2.493 2.493 0 0 0 4.49 1.5h.01a2.468 2.468 0 0 0 2.403-3.154 2.98 2.98 0 0 0 .847-5.274 2.468 2.468 0 0 0-.921-3.182 2.477 2.477 0 0 0-1.875-3.344A2.5 2.5 0 0 0 14.5 3 2.5 2.5 0 0 0 12 5.5m-8 5a2.5 2.5 0 0 1 3.48-2.3m-.28 8.551a3 3 0 0 1-2.953-5.185M20 10.5a2.5 2.5 0 0 0-3.481-2.3m.28 8.551a3 3 0 0 0 2.954-5.185" />
-                        </svg>}
+                        <svg data-name="Layer 1" id="Layer_1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <style>
+                              {`
+                              .cls-1, .cls-2 {
+                                fill: none;
+                                stroke: #353535;
+                                stroke-width: 2px;
+                              }
+                  
+                              .cls-1 {
+                                stroke-miterlimit: 10;
+                              }
+                  
+                              .cls-2 {
+                                stroke-linecap: round;
+                                stroke-linejoin: round;
+                              }
+                            `}
+                            </style>
+                          </defs>
+                          <title />
+                          <path className="cls-1" d="M30.10633,48V45.25532a2.21277,2.21277,0,0,1,2.21277-2.21277h6.10938a2.3921,2.3921,0,0,0,2.32663-2.4654v.04534c.00015-.05884.00025-3.157.0003-3.26864a1.83426,1.83426,0,0,1,.45829-1.145A2.91174,2.91174,0,0,0,41.926,34.283l-.00671-.667a1.01577,1.01577,0,0,1,.651-.95246h1.06717a1.36279,1.36279,0,0,0,1.051-.45576,1.30383,1.30383,0,0,0,.18991-1.39467,67.03163,67.03163,0,0,1-3.03774-7.51068,4.76727,4.76727,0,0,1-.217-1.506l-.00116-4.99479a14.51307,14.51307,0,0,0-.55236-3.96247l-.00629-.02213a13.959,13.959,0,0,0-3.13693-5.70178q-.47888-.51632-1.00575-1.00351c-.22028-.21208-.44471-.42091-.67748-.62277A18.30309,18.30309,0,0,0,24.19349,1a19.61682,19.61682,0,0,0-12.538,4.489A17.555,17.555,0,0,0,7.7101,27.17965C9.94456,31.506,11.69423,38.6214,12.1396,46v2" />
+                          <line className="cls-2" x1="27.91667" x2="31.41667" y1="12" y2="12" />
+                          <line className="cls-2" x1="27.91667" x2="31.41667" y1="26" y2="26" />
+                          <line className="cls-2" x1="29.66667" x2="29.66667" y1="12" y2="26" />
+                          <g>
+                            <polyline className="cls-2" points="23.992 26 19.904 12 19.226 12 15.159 26" />
+                            <line className="cls-2" x1="16.85387" x2="22.27596" y1="21.13313" y2="21.13313" />
+                          </g>
+                        </svg>
+                      }
                       {isFetching[i].status && <span className="loading loading-spinner loading-md"></span>}
                     </button>
                   </div>
@@ -269,12 +298,14 @@ export default function AddPostingForm({ employer }: Props) {
             </legend>
             {ratingQuestions.map((question, i) => (
               <>
-                <label htmlFor={`rating.${question}`} className={`btn btn-sm mb-2 mr-2  ${clickedButtons[i] ? ' btn-success' : ''}`} onClick={() =>handleClick(i)}>{question}
-                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i} hidden`} />
+                <label htmlFor={`rating.${question}`} className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''} `}>{question}
+                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i} hidden`} onClick={() => handleClick(i)} />
                 </label>
-                 {/* <button className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''}`} onClick={() =>handleClick(i)} name={i.toString()}>{question}</button> */}
               </>
             ))}
+            {clickedButtons.filter(Boolean).length < 3 && (
+              <p className="error-message text-red-600 text-sm" id="invalid-helper">Please select at least 3 options</p>
+            )}
           </fieldset>
 
           <button type="submit" className="btn btn-neutral btn-sm mr-2 w-20">

@@ -161,10 +161,6 @@ public static class SeedData
                 Responses = new List<Response>(),
             };
 
-            // Adding text questions to posting2
-            posting2.Questions.Add(questionT1);
-            posting2.Questions.Add(questionT2);
-
             // Creating short questions
             Question question7 = new Question()
             {
@@ -264,12 +260,20 @@ public static class SeedData
                 Responses = new List<Response>(),
                 CandidateGuid = candidate2.GuidId,
             };
+            var referencer6 = new Referencer
+            {
+                Name = "Kim Samuelsson",
+                Email = "kim.samuelsson@example.com",
+                Responses = new List<Response>(),
+                CandidateGuid = candidate2.GuidId,
+            };
 
             _context.Referencers.Add(referencer1);
             _context.Referencers.Add(referencer2);
             _context.Referencers.Add(referencer3);
             _context.Referencers.Add(referencer4);
             _context.Referencers.Add(referencer5);
+            _context.Referencers.Add(referencer6);
             _context.SaveChanges();
 
             var responseT1 = new Response()
@@ -703,7 +707,7 @@ public static class SeedData
                 Content = "How would you describe the candidate's technical skills in computer systems and software support",
                 Posting = posting3,
                 Type = QuestionType.Text,
-                PostingGuid = posting2.GuidId,
+                PostingGuid = posting3.GuidId,
                 Responses = new List<Response>(),
             };
             Question questionT6 = new Question()
@@ -711,13 +715,13 @@ public static class SeedData
                 Content = "Can you share a specific instance where the candidate showcased strong communication and problem-solving abilities in an IT support scenario?",
                 Posting = posting3,
                 Type = QuestionType.Text,
-                PostingGuid = posting2.GuidId,
+                PostingGuid = posting3.GuidId,
                 Responses = new List<Response>(),
             };
 
             // Adding text questions to posting2
-            posting2.Questions.Add(questionT5);
-            posting2.Questions.Add(questionT6);
+            posting3.Questions.Add(questionT5);
+            posting3.Questions.Add(questionT6);
 
             // Adding questions to the context
             _context.Questions.Add(questionT5);
