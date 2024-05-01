@@ -110,15 +110,22 @@ public static class SeedData
             _context.Questions.Add(question6);
             _context.SaveChanges();
 
-            Candidate candidate = new Candidate
+            Candidate candidate1 = new Candidate
             {
                 Name = "Emily Brown",
                 Email = "emily.brown@gmail.com",
                 PostingGuid = posting.GuidId
             };
+            Candidate candidate2 = new Candidate
+            {
+                Name = "David Johnson",
+                Email = "david.johnson@gmail.com",
+                PostingGuid = posting.GuidId
+            };
 
 
-            _context.Candidates.Add(candidate);
+            _context.Candidates.Add(candidate1);
+            _context.Candidates.Add(candidate2);
             _context.SaveChanges();
 
             var referencer1 = new Referencer
@@ -126,18 +133,42 @@ public static class SeedData
                 Name = " Olivia Taylor",
                 Email = "olivia.taylor@mail.com",
                 Responses = new List<Response>(),
-                CandidateGuid = candidate.GuidId,
+                CandidateGuid = candidate1.GuidId,
             };
             var referencer2 = new Referencer
             {
                 Name = " Jessica Smith",
                 Email = " jsmith@mail.com",
                 Responses = new List<Response>(),
-                CandidateGuid = candidate.GuidId,
+                CandidateGuid = candidate1.GuidId,
+            };
+            var referencer3 = new Referencer
+            {
+                Name = "Michael Lee",
+                Email = "michael.lee@example.com",
+                Responses = new List<Response>(),
+                CandidateGuid = candidate2.GuidId,
+            };
+            var referencer4 = new Referencer
+            {
+                Name = "Samantha Wilson",
+                Email = "samantha.wilson@example.com",
+                Responses = new List<Response>(),
+                CandidateGuid = candidate2.GuidId,
+            };
+            var referencer5 = new Referencer
+            {
+                Name = "Benjamin Martinez",
+                Email = "benjamin.martinez@example.com",
+                Responses = new List<Response>(),
+                CandidateGuid = candidate2.GuidId,
             };
 
             _context.Referencers.Add(referencer1);
             _context.Referencers.Add(referencer2);
+            _context.Referencers.Add(referencer3);
+            _context.Referencers.Add(referencer4);
+            _context.Referencers.Add(referencer5);
             _context.SaveChanges();
 
             var responseT1 = new Response()
@@ -150,12 +181,47 @@ public static class SeedData
             };
             var responseT2 = new Response()
             {
-                Content = "The candidate actively engages with the team, contributes ideas, and communicates effectively for project success.",
+                Content = "The candidate demonstrates satisfactory teamwork skills, but there is room for improvement in communication and collaboration.",
                 Question = questionT2,
                 Referencer = referencer1,
                 QuestionGuid = questionT2.GuidId,
                 ReferencerGuid = referencer1.GuidId,
             };
+            
+            // responses for text quesitons
+            var responseT3 = new Response()
+            {
+                Content = "In my experience, the candidate has struggled with collaboration in team settings. ",
+                Question = questionT2,
+                Referencer = referencer2,
+                QuestionGuid = questionT2.GuidId,
+                ReferencerGuid = referencer2.GuidId,
+            };
+            var responseT4 = new Response()
+            {
+                Content = "I've known the candidate for 4 years through our previous employment at XYZ Company.",
+                Question = questionT1,
+                Referencer = referencer2,
+                QuestionGuid = questionT1.GuidId,
+            };
+            var responseT5 = new Response()
+            {
+                Content = "I've known the candidate for 2 years during our collaboration on various software projects.",
+                Question = questionT1,
+                Referencer = referencer3,
+                QuestionGuid = questionT1.GuidId,
+                ReferencerGuid = referencer3.GuidId,
+            };
+            var responseT6 = new Response()
+            {
+                Content = "The candidate actively engages with the team, contributes ideas, and communicates effectively for project success.",
+                Question = questionT2,
+                Referencer = referencer3,
+                QuestionGuid = questionT2.GuidId,
+                ReferencerGuid = referencer3.GuidId,
+            };
+
+            // responses for rating quesitons
             var response2 = new Response()
             {
                 Content = "3",
@@ -196,22 +262,7 @@ public static class SeedData
                 QuestionGuid = question6.GuidId,
                 ReferencerGuid = referencer1.GuidId,
             };
-            // new responses
-            var responseT3 = new Response()
-            {
-                Content = "In my experience, the candidate has struggled with collaboration in team settings. ",
-                Question = questionT2,
-                Referencer = referencer2,
-                QuestionGuid = questionT2.GuidId,
-                ReferencerGuid = referencer2.GuidId,
-            };
-            var responseT4 = new Response()
-            {
-                Content = "I've known the candidate for 4 years through our previous employment at XYZ Company.",
-                Question = questionT1,
-                Referencer = referencer2,
-                QuestionGuid = questionT1.GuidId,
-            };
+            
             var response8 = new Response()
             {
                 Content = "1",
@@ -252,6 +303,161 @@ public static class SeedData
                 QuestionGuid = question6.GuidId,
                 ReferencerGuid = referencer2.GuidId,
             };
+            var response13 = new Response()
+            {
+                Content = "5",
+                Question = question2,
+                Referencer = referencer3,
+                QuestionGuid = question2.GuidId,
+                ReferencerGuid = referencer3.GuidId,
+            };
+            var response14 = new Response()
+            {
+                Content = "3",
+                Question = question3,
+                Referencer = referencer3,
+                QuestionGuid = question3.GuidId,
+                ReferencerGuid = referencer3.GuidId,
+            };
+            var response15 = new Response()
+            {
+                Content = "2",
+                Question = question4,
+                Referencer = referencer3,
+                QuestionGuid = question4.GuidId,
+                ReferencerGuid = referencer3.GuidId,
+            };
+            var response16 = new Response()
+            {
+                Content = "3",
+                Question = question5,
+                Referencer = referencer3,
+                QuestionGuid = question5.GuidId,
+                ReferencerGuid = referencer3.GuidId,
+            };
+            var response17 = new Response()
+            {
+                Content = "5",
+                Question = question6,
+                Referencer = referencer3,
+                QuestionGuid = question6.GuidId,
+                ReferencerGuid = referencer3.GuidId,
+            };
+
+            // Responses for referencer4
+            var responseT7 = new Response()
+            {
+                Content = "I've known the candidate for 5 years since we worked together on several software development projects.",
+                Question = questionT1,
+                Referencer = referencer4,
+                QuestionGuid = questionT1.GuidId,
+                ReferencerGuid = referencer4.GuidId,
+            };
+            var responseT8 = new Response()
+            {
+                Content = "The candidate excels in teamwork and consistently contributes innovative ideas to project discussions.",
+                Question = questionT2,
+                Referencer = referencer4,
+                QuestionGuid = questionT2.GuidId,
+                ReferencerGuid = referencer4.GuidId,
+            };
+            var response18 = new Response()
+            {
+                Content = "5",
+                Question = question2,
+                Referencer = referencer4,
+                QuestionGuid = question2.GuidId,
+                ReferencerGuid = referencer4.GuidId,
+            };
+            var response19 = new Response()
+            {
+                Content = "4",
+                Question = question3,
+                Referencer = referencer4,
+                QuestionGuid = question3.GuidId,
+                ReferencerGuid = referencer4.GuidId,
+            };
+            var response20 = new Response()
+            {
+                Content = "5",
+                Question = question4,
+                Referencer = referencer4,
+                QuestionGuid = question4.GuidId,
+                ReferencerGuid = referencer4.GuidId,
+            };
+            var response21 = new Response()
+            {
+                Content = "5",
+                Question = question5,
+                Referencer = referencer4,
+                QuestionGuid = question5.GuidId,
+                ReferencerGuid = referencer4.GuidId,
+            };
+            var response22 = new Response()
+            {
+                Content = "5",
+                Question = question6,
+                Referencer = referencer4,
+                QuestionGuid = question6.GuidId,
+                ReferencerGuid = referencer4.GuidId,
+            };
+
+            var responseT9 = new Response()
+            {
+                Content = "I've known the candidate for 4 years, having collaborated closely on multiple software projects.",
+                Question = questionT1,
+                Referencer = referencer5,
+                QuestionGuid = questionT1.GuidId,
+                ReferencerGuid = referencer5.GuidId,
+            };
+            var responseT10 = new Response()
+            {
+                Content = "The candidate consistently demonstrates exceptional teamwork and communication skills, fostering a collaborative environment within the team.",
+                Question = questionT2,
+                Referencer = referencer5,
+                QuestionGuid = questionT2.GuidId,
+                ReferencerGuid = referencer5.GuidId,
+            };
+            var response23 = new Response()
+            {
+                Content = "5",
+                Question = question2,
+                Referencer = referencer5,
+                QuestionGuid = question2.GuidId,
+                ReferencerGuid = referencer5.GuidId,
+            };
+            var response24 = new Response()
+            {
+                Content = "5",
+                Question = question3,
+                Referencer = referencer5,
+                QuestionGuid = question3.GuidId,
+                ReferencerGuid = referencer5.GuidId,
+            };
+            var response25 = new Response()
+            {
+                Content = "5",
+                Question = question4,
+                Referencer = referencer5,
+                QuestionGuid = question4.GuidId,
+                ReferencerGuid = referencer5.GuidId,
+            };
+            var response26 = new Response()
+            {
+                Content = "5",
+                Question = question5,
+                Referencer = referencer5,
+                QuestionGuid = question5.GuidId,
+                ReferencerGuid = referencer5.GuidId,
+            };
+            var response27 = new Response()
+            {
+                Content = "5",
+                Question = question6,
+                Referencer = referencer5,
+                QuestionGuid = question6.GuidId,
+                ReferencerGuid = referencer5.GuidId,
+            };
 
             _context.Responses.Add(responseT1);
             _context.Responses.Add(responseT2);
@@ -267,6 +473,27 @@ public static class SeedData
             _context.Responses.Add(response10);
             _context.Responses.Add(response11);
             _context.Responses.Add(response12);
+            _context.Responses.Add(responseT5);
+            _context.Responses.Add(responseT6);
+            _context.Responses.Add(response13);
+            _context.Responses.Add(response14);
+            _context.Responses.Add(response15);
+            _context.Responses.Add(response16);
+            _context.Responses.Add(response17);
+            _context.Responses.Add(responseT7);
+            _context.Responses.Add(responseT8);
+            _context.Responses.Add(response18);
+            _context.Responses.Add(response19);
+            _context.Responses.Add(response20);
+            _context.Responses.Add(response21);
+            _context.Responses.Add(response22);
+            _context.Responses.Add(responseT9);
+            _context.Responses.Add(responseT10);
+            _context.Responses.Add(response23);
+            _context.Responses.Add(response24);
+            _context.Responses.Add(response25);
+            _context.Responses.Add(response26);
+            _context.Responses.Add(response27);
             _context.SaveChanges();
 
 
