@@ -22,7 +22,8 @@ public static class SeedData
             _context.Employers.Add(employer);
             _context.SaveChanges();
 
-            Posting posting = new Posting
+            // posting1-----------------
+            Posting posting1 = new Posting
             {
                 GuidId = Guid.NewGuid(),
                 Title = "C# Software Developer",
@@ -32,74 +33,74 @@ public static class SeedData
                 Questions = new List<Question>(),
             };
 
-            _context.Postings.Add(posting);
+            _context.Postings.Add(posting1);
             _context.SaveChanges();
 
             Question questionT1 = new Question()
             {
                 Content = "How long have you known the candidate and in what capacity?",
-                Posting = posting,
+                Posting = posting1,
                 Type = QuestionType.Text,
-                PostingGuid = posting.GuidId,
+                PostingGuid = posting1.GuidId,
                 Responses = new List<Response>(),
             };
             Question questionT2 = new Question()
             {
                 Content = "Has the candidate shown strong teamwork in C# projects?",
-                Posting = posting,
+                Posting = posting1,
                 Type = QuestionType.Text,
-                PostingGuid = posting.GuidId,
+                PostingGuid = posting1.GuidId,
                 Responses = new List<Response>(),
             };
             Question question2 = new Question()
             {
                 Content = "Collaboration",
-                Posting = posting,
+                Posting = posting1,
                 Type = QuestionType.Rating,
-                PostingGuid = posting.GuidId,
+                PostingGuid = posting1.GuidId,
                 Responses = new List<Response>(),
             };
             Question question3 = new Question()
             {
                 Content = "Adaptability",
-                Posting = posting,
+                Posting = posting1,
                 Type = QuestionType.Rating,
-                PostingGuid = posting.GuidId,
+                PostingGuid = posting1.GuidId,
                 Responses = new List<Response>(),
             };
             Question question4 = new Question()
             {
                 Content = "Creativity",
-                Posting = posting,
+                Posting = posting1,
                 Type = QuestionType.Rating,
-                PostingGuid = posting.GuidId,
+                PostingGuid = posting1.GuidId,
                 Responses = new List<Response>(),
             };
             Question question5 = new Question()
             {
                 Content = "Time Management",
-                Posting = posting,
+                Posting = posting1,
                 Type = QuestionType.Rating,
-                PostingGuid = posting.GuidId,
+                PostingGuid = posting1.GuidId,
                 Responses = new List<Response>(),
             };
             Question question6 = new Question()
             {
                 Content = "Friendliness",
-                Posting = posting,
+                Posting = posting1,
                 Type = QuestionType.Rating,
-                PostingGuid = posting.GuidId,
+                PostingGuid = posting1.GuidId,
                 Responses = new List<Response>(),
             };
             
             // Does this need to be persisted in Posting context?
-            posting.Questions.Add(questionT1);
-            posting.Questions.Add(questionT2);
-            posting.Questions.Add(question2);
-            posting.Questions.Add(question3);
-            posting.Questions.Add(question4);
-            posting.Questions.Add(question5);
-            posting.Questions.Add(question6);
+            posting1.Questions.Add(questionT1);
+            posting1.Questions.Add(questionT2);
+            posting1.Questions.Add(question2);
+            posting1.Questions.Add(question3);
+            posting1.Questions.Add(question4);
+            posting1.Questions.Add(question5);
+            posting1.Questions.Add(question6);
 
             _context.Questions.Add(questionT1);
             _context.Questions.Add(questionT2);
@@ -114,19 +115,126 @@ public static class SeedData
             {
                 Name = "Emily Brown",
                 Email = "emily.brown@gmail.com",
-                PostingGuid = posting.GuidId
+                PostingGuid = posting1.GuidId
             };
             Candidate candidate2 = new Candidate
             {
                 Name = "David Johnson",
                 Email = "david.johnson@gmail.com",
-                PostingGuid = posting.GuidId
+                PostingGuid = posting1.GuidId
             };
-
 
             _context.Candidates.Add(candidate1);
             _context.Candidates.Add(candidate2);
             _context.SaveChanges();
+
+            // posting2---------------------
+            Posting posting2 = new Posting
+            {
+                GuidId = Guid.NewGuid(),
+                Title = "Senior Java Developer",
+                Description = "We're looking for an experienced Senior Java Developer to join our team. You will lead the design and implementation of Java-based applications, mentor junior developers, and contribute to architectural decisions.",
+                Employer = employer,
+                EmployerGuid = employer.GuidId,
+                Questions = new List<Question>(),
+            };
+
+            // Adding posting2 to the context
+            _context.Postings.Add(posting2);
+            _context.SaveChanges();
+
+            // Creating text questions
+            Question questionT3 = new Question()
+            {
+                Content = "How long have you known the candidate and in what capacity?",
+                Posting = posting2,
+                Type = QuestionType.Text,
+                PostingGuid = posting2.GuidId,
+                Responses = new List<Response>(),
+            };
+            Question questionT4 = new Question()
+            {
+                Content = "Describe the candidate's experience with Java development projects.",
+                Posting = posting2,
+                Type = QuestionType.Text,
+                PostingGuid = posting2.GuidId,
+                Responses = new List<Response>(),
+            };
+
+            // Adding text questions to posting2
+            posting2.Questions.Add(questionT1);
+            posting2.Questions.Add(questionT2);
+
+            // Creating short questions
+            Question question7 = new Question()
+            {
+                Content = "Teamwork",
+                Posting = posting2,
+                Type = QuestionType.Rating,
+                PostingGuid = posting2.GuidId,
+                Responses = new List<Response>(),
+            };
+            Question question8 = new Question()
+            {
+                Content = "Problem-solving",
+                Posting = posting2,
+                Type = QuestionType.Rating,
+                PostingGuid = posting2.GuidId,
+                Responses = new List<Response>(),
+            };
+            Question question9 = new Question()
+            {
+                Content = "Time Management",
+                Posting = posting2,
+                Type = QuestionType.Rating,
+                PostingGuid = posting2.GuidId,
+                Responses = new List<Response>(),
+            };
+            Question question10 = new Question()
+            {
+                Content = "Creativity",
+                Posting = posting2,
+                Type = QuestionType.Rating,
+                PostingGuid = posting2.GuidId,
+                Responses = new List<Response>(),
+            };
+
+            // Adding short questions to posting2
+            posting2.Questions.Add(questionT3);
+            posting2.Questions.Add(questionT4);
+            posting2.Questions.Add(question7);
+            posting2.Questions.Add(question8);
+            posting2.Questions.Add(question9);
+            posting2.Questions.Add(question10);
+
+            // Adding questions to the context
+            _context.Questions.Add(questionT3);
+            _context.Questions.Add(questionT4);
+            _context.Questions.Add(question7);
+            _context.Questions.Add(question8);
+            _context.Questions.Add(question9);
+            _context.Questions.Add(question10);
+            _context.SaveChanges();
+
+            // Creating candidates for posting2
+            Candidate candidate3 = new Candidate
+            {
+                Name = "Sarah Adams",
+                Email = "sarah.adams@example.com",
+                PostingGuid = posting2.GuidId
+            };
+            Candidate candidate4 = new Candidate
+            {
+                Name = "Daniel Smith",
+                Email = "daniel.smith@example.com",
+                PostingGuid = posting2.GuidId
+            };
+
+            // Adding candidates to the context
+            _context.Candidates.Add(candidate3);
+            _context.Candidates.Add(candidate4);
+            _context.SaveChanges();
+
 
             var referencer1 = new Referencer
             {
