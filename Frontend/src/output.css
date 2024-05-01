@@ -3200,6 +3200,10 @@ details.collapse summary::-webkit-details-marker {
   visibility: visible;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .collapse {
   visibility: collapse;
 }
@@ -3267,6 +3271,11 @@ details.collapse summary::-webkit-details-marker {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
 
 .mb-0 {
@@ -3339,6 +3348,22 @@ details.collapse summary::-webkit-details-marker {
 
 .mt-5 {
   margin-top: 1.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mt-0 {
+  margin-top: 0px;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .flex {
@@ -3423,6 +3448,16 @@ details.collapse summary::-webkit-details-marker {
 
 .w-auto {
   width: auto;
+
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-3\/5 {
+  width: 60%;
+
 }
 
 .w-full {
@@ -3432,6 +3467,7 @@ details.collapse summary::-webkit-details-marker {
 .max-w-screen-lg {
   max-width: 1024px;
 }
+
 
 .max-w-xs {
   max-width: 20rem;
@@ -3521,6 +3557,10 @@ details.collapse summary::-webkit-details-marker {
   flex-direction: column;
 }
 
+.content-center {
+  align-content: center;
+}
+
 .items-start {
   align-items: flex-start;
 }
@@ -3549,6 +3589,10 @@ details.collapse summary::-webkit-details-marker {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.self-center {
+  align-self: center;
 }
 
 .rounded-box {
@@ -3620,6 +3664,10 @@ details.collapse summary::-webkit-details-marker {
 
 .text-center {
   text-align: center;
+}
+
+.align-middle {
+  vertical-align: middle;
 }
 
 .text-2xl {
@@ -3697,6 +3745,11 @@ details.collapse summary::-webkit-details-marker {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-sky-500 {
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity));
 }
 
 .shadow {
@@ -3978,6 +4031,11 @@ details.collapse summary::-webkit-details-marker {
   }
 }
 
+.checked\:bg-green-500:checked {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
 .hover\:font-bold:hover {
   font-weight: 700;
 }
@@ -3996,10 +4054,17 @@ details.collapse summary::-webkit-details-marker {
   text-decoration-line: underline;
 }
 
+.peer\/\$\{i\}:checked ~ .peer-checked\/\$\{i\}\:bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
+
 .peer\/\$\{i\}:checked ~ .peer-checked\/\$\{i\}\:text-sky-500 {
   --tw-text-opacity: 1;
   color: rgb(14 165 233 / var(--tw-text-opacity));
 }
+
 
 @media (min-width: 768px) {
   .md\:invisible {
@@ -4009,6 +4074,11 @@ details.collapse summary::-webkit-details-marker {
   .md\:mx-12 {
     margin-left: 3rem;
     margin-right: 3rem;
+  }
+
+  .md\:mx-32 {
+    margin-left: 8rem;
+    margin-right: 8rem;
   }
 
   .md\:mb-10 {
@@ -4074,6 +4144,16 @@ details.collapse summary::-webkit-details-marker {
     margin-right: 8rem;
   }
 
+
+  .lg\:mx-48 {
+    margin-left: 12rem;
+    margin-right: 12rem;
+  }
+
+  .lg\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+
   .lg\:ml-0 {
     margin-left: 0px;
   }
@@ -4084,6 +4164,15 @@ details.collapse summary::-webkit-details-marker {
 
   .lg\:mr-0 {
     margin-right: 0px;
+  }
+
+  .lg\:mr-3 {
+    margin-right: 0.75rem;
+
+  }
+
+  .lg\:ml-0 {
+    margin-left: 0px;
   }
 
   .lg\:mr-3 {
@@ -4130,6 +4219,12 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media (min-width: 1280px) {
+
+  .xl\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .xl\:ml-0 {
     margin-left: 0px;
   }
@@ -4140,6 +4235,29 @@ details.collapse summary::-webkit-details-marker {
 
   .xl\:mr-0 {
     margin-right: 0px;
+  }
+
+  .xl\:mr-32 {
+    margin-right: 8rem;
+
+  .xl\:ml-0 {
+    margin-left: 0px;
+  }
+}
+
+
+@media (min-width: 1536px) {
+  .\32xl\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+
+  .xl\:ml-32 {
+    margin-left: 8rem;
+  }
+
+  .xl\:mr-0 {
+    margin-right: 0px;
+
   }
 
   .xl\:mr-32 {

@@ -79,7 +79,7 @@ export default function App() {
   if (isAuthenticated && !employer)
     HandleEmployer()
 
-  if (isAuthenticated && isLoading) {
+  if (isAuthenticated && isLoading || user && isLoading) {
     return (
       <Loader />
     );
@@ -87,7 +87,7 @@ export default function App() {
 
   return (
     <>
-      <div className='md:mx-12 md:grow flex justify-center flex-col'>
+      <div className='mx-12 2xl:mx-80 md:grow flex justify-center flex-col'>
         <div>
           <Navbar userName={employer?.name} />
         </div>
