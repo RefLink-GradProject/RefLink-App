@@ -268,7 +268,6 @@ public static class SeedData
                 CandidateGuid = candidate2.GuidId,
             };
 
-
             _context.Referencers.Add(referencer1);
             _context.Referencers.Add(referencer2);
             _context.Referencers.Add(referencer3);
