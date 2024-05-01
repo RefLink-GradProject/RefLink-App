@@ -44,6 +44,7 @@ public class ReferencerService : IReferencerService
             Params = new EmailTemplateRequest.ParamsRecord()
             {
                 FNAME = referencer.Name,
+                FCANDNAME = referencer.Candidate.Name,
                 URL = $"https://localhost:5000/add-reference/{referencer.GuidId}"
             },
             TemplateId = 5,
