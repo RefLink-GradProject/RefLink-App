@@ -7,7 +7,6 @@ public record EmailTemplateRequest
     public record ParamsRecord
     {
         public required string FNAME { get; set; }
-        public required string FCANDNAME { get; set; }
         public required string URL { get; set; }
     }
 
