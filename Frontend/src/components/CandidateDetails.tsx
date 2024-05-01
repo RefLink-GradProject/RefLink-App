@@ -9,10 +9,13 @@ export default function CandidateDetails({ candidate }: Props) {
     function getCandidatesRatings() {
         const questionScores: { [subject: string]: number[] } = {};
 
+
+
+
         // Iterate through each referencer and response to aggregate scores
         candidate.referencers.forEach(referencer => {
             referencer.responses.forEach(response => {
-                if (countWords(response.questionContent) < 4) {
+                if (response.type == 1) {
                     const subject = response.questionContent;
                     const score = parseInt(response.responseContent);
 
