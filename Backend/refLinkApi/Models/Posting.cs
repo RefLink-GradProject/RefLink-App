@@ -20,5 +20,4 @@ public class Posting
     public ICollection<Candidate>? Candidates { get; set; }
     
     public ICollection<Question>? Questions { get; set; }
-    public ICollection<RatingQuestion>? RatingQuestions { get; set; }
 }
