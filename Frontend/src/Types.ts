@@ -36,6 +36,7 @@ export type ReferencerInCandidateDetails = {
 export type ResponseWithQuestionContent = {
   questionContent: string;
   questionGuidId: string;
+  type: number;
   responseContent: string;
   responseGuidId: string;
 };
