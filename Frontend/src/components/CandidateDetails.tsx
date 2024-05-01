@@ -143,6 +143,11 @@ export default function CandidateDetails({ candidate }: Props) {
                                         {/* <input type="radio" name="my-accordion-2" /> */}
                                         <summary className="collapse-title text-xl font-medium">Reference from {referencer.name}</summary>
                                         <div className="collapse-content">
+                                            {referencer.responses.length == 0 &&
+                                            (
+                                                <p>{referencer.name} has not provided feedback yet.</p>
+                                            )}
+
                                             {referencer.responses!.map((response) => {
                                                 return (
                                                     <>
@@ -160,6 +165,7 @@ export default function CandidateDetails({ candidate }: Props) {
                                                 )
                                             })}
 
+                                            {referencer.responses.length > 0 && (
                                             <div className="flex justify-center pr-20 pt-6">
                                                 <ResponsiveContainer width={300} height={300}>
                                                     <BarChart width={100} height={100} data={getCandidatesRatingsFromOneReviewer(referencer)}>
@@ -170,7 +176,7 @@ export default function CandidateDetails({ candidate }: Props) {
                                                         <Bar dataKey="score" fill="#15803d" />
                                                     </BarChart>
                                                 </ResponsiveContainer>
-                                            </div>
+                                            </div>)}
                                         </div>
                                     </details>
                                 </>

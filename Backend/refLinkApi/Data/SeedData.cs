@@ -260,12 +260,21 @@ public static class SeedData
                 Responses = new List<Response>(),
                 CandidateGuid = candidate2.GuidId,
             };
+            var referencer6 = new Referencer
+            {
+                Name = "Kim Samuelsson",
+                Email = "kim.samuelsson@example.com",
+                Responses = new List<Response>(),
+                CandidateGuid = candidate2.GuidId,
+            };
+
 
             _context.Referencers.Add(referencer1);
             _context.Referencers.Add(referencer2);
             _context.Referencers.Add(referencer3);
             _context.Referencers.Add(referencer4);
             _context.Referencers.Add(referencer5);
+            _context.Referencers.Add(referencer6);
             _context.SaveChanges();
 
             var responseT1 = new Response()
