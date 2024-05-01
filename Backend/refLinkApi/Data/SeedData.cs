@@ -140,7 +140,15 @@ public static class SeedData
             _context.Referencers.Add(referencer2);
             _context.SaveChanges();
 
-            var response = new Response()
+            var responseT1 = new Response()
+            {
+                Content = "I've known the candidate for 3 years in a professional capacity as colleagues in the software development team.",
+                Question = questionT1,
+                Referencer = referencer1,
+                QuestionGuid = questionT2.GuidId,
+                ReferencerGuid = referencer1.GuidId,
+            };
+            var responseT2 = new Response()
             {
                 Content = "The candidate actively engages with the team, contributes ideas, and communicates effectively for project success.",
                 Question = questionT2,
@@ -189,13 +197,20 @@ public static class SeedData
                 ReferencerGuid = referencer1.GuidId,
             };
             // new responses
-            var response7 = new Response()
+            var responseT3 = new Response()
             {
                 Content = "In my experience, the candidate has struggled with collaboration in team settings. ",
+                Question = questionT2,
+                Referencer = referencer2,
+                QuestionGuid = questionT2.GuidId,
+                ReferencerGuid = referencer2.GuidId,
+            };
+            var responseT4 = new Response()
+            {
+                Content = "I've known the candidate for 4 years through our previous employment at XYZ Company.",
                 Question = questionT1,
                 Referencer = referencer2,
                 QuestionGuid = questionT1.GuidId,
-                ReferencerGuid = referencer2.GuidId,
             };
             var response8 = new Response()
             {
@@ -238,13 +253,15 @@ public static class SeedData
                 ReferencerGuid = referencer2.GuidId,
             };
 
-            _context.Responses.Add(response);
+            _context.Responses.Add(responseT1);
+            _context.Responses.Add(responseT2);
             _context.Responses.Add(response2);
             _context.Responses.Add(response3);
             _context.Responses.Add(response4);
             _context.Responses.Add(response5);
             _context.Responses.Add(response6);
-            _context.Responses.Add(response7);
+            _context.Responses.Add(responseT4);
+            _context.Responses.Add(responseT3);
             _context.Responses.Add(response8);
             _context.Responses.Add(response9);
             _context.Responses.Add(response10);
