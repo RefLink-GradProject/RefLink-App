@@ -223,16 +223,9 @@ public static class SeedData
                 Email = "sarah.adams@example.com",
                 PostingGuid = posting2.GuidId
             };
-            Candidate candidate4 = new Candidate
-            {
-                Name = "Daniel Smith",
-                Email = "daniel.smith@example.com",
-                PostingGuid = posting2.GuidId
-            };
 
             // Adding candidates to the context
             _context.Candidates.Add(candidate3);
-            _context.Candidates.Add(candidate4);
             _context.SaveChanges();
 
 
@@ -604,6 +597,89 @@ public static class SeedData
             _context.Responses.Add(response27);
             _context.SaveChanges();
 
+
+
+            // Adding referencers for candidate3 (Sarah Adams)
+            var referencer9 = new Referencer
+            {
+                Name = "Samantha Wilson",
+                Email = "samantha.taylor@mail.com",
+                Responses = new List<Response>(),
+                CandidateGuid = candidate3.GuidId,
+            };
+
+            // Adding referencers to the context
+            _context.Referencers.Add(referencer9);
+            _context.SaveChanges();
+
+            // Responses for referencer5 (Samantha Wilson)
+            var responseT11 = new Response()
+            {
+                Content = "I've known the candidate for 3 years in a professional capacity as colleagues in the software development team.",
+                Question = questionT3,
+                Referencer = referencer9,
+                QuestionGuid = questionT3.GuidId,
+                ReferencerGuid = referencer9.GuidId,
+            };
+            var responseT12 = new Response()
+            {
+                Content = "The candidate demonstrates satisfactory teamwork skills, but there is room for improvement in communication and collaboration.",
+                Question = questionT4,
+                Referencer = referencer9,
+                QuestionGuid = questionT4.GuidId,
+                ReferencerGuid = referencer9.GuidId,
+            };
+
+
+            // Adding responses to the context
+            _context.Responses.Add(responseT11);
+            _context.Responses.Add(responseT12);
+
+
+            // Responses for referencer7 (Michael Lee)
+
+            // Responses for referencer8 (Samantha Wilson)
+            var response32 = new Response()
+            {
+                Content = "5",
+                Question = question7,
+                Referencer = referencer9,
+                QuestionGuid = question7.GuidId,
+                ReferencerGuid = referencer9.GuidId,
+            };
+            var response33 = new Response()
+            {
+                Content = "4",
+                Question = question8,
+                Referencer = referencer9,
+                QuestionGuid = question8.GuidId,
+                ReferencerGuid = referencer9.GuidId,
+            };
+            var response34 = new Response()
+            {
+                Content = "5",
+                Question = question9,
+                Referencer = referencer9,
+                QuestionGuid = question9.GuidId,
+                ReferencerGuid = referencer9.GuidId,
+            };
+            var response35 = new Response()
+            {
+                Content = "5",
+                Question = question10,
+                Referencer = referencer9,
+                QuestionGuid = question10.GuidId,
+                ReferencerGuid = referencer9.GuidId,
+            };
+
+            // Adding responses to the context
+            _context.Responses.Add(responseT11);
+            _context.Responses.Add(responseT12);
+            _context.Responses.Add(response32);
+            _context.Responses.Add(response33);
+            _context.Responses.Add(response34);
+            _context.Responses.Add(response35);
+            _context.SaveChanges();
 
         }
     }
