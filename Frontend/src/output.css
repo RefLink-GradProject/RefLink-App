@@ -3264,19 +3264,9 @@ details.collapse summary::-webkit-details-marker {
   margin: 1.25rem;
 }
 
-.mx-8 {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
-}
-
-.mx-32 {
-  margin-left: 8rem;
-  margin-right: 8rem;
 }
 
 .mb-0 {
@@ -3349,14 +3339,6 @@ details.collapse summary::-webkit-details-marker {
 
 .mt-5 {
   margin-top: 1.25rem;
-}
-
-.ml-0 {
-  margin-left: 0px;
-}
-
-.mr-0 {
-  margin-right: 0px;
 }
 
 .flex {
@@ -3439,24 +3421,16 @@ details.collapse summary::-webkit-details-marker {
   width: 1.5rem;
 }
 
-.w-full {
-  width: 100%;
-}
-
-.w-1 {
-  width: 0.25rem;
-}
-
 .w-auto {
   width: auto;
 }
 
-.max-w-screen-lg {
-  max-width: 1024px;
+.w-full {
+  width: 100%;
 }
 
-.max-w-screen-xl {
-  max-width: 1280px;
+.max-w-screen-lg {
+  max-width: 1024px;
 }
 
 .max-w-xs {
@@ -4027,11 +4001,6 @@ details.collapse summary::-webkit-details-marker {
   color: rgb(14 165 233 / var(--tw-text-opacity));
 }
 
-.peer\/draft:checked ~ .peer-checked\/draft\:text-sky-500 {
-  --tw-text-opacity: 1;
-  color: rgb(14 165 233 / var(--tw-text-opacity));
-}
-
 @media (min-width: 768px) {
   .md\:invisible {
     visibility: hidden;
@@ -4100,18 +4069,21 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media (min-width: 1024px) {
-  .lg\:mx-40 {
-    margin-left: 10rem;
-    margin-right: 10rem;
-  }
-
   .lg\:mx-32 {
     margin-left: 8rem;
     margin-right: 8rem;
   }
 
+  .lg\:ml-0 {
+    margin-left: 0px;
+  }
+
   .lg\:ml-5 {
     margin-left: 1.25rem;
+  }
+
+  .lg\:mr-0 {
+    margin-right: 0px;
   }
 
   .lg\:mr-3 {
@@ -4124,22 +4096,6 @@ details.collapse summary::-webkit-details-marker {
 
   .lg\:mt-0 {
     margin-top: 0px;
-  }
-
-  .lg\:ml-1 {
-    margin-left: 0.25rem;
-  }
-
-  .lg\:mr-1 {
-    margin-right: 0.25rem;
-  }
-
-  .lg\:ml-0 {
-    margin-left: 0px;
-  }
-
-  .lg\:mr-0 {
-    margin-right: 0px;
   }
 
   .lg\:flex {
@@ -4162,10 +4118,6 @@ details.collapse summary::-webkit-details-marker {
     width: 12rem;
   }
 
-  .lg\:w-auto {
-    width: auto;
-  }
-
   .lg\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -4178,31 +4130,19 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media (min-width: 1280px) {
-  .xl\:ml-32 {
-    margin-left: 8rem;
-  }
-
-  .xl\:mr-32 {
-    margin-right: 8rem;
-  }
-
-  .xl\:ml-10 {
-    margin-left: 2.5rem;
-  }
-
-  .xl\:mr-10 {
-    margin-right: 2.5rem;
-  }
-
-  .xl\:ml-1 {
-    margin-left: 0.25rem;
-  }
-
   .xl\:ml-0 {
     margin-left: 0px;
   }
 
+  .xl\:ml-32 {
+    margin-left: 8rem;
+  }
+
   .xl\:mr-0 {
     margin-right: 0px;
+  }
+
+  .xl\:mr-32 {
+    margin-right: 8rem;
   }
 }
