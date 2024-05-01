@@ -138,11 +138,9 @@ export default function AddPostingForm({ employer }: Props) {
   }
 
   function handleClick(index: number) {
-    console.log(clickedButtons)
     const newClickedButtons = [...clickedButtons];
     newClickedButtons[index] = !clickedButtons[index]
     setClickedButtons(newClickedButtons);
-    console.log(clickedButtons)
   }
 
   async function handleAiRequest(currentInput: string) {
@@ -206,8 +204,10 @@ export default function AddPostingForm({ employer }: Props) {
                   <TextArea register={register} name={`questions[${i}].content`} labelText={`Add a question`} placeholder="Add a question" />
                   <div className="flex gap-3">
                     <button className='btn btn-square' type="button" onClick={() => {
-                      append({ content: "" });
-                      setIsFetching([...isFetching, { questionNumber: i, status: false }])
+                      if (getValues(`questions[${i}].content`).length > 0) {
+                        append({ content: "" });
+                        setIsFetching([...isFetching, { questionNumber: i, status: false }])
+                      }
                     }
                     }>
                       <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" /> </svg>
@@ -269,11 +269,10 @@ export default function AddPostingForm({ employer }: Props) {
             </legend>
             {ratingQuestions.map((question, i) => (
               <>
-                <label htmlFor={`rating.${question}`} className={`btn btn-sm mb-2 mr-2  ${clickedButtons[i] ? ' btn-success' : ''}`} onClick={() =>handleClick(i)}>{question}
-                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i} hidden`} />
-                </label>
-                 {/* <button className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''}`} onClick={() =>handleClick(i)} name={i.toString()}>{question}</button> */}
-              </>
+                <label htmlFor={`rating.${question}`}
+                  className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''} `}>{question}
+                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i} hidden`} onClick={() => handleClick(i) } />
+                </label></>
             ))}
           </fieldset>
 
