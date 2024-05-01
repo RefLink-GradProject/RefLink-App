@@ -35,7 +35,15 @@ public static class SeedData
             _context.Postings.Add(posting);
             _context.SaveChanges();
 
-            Question question = new Question()
+            Question questionT1 = new Question()
+            {
+                Content = "How long have you known the candidate and in what capacity?",
+                Posting = posting,
+                Type = QuestionType.Text,
+                PostingGuid = posting.GuidId,
+                Responses = new List<Response>(),
+            };
+            Question questionT2 = new Question()
             {
                 Content = "Has the candidate shown strong teamwork in C# projects?",
                 Posting = posting,
@@ -85,14 +93,16 @@ public static class SeedData
             };
             
             // Does this need to be persisted in Posting context?
-            posting.Questions.Add(question);
+            posting.Questions.Add(questionT1);
+            posting.Questions.Add(questionT2);
             posting.Questions.Add(question2);
             posting.Questions.Add(question3);
             posting.Questions.Add(question4);
             posting.Questions.Add(question5);
             posting.Questions.Add(question6);
 
-            _context.Questions.Add(question);
+            _context.Questions.Add(questionT1);
+            _context.Questions.Add(questionT2);
             _context.Questions.Add(question2);
             _context.Questions.Add(question3);
             _context.Questions.Add(question4);
@@ -133,9 +143,9 @@ public static class SeedData
             var response = new Response()
             {
                 Content = "The candidate actively engages with the team, contributes ideas, and communicates effectively for project success.",
-                Question = question,
+                Question = questionT2,
                 Referencer = referencer1,
-                QuestionGuid = question.GuidId,
+                QuestionGuid = questionT2.GuidId,
                 ReferencerGuid = referencer1.GuidId,
             };
             var response2 = new Response()
@@ -178,6 +188,55 @@ public static class SeedData
                 QuestionGuid = question6.GuidId,
                 ReferencerGuid = referencer1.GuidId,
             };
+            // new responses
+            var response7 = new Response()
+            {
+                Content = "In my experience, the candidate has struggled with collaboration in team settings. ",
+                Question = questionT1,
+                Referencer = referencer2,
+                QuestionGuid = questionT1.GuidId,
+                ReferencerGuid = referencer2.GuidId,
+            };
+            var response8 = new Response()
+            {
+                Content = "1",
+                Question = question2,
+                Referencer = referencer2,
+                QuestionGuid = question2.GuidId,
+                ReferencerGuid = referencer2.GuidId,
+            };
+            var response9 = new Response()
+            {
+                Content = "4",
+                Question = question3,
+                Referencer = referencer2,
+                QuestionGuid = question3.GuidId,
+                ReferencerGuid = referencer2.GuidId,
+            };
+            var response10 = new Response()
+            {
+                Content = "5",
+                Question = question4,
+                Referencer = referencer2,
+                QuestionGuid = question4.GuidId,
+                ReferencerGuid = referencer2.GuidId,
+            };
+            var response11 = new Response()
+            {
+                Content = "5",
+                Question = question5,
+                Referencer = referencer2,
+                QuestionGuid = question5.GuidId,
+                ReferencerGuid = referencer2.GuidId,
+            };
+            var response12 = new Response()
+            {
+                Content = "1",
+                Question = question6,
+                Referencer = referencer2,
+                QuestionGuid = question6.GuidId,
+                ReferencerGuid = referencer2.GuidId,
+            };
 
             _context.Responses.Add(response);
             _context.Responses.Add(response2);
@@ -185,6 +244,12 @@ public static class SeedData
             _context.Responses.Add(response4);
             _context.Responses.Add(response5);
             _context.Responses.Add(response6);
+            _context.Responses.Add(response7);
+            _context.Responses.Add(response8);
+            _context.Responses.Add(response9);
+            _context.Responses.Add(response10);
+            _context.Responses.Add(response11);
+            _context.Responses.Add(response12);
             _context.SaveChanges();
 
 
