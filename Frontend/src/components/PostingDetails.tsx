@@ -36,15 +36,17 @@ export default function PostingDetails({ clickedPosting, setClickedCandidate }: 
                         })) : (<p></p>)}
                     </div>
 
-                    <div id="posting-details__questions" className="m-3">
+                    <div id="posting-details__questions" className="m-3 flex flex-col">
                         <h2 className="card-title mb-4">Rating questions</h2>
+                        <div className="flex flex-wrap">
                         {clickedPosting.questions ? (clickedPosting.questions.map((question) => {
                             if (question.type == "1")
                                 return (
-                                    <label className={`mb-2 mr-2 bg-neutral-200 outline-neutral-200 p-2 rounded-sm`}>{question.content}</label>
+                                    <a className={`mb-2 mr-2 bg-neutral-200 outline-neutral-200 p-2 mb-10 rounded-sm`}>{question.content}</a>
                                 // <p className="text-lg">- {question.content}</p>
                                 )
                         })) : (<p></p>)}
+                        </div>
                     </div>
 
                     <div id="posting-details__candidates" className="m-3">
