@@ -53,7 +53,7 @@ public class PostingService : IPostingService
             return null;
         }
 
-        var posting = await _context.Postings.FirstOrDefaultAsync(r => r.GuidId == guidId);
+        var posting = await _context.Postings.Include(p => p.Candidates).Include(p => p.Questions).FirstOrDefaultAsync(r => r.GuidId == guidId);
         return mapper.PostingToPostingResponseDto(posting);
     }
 }
