@@ -12,7 +12,7 @@ export const LogoutButton = () => {
   };
 
   return (
-    <button className="btn btn-sm md:btn md:text-xl" onClick={handleLogout}>
+    <button className="md:text-xl" onClick={handleLogout}>
       Log Out
     </button>
   );
