@@ -269,11 +269,14 @@ export default function AddPostingForm({ employer }: Props) {
             </legend>
             {ratingQuestions.map((question, i) => (
               <>
-                <label htmlFor={`rating.${question}`}
-                  className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''} `}>{question}
-                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i} hidden`} onClick={() => handleClick(i) } />
-                </label></>
+                <label htmlFor={`rating.${question}`} className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''} `}>{question}
+                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i} hidden`} onClick={() => handleClick(i)} />
+                </label>
+              </>
             ))}
+            {clickedButtons.filter(Boolean).length < 3 && (
+              <p className="error-message text-red-600 text-sm" id="invalid-helper">Please select at least 3 options</p>
+            )}
           </fieldset>
 
           <button type="submit" className="btn btn-neutral btn-sm mr-2 w-20">
