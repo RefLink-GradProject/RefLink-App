@@ -16,12 +16,12 @@ export default function Postings({ postings, clickedPosting, setClickedPosting, 
                 </ul>
             </div>
 
-            <div className='lg:ml-0 lg:mr-0 xl:ml-0 xl:mr-0 mb-16 mt-26 w-auto h-full animate-fade-left animate-duration-[400ms]'>
+            <div className='mb-16 mt-26 w-auto h-full animate-fade-left animate-duration-[400ms]'>
                 <div id="postings" className='w-full lg:flex'>
                     <div className='lg:w-2/5 lg:mr-3 flex flex-col'>
                         <div className="w-full">
                             <Link to="/postings/add">
-                                <button className="btn btn-success w-full mb-3 ">+ Add Posting</button>
+                                <button className="btn btn-success w-full mb-3 text-lg md:text-xl">+ Add Posting</button>
                             </Link>
                         </div>
                         <div>

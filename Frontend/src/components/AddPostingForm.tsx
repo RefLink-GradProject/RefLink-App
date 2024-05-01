@@ -28,7 +28,7 @@ export default function AddPostingForm({ employer }: Props) {
   const [showAlertAdded, setShowAlertAdded] = useState<boolean>(false);
   const { register, handleSubmit, control, getValues, setValue } = useForm();
   const [isFetching, setIsFetching] = useState<fetchingType[]>(Array(1).fill({ questionNumber: 0, status: false }));
-
+  const [clickedButtons, setClickedButtons] = useState<boolean[]>(Array(ratingQuestions.length).fill(false));
   const { fields, append, remove } = useFieldArray({
     control,
     name: "questions",
@@ -135,6 +135,14 @@ export default function AddPostingForm({ employer }: Props) {
 
   function handleBackClick() {
     navigate(-1);
+  }
+
+  function handleClick(index: number) {
+    console.log(clickedButtons)
+    const newClickedButtons = [...clickedButtons];
+    newClickedButtons[index] = !clickedButtons[index]
+    setClickedButtons(newClickedButtons);
+    console.log(clickedButtons)
   }
 
   async function handleAiRequest(currentInput: string) {
@@ -261,9 +269,10 @@ export default function AddPostingForm({ employer }: Props) {
             </legend>
             {ratingQuestions.map((question, i) => (
               <>
-                <label htmlFor={`rating.${question}`} className={`peer-checked/${i}:text-sky-500 btn btn-sm mb-2 mr-2 hover:text-gray-600`}>{question}
-                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i}`} />
+                <label htmlFor={`rating.${question}`} className={`btn btn-sm mb-2 mr-2  ${clickedButtons[i] ? ' btn-success' : ''}`} onClick={() =>handleClick(i)}>{question}
+                  <input {...register(`rating.${question}`)} type="checkbox" id={`rating.${question}`} className={`peer/${i} hidden`} />
                 </label>
+                 {/* <button className={`btn btn-sm mb-2 mr-2 ${clickedButtons[i] ? 'btn-success' : ''}`} onClick={() =>handleClick(i)} name={i.toString()}>{question}</button> */}
               </>
             ))}
           </fieldset>
