@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Candidate, CandidateWithDetails, Posting } from "../Types";
 import { useNavigate } from 'react-router-dom';
 import { getCandidateWithDetails } from "../services/candidateServices";
@@ -16,6 +16,7 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
         setClickedPosting(clickedPosting);
         navigate(`/postings/${clickedPosting.guidId}`)
     }
+
     let i = 0;
     return (
         <>
@@ -32,12 +33,10 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
                         <th></th>
                         <div className="flex text-base">
                             <th className="w-1/3">Candidate</th>
-                            <th className="w-1/3">Emial</th>
+                            <th className="w-1/3">Email</th>
                             <th className="w-1/3">Posting</th>
 
                         </div>
-                        {/* <th>Number of referencer</th>
-                        <th>Number of references</th> */}
                     </tr>
                 </thead>
                 <tbody >
@@ -46,7 +45,7 @@ export default function Dashboard({ postings, setClickedCandidate, setClickedPos
                             posting.candidates && posting.candidates.map((candidate) => {
                                 i++;
                                 return (
-                                    <tr key={`${postingIndex}`} className="h-16">
+                                    <tr key={`${postingIndex}`} className="h-full">
                                         <th>{i}</th>
                                         <div className="flex">
                                             <td className="w-1/3">

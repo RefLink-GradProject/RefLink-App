@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 'use client';
 import { BarChart, Bar, ResponsiveContainer, Tooltip, Legend, YAxis, XAxis, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
 import { fakeCandidatesRating } from "../fakeData";
+import { useState } from "react";
 
 export default function CandidateDetails({ candidate }: Props) {
     const navigate = useNavigate();
+    const [completeMessage, setCompleteMessage] = useState<string>(getNumberOfCompletedRefs(candidate))
+
     function getCandidatesRatings() {
         const questionScores: { [subject: string]: number[] } = {};
         // Iterate through each referencer and response to aggregate scores
@@ -81,11 +84,16 @@ export default function CandidateDetails({ candidate }: Props) {
         navigate(-1);
     }
 
-    function countWords(text: string): number {
-        const words = text.trim().split(/\s+/);
-        return words.length;
+    function getNumberOfCompletedRefs(candidate: CandidateWithDetails) {
+        const referencers = candidate.referencers;
+        let completeRefs = 0;
+        referencers.forEach(referencer => {
+            if(referencer.responses.length != 0) {
+                completeRefs +=1;
+            }
+        });
+        return "" + completeRefs + "/" + referencers.length;
     }
-
 
     return (
         <>
@@ -102,23 +110,23 @@ export default function CandidateDetails({ candidate }: Props) {
                     <section id="candidate-info" className="mb-10 ml-5 lg:mr-3">
                         <h1 className="text-4xl">{candidate!.name}</h1>
                         <p className="text-">Email: {candidate!.email}</p>
-                        <p className="text-">Number of referencers: {candidate!.referencers ? candidate!.referencers.length : 0}</p>
+                        <p className="text-">Number of completed references: {completeMessage}</p>
                     </section>
                     <section id="reference-rating" className="mb-5 mr-3">
                         {getCandidatesRatings().length >= 1 && (
                             <>
                                 {/* <div className="flex justify-center"> */}
-                                    <div className="w-100 h-50 flex items-center justify-center">
-                                        <ResponsiveContainer width={500} height={300}>
-                                            <RadarChart outerRadius={100} width={100} height={100} data={getCandidatesRatings()}>
-                                                <PolarGrid />
-                                                <PolarAngleAxis dataKey="subject" />
-                                                <PolarRadiusAxis domain={[0, 5]} />
-                                                <Tooltip />
-                                                <Radar name={candidate.name} dataKey="score" stroke="" fill="#16a34a" fillOpacity={0.6} />
-                                            </RadarChart>
-                                        </ResponsiveContainer>
-                                    </div>
+                                <div className="w-100 h-50 flex items-center justify-center">
+                                    <ResponsiveContainer width={500} height={300}>
+                                        <RadarChart outerRadius={100} width={100} height={100} data={getCandidatesRatings()}>
+                                            <PolarGrid />
+                                            <PolarAngleAxis dataKey="subject" />
+                                            <PolarRadiusAxis domain={[0, 5]} />
+                                            <Tooltip />
+                                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#16a34a" fillOpacity={0.6} />
+                                        </RadarChart>
+                                    </ResponsiveContainer>
+                                </div>
                                 {/* </div> */}
                             </>
                         )}
