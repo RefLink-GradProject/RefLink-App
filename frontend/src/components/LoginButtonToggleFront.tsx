@@ -1,9 +1,10 @@
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { LoginButton } from "../auth0/LoginButton";
+import { LoginButtonUp } from "../auth0/LoginButtonUp";
 import { LogoutButton } from "../auth0/LogoutButton";
+import { LoginButtonDown } from "../auth0/LoginButtonDown";
 
-export default function LoginButtonToggle({ userName }: Props) {
+export default function LoginButtonToggleFront({ userName }: Props) {
     const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
     function getInitials(name: string) {
@@ -32,7 +33,7 @@ export default function LoginButtonToggle({ userName }: Props) {
                     </>
 
                 ) : (
-                    <LoginButton/>
+                    <LoginButtonDown/>
                 )}
             </div>
 

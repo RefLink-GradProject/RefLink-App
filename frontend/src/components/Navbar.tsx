@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import LoginButton from "./LoginButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLink } from '@fortawesome/free-solid-svg-icons'
+import LoginButtonToggleFront from "./LoginButtonToggleFront";
 
 
 export default function Navbar({ userName }: Props) {
@@ -46,7 +46,7 @@ export default function Navbar({ userName }: Props) {
                     </ul>
                 </div>
                 
-                <LoginButton userName={userName} />
+                <LoginButtonToggleFront userName={userName} />
 
 
             </div>

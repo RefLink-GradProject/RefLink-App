@@ -1,6 +1,6 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { LoginButton } from "../auth0/LoginButton"
+import { LoginButtonUp } from "../auth0/LoginButtonUp"
 import { SignupButton } from "../auth0/SignupButton"
 import { useAuth0 } from "@auth0/auth0-react";
 export default function Home() {
@@ -41,7 +41,7 @@ export default function Home() {
 
           {!isAuthenticated && (
             <div className="space-y-4 m-5">
-              <LoginButton />
+              <LoginButtonUp />
               <SignupButton />
             </div>
           )}
