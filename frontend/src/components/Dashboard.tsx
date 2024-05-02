@@ -39,7 +39,6 @@ export default function Dashboard() {
                             <th className="w-1/3">Candidate</th>
                             <th className="w-1/3">Email</th>
                             <th className="w-1/3">Posting</th>
-
                         </div>
                     </tr>
                 </thead>
@@ -93,7 +92,6 @@ export default function Dashboard() {
                                 i++;
                                 return (
                                     <tr key={`${postingIndex}`} className="h-full">
-                                        <th>{i}</th>
                                         <div className="flex justify-center items-center">
                                             <td className="w-1/2">
                                                 <Link to={`/candidates/${candidate.guidId}`}>
