@@ -18,7 +18,40 @@ import Register from './Register';
 
 
 export default function App() {
-  const [employer, setEmployer] = useState<Employer | null>(null)
+  const { isAuthenticated, getIdTokenClaims, user } = useAuth0();
+  const [employer, setEmployer] = useState<Employer | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  async function HandleEmployer() {
+    try {
+      if (isAuthenticated && !employer) {
+        const token = await getIdTokenClaims();
+        let acc = await getEmployerByToken(token!);
+        if (!acc) {
+          acc = await postEmployerByToken(token!, {
+            name: user!.name,
+            email: user!.email,
+            company: ""
+          })
+        }
+        await setEmployer(acc);
+      }
+    } catch (error) {
+      console.error('Error checking registration:', error);
+    }
+    finally {
+      setIsLoading(false)
+    }
+  }
+
+  if (isAuthenticated && !employer)
+    HandleEmployer()
+
+  if (isAuthenticated && isLoading || user && isLoading) {
+    return (
+      <Loader />
+    );
+  }
 
   return (
     <>
