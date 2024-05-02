@@ -57,7 +57,7 @@ export default function AddCandidateForm() {
                     <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={() => navigate("/postings")}>Cancel</button>
                 </form>
                 {showAlertAdded && (
-                    <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencer has been sent!" />
+                    <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencers has been sent!" />
                 )}
             </div>
         </>
