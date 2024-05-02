@@ -21,7 +21,7 @@ export default function PostingTitles({ postings }: Props) {
                     {postings.map((posting, index) => (
                         <div key={posting.guidId} className={`flex justify-center ${clickedButtons[index] ? 'bg-neutral-300' : ''}`}>
                             <button
-                                className={`btn btn-ghost btn-wide w-auto text-lg md:text-xl`}
+                                className={`btn btn-ghost btn-wide w-auto text-lg md:text-xl hover:disabled`}
                                 onClick={() => handleClick(posting, index)}
                             >{posting.title}</button>
                         </div>

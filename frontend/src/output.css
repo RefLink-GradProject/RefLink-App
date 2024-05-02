@@ -3871,6 +3871,34 @@ details.collapse summary::-webkit-details-marker {
   animation-duration: 400ms;
 }
 
+@media (hover: hover) {
+  .btm-nav > .hover\:disabled:hover*:hover {
+    pointer-events: none;
+    --tw-border-opacity: 0;
+    background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
+    --tw-bg-opacity: 0.1;
+    color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+    --tw-text-opacity: 0.2;
+  }
+}
+
+.menu .hover\:disabled:hoverli {
+  cursor: not-allowed;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  color: var(--fallback-bc,oklch(var(--bc)/0.3));
+}
+
+.btm-nav > .hover\:disabled:hover* {
+  pointer-events: none;
+  --tw-border-opacity: 0;
+  background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
+  --tw-bg-opacity: 0.1;
+  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
+  --tw-text-opacity: 0.2;
+}
+
 @media (min-width: 768px) {
   .md\:btn-lg {
     height: 4rem;
@@ -3892,6 +3920,11 @@ details.collapse summary::-webkit-details-marker {
     border-radius: 9999px;
     padding: 0px;
   }
+}
+
+.hover\:bg-neutral-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(212 212 212 / var(--tw-bg-opacity));
 }
 
 .hover\:font-bold:hover {
