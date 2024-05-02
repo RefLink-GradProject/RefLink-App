@@ -63,7 +63,7 @@ export default function Dashboard() {
                                                 <span onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
                                             </td>
                                             <td className="w-1/3">
-                                                <span onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
+                                                <span  className="">{candidate.email}</span>
                                             </td>
                                             <td className="w-1/3" >
                                                 <span onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
