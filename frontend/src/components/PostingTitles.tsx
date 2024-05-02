@@ -16,12 +16,14 @@ export default function PostingTitles({ postings }: Props) {
             <div className="">
                 <section id="posting-names" className="">
                     {postings.map((posting, index) => (
-                        <button
-                            className={`btn btn-ghost btn-wide w-auto text-lg md:text-xl ${clickedButtons[index] ? 'bg-neutral-300' : ''}`}
-                            onClick={() => handleClick(index)}
-                        >
-                            <Link to={`/postings/${posting.guidId}`} >{posting.title}</Link>
-                        </button>
+                        <div key={posting.guidId}>
+                            <button
+                                className={`btn btn-ghost btn-wide w-auto text-lg md:text-xl ${clickedButtons[index] ? 'bg-neutral-300' : ''}`}
+                                onClick={() => handleClick(index)}
+                            >
+                                <Link to={`/postings/${posting.guidId}`} >{posting.title}</Link>
+                            </button>
+                        </div>
                     ))}
                 </section>
             </div>
