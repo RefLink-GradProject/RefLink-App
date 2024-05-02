@@ -34,8 +34,7 @@ export default function App() {
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // TODO: Hacky solution to fix issue with no rerender of postings list
-  // this data that is seeded in the FE
+
   const postingsQuery = useQuery({
     queryKey: ['getAllPostings'],
     queryFn: getPostings,
@@ -48,41 +47,11 @@ export default function App() {
     await postCandidate(name, email, clickedPosting.guidId);
     const updatedPostings = await getPostings();
     const updatedClickedPosting = updatedPostings.find(posting => posting.guidId === clickedPosting.guidId);
-    if (updatedClickedPosting) {
+    if (updatedClickedPosting)
+       {
       setClickedPosting(updatedClickedPosting);
     }
     setPostings(updatedPostings);
-  }
-
-  async function HandleEmployer() {
-    try {
-      if (isAuthenticated && !employer) {
-        const token = await getIdTokenClaims();
-        let acc = await getEmployerByToken(token!);
-        if (!acc) {
-          acc = await postEmployerByToken(token!, {
-            name: user!.name,
-            email: user!.email,
-            company: ""
-          })
-        }
-        await setEmployer(acc);
-      }
-    } catch (error) {
-      console.error('Error checking registration:', error);
-    }
-    finally {
-      setIsLoading(false)
-    }
-  }
-
-  if (isAuthenticated && !employer)
-    HandleEmployer()
-
-  if (isAuthenticated && isLoading || user && isLoading) {
-    return (
-      <Loader />
-    );
   }
 
   return (
@@ -126,8 +95,8 @@ export default function App() {
             <Route path='/candidates/add' element={<AddCandidateForm addCandidate={addCandidate} />} />
             <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
             <Route path='/add-reference/:guid' element={<AddReviewForm />} />
-            <Route path='/register' element={<AuthGuard component={Register} />} />
-            <Route path='/charts' element={<AuthGuard component={ChartsDraft} />} />
+            <Route path='/register' element={<AuthGuard component={Register} setEmployer={setEmployer} />} />
+            <Route path='/charts' element={<AuthGuard component={ChartsDraft}/>} />
           </Routes>
         </div>
       </div>

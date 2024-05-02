@@ -6,7 +6,7 @@ export const LoginButton = () => {
   const handleLogin = async () => {
     await loginWithRedirect({
       appState: {
-        returnTo: "/postings",
+        returnTo: "/register",
       },
     });
   };

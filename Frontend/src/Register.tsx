@@ -1,50 +1,71 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import TextInput from "./components/TextInput";
 import { Loader } from "./components/Loader";
-import { postEmployerByToken } from "./services/employerService";
+import { getEmployerByToken, postEmployerByToken } from "./services/employerService";
+import { Employer } from "./Types";
+import { useState } from "react";
 
 type CreateEmployer = {
   name: string;
   email: string; 
   company: string;
 }
+type Props = {
+  employer : Employer | null;
+  setEmployer : (arg : Employer | null) => void;
+}
 
-const Register = () => {
-  const { user, isLoading, error, getIdTokenClaims } = useAuth0();
-  const { register, setValue, reset, handleSubmit } = useForm();
+const Register = ( {setEmployer, employer} : Props ) => {
+
+  const { user, isLoading, error, getIdTokenClaims, isAuthenticated} = useAuth0();
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const [isLoading2, setIsLoading2] = useState(true)
 
-  useEffect(() => {
-    
-    if (user) {
-      setValue("name", user.name);
-      setValue("email", user.email);
+  if (isLoading) {
+    return (
+      <Loader />
+    );
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>; 
+  }
+
+  async function isUser() {
+      if (isAuthenticated && !employer) {
+        const token = await getIdTokenClaims();
+        let acc = await getEmployerByToken(token!);
+        if(acc){
+          setEmployer(acc);
+          navigate("/")
+        }
+      }
     }
-  }, [user, setValue]); 
+  isUser().then(() => setIsLoading2(false))
+
+  if (isLoading2) {
+    return (
+      <Loader />
+    );
+  }
 
   const onSubmit = async (data : FormData) => {
     try {
       const token = await getIdTokenClaims()
       console.log(token!.__raw)
-      const response = await postEmployerByToken(token!, data)
-      if (response) {  
+      const acc = await postEmployerByToken(token!, data)
+      if (acc) {  
+        console.log(acc)
+        setEmployer(acc)
         return navigate("/postings");
       }
     } catch (error) {
-      console.error('Error registering user:', error);
+      console.log("failed creating user")
     }
   };
 
-  if (isLoading) {
-    <Loader/>
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>; 
-  }
 
   return (
     <>
