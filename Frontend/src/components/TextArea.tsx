@@ -1,4 +1,4 @@
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldValues, UseFormRegister } from "../../node_modules/react-hook-form/dist";
 
 export default function TextArea({register, labelText, placeholder, name }: Props) {
     return (

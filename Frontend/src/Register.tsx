@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm } from "../node_modules/react-hook-form/dist";
 import TextInput from "./components/TextInput";
 import { Loader } from "./components/Loader";
 import { getEmployerByToken, postEmployerByToken } from "./services/employerService";

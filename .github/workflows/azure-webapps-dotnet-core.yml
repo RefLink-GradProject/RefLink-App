@@ -28,7 +28,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - Backend/**
+      - backend/**
       - .github/workflows/azure-webapps-dotnet-core.yml
   workflow_dispatch:
   
@@ -37,7 +37,7 @@ on:
     branches:
       - main
     paths:
-      - Backend/**
+      - backend/**
       - .github/workflows/azure-webapps-dotnet-core.yml
 
 permissions:
@@ -64,11 +64,11 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release ./Backend/refLinkApi/refLinkApi.csproj
+        run: dotnet build --configuration Release ./backend/refLinkApi/refLinkApi.csproj
 
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp ./Backend/refLinkApi/refLinkApi.csproj
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp ./backend/refLinkApi/refLinkApi.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3

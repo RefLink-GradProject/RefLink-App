@@ -7,7 +7,7 @@ import {
   FieldValues,
   useFieldArray,
   useForm,
-} from "react-hook-form";
+} from "../../node_modules/react-hook-form/dist";
 import { Employer, PostingRequest, QuestionRequest } from "../Types";
 import { useMutation, useQueryClient } from "react-query";
 import { getAIAnswer } from "../services/aiServices";
