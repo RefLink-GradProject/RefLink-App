@@ -1,3 +1,4 @@
+
 import { useQuery } from "react-query";
 import { Loader } from "./Loader";
 import { getPostings } from "../services/postingServices";
@@ -19,6 +20,7 @@ export default function Dashboard() {
         return <Loader />
     }
 
+
     let i = 0;
     return (
         <>
@@ -29,47 +31,50 @@ export default function Dashboard() {
                 </ul>
             </div>
 
-            <div className="table-container">
-                <table className="table animate-fade-left animate-duration-[400ms]">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Candidate</th>
-                            <th>Email</th>
-                            <th>Posting</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                        {postings!.map((posting, postingIndex) => {
-                            return (
-                                posting.candidates && posting.candidates.map((candidate, candidateIndex) => {
-                                    i++;
-                                    return (
-                                        <tr key={`${postingIndex}`} className="h-full">
-                                            <td>{i}</td>
-                                            <td>
+            <table className="table hidden md:table-cell animate-fade-left animate-duration-[400ms]">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <div className="flex text-base">
+                            <th className="w-1/3">Candidate</th>
+                            <th className="w-1/3">Email</th>
+                            <th className="w-1/3">Posting</th>
+
+                        </div>
+                    </tr>
+                </thead>
+                <tbody >
+                    {postings!.map((posting, postingIndex) => {
+                        return (
+                            posting.candidates && posting.candidates.map((candidate, candidateIndex) => {
+                                i++;
+                                return (
+                                    <tr key={`${postingIndex}`} className="h-full">
+                                        <th>{i}</th>
+                                        <div className="flex justify-center items-center">
+                                            <td className="w-1/3">
                                                 <Link to={`/candidates/${candidate.guidId}`}>
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
+                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
                                                 </Link>
                                             </td>
-                                            <td>
-                                                <Link to={`/candidates/${candidate.guidId}`}>
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
+                                            <td className="w-1/3  hidden md:table-cell">
+                                            <Link to={`/candidates/${candidate.guidId}`}>
+                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
                                                 </Link>
                                             </td>
-                                            <td>
-                                                <Link to={`/postings/${posting.guidId}`}>
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
+                                            <td className="w-1/3" >
+                                            <Link to={`/postings/${posting.guidId}`}>
+                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
                                                 </Link>
                                             </td>
-                                        </tr>
-                                    )
-                                })
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
+                                        </div>
+                                    </tr>
+                                )
+                            })
+                        )
+                    })}
+                </tbody>
+            </table>
         </>
     );
 }
