@@ -20,12 +20,12 @@ export default function Footer() {
                             </a>
                         </div>
                         <div className="tooltip" data-tip="Github organization">
-                            <a href="https://github.com/RefLink-GradProject/RefLink-App">
+                            <a href="https://github.com/RefLink-GradProject">
                             <FontAwesomeIcon icon={faUsers} size='xl' />
                             </a>
                         </div>
                         <div className="tooltip " data-tip="&lt;/Salt&gt;">
-                            <a href="https://github.com/RefLink-GradProject/RefLink-App">
+                            <a href="https://salt.dev/">
                             <FontAwesomeIcon icon={faBuilding} size='xl' />
                             </a>
                         </div>
