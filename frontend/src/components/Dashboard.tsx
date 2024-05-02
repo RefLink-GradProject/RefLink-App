@@ -24,6 +24,7 @@ export default function Dashboard() {
         navigate(`/postings/${posting.guidId}`)
     }
 
+    let i = 0;
     return (
         <>
             <div className="text-sm breadcrumbs mb-10">
@@ -49,12 +50,13 @@ export default function Dashboard() {
                     {postings!.map((posting, postingIndex) => {
                         return (
                             posting.candidates && posting.candidates.map((candidate, candidateIndex) => {
+                                i++;
                                 return (
                                     <tr key={`${postingIndex}`} className="h-16">
-                                        <th>{candidateIndex}</th>
+                                        <th>{i}</th>
                                         <div className="flex">
                                             <td className="w-1/3">
-                                                <p onClick={() => handlePostingClick(posting)}  className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</p>
+                                                <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</p>
                                             </td>
                                             <td className="w-1/3">
                                                 <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</p>
