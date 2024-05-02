@@ -3352,6 +3352,16 @@ details.collapse summary::-webkit-details-marker {
   margin-right: auto;
 }
 
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
 .mb-0 {
   margin-bottom: 0px;
 }

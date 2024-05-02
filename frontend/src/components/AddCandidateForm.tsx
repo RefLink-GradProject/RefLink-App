@@ -41,7 +41,7 @@ export default function AddCandidateForm() {
     return (
         <>
             {showAlertAdded && (
-                <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencers has been sent!" />
+                <Alert alertType="alert-success" alertContent="Email for adding referencers has been sent!" />
             )}
             <div className="text-sm breadcrumbs mb-10">
                 <ul>

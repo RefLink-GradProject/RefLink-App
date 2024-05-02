@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <QueryClientProvider client={queryClient}>
           {/* <div className='flex justify-center'> */}
 
-            <div className='grow lg:mx-32 mb-5 md:mb-10 '>
+            <div className='grow mx-5 lg:mx-32 mb-5 md:mb-10 '>
               <App />
 
 
