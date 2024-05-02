@@ -60,13 +60,13 @@ export default function Dashboard() {
                                         <th>{i}</th>
                                         <div className="flex justify-center items-center">
                                             <td className="w-1/3">
-                                                <span className="">{candidate.name}</span>
+                                                <p onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</p>
                                             </td>
                                             <td className="w-1/3">
-                                                <span  className="">{candidate.email}</span>
+                                                <p onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</p>
                                             </td>
                                             <td className="w-1/3" >
-                                                <span onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
+                                                <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</p>
                                             </td>
                                         </div>
                                     </tr>
