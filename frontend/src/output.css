@@ -3428,6 +3428,10 @@ details.collapse summary::-webkit-details-marker {
   margin-top: 5rem;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }

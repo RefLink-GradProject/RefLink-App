@@ -31,7 +31,7 @@ export default function Dashboard() {
                 </ul>
             </div>
 
-            <table className="table hidden md:table-cell animate-fade-left animate-duration-[400ms]">
+            <table className="table animate-fade-left animate-duration-[400ms]">
                 <thead>
                     <tr>
                         <th></th>
@@ -57,7 +57,7 @@ export default function Dashboard() {
                                                 <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
                                                 </Link>
                                             </td>
-                                            <td className="w-1/3  hidden md:table-cell">
+                                            <td className="w-1/3">
                                             <Link to={`/candidates/${candidate.guidId}`}>
                                                 <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
                                                 </Link>
