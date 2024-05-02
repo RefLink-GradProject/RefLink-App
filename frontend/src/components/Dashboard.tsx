@@ -59,14 +59,14 @@ export default function Dashboard() {
                                     <tr key={`${postingIndex}`} className="h-full">
                                         <th>{i}</th>
                                         <div className="flex justify-center items-center">
-                                            <td className="w-1/3">
-                                                <p onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</p>
+                                        <td className="w-1/3 mr-10">
+                                                    <p className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/candidates/${candidate.guidId}`}>{candidate.name}</Link></p>
+                                            </td>
+                                            <td className="w-1/3 mr-10">
+                                                    <p className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/candidates/${candidate.guidId}`}>{candidate.email} </Link></p>
                                             </td>
                                             <td className="w-1/3">
-                                                <p onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</p>
-                                            </td>
-                                            <td className="w-1/3" >
-                                                <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</p>
+                                                    <p className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/postings/${posting.guidId}`}>{posting.title}</Link></p>
                                             </td>
                                         </div>
                                     </tr>
