@@ -8,8 +8,8 @@ public static class SeedData
         using (var _context = new RefLinkContext(
                    serviceProvider.GetRequiredService<DbContextOptions<RefLinkContext>>()))
         {
-            // _context.Database.EnsureDeleted();
-            // _context.Database.EnsureCreated();
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
 
             Employer employer = new Employer
             {
