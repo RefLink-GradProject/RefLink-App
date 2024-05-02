@@ -20,6 +20,13 @@ export default function Dashboard() {
         return <Loader />
     }
 
+    function handlePostingClick(posting: Posting) {
+        navigate(`/postings/${posting.guidId}`)
+    }
+    function handleCandidateClick(candidate: Candidate) {
+        navigate(`/postings/${candidate.guidId}`)
+    }
+    
     let i = 0;
     return (
         <>
@@ -52,13 +59,13 @@ export default function Dashboard() {
                                         <th>{i}</th>
                                         <div className="flex justify-center items-center">
                                             <td className="w-1/3">
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/candidates/${candidate.guidId}`}>{candidate.name}</Link></span>
+                                                <span onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
                                             </td>
                                             <td className="w-1/3">
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/candidates/${candidate.guidId}`}>{candidate.email} </Link></span>
+                                                <span onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
                                             </td>
                                             <td className="w-1/3" >
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/postings/${posting.guidId}`}>{posting.title}</Link></span>
+                                                <span onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
                                             </td>
                                         </div>
                                     </tr>
