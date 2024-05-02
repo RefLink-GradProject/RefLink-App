@@ -6,8 +6,7 @@ RefLink is a comprehensive tool designed to streamline your reference management
 ## Video Demo
 For a visual walkthrough of RefLink's features and capabilities, we highly recommend watching our video demo:
 
-
-(valid for six months)
+https://github.com/RefLink-GradProject/RefLink-App/assets/109028168/be4c22e2-f67e-400f-a44a-a38f9d2f1045
 
 ## Features Highlights
 - **Employer Dashboard**: Log in and seamlessly navigate through all your job postings, complete with descriptions, questions, and associated candidates.
