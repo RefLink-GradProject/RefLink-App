@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCandidateWithDetails } from "../services/candidateServices";
 
 export default function Dashboard() {
+    const navigate = useNavigate();
 
     const { isLoading, data: postings } = useQuery({
         queryKey: ['getAllPostings'],
@@ -18,6 +19,11 @@ export default function Dashboard() {
     if (isLoading) {
         return <Loader />
     }
+
+    function handlePostingClick(posting: Posting) {
+        navigate(`/postings/${posting.guidId}`)
+    }
+
     return (
         <>
             <div className="text-sm breadcrumbs mb-10">
@@ -42,19 +48,19 @@ export default function Dashboard() {
                 <tbody >
                     {postings!.map((posting, postingIndex) => {
                         return (
-                            posting.candidates && posting.candidates.map((candidate) => {
+                            posting.candidates && posting.candidates.map((candidate, candidateIndex) => {
                                 return (
                                     <tr key={`${postingIndex}`} className="h-16">
-                                        <th>{postingIndex + 1}</th>
+                                        <th>{candidateIndex}</th>
                                         <div className="flex">
                                             <td className="w-1/3">
-                                                <Link to={`/candidates/${candidate.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</Link>
+                                                <p onClick={() => handlePostingClick(posting)}  className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</p>
                                             </td>
                                             <td className="w-1/3">
-                                                <Link to={`/candidates/${candidate.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</Link>
+                                                <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</p>
                                             </td>
                                             <td className="w-1/3" >
-                                                <Link to={`/postings/${posting.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</Link>
+                                                <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</p>
                                             </td>
                                         </div>
                                     </tr>
