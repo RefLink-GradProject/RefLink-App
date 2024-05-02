@@ -52,7 +52,7 @@ export default function Dashboard() {
                             posting.candidates && posting.candidates.map((candidate, candidateIndex) => {
                                 i++;
                                 return (
-                                    <tr key={`${postingIndex}`} className="h-16">
+                                    <tr key={`${postingIndex}`} className="h-full">
                                         <th>{i}</th>
                                         <div className="flex">
                                             <td className="w-1/3">
