@@ -60,7 +60,7 @@ export default function Dashboard() {
                                         <th>{i}</th>
                                         <div className="flex justify-center items-center">
                                             <td className="w-1/3">
-                                                <span onClick={() => handleCandidateClick(candidate)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
+                                                <span className="">{candidate.name}</span>
                                             </td>
                                             <td className="w-1/3">
                                                 <span  className="">{candidate.email}</span>
