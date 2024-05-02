@@ -936,12 +936,6 @@ html {
     --tw-bg-opacity: 1;
     background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
   }
-
-  .table-zebra tr.hover:hover,
-  .table-zebra tr.hover:nth-child(even):hover {
-    --tw-bg-opacity: 1;
-    background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-  }
 }
 
 .btn {
@@ -1816,12 +1810,6 @@ html {
   color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity)));
   --alert-bg: var(--fallback-er,oklch(var(--er)/1));
   --alert-bg-mix: var(--fallback-b1,oklch(var(--b1)/1));
-}
-
-.btm-nav > *:where(.active) {
-  border-top-width: 2px;
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
 }
 
 .btm-nav > *.disabled,
@@ -2856,13 +2844,6 @@ details.collapse summary::-webkit-details-marker {
   background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
 }
 
-.table-zebra tr.active,
-    .table-zebra tr.active:nth-child(even),
-    .table-zebra-zebra tbody tr:nth-child(even) {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-}
-
 .table :where(thead tr, tbody tr:not(:last-child),tbody tr:first-child:last-child) {
   border-bottom-width: 1px;
   --tw-border-opacity: 1;
@@ -2929,22 +2910,6 @@ details.collapse summary::-webkit-details-marker {
     transform: scale(1);
     opacity: 1;
   }
-}
-
-.btm-nav-xs > *:where(.active) {
-  border-top-width: 1px;
-}
-
-.btm-nav-sm > *:where(.active) {
-  border-top-width: 2px;
-}
-
-.btm-nav-md > *:where(.active) {
-  border-top-width: 2px;
-}
-
-.btm-nav-lg > *:where(.active) {
-  border-top-width: 4px;
 }
 
 .btn-xs {
@@ -3377,11 +3342,15 @@ details.collapse summary::-webkit-details-marker {
   margin: 1.25rem;
 }
 
+.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
 }
-
 
 .mb-0 {
   margin-bottom: 0px;
@@ -3427,6 +3396,10 @@ details.collapse summary::-webkit-details-marker {
   margin-left: 0.75rem;
 }
 
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -3439,10 +3412,6 @@ details.collapse summary::-webkit-details-marker {
   margin-top: 2.5rem;
 }
 
-.mt-14 {
-  margin-top: 3.5rem;
-}
-
 .mt-3 {
   margin-top: 0.75rem;
 }
@@ -3453,18 +3422,6 @@ details.collapse summary::-webkit-details-marker {
 
 .mt-5 {
   margin-top: 1.25rem;
-}
-
-.ml-5 {
-  margin-left: 1.25rem;
-}
-
-.mr-10 {
-  margin-right: 2.5rem;
-}
-
-.mt-0 {
-  margin-top: 0px;
 }
 
 .flex {
@@ -3543,6 +3500,10 @@ details.collapse summary::-webkit-details-marker {
   width: 13rem;
 }
 
+.w-56 {
+  width: 14rem;
+}
+
 .w-6 {
   width: 1.5rem;
 }
@@ -3555,10 +3516,6 @@ details.collapse summary::-webkit-details-marker {
   width: 100%;
 }
 
-.w-56 {
-  width: 14rem;
-}
-
 .max-w-screen-lg {
   max-width: 1024px;
 }
@@ -3569,10 +3526,6 @@ details.collapse summary::-webkit-details-marker {
 
 .shrink-0 {
   flex-shrink: 0;
-}
-
-.flex-grow {
-  flex-grow: 1;
 }
 
 @keyframes fade-down {
@@ -3714,6 +3667,11 @@ details.collapse summary::-webkit-details-marker {
   background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
 }
 
+.bg-base-200 {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
+}
+
 .bg-green-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
@@ -3724,19 +3682,22 @@ details.collapse summary::-webkit-details-marker {
   background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
 }
 
+.bg-neutral-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
+}
+
 .bg-neutral-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(212 212 212 / var(--tw-bg-opacity));
 }
 
-.bg-slate-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
-}
-
-
 .stroke-current {
   stroke: currentColor;
+}
+
+.p-1 {
+  padding: 0.25rem;
 }
 
 .p-10 {
@@ -3755,14 +3716,6 @@ details.collapse summary::-webkit-details-marker {
   padding: 1rem;
 }
 
-.p-0 {
-  padding: 0px;
-}
-
-.p-1 {
-  padding: 0.25rem;
-}
-
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -3773,48 +3726,16 @@ details.collapse summary::-webkit-details-marker {
   padding-right: 0.5rem;
 }
 
-.pt-2 {
-  padding-top: 0.5rem;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
-
-.pb-4 {
-  padding-bottom: 1rem;
-}
-
-.pb-10 {
-  padding-bottom: 2.5rem;
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
 .pb-6 {
   padding-bottom: 1.5rem;
 }
 
-.pb-1 {
-  padding-bottom: 0.25rem;
-}
-
-.pr-10 {
-  padding-right: 2.5rem;
-}
-
-.pr-40 {
-  padding-right: 10rem;
-}
-
 .pr-20 {
   padding-right: 5rem;
-}
-
-.pb-0 {
-  padding-bottom: 0px;
-}
-
-.pt-10 {
-  padding-top: 2.5rem;
 }
 
 .pt-6 {
@@ -3892,19 +3813,14 @@ details.collapse summary::-webkit-details-marker {
   color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
 }
 
-.text-slate-500 {
-  --tw-text-opacity: 1;
-  color: rgb(100 116 139 / var(--tw-text-opacity));
-}
-
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.text-slate-500 {
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity));
 }
 
 .shadow {
@@ -3931,6 +3847,10 @@ details.collapse summary::-webkit-details-marker {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.outline-neutral-200 {
+  outline-color: #e5e5e5;
+}
+
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -3952,222 +3872,6 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media (min-width: 768px) {
-  .md\:btn {
-    display: inline-flex;
-    height: 3rem;
-    min-height: 3rem;
-    flex-shrink: 0;
-    cursor: pointer;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--rounded-btn, 0.5rem);
-    border-color: transparent;
-    border-color: oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity));
-    padding-left: 1rem;
-    padding-right: 1rem;
-    text-align: center;
-    font-size: 0.875rem;
-    line-height: 1em;
-    gap: 0.5rem;
-    font-weight: 600;
-    text-decoration-line: none;
-    transition-duration: 200ms;
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    border-width: var(--border-btn, 1px);
-    animation: button-pop var(--animation-btn, 0.25s) ease-out;
-    transition-property: color, background-color, border-color, opacity, box-shadow, transform;
-    --tw-text-opacity: 1;
-    color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
-    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-    outline-color: var(--fallback-bc,oklch(var(--bc)/1));
-    background-color: oklch(var(--btn-color, var(--b2)) / var(--tw-bg-opacity));
-    --tw-bg-opacity: 1;
-    --tw-border-opacity: 1;
-  }
-
-  .md\:btn[disabled],.md\:btn:disabled {
-    pointer-events: none;
-  }
-
-  :where(.md\:btn:is(input[type="checkbox"])),
-:where(.md\:btn:is(input[type="radio"])) {
-    width: auto;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-  }
-
-  .md\:btn:is(input[type="checkbox"]):after,.md\:btn:is(input[type="radio"]):after {
-    --tw-content: attr(aria-label);
-    content: var(--tw-content);
-  }
-
-  @media (hover: hover) {
-    .md\:btn:hover {
-      --tw-border-opacity: 1;
-      border-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-border-opacity)));
-      --tw-bg-opacity: 1;
-      background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-    }
-
-    @supports (color: color-mix(in oklab, black, black)) {
-      .md\:btn:hover {
-        background-color: color-mix(
-            in oklab,
-            oklch(var(--btn-color, var(--b2)) / var(--tw-bg-opacity, 1)) 90%,
-            black
-          );
-        border-color: color-mix(
-            in oklab,
-            oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity, 1)) 90%,
-            black
-          );
-      }
-    }
-
-    @supports not (color: oklch(0% 0 0)) {
-      .md\:btn:hover {
-        background-color: var(--btn-color, var(--fallback-b2));
-        border-color: var(--btn-color, var(--fallback-b2));
-      }
-    }
-
-    .md\:btn:hover {
-      --tw-border-opacity: 1;
-      border-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-border-opacity)));
-      --tw-bg-opacity: 1;
-      background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-    }
-
-    @supports (color: color-mix(in oklab, black, black)) {
-      .md\:btn:hover {
-        background-color: color-mix(
-            in oklab,
-            oklch(var(--btn-color, var(--b2)) / var(--tw-bg-opacity, 1)) 90%,
-            black
-          );
-        border-color: color-mix(
-            in oklab,
-            oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity, 1)) 90%,
-            black
-          );
-      }
-    }
-
-    @supports not (color: oklch(0% 0 0)) {
-      .md\:btn:hover {
-        background-color: var(--btn-color, var(--fallback-b2));
-        border-color: var(--btn-color, var(--fallback-b2));
-      }
-    }
-
-    .md\:btn:hover {
-      --tw-border-opacity: 1;
-      border-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-border-opacity)));
-      --tw-bg-opacity: 1;
-      background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-    }
-
-    @supports (color: color-mix(in oklab, black, black)) {
-      .md\:btn:hover {
-        background-color: color-mix(
-            in oklab,
-            oklch(var(--btn-color, var(--b2)) / var(--tw-bg-opacity, 1)) 90%,
-            black
-          );
-        border-color: color-mix(
-            in oklab,
-            oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity, 1)) 90%,
-            black
-          );
-      }
-    }
-
-    @supports not (color: oklch(0% 0 0)) {
-      .md\:btn:hover {
-        background-color: var(--btn-color, var(--fallback-b2));
-        border-color: var(--btn-color, var(--fallback-b2));
-      }
-    }
-
-    .md\:btn.glass:hover {
-      --glass-opacity: 25%;
-      --glass-border-opacity: 15%;
-    }
-
-    .md\:btn[disabled]:hover,.md\:btn:disabled:hover {
-      --tw-border-opacity: 0;
-      background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
-      --tw-bg-opacity: 0.2;
-      color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
-      --tw-text-opacity: 0.2;
-    }
-
-    @supports (color: color-mix(in oklab, black, black)) {
-      .md\:btn:is(input[type="checkbox"]:checked):hover,.md\:btn:is(input[type="radio"]:checked):hover {
-        background-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-        border-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
-      }
-    }
-  }
-
-  .md\:btn:active:hover,.md\:btn:active:focus {
-    animation: button-pop 0s ease-out;
-    transform: scale(var(--btn-focus-scale, 0.97));
-  }
-
-  @supports not (color: oklch(0% 0 0)) {
-    .md\:btn {
-      background-color: var(--btn-color, var(--fallback-b2));
-      border-color: var(--btn-color, var(--fallback-b2));
-    }
-  }
-
-  .md\:btn:focus-visible {
-    outline-style: solid;
-    outline-width: 2px;
-    outline-offset: 2px;
-  }
-
-  .md\:btn.glass {
-    --tw-shadow: 0 0 #0000;
-    --tw-shadow-colored: 0 0 #0000;
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-    outline-color: currentColor;
-  }
-
-  .md\:btn.glass.btn-active {
-    --glass-opacity: 25%;
-    --glass-border-opacity: 15%;
-  }
-
-  .md\:btn.btn-disabled,.md\:btn[disabled],.md\:btn:disabled {
-    --tw-border-opacity: 0;
-    background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
-    --tw-bg-opacity: 0.2;
-    color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
-    --tw-text-opacity: 0.2;
-  }
-
-  .md\:btn:is(input[type="checkbox"]:checked),.md\:btn:is(input[type="radio"]:checked) {
-    --tw-border-opacity: 1;
-    border-color: var(--fallback-p,oklch(var(--p)/var(--tw-border-opacity)));
-    --tw-bg-opacity: 1;
-    background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
-    --tw-text-opacity: 1;
-    color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
-  }
-
-  .md\:btn:is(input[type="checkbox"]:checked):focus-visible,.md\:btn:is(input[type="radio"]:checked):focus-visible {
-    outline-color: var(--fallback-p,oklch(var(--p)/1));
-  }
-
   .md\:btn-lg {
     height: 4rem;
     min-height: 4rem;
@@ -4190,38 +3894,8 @@ details.collapse summary::-webkit-details-marker {
   }
 }
 
-.hover\:bg-green-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-base-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
-}
-
-.hover\:bg-base-300:hover {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-}
-
-.hover\:bg-neutral-300:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(212 212 212 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-neutral-200:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
-}
-
 .hover\:font-bold:hover {
   font-weight: 700;
-}
-
-.hover\:text-gray-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .hover\:text-green-600:hover {
@@ -4233,15 +3907,9 @@ details.collapse summary::-webkit-details-marker {
   text-decoration-line: underline;
 }
 
-
 @media (min-width: 768px) {
   .md\:invisible {
     visibility: hidden;
-  }
-
-  .md\:mx-12 {
-    margin-left: 3rem;
-    margin-right: 3rem;
   }
 
   .md\:mb-10 {
@@ -4307,24 +3975,8 @@ details.collapse summary::-webkit-details-marker {
     margin-right: 8rem;
   }
 
-  .lg\:ml-0 {
-    margin-left: 0px;
-  }
-
-  .lg\:ml-5 {
-    margin-left: 1.25rem;
-  }
-
-  .lg\:mr-0 {
-    margin-right: 0px;
-  }
-
   .lg\:mr-3 {
     margin-right: 0.75rem;
-  }
-
-  .lg\:mr-5 {
-    margin-right: 1.25rem;
   }
 
   .lg\:mt-0 {
@@ -4359,24 +4011,6 @@ details.collapse summary::-webkit-details-marker {
   .lg\:text-5xl {
     font-size: 3rem;
     line-height: 1;
-  }
-}
-
-@media (min-width: 1280px) {
-  .xl\:ml-0 {
-    margin-left: 0px;
-  }
-
-  .xl\:ml-32 {
-    margin-left: 8rem;
-  }
-
-  .xl\:mr-0 {
-    margin-right: 0px;
-  }
-
-  .xl\:mr-32 {
-    margin-right: 8rem;
   }
 }
 
