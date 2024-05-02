@@ -57,7 +57,7 @@ export default function AddPostingForm({ employer }: Props) {
   });
 
   async function postPosting(data: PostingRequest) {
-    const response = await fetch("http://localhost:5136/api/postings", {
+    const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/postings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function AddPostingForm({ employer }: Props) {
 
   async function postQuestions(data: QuestionRequest) {
     console.log("postQuestion", data);
-    const response = await fetch("http://localhost:5136/api/questions", {
+    const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/questions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

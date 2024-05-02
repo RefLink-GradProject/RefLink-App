@@ -44,6 +44,8 @@ public class CandidateService : ICandidateService
             {
                 FNAME = candidate.Name,
                 URL = $"https://localhost:5000/add-referencer/{candidate.GuidId}"
+                // https://icy-smoke-0b04e3303.5.azurestaticapps.net/
+                //TODO change to url above for deployment
             },
             TemplateId = 2,
         };
