@@ -6,7 +6,8 @@ RefLink is a comprehensive tool designed to streamline your reference management
 ## Video Demo
 For a visual walkthrough of RefLink's features and capabilities, we highly recommend watching our video demo:
 
-[Watch Video Demo](video-demo-url) (valid for six months)
+
+(valid for six months)
 
 ## Features Highlights
 - **Employer Dashboard**: Log in and seamlessly navigate through all your job postings, complete with descriptions, questions, and associated candidates.
@@ -57,9 +58,10 @@ For a visual walkthrough of RefLink's features and capabilities, we highly recom
 - **Font Awesome**: Icon usage.
 
 ## Team Members
-- Pontus Löfgren
-- Xinnan Luo
-- Zerophymyr Falk
-- Patricia van Marlen
+- [Pontus Löfgren](https://github.com/pontuslofgren)
+- [Xinnan Luo](https://github.com/luoxinnan)
+- [Zerophymyr Falk](https://github.com/Zoldier777)
+- [Patricia van Marlen](https://github.com/Patt1989)
+
 
 Thank you for considering RefLink for your hiring needs! Should you have any questions or feedback, feel free to reach out to our team.
