@@ -31,7 +31,7 @@ export default function Dashboard() {
                 </ul>
             </div>
 
-            <table className="table animate-fade-left animate-duration-[400ms] hidden md:block">
+            <table className="table animate-fade-left animate-duration-[400ms] hidden md:hidden">
                 <thead>
                     <tr>
                         <th></th>
@@ -81,8 +81,7 @@ export default function Dashboard() {
                     <tr>
                         <th></th>
                         <div className="flex text-base">
-                            <th className="w-1/3">Candidate</th>
-
+                            <th className="w-full">Candidate</th>
                         </div>
                     </tr>
                 </thead>
@@ -95,7 +94,7 @@ export default function Dashboard() {
                                     <tr key={`${postingIndex}`} className="h-full">
                                         <th>{i}</th>
                                         <div className="flex justify-center items-center">
-                                            <td className="w-1/3">
+                                            <td className="w-full">
                                                 <Link to={`/candidates/${candidate.guidId}`}>
                                                 <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
                                                 </Link>
