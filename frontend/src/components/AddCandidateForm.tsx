@@ -40,6 +40,9 @@ export default function AddCandidateForm() {
 
     return (
         <>
+            {showAlertAdded && (
+                <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencers has been sent!" />
+            )}
             <div className="text-sm breadcrumbs mb-10">
                 <ul>
                     <Link to="/"><li><a>Home</a></li></Link>
@@ -59,9 +62,7 @@ export default function AddCandidateForm() {
                     <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={() => navigate("/postings")}>Cancel</button>
                 </form>
             </div>
-                {showAlertAdded && (
-                    <Alert alertType="alert-success" alertContent="Candidate added, email for adding referencers has been sent!" />
-                )}
+
         </>
     )
 }
