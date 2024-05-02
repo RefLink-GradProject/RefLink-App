@@ -12,7 +12,7 @@ export const LoginButtonDown = () => {
   };
 
   return (
-    <button className="btn btn-xs w-20 md:w-24 md:btn-lg text-sm md:text-lg mr-3 w-24 md:btn-lg md:w-32 md:mr-6 animate-flip-up animate-delay-500" onClick={handleLogin}>
+    <button className="btn btn-xs w-16 md:w-32 md:btn-lg text-sm md:text-lg mr-3 w-24 md:btn-lg md:w-32 md:mr-6 animate-flip-up animate-delay-500" onClick={handleLogin}>
       Log In
     </button>
   );
