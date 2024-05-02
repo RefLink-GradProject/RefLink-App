@@ -58,10 +58,14 @@ export default function Dashboard() {
                                                 </Link>
                                             </td>
                                             <td className="w-1/3">
-                                                <span onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
+                                            <Link to={`/candidates/${candidate.guidId}`}>
+                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
+                                                </Link>
                                             </td>
                                             <td className="w-1/3" >
-                                                <span onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
+                                            <Link to={`/postings/${posting.guidId}`}>
+                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
+                                                </Link>
                                             </td>
                                         </div>
                                     </tr>
