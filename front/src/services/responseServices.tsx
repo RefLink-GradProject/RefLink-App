@@ -1,4 +1,4 @@
-import { FieldValues } from "../../node_modules/react-hook-form/dist";
+import { FieldValues } from "react-hook-form";
 import { ReferencerWithQuestions } from "../Types";
 
 export async function postResponse(data: FieldValues) {

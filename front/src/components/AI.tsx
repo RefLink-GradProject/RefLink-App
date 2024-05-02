@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getAIAnswer } from '../services/aiServices';
-import { useForm } from '../../node_modules/react-hook-form/dist';
+import { useForm } from 'react-hook-form';
 
 function App() {
   const [inputText, setInputText] = useState('');

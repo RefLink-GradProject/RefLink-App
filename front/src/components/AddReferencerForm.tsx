@@ -1,4 +1,4 @@
-import { FieldValues, useFieldArray, useForm } from '../../node_modules/react-hook-form/dist';
+import { FieldValues, useFieldArray, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import TextInput from './TextInput';

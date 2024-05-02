@@ -2,7 +2,7 @@ import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
-import { useForm } from "../../node_modules/react-hook-form/dist";
+import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { postCandidate } from "../services/candidateServices";
 

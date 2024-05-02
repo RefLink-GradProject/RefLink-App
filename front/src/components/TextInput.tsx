@@ -1,4 +1,4 @@
-import { FieldValues, UseFormRegister } from "../../node_modules/react-hook-form/dist";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 export default function TextInput({register, inputType, labelText, placeholder, value, name}: Props) {
     return (
