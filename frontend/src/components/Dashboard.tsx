@@ -52,19 +52,13 @@ export default function Dashboard() {
                                         <th>{i}</th>
                                         <div className="flex justify-center items-center">
                                             <td className="w-1/3">
-                                                <Link to={`/candidates/${candidate.guidId}`}>
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
-                                                </Link>
+                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/candidates/${candidate.guidId}`}>{candidate.name}</Link></span>
                                             </td>
                                             <td className="w-1/3">
-                                                <Link to={`/candidates/${candidate.guidId}`}>
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
-                                                </Link>
+                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/candidates/${candidate.guidId}`}>{candidate.email} </Link></span>
                                             </td>
                                             <td className="w-1/3" >
-                                                <Link to={`/postings/${posting.guidId}`}>
-                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
-                                                </Link>
+                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer"><Link to={`/postings/${posting.guidId}`}>{posting.title}</Link></span>
                                             </td>
                                         </div>
                                     </tr>
