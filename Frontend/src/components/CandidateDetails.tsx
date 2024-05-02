@@ -1,17 +1,30 @@
-import { CandidateWithDetails, Referencer, ReferencerInCandidateDetails, ResponseWithQuestionContent } from "../Types";
-import { useNavigate } from 'react-router-dom';
-'use client';
-import { BarChart, Bar, ResponsiveContainer, Tooltip, Legend, YAxis, XAxis, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
-import { useState } from "react";
 
-export default function CandidateDetails({ candidate }: Props) {
+import { useQuery } from "react-query";
+import { Loader } from "./Loader";
+import { getCandidateWithDetails } from "../services/candidateServices";
+import { useNavigate, useParams } from "react-router-dom";
+import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Tooltip } from "recharts";
+
+export default function CandidateDetails() {
+    const { guid } = useParams();
     const navigate = useNavigate();
-    const [completeMessage, setCompleteMessage] = useState<string>(getNumberOfCompletedRefs(candidate))
 
+    const { isLoading, data: candidate } = useQuery({
+        queryKey: ['getCandidateDetails'],
+        queryFn: () => getCandidateWithDetails(guid),
+        onSuccess: (data) => {
+            console.log("Success", data);
+        }
+    })
+
+    if (isLoading) {
+        return <Loader />
+    }
     function getCandidatesRatings() {
         const questionScores: { [subject: string]: number[] } = {};
+
         // Iterate through each referencer and response to aggregate scores
-        candidate.referencers.forEach(referencer => {
+        candidate!.referencers.forEach(referencer => {
             referencer.responses.forEach(response => {
                 if (response.type == 1) {
                     const subject = response.questionContent;
@@ -43,6 +56,7 @@ export default function CandidateDetails({ candidate }: Props) {
         return ratings;
     }
     console.table(getCandidatesRatings());
+
 
     function getCandidatesRatingsFromOneReviewer(referencer: ReferencerInCandidateDetails) {
         const questionScores: { [subject: string]: number[] } = {};
@@ -78,9 +92,11 @@ export default function CandidateDetails({ candidate }: Props) {
         return ratings;
     }
 
-    function handleBackClik() {
+
+    function handleBackClick() {
         navigate(-1);
     }
+
 
     function getNumberOfCompletedRefs(candidate: CandidateWithDetails) {
         const referencers = candidate.referencers;
@@ -110,6 +126,7 @@ export default function CandidateDetails({ candidate }: Props) {
                         <p className="text-">Email: {candidate!.email}</p>
                         <p className="text-">Number of completed references: {completeMessage}</p>
                     </section>
+
                     <section id="reference-rating" className="mb-5 mr-3">
                         {getCandidatesRatings().length >= 1 && (
                             <>
@@ -121,7 +138,7 @@ export default function CandidateDetails({ candidate }: Props) {
                                             <PolarAngleAxis dataKey="subject" />
                                             <PolarRadiusAxis domain={[0, 5]} />
                                             <Tooltip />
-                                            <Radar name={candidate.name} dataKey="score" stroke="" fill="#16a34a" fillOpacity={0.6} />
+                                            <Radar name={candidate!.name} dataKey="score" stroke="" fill="#16a34a" fillOpacity={0.6} />
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -188,9 +205,3 @@ export default function CandidateDetails({ candidate }: Props) {
         </>
     )
 }
-
-
-type Props = {
-    candidate: CandidateWithDetails;
-}
-

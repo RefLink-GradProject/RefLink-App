@@ -1,11 +1,29 @@
-import { Dispatch, SetStateAction } from "react";
-import { CandidateWithDetails, Posting } from "../Types";
+import { useState } from "react";
+import { Posting } from "../Types";
 import { Link } from "react-router-dom";
 import PostingTitles from "./PostingTitles";
 import PostingDetails from "./PostingDetails";
+import { useQuery } from "react-query";
+import { getPostings } from "../services/postingServices";
+import { Loader } from "./Loader";
 
+export default function Postings() {
+    // const [postings, setPostings] = useState<Posting[]>([]);
 
-export default function Postings({ postings, clickedPosting, setClickedPosting, setClickedCandidate }: Props) {
+    const { isLoading, data } = useQuery({
+        queryKey: ['getAllPostings'],
+        queryFn: getPostings,
+        onSuccess: (data) => {
+            console.log(data);
+            // setPostings(data);
+        }
+    })
+
+    if (isLoading) {
+        return <Loader />
+    }
+
+    console.log("data", data);
 
     return (
         <>
@@ -25,22 +43,14 @@ export default function Postings({ postings, clickedPosting, setClickedPosting, 
                             </Link>
                         </div>
                         <div>
-                            <PostingTitles postings={postings} clickedPosting={clickedPosting} setClickedPosting={setClickedPosting} />
+                            <PostingTitles postings={data!} />
                         </div>
                     </div>
                     <div className='mt-5 lg:mt-0 lg:w-3/5 animate-fade-left animate-duration-[400ms]'>
-                        <PostingDetails clickedPosting={clickedPosting} setClickedCandidate={setClickedCandidate} />
+                        <PostingDetails postings={data!} />
                     </div>
                 </div>
             </div>
         </>
     )
-}
-
-
-type Props = {
-    clickedPosting: Posting;
-    setClickedPosting: Dispatch<SetStateAction<Posting>>;
-    setClickedCandidate: Dispatch<SetStateAction<CandidateWithDetails>>;
-    postings: Posting[];
 }

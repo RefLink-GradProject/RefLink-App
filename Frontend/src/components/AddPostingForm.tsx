@@ -124,10 +124,11 @@ export default function AddPostingForm({ employer }: Props) {
 
     }
 
+    queryClient.invalidateQueries({ queryKey: ['getAllPostings', 'getOnePosting'] })
+
     setShowAlertAdded(true);
     setTimeout(() => {
       setShowAlertAdded(false);
-      queryClient.invalidateQueries({ queryKey: ['getAllPostings'] })
       navigate("/postings");
     }, 2000);
   }
