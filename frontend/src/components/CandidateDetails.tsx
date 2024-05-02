@@ -120,7 +120,7 @@ export default function CandidateDetails() {
                 </ul>
             </div>
 
-            <div className="mb-16 mt-26 w-auto h-full flex flex-row animate-fade-up animate-duration-[400ms]">
+            <div className="mb-16 mt-26 w-auto h-full md:flex md:flex-row animate-fade-up animate-duration-[400ms]">
                 <section className="w-full lg:flex flex-col lg:w-2/5 mb-10 ">
                     <section id="candidate-info" className="mb-10 ml-5 lg:mr-3">
                         <h1 className="text-4xl">{candidate!.name}</h1>

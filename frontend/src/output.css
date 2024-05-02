@@ -3528,6 +3528,10 @@ details.collapse summary::-webkit-details-marker {
   width: 3.5rem;
 }
 
+.w-16 {
+  width: 4rem;
+}
+
 .max-w-screen-lg {
   max-width: 1024px;
 }
@@ -3964,8 +3968,20 @@ details.collapse summary::-webkit-details-marker {
     width: 5rem;
   }
 
+  .md\:w-2 {
+    width: 0.5rem;
+  }
+
+  .md\:w-24 {
+    width: 6rem;
+  }
+
   .md\:grow {
     flex-grow: 1;
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
   }
 
   .md\:bg-inherit {
