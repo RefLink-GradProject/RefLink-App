@@ -43,8 +43,8 @@ public class CandidateService : ICandidateService
             Params = new EmailTemplateRequest.ParamsRecord()
             {
                 FNAME = candidate.Name,
-                URL = $"https://localhost:5000/add-referencer/{candidate.GuidId}"
-                // https://icy-smoke-0b04e3303.5.azurestaticapps.net/
+                // URL = $"https://localhost:5000/add-referencer/{candidate.GuidId}"
+                URL = $"https://icy-smoke-0b04e3303.5.azurestaticapps.net/add-referencer/{candidate.GuidId}"
                 //TODO change to url above for deployment
             },
             TemplateId = 2,
