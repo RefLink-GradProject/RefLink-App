@@ -1,7 +1,12 @@
+
 import { useQuery } from "react-query";
 import { Loader } from "./Loader";
 import { getPostings } from "../services/postingServices";
 import { Link } from "react-router-dom";
+import { Dispatch, SetStateAction, useState } from "react";
+import { Candidate, CandidateWithDetails, Posting } from "../Types";
+import { useNavigate } from 'react-router-dom';
+import { getCandidateWithDetails } from "../services/candidateServices";
 
 export default function Dashboard() {
 
@@ -13,7 +18,6 @@ export default function Dashboard() {
     if (isLoading) {
         return <Loader />
     }
-
     return (
         <>
             <div className="text-sm breadcrumbs mb-10">
@@ -29,7 +33,7 @@ export default function Dashboard() {
                         <th></th>
                         <div className="flex text-base">
                             <th className="w-1/3">Candidate</th>
-                            <th className="w-1/3">Emial</th>
+                            <th className="w-1/3">Email</th>
                             <th className="w-1/3">Posting</th>
 
                         </div>

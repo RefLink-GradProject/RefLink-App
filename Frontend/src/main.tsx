@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './output.css'
@@ -10,7 +9,7 @@ import { Auth0ProviderWithNavigate } from './auth0/Auth0ProviderWithNavigate.tsx
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <Auth0ProviderWithNavigate>
         <QueryClientProvider client={queryClient}>
@@ -29,5 +28,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
 
 
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

@@ -20,7 +20,7 @@ export default function PostingDetails({ postings }: Params) {
     return (
         <>
             <section id="posting-details" className="card bg-base-100 shadow-2xl  ">
-                <div className="card-body">
+                <div className="card-body p-1">
                     <div id="posting-details__description" className="m-3">
                         <h2 className="card-title mb-2">Description</h2>
                         <p className="text-lg">{postingDetails!.description}</p>
@@ -29,11 +29,26 @@ export default function PostingDetails({ postings }: Params) {
 
                     <div id="posting-details__questions" className="m-3">
                         <h2 className="card-title mb-2">Questions</h2>
+
                         {postingDetails!.questions ? (postingDetails!.questions.map((question) => {
-                            return (
-                                <p className="text-lg">- {question.content}</p>
-                            )
+                            if (question.type == "0")
+                                return (
+                                    <p className="text-lg">- {question.content}</p>
+                                )
                         })) : (<p></p>)}
+                    </div>
+
+                    <div id="posting-details__questions" className="m-3 flex flex-col">
+                        <h2 className="card-title mb-4">Rating questions</h2>
+                        <div className="flex flex-wrap">
+                        {postingDetails!.questions ? (postingDetails!.questions.map((question) => {
+                            if (question.type == "1")
+                                return (
+                                    <a className={`mb-2 mr-2 bg-neutral-200 outline-neutral-200 p-2 mb-10 rounded-sm`}>{question.content}</a>
+                                // <p className="text-lg">- {question.content}</p>
+                                )
+                        })) : (<p></p>)}
+                        </div>
                     </div>
 
                     <div id="posting-details__candidates" className="m-3">
@@ -41,7 +56,9 @@ export default function PostingDetails({ postings }: Params) {
                             <h2 className="card-title mb-2">Candidates</h2>
                             <Link to={`/postings/${guid}/add-candidate`}><button className="btn btn-xs btn-neutral ml-3 self-center"> + </button></Link>
                         </div>
+
                         {postingDetails!.candidates ? (postingDetails!.candidates.map((candidate) => {
+
                             return (
                                 <>
                                     <div className="flex">
