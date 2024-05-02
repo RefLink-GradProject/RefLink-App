@@ -54,7 +54,7 @@ export default function Dashboard() {
                                 return (
                                     <tr key={`${postingIndex}`} className="h-full">
                                         <th>{i}</th>
-                                        <div className="flex">
+                                        <div className="flex justify-center self-center">
                                             <td className="w-1/3">
                                                 <p onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</p>
                                             </td>

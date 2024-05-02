@@ -12,6 +12,8 @@ export default function LoginButtonToggle({ userName }: Props) {
         return initials;
     };
 
+
+
     return (
         <>
             <div className="navbar-end">
