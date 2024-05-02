@@ -10,12 +10,13 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
+  <div className="flex flex-col h-screen">
     <BrowserRouter>
       <Auth0ProviderWithNavigate>
         <QueryClientProvider client={queryClient}>
           {/* <div className='flex justify-center'> */}
 
-            <div className='lg:mx-32 mb-5 md:mb-10 min-h-full'>
+            <div className='grow lg:mx-32 mb-5 md:mb-10 '>
               <App />
 
 
@@ -26,6 +27,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </Auth0ProviderWithNavigate>
 
     </BrowserRouter>
+
+    </div>
 
 
   // </React.StrictMode>,
