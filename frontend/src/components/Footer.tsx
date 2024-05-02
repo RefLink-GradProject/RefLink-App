@@ -5,7 +5,7 @@ export default function Footer() {
 
     return (
         <>
-            <footer className="footer footer-center p-10 bg-neutral text-neutral-content bottom-0 mt-20 mb-0">
+            <footer className="footer footer-center p-10 bg-neutral text-neutral-content bottom-0  mb-0">
                 <aside>
                     <p className="font-bold text-lg">
                         School of Applied Technology
