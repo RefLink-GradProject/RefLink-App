@@ -1,7 +1,7 @@
 import TextInput from "./TextInput";
 import Alert from "./Alert";
 import { useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { postCandidate } from "../services/candidateServices";
@@ -42,8 +42,10 @@ export default function AddCandidateForm() {
         <>
             <div className="text-sm breadcrumbs mb-10">
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/postings">Postings</a></li>
+                    <Link to="/"><li><a>Home</a></li></Link>
+                    <Link to="/postings"><li><a href="/postings">Postings</a></li></Link>
+
+                    
                     <li className=" font-bold">Add candidate</li>
                 </ul>
             </div>
