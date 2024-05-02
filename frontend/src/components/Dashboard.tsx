@@ -23,10 +23,11 @@ export default function Dashboard() {
     function handlePostingClick(posting: Posting) {
         navigate(`/postings/${posting.guidId}`)
     }
+
     function handleCandidateClick(candidate: Candidate) {
-        navigate(`/postings/${candidate.guidId}`)
+        navigate(`/candidates/${candidate.guidId}`)
     }
-    
+
     let i = 0;
     return (
         <>
