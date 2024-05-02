@@ -13,16 +13,18 @@ export default function PostingTitles({ postings }: Props) {
 
     return (
         <>
-            <ul className="menu bg-base-200 w-56 rounded-box">
-                {postings.map((posting, index) => (
-                    <button
-                        className={`btn btn-ghost btn-wide w-auto text-lg md:text-xl ${clickedButtons[index] ? 'bg-neutral-300' : ''}`}
-                        onClick={() => handleClick(index)}
-                    >
-                        <Link to={`/postings/${posting.guidId}`} >{posting.title}</Link>
-                    </button>
-                ))}
-            </ul>
+            <div className="">
+                <section id="posting-names" className="">
+                    {postings.map((posting, index) => (
+                        <button
+                            className={`btn btn-ghost btn-wide w-auto text-lg md:text-xl ${clickedButtons[index] ? 'bg-neutral-300' : ''}`}
+                            onClick={() => handleClick(index)}
+                        >
+                            <Link to={`/postings/${posting.guidId}`} >{posting.title}</Link>
+                        </button>
+                    ))}
+                </section>
+            </div>
         </>
 
     );
