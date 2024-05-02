@@ -14,6 +14,7 @@ import { AuthGuard } from './auth0/AuthGuard';
 import { getEmployerByToken, postEmployerByToken } from './services/employerService';
 import AddCandidateForm from './components/AddCandidateForm';
 import { Employer } from './Types';
+import Register from './Register';
 
 
 export default function App() {

@@ -3,7 +3,8 @@ import { useQuery } from "react-query";
 import { Loader } from "./Loader";
 import { getCandidateWithDetails } from "../services/candidateServices";
 import { useNavigate, useParams } from "react-router-dom";
-import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Bar, BarChart, Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { CandidateWithDetails, ReferencerInCandidateDetails, ResponseWithQuestionContent } from "../Types";
 
 export default function CandidateDetails() {
     const { guid } = useParams();
@@ -124,7 +125,7 @@ export default function CandidateDetails() {
                     <section id="candidate-info" className="mb-10 ml-5 lg:mr-3">
                         <h1 className="text-4xl">{candidate!.name}</h1>
                         <p className="text-">Email: {candidate!.email}</p>
-                        <p className="text-">Number of completed references: {completeMessage}</p>
+                        <p className="text-">Number of completed references: {getNumberOfCompletedRefs(candidate)}</p>
                     </section>
 
                     <section id="reference-rating" className="mb-5 mr-3">
@@ -201,7 +202,7 @@ export default function CandidateDetails() {
                     )}
                 </section>
             </div>
-            <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClik}>&larr; Back</button>
+            <button className="btn bth-neutral btn-outline btn-sm mr-2 w-20 " onClick={handleBackClick}>&larr; Back</button>
         </>
     )
 }
