@@ -20,10 +20,6 @@ export default function Dashboard() {
         return <Loader />
     }
 
-    function handlePostingClick(posting: Posting) {
-        navigate(`/postings/${posting.guidId}`)
-    }
-
     let i = 0;
     return (
         <>
@@ -56,13 +52,19 @@ export default function Dashboard() {
                                         <th>{i}</th>
                                         <div className="flex justify-center items-center">
                                             <td className="w-1/3">
-                                                <span onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
+                                                <Link to={`/candidates/${candidate.guidId}`}>
+                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
+                                                </Link>
                                             </td>
                                             <td className="w-1/3">
-                                                <span onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
+                                                <Link to={`/candidates/${candidate.guidId}`}>
+                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
+                                                </Link>
                                             </td>
                                             <td className="w-1/3" >
-                                                <span onClick={() => handlePostingClick(posting)} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
+                                                <Link to={`/postings/${posting.guidId}`}>
+                                                    <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
+                                                </Link>
                                             </td>
                                         </div>
                                     </tr>
