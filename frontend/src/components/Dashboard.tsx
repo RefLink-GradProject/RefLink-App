@@ -27,16 +27,16 @@ export default function Dashboard() {
                 </ul>
             </div>
 
-            <table className="table animate-fade-left animate-duration-[400ms] hidden md-block">
+            <table className="table animate-fade-left animate-duration-[400ms] hidden md:block">
                 <thead>
                     <tr>
                         <th></th>
-                        <div className="flex text-base">
+     
                             <th className="w-1/3">Candidate</th>
                             <th className="w-1/3">Email</th>
                             <th className="w-1/3">Posting</th>
 
-                        </div>
+
                     </tr>
                 </thead>
                 <tbody >
@@ -69,10 +69,10 @@ export default function Dashboard() {
                 <thead>
                     <tr>
                         <th></th>
-                        <div className="flex text-base">
+
                             <th className="w-1/2">Candidate</th>
                             <th className="w-1/2">Posting</th>
-                        </div>
+
                     </tr>
                 </thead>
                 <tbody >
