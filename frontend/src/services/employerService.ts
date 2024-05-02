@@ -5,7 +5,7 @@ export async function getEmployerByToken(token: IdToken) : Promise<Employer | nu
     if(!token){
         return null
     }
-    const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/Employers`, {
+    const response = await fetch(`https://reflink.azurewebsites.net/api/Employers`, {
         headers: {
           "Authorization": "Bearer " + token!.__raw
         }
@@ -20,7 +20,7 @@ export async function postEmployerByToken(token: IdToken, data: any) : Promise<E
   if(!token){
       return null
   }
-  const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/Employers`, {
+  const response = await fetch(`https://reflink.azurewebsites.net/api/Employers`, {
       headers: {
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + token!.__raw

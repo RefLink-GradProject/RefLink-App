@@ -2,7 +2,7 @@ import { FieldValues } from "react-hook-form";
 import { ReferencerWithQuestions } from "../Types";
 
 export async function postResponse(data: FieldValues) {
-    const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/responses`, {
+    const response = await fetch(`https://reflink.azurewebsites.net/api/responses`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -15,7 +15,7 @@ export async function postResponse(data: FieldValues) {
 }
 
 export async function postRatingResponse(content: string, questionGuid: string, referencerGuid: string) {
-    const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/responses`, {
+    const response = await fetch(`https://reflink.azurewebsites.net/api/responses`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -30,7 +30,7 @@ export async function postRatingResponse(content: string, questionGuid: string, 
 }
 
 export async function getReferencerWithQuestions(guid: string): Promise<ReferencerWithQuestions> {
-    const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/referencers/${guid}/questions`, {
+    const response = await fetch(`https://reflink.azurewebsites.net/api/referencers/${guid}/questions`, {
         headers: {
             "Content-Type": "application/json",
         }

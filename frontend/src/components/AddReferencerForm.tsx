@@ -34,7 +34,7 @@ export default function AddReferencerForm() {
     const { isLoading, error, data } = useQuery({
         queryKey: ['getCandidateByGuid'],
         queryFn: async () => {
-            const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/candidates/${guid}`, {
+            const response = await fetch(`https://reflink.azurewebsites.net/api/candidates/${guid}`, {
                 headers: {
                     "Content-Type": "application/json",
                 }
@@ -56,7 +56,7 @@ export default function AddReferencerForm() {
     })
 
     async function postReferencer(data: FieldValues) {
-        const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/referencers`, {
+        const response = await fetch(`https://reflink.azurewebsites.net/api/referencers`, {
             "method": "POST",
             headers: {
                 "Content-Type": "application/json",
