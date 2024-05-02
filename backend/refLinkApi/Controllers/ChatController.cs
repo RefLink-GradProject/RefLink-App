@@ -14,7 +14,9 @@ public class ChatController : ControllerBase
 {
     private OpenAIClient _client;
 
-    public ChatController(IConfiguration config)
+    private readonly ILogger<ChatController> _logger;
+
+    public ChatController(IConfiguration config, ILogger<ChatController> logger)
     {
         string apiKey = config["ApiKeys:OpenAiApiKey"]!;
         Console.WriteLine("[DEBUG]: apiKey");
@@ -22,6 +24,7 @@ public class ChatController : ControllerBase
         if (string.IsNullOrEmpty(apiKey))
             throw new InvalidOperationException("OpenAI API key not found in environment variable OPENAI_API_KEY");
         _client = new(apiKey);
+        _logger = logger;
     }
 
     [HttpGet("{userInput}")]
@@ -33,13 +36,13 @@ public class ChatController : ControllerBase
 
     private async Task<string> GenerateResponseAsync(string userInput)
     {
-        var propQuestion = "pretend you are a HR, and you are writing one question for the candidate's referencer to answer so that you know better of the candidate, max 20 words, do not put quotation marks around the answer,and here is the description of the job posting: " 
+        var propQuestion = "pretend you are a HR, and you are writing one question for the candidate's referencer to answer so that you know better of the candidate, max 20 words, do not put quotation marks around the answer,and here is the description of the job posting: "
                            + userInput;
         var response = "";
-        var openAiResponse = await _client.GetChatCompletionsAsync("gpt-3.5-turbo",new ChatCompletionsOptions
+        var openAiResponse = await _client.GetChatCompletionsAsync("gpt-3.5-turbo", new ChatCompletionsOptions
         {
-            Messages = { 
-                new ChatMessage(ChatRole.System, 
+            Messages = {
+                new ChatMessage(ChatRole.System,
                     propQuestion
                 ) }
         });
