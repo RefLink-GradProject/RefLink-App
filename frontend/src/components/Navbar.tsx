@@ -15,7 +15,7 @@ export default function Navbar({ userName }: Props) {
     <>
       <div className="navbar mb-5 md:mb-10  animate-fade-down">
         <div className="navbar-start">
-          <div className="dropdown">
+          <div className="dropdown bg-white">
             <div
               tabIndex={0}
               role="button"
