@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { getCandidateWithDetails } from "../services/candidateServices";
 
 export default function Dashboard() {
-    const navigate = useNavigate();
 
     const { isLoading, data: postings } = useQuery({
         queryKey: ['getAllPostings'],
@@ -19,9 +18,6 @@ export default function Dashboard() {
     if (isLoading) {
         return <Loader />
     }
-
-
-    let i = 0;
     return (
         <>
             <div className="text-sm breadcrumbs mb-10">
@@ -31,37 +27,34 @@ export default function Dashboard() {
                 </ul>
             </div>
 
-            <table className="table animate-fade-left animate-duration-[400ms] hidden md:block">
+            <table className="table animate-fade-left animate-duration-[400ms] hidden md-block">
                 <thead>
                     <tr>
-                        <th className="w-1/3">Candidate</th>
-                        <th className="w-1/3">Email</th>
-                        <th className="w-1/3">Posting</th>
+                        <th></th>
+                        <div className="flex text-base">
+                            <th className="w-1/3">Candidate</th>
+                            <th className="w-1/3">Email</th>
+                            <th className="w-1/3">Posting</th>
+
+                        </div>
                     </tr>
                 </thead>
                 <tbody >
                     {postings!.map((posting, postingIndex) => {
                         return (
-                            posting.candidates && posting.candidates.map((candidate, candidateIndex) => {
-                                i++;
+                            posting.candidates && posting.candidates.map((candidate) => {
                                 return (
-                                    <tr key={`${postingIndex}`} className="h-full">
-                                        <th>{i}</th>
-                                        <div className="flex justify-center items-center">
+                                    <tr key={`${postingIndex}`} className="h-16">
+                                        <th>{postingIndex + 1}</th>
+                                        <div className="flex">
                                             <td className="w-1/3">
-                                                <Link to={`/candidates/${candidate.guidId}`}>
-                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
-                                                </Link>
+                                                <Link to={`/candidates/${candidate.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</Link>
                                             </td>
                                             <td className="w-1/3">
-                                            <Link to={`/candidates/${candidate.guidId}`}>
-                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</span>
-                                                </Link>
+                                                <Link to={`/candidates/${candidate.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.email}</Link>
                                             </td>
                                             <td className="w-1/3" >
-                                            <Link to={`/postings/${posting.guidId}`}>
-                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
-                                                </Link>
+                                                <Link to={`/postings/${posting.guidId}`} className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</Link>
                                             </td>
                                         </div>
                                     </tr>
@@ -75,15 +68,17 @@ export default function Dashboard() {
             <table className="table animate-fade-left animate-duration-[400ms] md:hidden">
                 <thead>
                     <tr>
-                        <th className="w-1/2">Candidate</th>
-                        <th className="w-1/2">Posting</th>
+                        <th></th>
+                        <div className="flex text-base">
+                            <th className="w-1/2">Candidate</th>
+                            <th className="w-1/2">Posting</th>
+                        </div>
                     </tr>
                 </thead>
                 <tbody >
                     {postings!.map((posting, postingIndex) => {
                         return (
-                            posting.candidates && posting.candidates.map((candidate, candidateIndex) => {
-                                i++;
+                            posting.candidates && posting.candidates.map((candidate) => {
                                 return (
                                     <tr key={`${postingIndex}`} className="h-full">
                                         <div className="flex justify-center items-center">
@@ -105,6 +100,7 @@ export default function Dashboard() {
                     })}
                 </tbody>
             </table>
+            
         </>
     );
 }

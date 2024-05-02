@@ -3464,6 +3464,10 @@ details.collapse summary::-webkit-details-marker {
   height: 100vh;
 }
 
+.h-16 {
+  height: 4rem;
+}
+
 .min-h-full {
   min-height: 100%;
 }
