@@ -34,7 +34,7 @@ export default function AddCandidateForm() {
         setShowAlertAdded(true);
         setTimeout(() => {
             setShowAlertAdded(false);
-            // navigate("/postings");
+            navigate("/postings");
         }, 3000);
     }
 
