@@ -31,7 +31,7 @@ export default function Dashboard() {
                 </ul>
             </div>
 
-            <table className="table animate-fade-left animate-duration-[400ms]">
+            <table className="table animate-fade-left animate-duration-[400ms] hidden md:block">
                 <thead>
                     <tr>
                         <th></th>
@@ -65,6 +65,39 @@ export default function Dashboard() {
                                             <td className="w-1/3" >
                                             <Link to={`/postings/${posting.guidId}`}>
                                                 <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{posting.title}</span>
+                                                </Link>
+                                            </td>
+                                        </div>
+                                    </tr>
+                                )
+                            })
+                        )
+                    })}
+                </tbody>
+            </table>
+
+            <table className="table animate-fade-left animate-duration-[400ms] md:hidden">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <div className="flex text-base">
+                            <th className="w-1/3">Candidate</th>
+
+                        </div>
+                    </tr>
+                </thead>
+                <tbody >
+                    {postings!.map((posting, postingIndex) => {
+                        return (
+                            posting.candidates && posting.candidates.map((candidate, candidateIndex) => {
+                                i++;
+                                return (
+                                    <tr key={`${postingIndex}`} className="h-full">
+                                        <th>{i}</th>
+                                        <div className="flex justify-center items-center">
+                                            <td className="w-1/3">
+                                                <Link to={`/candidates/${candidate.guidId}`}>
+                                                <span className="hover:font-bold hover:text-green-600 hover:underline cursor-pointer">{candidate.name}</span>
                                                 </Link>
                                             </td>
                                         </div>

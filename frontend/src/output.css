@@ -3948,6 +3948,10 @@ details.collapse summary::-webkit-details-marker {
     margin-right: 1.5rem;
   }
 
+  .md\:block {
+    display: block;
+  }
+
   .md\:flex {
     display: flex;
   }
