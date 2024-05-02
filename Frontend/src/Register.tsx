@@ -7,11 +7,7 @@ import { getEmployerByToken, postEmployerByToken } from "./services/employerServ
 import { Employer } from "./Types";
 import { useState } from "react";
 
-type CreateEmployer = {
-  name: string;
-  email: string; 
-  company: string;
-}
+
 type Props = {
   employer : Employer | null;
   setEmployer : (arg : Employer | null) => void;

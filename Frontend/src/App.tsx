@@ -8,40 +8,23 @@ import Postings from './components/Postings';
 import Register from './Register';
 import Dashboard from './components/Dashboard';
 import CandidateDetails from './components/CandidateDetails';
-import ChartsDraft from './components/ChartsDraft';
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import { CandidateWithDetails, Employer, Posting } from './Types';
-import { useAuth0 } from '@auth0/auth0-react';
 import { getCandidateWithDetails, getCandidates, postCandidate } from './services/candidateServices';
 import { getPostings } from './services/postingServices';
-import { postings } from './fakeData';
 import { Loader } from './components/Loader';
 import { AuthGuard } from './auth0/AuthGuard';
-import { getEmployerByToken, postEmployerByToken } from './services/employerService';
-import { useQuery } from 'react-query';
 
 const allPostings = await getPostings();
-const postingsPlusFakes: Posting[] = allPostings!.concat(postings);
 const allCandidates = await getCandidates();
 const defaultClickedCandidate = await getCandidateWithDetails(allCandidates[0].guidId!)
 
 export default function App() {
-  const { isAuthenticated, getIdTokenClaims, user } = useAuth0();
   const [employer, setEmployer] = useState<Employer | null>(null)
-  const [postings, setPostings] = useState<Posting[]>(postingsPlusFakes);
+  const [postings, setPostings] = useState<Posting[]>(allPostings);
   const [clickedCandidate, setClickedCandidate] = useState<CandidateWithDetails>(defaultClickedCandidate);
   const [clickedPosting, setClickedPosting] = useState<Posting>(allPostings[0]);
-  const [isLoading, setIsLoading] = useState(true);
-
-
-  const postingsQuery = useQuery({
-    queryKey: ['getAllPostings'],
-    queryFn: getPostings,
-    onSuccess: (data) => {
-      setPostings(data);
-    }
-  })
 
   async function addCandidate(name: string, email: string) {
     await postCandidate(name, email, clickedPosting.guidId);
@@ -96,7 +79,6 @@ export default function App() {
             <Route path='/add-referencer/:guid' element={<AddReferencerForm />} />
             <Route path='/add-reference/:guid' element={<AddReviewForm />} />
             <Route path='/register' element={<AuthGuard component={Register} setEmployer={setEmployer} />} />
-            <Route path='/charts' element={<AuthGuard component={ChartsDraft}/>} />
           </Routes>
         </div>
       </div>

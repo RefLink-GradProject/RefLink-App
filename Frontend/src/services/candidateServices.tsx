@@ -1,5 +1,4 @@
 import { Candidate, CandidateWithDetails } from "../Types";
-import { fakeCandidate1WithDetails } from "../fakeData";
 
 export async function getCandidates(): Promise<Candidate[]>{
     const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/candidates`);
@@ -12,7 +11,7 @@ export async function getCandidateWithDetails(guidId: string): Promise<Candidate
     const response = await fetch(`${import.meta.env.VITE_API_SERVER_URL}api/candidates/${guidId}/with-questions-responses`);
     const result = await response.json() as CandidateWithDetails;
     if(!response.ok)
-        return fakeCandidate1WithDetails;
+        throw new Error("Failed to get candidate with details")
     return result;
 }
 

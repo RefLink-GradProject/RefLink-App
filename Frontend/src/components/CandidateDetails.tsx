@@ -2,7 +2,6 @@ import { CandidateWithDetails, Referencer, ReferencerInCandidateDetails, Respons
 import { useNavigate } from 'react-router-dom';
 'use client';
 import { BarChart, Bar, ResponsiveContainer, Tooltip, Legend, YAxis, XAxis, CartesianGrid, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
-import { fakeCandidatesRating } from "../fakeData";
 import { useState } from "react";
 
 export default function CandidateDetails({ candidate }: Props) {
@@ -44,7 +43,6 @@ export default function CandidateDetails({ candidate }: Props) {
         return ratings;
     }
     console.table(getCandidatesRatings());
-    console.table(fakeCandidatesRating);
 
     function getCandidatesRatingsFromOneReviewer(referencer: ReferencerInCandidateDetails) {
         const questionScores: { [subject: string]: number[] } = {};
