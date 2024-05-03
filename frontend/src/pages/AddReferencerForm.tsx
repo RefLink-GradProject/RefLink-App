@@ -1,11 +1,11 @@
 import { FieldValues, useFieldArray, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import TextInput from './TextInput';
+import TextInput from '../components/TextInput';
 import { useMutation, useQuery } from 'react-query';
 import { ReferencerRequest } from '../Types';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import Alert from './Alert';
+import Alert from '../components/Alert';
 
 export default function AddReferencerForm() {
     // useEffect(() => {

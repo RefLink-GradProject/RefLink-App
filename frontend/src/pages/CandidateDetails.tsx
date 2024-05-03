@@ -1,6 +1,6 @@
 
 import { useQuery } from "react-query";
-import { Loader } from "./Loader";
+import { Loader } from "../components/Loader";
 import { getCandidateWithDetails } from "../services/candidateServices";
 import { useNavigate, useParams } from "react-router-dom";
 import { Bar, BarChart, Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";

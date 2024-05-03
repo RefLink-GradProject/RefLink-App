@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Posting } from "../Types";
 import { Link } from "react-router-dom";
-import PostingTitles from "./PostingTitles";
-import PostingDetails from "./PostingDetails";
+import PostingTitles from "../components/PostingTitles";
+import PostingDetails from "../components/PostingDetails";
 import { useQuery } from "react-query";
 import { getPostings } from "../services/postingServices";
-import { Loader } from "./Loader";
+import { Loader } from "../components/Loader";
 
 export default function Postings() {
     // const [postings, setPostings] = useState<Posting[]>([]);

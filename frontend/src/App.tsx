@@ -1,20 +1,19 @@
-import Home from './components/Home';
+import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import AddPostingForm from './components/AddPostingForm';
-import AddReferencerForm from './components/AddReferencerForm';
-import AddReviewForm from './components/AddReviewForm';
-import Postings from './components/Postings';
+import AddPostingForm from './pages/AddPostingForm';
+import AddReferencerForm from './pages/AddReferencerForm';
+import AddReviewForm from './pages/AddReviewForm';
+import Postings from './pages/Postings';
 import Dashboard from './components/Dashboard';
-import CandidateDetails from './components/CandidateDetails';
+import CandidateDetails from './pages/CandidateDetails';
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Loader } from './components/Loader';
 import { AuthGuard } from './auth0/AuthGuard';
 import { getEmployerByToken, postEmployerByToken } from './services/employerService';
-import AddCandidateForm from './components/AddCandidateForm';
+import AddCandidateForm from './pages/AddCandidateForm';
 import { Employer } from './Types';
-import Register from './Register';
 import NotFound from './pages/NotFound';
 
 
@@ -72,7 +71,6 @@ export default function App() {
             <Route path="/postings" element={<AuthGuard component={Postings} />} />
             <Route path='/postings/add' element={<AddPostingForm employer={employer!} />} />
             <Route path='/postings/:guid/add-candidate' element={<AddCandidateForm />} />
-            <Route path='/register' element={<AuthGuard component={Register} setEmployer={setEmployer} />} />
             <Route path='*' element={<NotFound/>} />
           </Routes>
         </div>

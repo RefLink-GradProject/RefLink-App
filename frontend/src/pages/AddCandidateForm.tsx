@@ -1,5 +1,5 @@
-import TextInput from "./TextInput";
-import Alert from "./Alert";
+import TextInput from "../components/TextInput";
+import Alert from "../components/Alert";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";

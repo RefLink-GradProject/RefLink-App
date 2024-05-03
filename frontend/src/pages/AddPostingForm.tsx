@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Alert from "./Alert";
-import TextInput from "./TextInput";
-import TextArea from "./TextArea";
+import Alert from "../components/Alert";
+import TextInput from "../components/TextInput";
+import TextArea from "../components/TextArea";
 import { useNavigate } from "react-router-dom";
 import {
   FieldValues,

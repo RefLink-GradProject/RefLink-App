@@ -1,11 +1,11 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import TextInput from "./TextInput";
+import TextInput from "../components/TextInput";
 import { Question } from "../Types";
 import { getReferencerWithQuestions, postResponse } from "../services/responseServices";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import Alert from "./Alert";
+import Alert from "../components/Alert";
 
 
 export default function AddReviewForm() {
