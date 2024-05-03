@@ -15,6 +15,7 @@ import { getEmployerByToken, postEmployerByToken } from './services/employerServ
 import AddCandidateForm from './components/AddCandidateForm';
 import { Employer } from './Types';
 import Register from './Register';
+import NotFound from './pages/NotFound';
 
 
 export default function App() {
@@ -72,7 +73,7 @@ export default function App() {
             <Route path='/postings/add' element={<AddPostingForm employer={employer!} />} />
             <Route path='/postings/:guid/add-candidate' element={<AddCandidateForm />} />
             <Route path='/register' element={<AuthGuard component={Register} setEmployer={setEmployer} />} />
-
+            <Route path='*' element={<NotFound/>} />
           </Routes>
         </div>
       </div>
