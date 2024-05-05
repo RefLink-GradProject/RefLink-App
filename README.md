@@ -8,6 +8,9 @@ For a visual walkthrough of RefLink's features and capabilities, we highly recom
 
 https://github.com/RefLink-GradProject/RefLink-App/assets/109028168/be4c22e2-f67e-400f-a44a-a38f9d2f1045
 
+## Live demo: <a href="https://icy-smoke-0b04e3303.5.azurestaticapps.net/">here</a>
+(The loading may be slow due to accecss the Database in Azure)
+
 ## Features Highlights
 - **Employer Dashboard**: Log in and seamlessly navigate through all your job postings, complete with descriptions, questions, and associated candidates.
 - **Job Posting Management**: Easily create and manage job postings, including generating posting questions using the OpenAI API (GPT-3).
