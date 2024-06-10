@@ -44,8 +44,8 @@ public class ReferencerService : IReferencerService
             Params = new EmailTemplateRequest.ParamsRecord()
             {
                 FNAME = referencer.Name,
-                // URL = $"https://localhost:5000/add-reference/{referencer.GuidId}"
-                URL = $"https://icy-smoke-0b04e3303.5.azurestaticapps.net/add-reference/{referencer.GuidId}"
+                 URL = $"https://localhost:5000/add-reference/{referencer.GuidId}"
+                // URL = $"https://icy-smoke-0b04e3303.5.azurestaticapps.net/add-reference/{referencer.GuidId}"
             },
             TemplateId = 5,
         };

@@ -5,7 +5,7 @@ export async function getEmployerByToken(token: IdToken) : Promise<Employer | nu
     if(!token){
         return null
     }
-    const response = await fetch(`https://reflink.azurewebsites.net/api/Employers`, {
+    const response = await fetch(`http://localhost:5136/api/Employers`, {
         headers: {
           "Authorization": "Bearer " + token!.__raw
         }
@@ -20,7 +20,7 @@ export async function postEmployerByToken(token: IdToken, data: any) : Promise<E
   if(!token){
       return null
   }
-  const response = await fetch(`https://reflink.azurewebsites.net/api/Employers`, {
+  const response = await fetch(`http://localhost:5136/api/Employers`, {
       headers: {
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + token!.__raw

@@ -57,7 +57,7 @@ export default function AddPostingForm({ employer }: Props) {
   });
 
   async function postPosting(data: PostingRequest) {
-    const response = await fetch(`https://reflink.azurewebsites.net/api/postings`, {
+    const response = await fetch(`http://localhost:5136/api/postings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function AddPostingForm({ employer }: Props) {
 
   async function postQuestions(data: QuestionRequest) {
     console.log("postQuestion", data);
-    const response = await fetch(`https://reflink.azurewebsites.net/api/questions`, {
+    const response = await fetch(`http://localhost:5136/apiquestions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
